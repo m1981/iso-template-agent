@@ -1,0 +1,127 @@
+# Model śledzalności (D-06) i jedyne źródło schematów ID (D-05).
+# Czytają go narzedzia/model.py, slad.py i sprawdz_commit.py; AGENTS.md tylko tu odsyła.
+#
+# Pola typu:
+#   kod, nazwa       krótki kod i nazwa rodzaju elementu
+#   wzorzec          wyrażenie regularne pełnego ID (podwójny backslash: "\\d")
+#   plik             ścieżka lub glob pliku, w którym elementy są definiowane;
+#                    gdy plik nie istnieje, typ jest nieaktywny (np. moduł niewdrożony)
+#   format           markdown (domyślnie: nagłówek "### ID Tytuł" + linie "- pole: wartość"),
+#                    feature (tag "@ID" + komentarze "# pole: wartość"),
+#                    mermaid (komentarze "%% ID pole: wartość")
+#   korzen           true = element nie musi mieć rodzica
+#   pola             pola, w których element wskazuje rodziców (P-03: dziecko podaje rodzica)
+#   rodzice          dozwolone kody typów rodziców
+#   wymagane_pola    pola, które muszą być niepuste
+#   statusy          dozwolone wartości pola "status"
+#   pokrycie         "KOD:poziom,..." oczekiwane dzieci danego typu; poziom: blad | ostrzezenie;
+#                    KOD "*" = dowolne dziecko albo wzmianka w commicie
+#   warunek_pokrycia "pole=wartość" pokrycie sprawdzane tylko dla takich elementów
+#   ears             true = sprawdzaj składnię EARS (wzorzec, jedno "shall") i pojęcia ze słownika
+#   pojecia          true = nawias na końcu tytułu podaje angielską nazwę pojęcia ("Element (Item)")
+
+[projekt]
+system = "System"      # podmiot wymagań EARS; zmień na nazwę swojego systemu
+
+[[typ]]
+kod = "SC"
+nazwa = "Scenka użytkownika"
+wzorzec = "SC-\\d{2}"
+plik = "scenki.md"
+korzen = true
+pokrycie = "UC:ostrzezenie"
+
+[[typ]]
+kod = "IO"
+nazwa = "Pozycja zakresu In/Out"
+wzorzec = "IO-\\d{2}"
+plik = "zakres.md"
+korzen = true
+wymagane_pola = ["rodzaj"]
+pokrycie = "UC:ostrzezenie"
+warunek_pokrycia = "rodzaj=In"
+
+[[typ]]
+kod = "D"
+nazwa = "Decyzja"
+wzorzec = "D-\\d{2}"
+plik = "decyzje.md"
+korzen = true
+wymagane_pola = ["status"]
+statusy = ["otwarta", "rozstrzygnięta", "odłożona"]
+pokrycie = "*:ostrzezenie"
+warunek_pokrycia = "status=rozstrzygnięta"
+
+[[typ]]
+kod = "K"
+nazwa = "Temat w kolejce"
+wzorzec = "K-\\d{2}"
+plik = "decyzje.md"
+korzen = true
+
+[[typ]]
+kod = "ZP"
+nazwa = "Zasada projektowa"
+wzorzec = "ZP-\\d{2}"
+plik = "zasady.md"
+pola = ["ustanawia"]
+rodzice = ["D"]
+pokrycie = "WYM:ostrzezenie"
+
+[[typ]]
+kod = "G"
+nazwa = "Pojęcie słownika"
+wzorzec = "G-[A-Z]{3}-\\d{2}"
+plik = "slownik.md"
+korzen = true
+pola = ["zmienione przez"]
+rodzice = ["D"]
+pojecia = true
+
+[[typ]]
+kod = "UC"
+nazwa = "Przypadek użycia"
+wzorzec = "UC-\\d{2}"
+plik = "przypadki-uzycia.md"
+pola = ["scenki", "zakres"]
+rodzice = ["SC", "IO"]
+pokrycie = "WYM:ostrzezenie,E:ostrzezenie"
+
+[[typ]]
+kod = "RYZ"
+nazwa = "Ryzyko"
+wzorzec = "RYZ-\\d{2}"
+plik = "ryzyka.md"
+pola = ["źródło"]
+rodzice = ["UC"]
+pokrycie = "WYM:blad"
+
+[[typ]]
+kod = "WYM"
+nazwa = "Wymaganie EARS"
+wzorzec = "(?<![A-Z-])(?!RYZ-)[A-Z]{3}-\\d{2}"
+plik = "wymagania.md"
+pola = ["źródło"]
+rodzice = ["UC", "D", "ZP", "RYZ", "IO"]
+wymagane_pola = ["wzorzec", "tekst", "status"]
+statusy = ["draft", "zatwierdzone"]
+pokrycie = "AT:ostrzezenie"
+ears = true
+
+[[typ]]
+kod = "E"
+nazwa = "Ekran"
+wzorzec = "E-\\d{2}"
+plik = "nawigacja/ekrany.mmd"
+format = "mermaid"
+pola = ["realizuje"]
+rodzice = ["UC"]
+
+[[typ]]
+kod = "AT"
+nazwa = "Test akceptacyjny"
+wzorzec = "AT-\\d{2}"
+plik = "testy/*.feature"
+format = "feature"
+pola = ["weryfikuje"]
+rodzice = ["WYM"]

@@ -1,0 +1,106 @@
+<title>Mapa nawigacji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Układ: arkusz projektowy — nagłówek, legenda, szeroki diagram w przewijanej ramie, potem raport reguł */
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --fg: #1b2433; --muted: #5a6577; --line: #d5dbe4;
+  --accent: #3d5a80; --ok: #2f7d4a; --warn: #a35f00; --warn-bg: #fff4e0; --ok-bg: #e6f4ea;
+  --f-display: "Literata", Georgia, serif; --f-body: "Public Sans", system-ui, sans-serif; --f-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12161d; --panel: #1a2029; --fg: #e3e8ef; --muted: #9aa6b6; --line: #2e3744;
+  --accent: #8fb1d9; --ok: #7fd09a; --warn: #f0b35c; --warn-bg: #3a2a12; --ok-bg: #16301f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12161d; --panel: #1a2029; --fg: #e3e8ef; --muted: #9aa6b6; --line: #2e3744;
+  --accent: #8fb1d9; --ok: #7fd09a; --warn: #f0b35c; --warn-bg: #3a2a12; --ok-bg: #16301f; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.55 var(--f-body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 28px; }
+h1 { font: 600 clamp(1.6rem, 3vw, 2.2rem)/1.15 var(--f-display); margin: 0; text-wrap: balance; }
+h2 { font: 600 1.2rem/1.3 var(--f-display); margin: 0 0 10px; }
+.lead { color: var(--muted); max-width: 68ch; margin: 8px 0 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.86rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid; display: inline-block; }
+.ln { width: 26px; height: 0; border-top: 2px solid var(--fg); display: inline-block; }
+.ln.thick { border-top-width: 4px; } .ln.dot { border-top-style: dashed; }
+.diagram { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; padding: 12px; }
+.diagram pre { margin: 0; min-width: 1100px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.tbl { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.pill { font: 600 0.75rem/1 var(--f-mono); padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { color: var(--ok); background: var(--ok-bg); } .pill.info { color: var(--muted); background: var(--bg); border: 1px solid var(--line); } .pill.warn { color: var(--warn); background: var(--warn-bg); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.cols > * { min-width: 0; }
+code, .id { font-family: var(--f-mono); font-size: 0.85em; }
+.note { color: var(--muted); font-size: 0.86rem; margin: 8px 0 0; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Mapa nawigacji</h1>
+    <p class="lead">Ekrany i przejścia z pliku <code>ekrany.mmd</code>. Skrypt <code>sprawdz.py</code> czyta ten sam plik i sprawdza, czy nie ma pułapek, czy każdy przepływ kończy się następnym krokiem (poza świadomymi wyjątkami), czy każdy ekran realizuje przypadek użycia i ile kliknięć dzieli kluczowe ekrany.</p>
+  </header>
+
+  <div class="legend" aria-label="Legenda">
+    <span><i class="sw" style="background:#e8eef6;border-color:#3d5a80"></i>ekran z paskiem</span>
+    <span><i class="sw" style="background:#fdf0d5;border-color:#b07d18"></i>przepływ bez paska</span>
+    <span><i class="sw" style="background:#dff1e3;border-color:#2f7d4a"></i>zakończenie celu</span>
+    <span><i class="ln"></i>przejście</span>
+    <span><i class="ln thick"></i>wezwanie do działania</span>
+    <span><i class="ln dot"></i>wyjście / powrót</span>
+  </div>
+
+  <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  NAV(["Pasek: Start · Lista · (+)"])
+
+  E01["E-01 Start"]
+  E02["E-02 Lista"]
+  E03["E-03 Szczegóły"]
+  E04["E-04 Formularz"]
+  E05(["E-05 Zapisano"])
+
+  NAV --&gt; E01
+  NAV --&gt; E02
+  NAV --&gt;|"(+)"| E04
+
+  E01 ==&gt;|"Wezwanie: dokończ"| E03
+  E01 --&gt;|"Lista"| E02
+  E02 --&gt;|"Element"| E03
+  E03 -.-&gt;|"Wstecz"| E02
+  E03 --&gt;|"Edytuj"| E04
+  E04 ==&gt;|"Zapisz"| E05
+  E04 -.-&gt;|"Anuluj"| E01
+  E05 ==&gt;|"Pokaż element"| E03
+  E05 --&gt;|"Start"| E01
+
+  classDef ekran fill:#e8eef6,stroke:#3d5a80,color:#1b2635
+  classDef modal fill:#fdf0d5,stroke:#b07d18,color:#3a2a06
+  classDef sukces fill:#dff1e3,stroke:#2f7d4a,color:#12301c
+  classDef zewn fill:#eeeeee,stroke:#777777,color:#222222,stroke-dasharray:4 3
+  classDef nav fill:#3d5a80,stroke:#3d5a80,color:#ffffff
+  class E01,E02,E03 ekran
+  class E04 modal
+  class E05 sukces
+  class NAV nav
+</pre>
+  </div>
+
+  <div class="cols">
+    <section>
+      <h2>Reguły</h2>
+      <div class="tbl"><table><thead><tr><th>Reguła</th><th>Wynik</th><th>Ekrany</th></tr></thead><tbody><tr><td>R1 Osiągalność ze Startu</td><td><span class="pill ok">OK</span></td><td>—</td></tr><tr><td>R2 Brak pułapek (powrót do Startu)</td><td><span class="pill ok">OK</span></td><td>—</td></tr><tr><td>R3 Każdy modal ma wyjście</td><td><span class="pill ok">OK</span></td><td>—</td></tr><tr><td>R4 Postęp: sukces z wezwaniem do dalszej pracy</td><td><span class="pill ok">OK</span></td><td>—</td></tr><tr><td>R5 Postęp: miejsca bez kroku naprzód</td><td><span class="pill ok">OK</span></td><td>—</td></tr><tr><td>R7 Każdy ekran realizuje przypadek użycia</td><td><span class="pill ok">OK</span></td><td>—</td></tr></tbody></table></div>
+      <p class="note">Ekrany z paskiem zawsze mają drogę do Startu, więc pułapka może powstać tylko w przepływie bez paska.</p>
+    </section>
+    <section>
+      <h2>Kliknięcia między ekranami</h2>
+      <div class="tbl"><table><thead><tr><th>R6 Para</th><th>Kliknięcia</th></tr></thead><tbody><tr><td>Start → szczegóły</td><td class="num">1</td></tr></tbody></table></div>
+      <p class="note">Przejście przez pasek liczy się jako jedno kliknięcie.</p>
+    </section>
+  </div>
+</div>

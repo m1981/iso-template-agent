@@ -1,0 +1,39 @@
+#!/bin/sh
+# Pre-commit (AGENTS.md, P-05):
+#  1. ślad według narzedzia/id.toml (narzedzia/slad.py) i aktualność slad.md,
+#  2. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność mapa-nawigacji.html.
+# Sprawdza pliki w katalogu roboczym. Włączenie w nowym klonie: make hooki
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+tmp=$(mktemp)
+if ! python3 -B narzedzia/slad.py "$tmp" > "$tmp.log"; then
+  grep '^B' "$tmp.log"
+  echo
+  echo "pre-commit: ślad ma błędy (powyżej). Popraw artefakty albo narzedzia/id.toml."
+  rm -f "$tmp" "$tmp.log"; exit 1
+fi
+if ! cmp -s "$tmp" slad.md; then
+  rm -f "$tmp" "$tmp.log"
+  echo "pre-commit: slad.md jest nieaktualny. Uruchom: make slad i dodaj plik do commita."
+  exit 1
+fi
+rm -f "$tmp" "$tmp.log"
+
+if [ -d nawigacja ]; then
+  cd nawigacja || exit 1
+  if ! python3 -B sprawdz.py ekrany.mmd > /dev/null; then
+    python3 -B sprawdz.py ekrany.mmd | grep -E 'Reguła|---|UWAGA'
+    echo
+    echo "pre-commit: mapa nawigacji łamie reguły (wiersze UWAGA powyżej)."
+    exit 1
+  fi
+  tmp=$(mktemp)
+  python3 -B zbuduj.py "$tmp" > /dev/null
+  if ! cmp -s "$tmp" mapa-nawigacji.html; then
+    rm -f "$tmp"
+    echo "pre-commit: nawigacja/mapa-nawigacji.html jest nieaktualna. Uruchom: make nawigacja i dodaj plik."
+    exit 1
+  fi
+  rm -f "$tmp"
+fi
+exit 0
