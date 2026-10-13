@@ -39,6 +39,12 @@ Format:
 - opcje: A) jednolite stany dla wszystkich typów w id.toml, po polsku, wzorowane na 29110 (rozpoczęty, zweryfikowany, zatwierdzony; baseline z tagów) · B) zostać przy statusach per typ
 - propozycja: A
 
+### D-12 Model śladu wobec ISO/IEC 29110: rozszerzyć czy od nowa
+- status: otwarta
+- opcje: A) rozszerzyć: mapowanie typów na produkty normy (pole iso w id.toml), nowe typy dla rekordów zarządczych (postęp, korekty, weryfikacja, walidacja, akceptacja), kopia zapasowa repozytorium · B) zbudować model od nowa według listy produktów normy
+- propozycja: A
+- uwagi: analiza 2026-10-14: 23 produkty, 72 zadania, 84 zależności; mechanizm zgodny, brakuje typów
+
 ## W kolejce
 
 Brak tematów w kolejce.
