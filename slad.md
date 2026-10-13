@@ -2,7 +2,7 @@
 
 Plik generowany przez narzedzia/slad.py według narzedzia/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: SC 0 · IO 0 · D 6 · K 0 · ZP 0 · G 0 · UC 0 · WYM 0
+Elementy: SC 0 · IO 0 · D 8 · K 0 · ZP 0 · G 0 · UC 0 · WYM 0
 
 Błędy: 0 · ostrzeżenia: 0
 
@@ -15,6 +15,8 @@ Błędy: 0 · ostrzeżenia: 0
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
+| D-07 | D | — |
+| D-08 | D | — |
 | D-06 | D | — |
 | D-05 | D | — |
 | D-04 | D | — |

@@ -18,7 +18,15 @@ Format:
 
 ## Otwarte
 
-Brak otwartych decyzji.
+### D-07 Źródło bazowe dla części zarządczej planu
+- status: otwarta
+- opcje: A) ISO/IEC 29110, profil Basic (plan projektu dla małych podmiotów) · B) NASA Software Engineering Handbook 5.08 · C) oba: 29110 jako struktura, NASA jako lista kontrolna
+- propozycja: C
+
+### D-08 Uzupełnienie AGENTS.md o część zarządczą
+- status: otwarta
+- opcje: A) dodać cel projektu, kamienie milowe (tagi baseline), ryzyka projektu, walidację z użytkownikiem i definicję dostarczenia, po weryfikacji w źródle · B) zostawić plan techniczny
+- propozycja: A
 
 ## W kolejce
 
