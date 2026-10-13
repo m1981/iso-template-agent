@@ -18,14 +18,25 @@ Format:
 
 ## Otwarte
 
-### D-07 Źródło bazowe dla części zarządczej planu
+### D-08 Miejsce części zarządczej planu
 - status: otwarta
-- opcje: A) ISO/IEC 29110, profil Basic (plan projektu dla małych podmiotów) · B) NASA Software Engineering Handbook 5.08 · C) oba: 29110 jako struktura, NASA jako lista kontrolna
-- propozycja: C
+- opcje: A) osobny plan.md według ISO/IEC 29110 WP.10 (co, po co, kiedy), AGENTS.md zostaje procesem · B) dopisać sekcje do AGENTS.md
+- propozycja: A
+- uwagi: przeformułowana 2026-10-14 po analizie ISO/IEC 29110-5-1-2 (rozdziały 05, 06, 07, 09)
 
-### D-08 Uzupełnienie AGENTS.md o część zarządczą
+### D-09 Plan jako elementy śladu
 - status: otwarta
-- opcje: A) dodać cel projektu, kamienie milowe (tagi baseline), ryzyka projektu, walidację z użytkownikiem i definicję dostarczenia, po weryfikacji w źródle · B) zostawić plan techniczny
+- opcje: A) nowe typy w id.toml: CEL-nn, KM-nn (kamień = baseline = tag), ZAD-nn z polem produkuje:, RP-nn (ryzyko projektu); produkuje: jako jawny wyjątek od P-03 · B) plan jako zwykły tekst bez ID
+- propozycja: A
+
+### D-10 Generowany rekord postępu
+- status: otwarta
+- opcje: A) postep.md generowany z planu, repozytorium i tagów (PM.03.01: planowane i rzeczywiste zadania, kamienie, ryzyka) · B) bez rekordu postępu
+- propozycja: A
+
+### D-11 Stany produktów pracy
+- status: otwarta
+- opcje: A) jednolite stany dla wszystkich typów w id.toml, po polsku, wzorowane na 29110 (rozpoczęty, zweryfikowany, zatwierdzony; baseline z tagów) · B) zostać przy statusach per typ
 - propozycja: A
 
 ## W kolejce
@@ -33,6 +44,12 @@ Format:
 Brak tematów w kolejce.
 
 ## Rozstrzygnięte
+
+### D-07 Źródło bazowe dla części zarządczej planu
+- status: rozstrzygnięta
+- opcje: A) ISO/IEC 29110 profil Basic · B) NASA SWEHB 5.08 · C) oba
+- wybór: A — analiza na podstawie repozytorium m1981/iso-29110-5-1 (rozdziały 05, 06, 07, 09)
+- data: 2026-10-14
 
 ### D-06 Model śledzalności szablonu
 - status: rozstrzygnięta
