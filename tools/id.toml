@@ -1,0 +1,268 @@
+# Model śledzalności (D-06) i jedyne źródło schematów ID (D-05).
+# Warstwa maszynowa po angielsku (D-17, D-18): kody, pola, stany, klucze; komentarze i treść po polsku.
+# Czytają go tools/model.py, trace.py, progress.py i check_commit.py; AGENTS.md tylko tu odsyła.
+#
+# Klucze typu:
+#   code, name       krótki kod i nazwa rodzaju elementu (nazwa po polsku, dla ludzi)
+#   pattern          wyrażenie regularne pełnego ID (podwójny backslash: "\\d")
+#   file             ścieżka lub glob pliku, w którym elementy są definiowane;
+#                    gdy plik nie istnieje, typ jest nieaktywny (np. moduł niewdrożony)
+#   format           markdown (domyślnie: nagłówek "### ID Tytuł" + linie "- pole: wartość"),
+#                    feature (tag "@ID" + komentarze "# pole: wartość"),
+#                    mermaid (komentarze "%% ID pole: wartość")
+#   root             true = element nie musi mieć rodzica
+#   fields           pola, w których element wskazuje rodziców (P-03: dziecko podaje rodzica)
+#   parents          dozwolone kody typów rodziców
+#   required         pola, które muszą być niepuste
+#   statuses         dozwolone wartości pola status
+#   coverage         "KOD:poziom,..." oczekiwane dzieci danego typu; poziom: error | warning;
+#                    KOD "*" = dowolne dziecko albo wzmianka w commicie
+#   coverage_if      "pole=wartość": pokrycie sprawdzane tylko dla takich elementów
+#   ears             true = sprawdzaj składnię EARS (wzorzec, jedno "shall") i pojęcia ze słownika
+#   terms            true = nawias na końcu tytułu podaje angielską nazwę pojęcia ("Element (Item)")
+#   product          true = produkt pracy: status obowiązkowy (D-14), wartości z [project] product_states (D-11)
+#   produces         true = pole produces: wskazuje w dół kody typów lub ID (D-09, jawny wyjątek od P-03)
+#   results          dozwolone wartości pola result (rekordy)
+#   iso              produkt pracy ISO/IEC 29110-5-1-2, któremu odpowiada typ (D-12)
+
+[project]
+system = "System"      # podmiot wymagań EARS; zmień na nazwę swojego systemu
+# D-11: stany produktów pracy wprost z ISO/IEC 29110-5-1-2, tabela 12 (initiated, verified, approved).
+# Baseline nie jest stanem: wynika z tagów baseline-nn.
+product_states = ["initiated", "verified", "approved"]
+# Produkty normy bez własnego typu elementów (D-12); pokazuje je trace.md.
+iso_other = ["WP.05 AGENTS.md", "WP.09 progress.md", "WP.11 repozytorium git", "WP.12 kopia na GitHubie (D-13)", "WP.21 trace.md"]
+
+# Nazwy pól, które skrypty czytają wprost (poza fields i required typów). Zmiana nazwy pola = zmiana tutaj.
+[fields]
+status = "status"
+result = "result"
+produces = "produces"
+text = "text"
+pattern = "pattern"
+tag = "tag"
+due = "due"
+completed = "completed"
+objective = "objective"
+milestone = "milestone"
+cause = "cause"
+action = "action"
+mitigation = "mitigation"
+concerns = "concerns"
+
+[[type]]
+code = "SC"
+name = "Scenka użytkownika"
+pattern = "SC-\\d{2}"
+file = "scenarios.md"
+root = true
+coverage = "UC:warning"
+product = true
+iso = "WP.02"
+
+[[type]]
+code = "IO"
+name = "Pozycja zakresu In/Out"
+pattern = "IO-\\d{2}"
+file = "scope.md"
+root = true
+required = ["kind"]
+coverage = "UC:warning"
+coverage_if = "kind=In"
+product = true
+iso = "WP.02"
+
+[[type]]
+code = "D"
+name = "Decyzja"
+pattern = "D-\\d{2}"
+file = "decisions.md"
+root = true
+required = ["status"]
+statuses = ["open", "resolved", "deferred"]
+coverage = "*:warning"
+coverage_if = "status=resolved"
+iso = "WP.03, WP.07"
+
+[[type]]
+code = "Q"
+name = "Temat w kolejce"
+pattern = "Q-\\d{2}"
+file = "decisions.md"
+root = true
+
+[[type]]
+code = "DP"
+name = "Zasada projektowa"
+pattern = "DP-\\d{2}"
+file = "principles.md"
+fields = ["established_by"]
+parents = ["D"]
+coverage = "REQ:warning"
+product = true
+
+[[type]]
+code = "G"
+name = "Pojęcie słownika"
+pattern = "G-[A-Z]{3}-\\d{2}"
+file = "glossary.md"
+root = true
+fields = ["changed_by"]
+parents = ["D"]
+terms = true
+product = true
+iso = "WP.13"
+
+[[type]]
+code = "UC"
+name = "Przypadek użycia"
+pattern = "UC-\\d{2}"
+file = "use-cases.md"
+fields = ["scenarios", "scope"]
+parents = ["SC", "IO"]
+coverage = "REQ:warning,E:warning"
+product = true
+iso = "WP.13"
+
+[[type]]
+code = "RSK"
+name = "Ryzyko produktu"
+pattern = "RSK-\\d{2}"
+file = "risks.md"
+fields = ["source"]
+parents = ["UC"]
+coverage = "REQ:error"
+product = true
+
+[[type]]
+code = "REQ"
+name = "Wymaganie EARS"
+pattern = "(?<![A-Z-])(?!(?:RSK|PRK|OBJ|TSK|COR|VER|VAL|ACC)-)[A-Z]{3}-\\d{2}"
+file = "requirements.md"
+fields = ["source"]
+parents = ["UC", "D", "DP", "RSK", "IO"]
+required = ["pattern", "text"]
+coverage = "AT:warning"
+ears = true
+product = true
+iso = "WP.13"
+
+[[type]]
+code = "E"
+name = "Ekran"
+pattern = "E-\\d{2}"
+file = "navigation/screens.mmd"
+format = "mermaid"
+fields = ["realizes"]
+parents = ["UC"]
+product = true
+iso = "WP.16"
+
+[[type]]
+code = "AT"
+name = "Test akceptacyjny"
+pattern = "AT-\\d{2}"
+file = "tests/*.feature"
+format = "feature"
+fields = ["verifies"]
+parents = ["REQ"]
+product = true
+iso = "WP.19"
+
+# ---------- Plan (D-08, D-09): plan.md, ISO/IEC 29110 WP.10
+
+[[type]]
+code = "OBJ"
+name = "Cel projektu"
+pattern = "OBJ-\\d{2}"
+file = "plan.md"
+root = true
+coverage = "MS:warning"
+iso = "WP.10"
+
+[[type]]
+code = "MS"
+name = "Kamień milowy"
+pattern = "MS-\\d{2}"
+file = "plan.md"
+fields = ["objective"]
+parents = ["OBJ"]
+required = ["due"]
+coverage = "TSK:warning"
+iso = "WP.10"
+
+[[type]]
+code = "TSK"
+name = "Zadanie"
+pattern = "TSK-\\d{2}"
+file = "plan.md"
+fields = ["milestone"]
+parents = ["MS"]
+required = ["status", "produces"]
+statuses = ["planned", "in_progress", "completed"]
+produces = true
+iso = "WP.10"
+
+[[type]]
+code = "PRK"
+name = "Ryzyko projektu"
+pattern = "PRK-\\d{2}"
+file = "plan.md"
+root = true
+fields = ["concerns"]
+parents = ["OBJ", "MS", "TSK"]
+required = ["status", "mitigation"]
+statuses = ["open", "closed"]
+iso = "WP.10"
+
+# ---------- Rekordy (D-12, D-16): po jednym pliku na produkt normy
+
+[[type]]
+code = "COR"
+name = "Korekta"
+pattern = "COR-\\d{2}"
+file = "corrections.md"
+fields = ["cause"]
+parents = ["TSK", "MS", "PRK", "VER", "VAL", "ACC"]
+required = ["status", "action"]
+statuses = ["initiated", "approved", "completed"]
+iso = "WP.04"
+
+[[type]]
+code = "VER"
+name = "Weryfikacja"
+pattern = "VER-\\d{2}"
+file = "verification.md"
+fields = ["items"]
+parents = ["SC", "IO", "DP", "G", "UC", "RSK", "REQ", "E", "AT", "OBJ", "MS", "TSK"]
+required = ["date", "result"]
+results = ["pass", "fail"]
+coverage = "COR:warning"
+coverage_if = "result=fail"
+iso = "WP.23"
+
+[[type]]
+code = "VAL"
+name = "Walidacja"
+pattern = "VAL-\\d{2}"
+file = "validation.md"
+fields = ["items"]
+parents = ["SC", "UC", "REQ", "E", "AT"]
+required = ["date", "result"]
+results = ["pass", "fail"]
+coverage = "COR:warning"
+coverage_if = "result=fail"
+iso = "WP.22"
+
+[[type]]
+code = "ACC"
+name = "Akceptacja"
+pattern = "ACC-\\d{2}"
+file = "acceptance.md"
+fields = ["milestone"]
+parents = ["MS"]
+required = ["date", "result"]
+results = ["accepted", "rejected"]
+coverage = "COR:warning"
+coverage_if = "result=rejected"
+iso = "WP.01"

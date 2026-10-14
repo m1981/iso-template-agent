@@ -1,8 +1,10 @@
 # AGENTS.md — jak pracujemy
 
-Przeczytaj na start każdej sesji, w tej kolejności: kontrakt-decyzji.md (obowiązuje zawsze), ten plik, plan.md, postep.md, decyzje.md.
+Przeczytaj na start każdej sesji, w tej kolejności: kontrakt-decyzji.md (obowiązuje zawsze), ten plik, plan.md, progress.md, decisions.md.
 
 Ten plik opisuje proces: ślad, zmiany, rolę agenta (ISO/IEC 29110 WP.05 i część WP.10). Co powstaje, po co i kiedy, jest w plan.md (D-08).
+
+Język (D-17): warstwa maszynowa po angielsku (kody ID, nazwy pól, stany, nazwy plików i skryptów, kody błędów), treść i rozmowa po polsku. Tłumaczenie terminów normy: glossary.md, „Terminy procesu”.
 
 ## Artefakty i źródła prawdy
 P-01 Repozytorium jest jedynym źródłem prawdy dla wszystkich artefaktów. Kopie w innych narzędziach są widokami albo archiwum.
@@ -10,37 +12,40 @@ P-01 Repozytorium jest jedynym źródłem prawdy dla wszystkich artefaktów. Kop
 | Artefakt | Plik | ID |
 | --- | --- | --- |
 | Kontrakt interakcji człowiek–agent | kontrakt-decyzji.md | — |
-| Plan: cele, kamienie milowe, zadania, ryzyka projektu | plan.md | CEL-nn, KM-nn, ZAD-nn, RP-nn |
-| Rekord postępu (generowany) | postep.md | — |
-| Rejestr decyzji i kolejka tematów | decyzje.md | D-nn, K-nn |
-| Rekordy: korekty, weryfikacje, walidacje, akceptacje | rekordy.md | KOR-nn, WER-nn, WAL-nn, AKC-nn |
-| Zasady projektowe | zasady.md | ZP-nn |
-| Słownik pojęć | slownik.md | G-GRP-nn |
-| Scenki użytkownika | scenki.md | SC-nn |
-| Zakres In/Out, aktorzy i cele | zakres.md | IO-nn |
-| Przypadki użycia | przypadki-uzycia.md | UC-nn |
-| Wymagania EARS | wymagania.md | OBS-nn |
-| Testy akceptacyjne | testy/*.feature | AT-nn |
-| Macierz śladu (generowana) | slad.md | — |
-| Moduły opcjonalne | moduly/ (kopiowane do katalogu głównego) | E-nn, RYZ-nn |
+| Plan: cele, kamienie milowe, zadania, ryzyka projektu (WP.10) | plan.md | OBJ-nn, MS-nn, TSK-nn, PRK-nn |
+| Rekord postępu, generowany (WP.09) | progress.md | — |
+| Rejestr decyzji i kolejka tematów (WP.03, WP.07) | decisions.md | D-nn, Q-nn |
+| Rejestr korekt (WP.04) | corrections.md | COR-nn |
+| Rekordy weryfikacji (WP.23) | verification.md | VER-nn |
+| Rekordy walidacji (WP.22) | validation.md | VAL-nn |
+| Rekordy akceptacji (WP.01) | acceptance.md | ACC-nn |
+| Zasady projektowe | principles.md | DP-nn |
+| Słownik pojęć i terminy normy | glossary.md | G-GRP-nn |
+| Scenki użytkownika | scenarios.md | SC-nn |
+| Zakres In/Out, aktorzy i cele | scope.md | IO-nn |
+| Przypadki użycia | use-cases.md | UC-nn |
+| Wymagania EARS | requirements.md | OBS-nn |
+| Testy akceptacyjne | tests/*.feature | AT-nn |
+| Macierz śladu, generowana (WP.21) | trace.md | — |
+| Moduły opcjonalne | modules/ (kopiowane do katalogu głównego) | E-nn, RSK-nn |
 
-P-02 ID są niezmienne i nigdy nie są używane ponownie. Schematy ID, pola rodziców, reguły pokrycia, stany i odpowiedniki w ISO/IEC 29110 są tylko w narzedzia/id.toml (model śledzalności); ten plik do niego odsyła.
+P-02 ID są niezmienne i nigdy nie są używane ponownie. Schematy ID, pola rodziców, reguły pokrycia, stany i odpowiedniki w ISO/IEC 29110 są tylko w tools/id.toml (model śledzalności); ten plik do niego odsyła.
 
 ## Ślad
-P-03 Dziecko podaje tylko rodzica (pola z id.toml, np. `źródło:`, `scenki:`, `weryfikuje:`). Nigdzie nie wypisuje się dzieci. Jedyny wyjątek: zadanie planu wskazuje w `produkuje:`, co wytwarza (D-09).
-P-04 Macierz w obie strony generuje narzedzia/slad.py do slad.md, a rekord postępu narzedzia/postep.py do postep.md; nie edytuje się ich ręcznie.
-P-05 Pre-commit odrzuca: błędy B1–B8, nieaktualny slad.md lub postep.md oraz, gdy wdrożono moduł nawigacji, łamanie jego reguł i nieaktualną mapę. Ostrzeżenia nie blokują.
+P-03 Dziecko podaje tylko rodzica (pola z id.toml, np. `source:`, `scenarios:`, `verifies:`). Nigdzie nie wypisuje się dzieci. Jedyny wyjątek: zadanie planu wskazuje w `produces:`, co wytwarza (D-09).
+P-04 Macierz w obie strony generuje tools/trace.py do trace.md, a rekord postępu tools/progress.py do progress.md; nie edytuje się ich ręcznie.
+P-05 Pre-commit odrzuca: błędy E1–E8, nieaktualny trace.md lub progress.md oraz, gdy wdrożono moduł nawigacji, łamanie jego reguł i nieaktualną mapę. Ostrzeżenia nie blokują.
 
 ## Stany i gotowość (P-06)
-Produkty pracy mają wspólne stany (D-11): `rozpoczęty` (także brak pola status) → `zweryfikowany` (jest rekord WER z wynikiem `zgodny` w rekordy.md) → `zatwierdzony` (dla wymagań decyzja D-nn, P-08). Baseline nie jest stanem: wynika z tagu.
+Produkty pracy (typy z `product = true`) mają obowiązkowe pole `status` ze stanami normy (D-11, D-14): `initiated` → `verified` (jest rekord VER z wynikiem `pass` w verification.md; bez niego ostrzeżenie W3, D-15) → `approved` (dla wymagań decyzja D-nn, P-08). Decyzje, zadania, ryzyka projektu i rekordy mają własne statusy. Baseline nie jest stanem: wynika z tagu.
 
-Wymaganie: jeden wzorzec EARS · tekst zaczyna się zgodnie ze wzorcem · dokładnie jedno „shall” · podmiotem jest system · słowa pisane wielką literą są pojęciami ze słownika · ma źródło · status jest jednym ze stanów produktów pracy. Wszystko to sprawdza slad.py; mierzalność i sens ocenia przegląd.
+Wymaganie: jeden wzorzec EARS · tekst zaczyna się zgodnie ze wzorcem · dokładnie jedno „shall” · podmiotem jest system · słowa pisane wielką literą są pojęciami ze słownika · ma źródło · status jest jednym ze stanów produktów pracy. Wszystko to sprawdza trace.py; mierzalność i sens ocenia przegląd.
 Przypadek użycia: ma rodzica (scenkę albo zakres In), poziom celu i gwarancje.
 
 ## Zmiana
-P-07 Każda zmiana: edycja → `git diff` → `make sprawdz` → jeden commit na odpowiedź Użytkownika. Opis commita wskazuje co najmniej jedno istniejące ID (hook commit-msg).
+P-07 Każda zmiana: edycja → `git diff` → `make check` → jeden commit na odpowiedź Użytkownika. Opis commita wskazuje co najmniej jedno istniejące ID (hook commit-msg).
 P-08 Zatwierdzenie lub zmiana zatwierdzonego wymagania wymaga decyzji D-nn w rejestrze.
-P-09 Zamknięty etap = tag `baseline-nn-nazwa` (`make baseline N=…`), wpisany w pole `tag:` kamienia milowego w plan.md. Po tagu odśwież postep.md (`make postep`) i dołącz go do następnego commita.
+P-09 Zamknięty etap = tag `baseline-nn-nazwa` (`make baseline N=…`), wpisany w pole `tag:` kamienia milowego w plan.md. Po tagu odśwież progress.md (`make progress`) i dołącz go do następnego commita. Po każdej sesji push na GitHuba (WP.12, D-13); tagi idą razem z nim.
 
 ## Agent
 P-10 Bez decyzji Użytkownika agent nie: zmienia znaczenia pojęć, zatwierdza wymagań, usuwa plików, zmienia reguł w id.toml. Może: poprawiać format, dodawać ślad, uruchamiać kontrole, sprzątać blokady gita. Przy założeniu, którego nie może sprawdzić, przedstawia je jako decyzję do potwierdzenia.
@@ -52,10 +57,10 @@ P-10 Bez decyzji Użytkownika agent nie: zmienia znaczenia pojęć, zatwierdza w
 Komisję zmian, formalne plany V&V, CM i QA jako osobne dokumenty, audyty procesu, kwalifikację narzędzi, metryki pokrycia kodu.
 
 ## Polecenia
-    make hooki       # raz, w nowym klonie
-    make sprawdz     # wszystkie kontrole
-    make slad        # odśwież slad.md
-    make postep      # odśwież postep.md
-    make nawigacja   # odśwież mapę (moduł nawigacji)
+    make hooks       # raz, w nowym klonie (hooki i push z tagami)
+    make check       # wszystkie kontrole
+    make trace       # odśwież trace.md
+    make progress    # odśwież progress.md
+    make navigation  # odśwież mapę (moduł nawigacji)
     make baseline N=01-nazwa
-    make test        # po każdej zmianie narzedzia/ lub id.toml
+    make test        # po każdej zmianie tools/ lub id.toml

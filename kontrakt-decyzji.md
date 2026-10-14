@@ -81,4 +81,4 @@ Zasady:
 
 ## Rejestr decyzji
 
-- Rejestr tego projektu: `decyzje.md` (otwarte, w kolejce, rozstrzygnięte). Agent aktualizuje go po każdej odpowiedzi.
+- Rejestr tego projektu: `decisions.md` (otwarte, w kolejce, rozstrzygnięte). Agent aktualizuje go po każdej odpowiedzi.

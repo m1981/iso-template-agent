@@ -1,49 +1,49 @@
 #!/bin/sh
 # Pre-commit (AGENTS.md, P-05):
-#  1. ślad według narzedzia/id.toml (narzedzia/slad.py) i aktualność slad.md,
-#  2. jeśli jest plan.md: aktualność postep.md (narzedzia/postep.py),
-#  3. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność mapa-nawigacji.html.
-# Sprawdza pliki w katalogu roboczym. Włączenie w nowym klonie: make hooki
+#  1. ślad według tools/id.toml (tools/trace.py) i aktualność trace.md,
+#  2. jeśli jest plan.md: aktualność progress.md (tools/progress.py),
+#  3. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność navigation-map.html.
+# Sprawdza pliki w katalogu roboczym. Włączenie w nowym klonie: make hooks
 cd "$(git rev-parse --show-toplevel)" || exit 1
 
 tmp=$(mktemp)
-if ! python3 -B narzedzia/slad.py "$tmp" > "$tmp.log"; then
-  grep '^B' "$tmp.log"
+if ! python3 -B tools/trace.py "$tmp" > "$tmp.log"; then
+  grep '^E' "$tmp.log"
   echo
-  echo "pre-commit: ślad ma błędy (powyżej). Popraw artefakty albo narzedzia/id.toml."
+  echo "pre-commit: ślad ma błędy (powyżej). Popraw artefakty albo tools/id.toml."
   rm -f "$tmp" "$tmp.log"; exit 1
 fi
-if ! cmp -s "$tmp" slad.md; then
+if ! cmp -s "$tmp" trace.md; then
   rm -f "$tmp" "$tmp.log"
-  echo "pre-commit: slad.md jest nieaktualny. Uruchom: make slad i dodaj plik do commita."
+  echo "pre-commit: trace.md jest nieaktualny. Uruchom: make trace i dodaj plik do commita."
   exit 1
 fi
 rm -f "$tmp" "$tmp.log"
 
 if [ -f plan.md ]; then
   tmp=$(mktemp)
-  python3 -B narzedzia/postep.py "$tmp" > /dev/null
-  if ! cmp -s "$tmp" postep.md; then
+  python3 -B tools/progress.py "$tmp" > /dev/null
+  if ! cmp -s "$tmp" progress.md; then
     rm -f "$tmp"
-    echo "pre-commit: postep.md jest nieaktualny. Uruchom: make postep i dodaj plik do commita."
+    echo "pre-commit: progress.md jest nieaktualny. Uruchom: make progress i dodaj plik do commita."
     exit 1
   fi
   rm -f "$tmp"
 fi
 
-if [ -d nawigacja ]; then
-  cd nawigacja || exit 1
-  if ! python3 -B sprawdz.py ekrany.mmd > /dev/null; then
-    python3 -B sprawdz.py ekrany.mmd | grep -E 'Reguła|---|UWAGA'
+if [ -d navigation ]; then
+  cd navigation || exit 1
+  if ! python3 -B check.py screens.mmd > /dev/null; then
+    python3 -B check.py screens.mmd | grep -E 'Reguła|---|UWAGA'
     echo
     echo "pre-commit: mapa nawigacji łamie reguły (wiersze UWAGA powyżej)."
     exit 1
   fi
   tmp=$(mktemp)
-  python3 -B zbuduj.py "$tmp" > /dev/null
-  if ! cmp -s "$tmp" mapa-nawigacji.html; then
+  python3 -B build.py "$tmp" > /dev/null
+  if ! cmp -s "$tmp" navigation-map.html; then
     rm -f "$tmp"
-    echo "pre-commit: nawigacja/mapa-nawigacji.html jest nieaktualna. Uruchom: make nawigacja i dodaj plik."
+    echo "pre-commit: navigation/navigation-map.html jest nieaktualna. Uruchom: make navigation i dodaj plik."
     exit 1
   fi
   rm -f "$tmp"
