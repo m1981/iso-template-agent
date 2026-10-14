@@ -1,11 +1,14 @@
 # Te same komendy dla człowieka i agenta (AGENTS.md, sekcja Polecenia).
-.PHONY: sprawdz slad nawigacja hooki baseline test
+.PHONY: sprawdz slad postep nawigacja hooki baseline test
 
-sprawdz: slad ## wszystkie kontrole (to samo co pre-commit, bez sprawdzania aktualności)
+sprawdz: slad postep ## wszystkie kontrole (to samo co pre-commit, bez sprawdzania aktualności)
 	@if [ -d nawigacja ]; then cd nawigacja && python3 -B sprawdz.py ekrany.mmd; fi
 
 slad: ## odśwież slad.md i pokaż błędy śladu
 	python3 -B narzedzia/slad.py
+
+postep: ## odśwież postep.md (rekord postępu z plan.md, rekordów i tagów)
+	python3 -B narzedzia/postep.py
 
 nawigacja: ## odśwież mapę nawigacji (gdy moduł jest wdrożony)
 	cd nawigacja && python3 -B zbuduj.py
@@ -19,3 +22,5 @@ hooki: ## włącz hooki w nowym klonie
 baseline: ## oznacz zamknięty etap: make baseline N=01-nazwa
 	@test -n "$(N)" || (echo "Podaj N, np. make baseline N=01-zakres" && exit 1)
 	git tag -a baseline-$(N) -m "Baseline $(N)"
+	python3 -B narzedzia/postep.py
+	@echo "Dołącz postep.md do następnego commita (P-09)."

@@ -1,6 +1,6 @@
 # Wymagania (EARS)
 
-Wymagania systemowe w składni EARS, po angielsku, z podmiotem ustawionym w narzedzia/id.toml (`system`). Wymaganie podaje tylko swoje źródło (P-03); pochodne i pokrycie testami pokazuje slad.md. Status `zatwierdzone` wymaga decyzji D-nn (P-08). ID: trzy litery obszaru i numer, np. CAP-nn dla przechwytywania; prefiks RYZ jest zarezerwowany dla ryzyk.
+Wymagania systemowe w składni EARS, po angielsku, z podmiotem ustawionym w narzedzia/id.toml (`system`). Wymaganie podaje tylko swoje źródło (P-03); pochodne i pokrycie testami pokazuje slad.md. Status to jeden ze stanów produktów pracy (D-11): `rozpoczęty`, `zweryfikowany` (jest rekord WER z wynikiem `zgodny`), `zatwierdzony` (wymaga decyzji D-nn, P-08). ID: trzy litery obszaru i numer, np. CAP-nn dla przechwytywania; prefiksy RYZ, CEL, ZAD, KOR, WER, WAL i AKC są zarezerwowane dla innych typów (narzedzia/id.toml).
 
 Wzorce EARS i to, co sprawdza slad.py:
 
@@ -22,7 +22,7 @@ Format:
 - wzorzec: event
 - tekst: When the User …, System shall …
 - źródło: UC-nn, D-nn
-- status: draft
+- status: rozpoczęty
 - uwagi: opcjonalnie
 ```
 

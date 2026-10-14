@@ -6,10 +6,12 @@ Błędy:
   B1 brak wymaganego pola albo rodzica      B5 tekst niezgodny ze wzorcem EARS / nie jedno „shall”
   B2 nieznane ID (w polu rodzica lub tekście) B6 pojęcie spoza słownika w tekście EARS
   B3 zdublowane ID                           B7 rodzic niedozwolonego typu
-  B4 niedozwolona wartość (status, wzorzec)  B8 brak wymaganego pokrycia (poziom „blad”)
+  B4 niedozwolona wartość (status, wynik,   B8 brak wymaganego pokrycia (poziom „blad”)
+     wzorzec, kod w produkuje:)
 Ostrzeżenia:
   O1 brak oczekiwanego pokrycia (poziom „ostrzezenie”)
   O2 rozstrzygnięta decyzja bez dzieci i bez wzmianki w commitach (tylko na ekranie)
+  O3 produkt w stanie zweryfikowany/zatwierdzony bez weryfikacji WER z wynikiem „zgodny” (D-11)
 
 Użycie: python3 narzedzia/slad.py [plik_wyjściowy=slad.md]
 """
@@ -103,6 +105,11 @@ def main(wyjscie):
                 bledy.append(f"B1 {e.id}: brak pola „{pole}”")
         if t.get("statusy") and e.pola.get("status") and e.pola["status"] not in t["statusy"]:
             bledy.append(f"B4 {e.id}: status „{e.pola['status']}” spoza {t['statusy']}")
+        if t.get("wyniki") and e.pola.get("wynik") and e.pola["wynik"] not in t["wyniki"]:
+            bledy.append(f"B4 {e.id}: wynik „{e.pola['wynik']}” spoza {t['wyniki']}")
+        if t.get("produkuje"):
+            for x in m.produkty(e)[1]:
+                bledy.append(f"B4 {e.id}: „{x}” w produkuje: nie jest kodem typu ani ID")
         pola = t.get("pola", [])
         if pola:
             ids = []
@@ -167,6 +174,12 @@ def main(wyjscie):
                 else:
                     ostrz.append("O1 " + wpis)
 
+    if "WER" in typy and typy["WER"]["aktywny"] and len(m.stany) > 1:
+        for e in m.elementy:
+            if typy[e.typ].get("produkt") and m.stan(e) in m.stany[1:]:
+                if not any(po_id[c].typ == "WER" and po_id[c].pola.get("wynik") == "zgodny" for c in dzieci.get(e.id, [])):
+                    ostrz.append(f"O3 {e.id}: stan „{m.stan(e)}” bez weryfikacji WER z wynikiem „zgodny”")
+
     aktywne = [k for k, t in typy.items() if t["aktywny"]]
     liczby = " · ".join(f"{k} {sum(1 for e in m.elementy if e.typ == k)}" for k in aktywne)
     out = ["# Macierz śladu", "",
@@ -182,6 +195,21 @@ def main(wyjscie):
     for e in m.elementy:
         if dzieci.get(e.id) or typy[e.typ].get("pokrycie"):
             out.append(f"| {e.id} | {e.typ} | {', '.join(dzieci.get(e.id, [])) or '—'} |")
+    zadania = [e for e in m.elementy if typy[e.typ].get("produkuje")]
+    if zadania:
+        out += ["", "## Plan → produkty (produkuje:, wyjątek od P-03)", "",
+                "| Zadanie | Produkuje | Elementy |", "| --- | --- | --- |"]
+        for e in zadania:
+            el = m.produkty(e)[0]
+            out.append(f"| {e.id} | {e.pola.get('produkuje', '')} | {', '.join(x.id for x in el) or '—'} |")
+    out += ["", "## Produkty pracy ISO/IEC 29110-5-1-2", "", "| Produkt | Typ | Elementy |", "| --- | --- | --- |"]
+    for k, t in typy.items():
+        if t.get("iso"):
+            ile = sum(1 for e in m.elementy if e.typ == k) if t["aktywny"] else "nieaktywny"
+            out.append(f"| {t['iso']} | {k} {t['nazwa']} | {ile} |")
+    for w in m.iso_inne:
+        wp, _, gdzie = w.partition(" ")
+        out.append(f"| {wp} | {gdzie} | — |")
     if bledy or ostrz:
         out += ["", "## Błędy i ostrzeżenia", ""] + [f"- {x}" for x in bledy + ostrz]
     with open(os.path.join(m.korzen, wyjscie) if not os.path.isabs(wyjscie) else wyjscie, "w", encoding="utf-8") as f:

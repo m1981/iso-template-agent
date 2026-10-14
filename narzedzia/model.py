@@ -149,9 +149,14 @@ class Model:
     def __init__(self, korzen=KORZEN):
         self.korzen = korzen
         cfg = wczytaj_toml(os.path.join(korzen, "narzedzia", "id.toml"))
-        self.system = cfg.get("projekt", {}).get("system", "System")
+        projekt = cfg.get("projekt", {})
+        self.system = projekt.get("system", "System")
+        self.stany = projekt.get("stany_produktow", [])
+        self.iso_inne = projekt.get("iso_inne", [])
         self.typy = {}
         for t in cfg.get("typ", []):
+            if t.get("produkt"):
+                t["statusy"] = self.stany
             t["re"] = re.compile(t["wzorzec"])
             t["pliki"] = sorted(glob.glob(os.path.join(korzen, t["plik"])))
             t["aktywny"] = bool(t["pliki"])
@@ -175,6 +180,24 @@ class Model:
 
     def wzgledna(self, sciezka):
         return os.path.relpath(sciezka, self.korzen)
+
+    def stan(self, e):
+        """Stan elementu; produkt pracy bez pola status jest rozpoczęty (D-11)."""
+        if self.typy[e.typ].get("produkt") and not e.pola.get("status") and self.stany:
+            return self.stany[0]
+        return e.pola.get("status", "")
+
+    def produkty(self, e):
+        """Pole produkuje: (D-09) → (elementy, nieznane kody). Wpis to kod typu albo ID."""
+        wynik, nieznane = [], []
+        for x in [w.strip() for w in e.pola.get("produkuje", "").split(",") if w.strip()]:
+            if x in self.typy:
+                wynik += [el for el in self.elementy if el.typ == x]
+            elif x in self.po_id:
+                wynik.append(self.po_id[x])
+            elif not self.re_id.fullmatch(x):
+                nieznane.append(x)
+        return wynik, nieznane
 
     def pliki_aktywne(self):
         return sorted({p for t in self.typy.values() for p in t["pliki"]})

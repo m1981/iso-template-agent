@@ -18,38 +18,69 @@ Format:
 
 ## Otwarte
 
-### D-08 Miejsce części zarządczej planu
+### D-13 Kopia zapasowa repozytorium (ISO/IEC 29110 WP.12)
 - status: otwarta
-- opcje: A) osobny plan.md według ISO/IEC 29110 WP.10 (co, po co, kiedy), AGENTS.md zostaje procesem · B) dopisać sekcje do AGENTS.md
+- opcje: A) prywatne repozytorium na GitHubie jako drugi remote, push po każdej sesji i po baseline · B) dysk zewnętrzny albo Time Machine · C) oba
 - propozycja: A
-- uwagi: przeformułowana 2026-10-14 po analizie ISO/IEC 29110-5-1-2 (rozdziały 05, 06, 07, 09)
+- uwagi: dziś repozytorium jest tylko na jednym Macu; agent niczego nie zakłada ani nie wysyła bez tej decyzji
 
-### D-09 Plan jako elementy śladu
+### D-14 Zakres jednolitych stanów
 - status: otwarta
-- opcje: A) nowe typy w id.toml: CEL-nn, KM-nn (kamień = baseline = tag), ZAD-nn z polem produkuje:, RP-nn (ryzyko projektu); produkuje: jako jawny wyjątek od P-03 · B) plan jako zwykły tekst bez ID
+- opcje: A) stany z D-11 mają produkty pracy (SC, IO, ZP, G, UC, RYZ, WYM, E, AT); decyzje, zadania, ryzyka projektu i rekordy mają własne statusy; brak pola status = rozpoczęty; pole wymagane tylko w wymaganiach · B) pole status obowiązkowe we wszystkich produktach pracy
 - propozycja: A
+- uwagi: założenie przyjęte przy wdrażaniu D-11 (narzedzia/id.toml, produkt = true)
 
-### D-10 Generowany rekord postępu
+### D-15 Stan „zweryfikowany” bez rekordu weryfikacji
 - status: otwarta
-- opcje: A) postep.md generowany z planu, repozytorium i tagów (PM.03.01: planowane i rzeczywiste zadania, kamienie, ryzyka) · B) bez rekordu postępu
-- propozycja: A
+- opcje: A) ostrzeżenie O3, commit przechodzi · B) błąd blokujący commit
+- propozycja: A, dopóki przegląd z rekordem WER nie stanie się zwyczajem
+- uwagi: założenie przyjęte przy wdrażaniu D-11 i D-12
 
-### D-11 Stany produktów pracy
+### D-16 Układ planu i rekordów
 - status: otwarta
-- opcje: A) jednolite stany dla wszystkich typów w id.toml, po polsku, wzorowane na 29110 (rozpoczęty, zweryfikowany, zatwierdzony; baseline z tagów) · B) zostać przy statusach per typ
+- opcje: A) jak wdrożono: cztery rodzaje rekordów w jednym rekordy.md; produkuje: przyjmuje kody typów albo ID; zadanie ma status planowane | w toku | zakończone; kamień osiągnięty = istnieje tag z pola tag:; pre-commit sprawdza aktualność postep.md · B) każdy rodzaj rekordu w osobnym pliku (reszta jak w A)
 - propozycja: A
-
-### D-12 Model śladu wobec ISO/IEC 29110: rozszerzyć czy od nowa
-- status: otwarta
-- opcje: A) rozszerzyć: mapowanie typów na produkty normy (pole iso w id.toml), nowe typy dla rekordów zarządczych (postęp, korekty, weryfikacja, walidacja, akceptacja), kopia zapasowa repozytorium · B) zbudować model od nowa według listy produktów normy
-- propozycja: A
-- uwagi: analiza 2026-10-14: 23 produkty, 72 zadania, 84 zależności; mechanizm zgodny, brakuje typów
+- uwagi: założenia przyjęte przy wdrażaniu D-09, D-10 i D-12
 
 ## W kolejce
 
-Brak tematów w kolejce.
+### K-01 Strona „ISO 29110 a nasz model śladu” po rozszerzeniu
+- uwagi: kolory pokrycia na stronie pokazują stan sprzed D-08…D-12; odświeżyć po rozstrzygnięciu D-13…D-16
+
+### K-02 Przeniesienie zmian szablonu do gtd2
+- uwagi: gtd2 używa statusu draft; po przeniesieniu 28 wymagań przechodzi na stan rozpoczęty (D-11)
 
 ## Rozstrzygnięte
+
+### D-12 Model śladu wobec ISO/IEC 29110: rozszerzyć czy od nowa
+- status: rozstrzygnięta
+- opcje: A) rozszerzyć · B) zbudować od nowa według listy produktów normy
+- wybór: A — pole iso w każdym typie id.toml i tabela mapowania w slad.md; nowe typy KOR (WP.04), WER (WP.23), WAL (WP.22), AKC (WP.01) w rekordy.md; kopia zapasowa (WP.12) osobno: D-13
+- data: 2026-10-14
+
+### D-11 Stany produktów pracy
+- status: rozstrzygnięta
+- opcje: A) jednolite stany wzorowane na 29110 · B) statusy per typ
+- wybór: A — rozpoczęty, zweryfikowany, zatwierdzony ([projekt] stany_produktow w id.toml); baseline z tagów; wymagania przechodzą z draft/zatwierdzone na te stany; zakres: D-14
+- data: 2026-10-14
+
+### D-10 Generowany rekord postępu
+- status: rozstrzygnięta
+- opcje: A) postep.md generowany z planu, repozytorium i tagów · B) bez rekordu postępu
+- wybór: A — narzedzia/postep.py, make postep; pre-commit sprawdza aktualność
+- data: 2026-10-14
+
+### D-09 Plan jako elementy śladu
+- status: rozstrzygnięta
+- opcje: A) typy CEL, KM, ZAD (produkuje:), RP; produkuje: jako jawny wyjątek od P-03 · B) plan jako zwykły tekst
+- wybór: A — typy w id.toml; P-03 w AGENTS.md opisuje wyjątek
+- data: 2026-10-14
+
+### D-08 Miejsce części zarządczej planu
+- status: rozstrzygnięta
+- opcje: A) osobny plan.md według WP.10, AGENTS.md zostaje procesem · B) sekcje w AGENTS.md
+- wybór: A — plan.md; sekcja Zakres przeniesiona z AGENTS.md do plan.md
+- data: 2026-10-14
 
 ### D-07 Źródło bazowe dla części zarządczej planu
 - status: rozstrzygnięta

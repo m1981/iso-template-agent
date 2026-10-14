@@ -1,7 +1,8 @@
 #!/bin/sh
 # Pre-commit (AGENTS.md, P-05):
 #  1. ślad według narzedzia/id.toml (narzedzia/slad.py) i aktualność slad.md,
-#  2. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność mapa-nawigacji.html.
+#  2. jeśli jest plan.md: aktualność postep.md (narzedzia/postep.py),
+#  3. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność mapa-nawigacji.html.
 # Sprawdza pliki w katalogu roboczym. Włączenie w nowym klonie: make hooki
 cd "$(git rev-parse --show-toplevel)" || exit 1
 
@@ -18,6 +19,17 @@ if ! cmp -s "$tmp" slad.md; then
   exit 1
 fi
 rm -f "$tmp" "$tmp.log"
+
+if [ -f plan.md ]; then
+  tmp=$(mktemp)
+  python3 -B narzedzia/postep.py "$tmp" > /dev/null
+  if ! cmp -s "$tmp" postep.md; then
+    rm -f "$tmp"
+    echo "pre-commit: postep.md jest nieaktualny. Uruchom: make postep i dodaj plik do commita."
+    exit 1
+  fi
+  rm -f "$tmp"
+fi
 
 if [ -d nawigacja ]; then
   cd nawigacja || exit 1
