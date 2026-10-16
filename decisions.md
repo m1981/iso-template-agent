@@ -18,7 +18,35 @@ Format:
 
 ## Otwarte
 
-Brak otwartych decyzji.
+### D-31 Listy kontrolne przeglądu
+- status: open
+- options: A) checklist.md z kryteriami przeglądu dla każdego typu produktu (dla wymagań wprost z SI.02.04: poprawne, testowalne, kompletne, jednoznaczne, niesprzeczne); rekord VER wskazuje listę w polu checklist i wypisuje niespełnione punkty · B) bez list
+- proposal: A
+- notes: przegląd normy rozdział po rozdziale 2026-10-16; WP.23 ma „verification checklist”, a nasze rekordy VER nie mówią, według czego sprawdzano
+
+### D-32 Analiza wpływu zmiany (suspect links)
+- status: open
+- options: A) trace.py oznacza dzieci elementu zmienionego po ich ostatniej weryfikacji jako podejrzane (ostrzeżenie W5), na podstawie historii gita · B) bez tej kontroli
+- proposal: A
+- notes: PM.O3 i PM.02.02: zmianę wymagań ocenia się pod kątem wpływu; dziś trace.md pokazuje dzieci, ale nie mówi, które trzeba przejrzeć po zmianie rodzica; w gtd2 ten sam temat czeka jako K-10
+
+### D-33 Charakterystyki jakości w wymaganiach
+- status: open
+- options: A) opcjonalne pole quality w wymaganiu (functional, performance, compatibility, usability, reliability, security, maintainability, portability, constraint, legal) i tabela w trace.md pokazująca charakterystyki bez żadnego wymagania · B) bez zmian
+- proposal: A
+- notes: WP.13 wymienia te charakterystyki, a załączniki C (dostępność) i D (bezpieczeństwo) dokładają do nich zadania; EARS daje formę zdania, ale nie przypomina o wymaganiach niefunkcjonalnych
+
+### D-34 Role normy w małym zespole
+- status: open
+- options: A) tabela w AGENTS.md: kto pełni role normy (klient, kierownik projektu, analityk, lider techniczny, projektant, weryfikator) — Użytkownik, agent albo niezależny agent — i kto co zatwierdza · B) bez zmian
+- proposal: A
+- notes: rozdział 8 i role przy każdym zadaniu; dziś P-10 mówi, czego agent nie robi bez decyzji, ale nie przypisuje ról z normy
+
+### D-35 Sprawdzenie odtworzenia kopii zapasowej
+- status: open
+- options: A) make restore-check: klon z origin do katalogu tymczasowego i porównanie drzewa z HEAD oraz listy tagów; wynik jako rekord VER dla repozytorium · B) bez zmian
+- proposal: A
+- notes: PM.02.07 „Verify the project repository recovery”; raz zrobiliśmy to przy D-17 ręcznie, ale nie ma tego w procesie
 
 ## W kolejce
 
