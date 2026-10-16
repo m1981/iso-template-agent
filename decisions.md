@@ -18,35 +18,34 @@ Format:
 
 ## Otwarte
 
-### D-31 Listy kontrolne przeglądu
+### D-36 Role normy a sesje agenta
 - status: open
-- options: A) checklist.md z kryteriami przeglądu dla każdego typu produktu (dla wymagań wprost z SI.02.04: poprawne, testowalne, kompletne, jednoznaczne, niesprzeczne); rekord VER wskazuje listę w polu checklist i wypisuje niespełnione punkty · B) bez list
+- options: A) Użytkownik pełni role klienta i kierownika projektu (walidacja, akceptacja, zatwierdzenia); sesja autora: analityk, lider techniczny, asystent kierownika, projektant ekranów; sesja weryfikatora: osobny agent bez kontekstu rozmowy, tylko rekordy VER i propozycje korekt; na etapie kodu osobne sesje programisty i testera · B) osobna sesja dla każdej roli normy · C) jedna sesja, role tylko opisane
 - proposal: A
-- notes: przegląd normy rozdział po rozdziale 2026-10-16; WP.23 ma „verification checklist”, a nasze rekordy VER nie mówią, według czego sprawdzano
+- notes: role rozdziału 8 i załącznika B; norma pozwala łączyć role w jednej osobie, ale rozdziela autora i zatwierdzającego (SI.02.04–05, SI.03.08) i wymaga niezależnej weryfikacji (uwaga 2 przy SI.O7)
 
-### D-32 Analiza wpływu zmiany (suspect links)
+### D-37 Karty ról
 - status: open
-- options: A) trace.py oznacza dzieci elementu zmienionego po ich ostatniej weryfikacji jako podejrzane (ostrzeżenie W5), na podstawie historii gita · B) bez tej kontroli
+- options: A) katalog roles/ z kartą dla każdego rodzaju sesji (cel, wejścia, pliki do zapisu, czego nie robi, listy kontrolne, wynik na koniec sesji) oraz tabela ról normy w AGENTS.md · B) tylko tabela w AGENTS.md
 - proposal: A
-- notes: PM.O3 i PM.02.02: zmianę wymagań ocenia się pod kątem wpływu; dziś trace.md pokazuje dzieci, ale nie mówi, które trzeba przejrzeć po zmianie rodzica; w gtd2 ten sam temat czeka jako K-10
 
-### D-33 Charakterystyki jakości w wymaganiach
+### D-38 Rozdział autora i weryfikatora w commicie
 - status: open
-- options: A) opcjonalne pole quality w wymaganiu (functional, performance, compatibility, usability, reliability, security, maintainability, portability, constraint, legal) i tabela w trace.md pokazująca charakterystyki bez żadnego wymagania · B) bez zmian
+- options: A) błąd E9: commit, który dodaje rekord VER albo VAL z wynikiem pass, nie może w tym samym commicie zmieniać weryfikowanych elementów · B) ostrzeżenie · C) bez kontroli
 - proposal: A
-- notes: WP.13 wymienia te charakterystyki, a załączniki C (dostępność) i D (bezpieczeństwo) dokładają do nich zadania; EARS daje formę zdania, ale nie przypomina o wymaganiach niefunkcjonalnych
+- notes: mechaniczny odpowiednik zasady „autor nie zatwierdza sam siebie”, sprawdzalny w hooku
+
+### D-39 Założenia przy D-31, D-32, D-33, D-35
+- status: open
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
+- proposal: A
+- notes: W5 tylko na ekranie, bo zależy od historii gita i w trace.md psułby kontrolę aktualności; rekord odtworzenia kopii ma subject: repository zamiast items (nowy klucz root_if w id.toml); numerów punktów list kontrolnych się nie zmienia ani nie używa ponownie; lista wartości quality obejmuje też constraint i legal (WP.13: ograniczenia i wymogi prawne)
 
 ### D-34 Role normy w małym zespole
-- status: open
+- status: deferred
 - options: A) tabela w AGENTS.md: kto pełni role normy (klient, kierownik projektu, analityk, lider techniczny, projektant, weryfikator) — Użytkownik, agent albo niezależny agent — i kto co zatwierdza · B) bez zmian
 - proposal: A
-- notes: rozdział 8 i role przy każdym zadaniu; dziś P-10 mówi, czego agent nie robi bez decyzji, ale nie przypisuje ról z normy
-
-### D-35 Sprawdzenie odtworzenia kopii zapasowej
-- status: open
-- options: A) make restore-check: klon z origin do katalogu tymczasowego i porównanie drzewa z HEAD oraz listy tagów; wynik jako rekord VER dla repozytorium · B) bez zmian
-- proposal: A
-- notes: PM.02.07 „Verify the project repository recovery”; raz zrobiliśmy to przy D-17 ręcznie, ale nie ma tego w procesie
+- notes: rozdział 8 i role przy każdym zadaniu; dziś P-10 mówi, czego agent nie robi bez decyzji, ale nie przypisuje ról z normy; Użytkownik poprosił 2026-10-17 o zaprojektowanie procesu z rolami normy i rozważenie rozdziału ról między sesje; rozbita na D-36, D-37, D-38
 
 ## W kolejce
 
@@ -57,6 +56,38 @@ Format:
 - notes: w gtd2 ID zostają (D-17); migrują nazwy pól, stanów i plików; 28 wymagań przechodzi z draft na initiated (D-11); każdy produkt dostaje status (D-14)
 
 ## Rozstrzygnięte
+
+### D-35 Sprawdzenie odtworzenia kopii zapasowej
+- status: resolved
+- options: A) make restore-check: klon z origin do katalogu tymczasowego i porównanie drzewa z HEAD oraz listy tagów; wynik jako rekord VER dla repozytorium · B) bez zmian
+- proposal: A
+- choice: A — tools/restore_check.py (make restore-check [RECORD=1]): klon bieżącej gałęzi z origin, punkty REPO.1–REPO.3; rekord VER z subject: repository (root_if w id.toml); pierwsze uruchomienie 2026-10-17 wykryło brak tagu baseline-00-przed-en w kopii
+- date: 2026-10-17
+- notes: PM.02.07 „Verify the project repository recovery”; raz zrobiliśmy to przy D-17 ręcznie, ale nie ma tego w procesie
+
+### D-33 Charakterystyki jakości w wymaganiach
+- status: resolved
+- options: A) opcjonalne pole quality w wymaganiu (functional, performance, compatibility, usability, reliability, security, maintainability, portability, constraint, legal) i tabela w trace.md pokazująca charakterystyki bez żadnego wymagania · B) bez zmian
+- proposal: A
+- choice: A — pole quality (qualities w id.toml), E4 dla nieznanej wartości, sekcja „Charakterystyki jakości” w trace.md, opis w requirements.md
+- date: 2026-10-17
+- notes: WP.13 wymienia te charakterystyki, a załączniki C (dostępność) i D (bezpieczeństwo) dokładają do nich zadania; EARS daje formę zdania, ale nie przypomina o wymaganiach niefunkcjonalnych
+
+### D-32 Analiza wpływu zmiany (suspect links)
+- status: resolved
+- options: A) trace.py oznacza dzieci elementu zmienionego po ich ostatniej weryfikacji jako podejrzane (ostrzeżenie W5), na podstawie historii gita · B) bez tej kontroli
+- proposal: A
+- choice: A — ostrzeżenie W5: element albo jego rodzic zmienił się po commicie, który dodał ostatni rekord VER pass tego elementu; porównanie treści bez pola status; tylko na ekranie (założenie w D-39)
+- date: 2026-10-17
+- notes: PM.O3 i PM.02.02: zmianę wymagań ocenia się pod kątem wpływu; dziś trace.md pokazuje dzieci, ale nie mówi, które trzeba przejrzeć po zmianie rodzica; w gtd2 ten sam temat czeka jako K-10
+
+### D-31 Listy kontrolne przeglądu
+- status: resolved
+- options: A) checklist.md z kryteriami przeglądu dla każdego typu produktu (dla wymagań wprost z SI.02.04: poprawne, testowalne, kompletne, jednoznaczne, niesprzeczne); rekord VER wskazuje listę w polu checklist i wypisuje niespełnione punkty · B) bez list
+- proposal: A
+- choice: A — checklist.md (listy REQ, UC, SC, IO, G, DP, RSK, AT, E, PLAN, REPO z punktami ze źródłem w normie); rekord VER i VAL: pola checklist i failed; E4 dla nieznanej listy lub punktu i dla wyniku pass z niespełnionymi punktami
+- date: 2026-10-17
+- notes: przegląd normy rozdział po rozdziale 2026-10-16; WP.23 ma „verification checklist”, a nasze rekordy VER nie mówią, według czego sprawdzano
 
 ### D-30 Stara strona „Model śledzalności”
 - status: resolved

@@ -37,6 +37,8 @@ Nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku i odpowi
 | change request (WP.03) | wniosek o zmianę | decyzja D-nn w decisions.md |
 | correction register (WP.04) | rejestr korekt | corrections.md: COR-nn |
 | verification record (WP.23) | rekord weryfikacji | verification.md: VER-nn |
+| verification checklist | lista kontrolna przeglądu | checklist.md, pole `checklist:` rekordu |
+| repository recovery (PM.02.07) | sprawdzenie odtworzenia z kopii | `make restore-check`, rekord VER z `subject: repository` |
 | validation record (WP.22) | rekord walidacji | validation.md: VAL-nn |
 | acceptance record (WP.01) | rekord akceptacji | acceptance.md: ACC-nn |
 | traceability record (WP.21) | rekord śladu | trace.md (generowany) |

@@ -1,5 +1,5 @@
 # Te same komendy dla człowieka i agenta (AGENTS.md, sekcja Polecenia).
-.PHONY: check trace progress iso-map navigation hooks baseline test new-project
+.PHONY: check trace progress iso-map navigation hooks baseline test new-project restore-check
 
 check: trace progress iso-map ## wszystkie kontrole (to samo co pre-commit, bez sprawdzania aktualności)
 	@if [ -d navigation ]; then cd navigation && python3 -B check.py screens.mmd; fi
@@ -21,6 +21,9 @@ test: ## test narzędzi śladu i hooków (po zmianie tools/ lub id.toml)
 
 new-project: ## raz, w kopii szablonu: historia szablonu do archive/template/, pusty rejestr z D-01 (D-22)
 	python3 -B tools/new_project.py
+
+restore-check: ## sprawdź odtworzenie z kopii (klon origin: HEAD, tagi, ślad); RECORD=1 dopisuje rekord VER (D-35)
+	python3 -B tools/restore_check.py $(if $(RECORD),--record)
 
 hooks: ## włącz hooki w nowym klonie; push wysyła też tagi baseline (D-13)
 	git config core.hooksPath .githooks

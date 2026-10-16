@@ -13,13 +13,19 @@ Ostrzeżenia (warning):
   W2 rozstrzygnięta decyzja bez dzieci i bez wzmianki w commitach (tylko na ekranie)
   W3 produkt w stanie verified/approved bez weryfikacji VER z wynikiem „pass” (D-11, D-15)
   W4 pole spoza znanych pól typu, np. dawna polska nazwa (D-21)
+  W5 element albo jego rodzic zmienił się po ostatniej weryfikacji VER z wynikiem „pass” (D-32;
+     tylko na ekranie, bo zależy od historii gita)
 
 Użycie: python3 tools/trace.py [plik_wyjściowy=trace.md]
 """
+import io
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tarfile
+import tempfile
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -87,6 +93,58 @@ def ids_in_commits(m):
     return set(m.ids_in(log))
 
 
+def fingerprint(e):
+    """Treść elementu bez pola status (zmiana stanu nie jest zmianą treści)."""
+    return (e.title, tuple(sorted((k, v) for k, v in e.fields.items() if k != "status")))
+
+
+def impact(m, parents_of):
+    """D-32: dla każdego elementu z rekordem VER „pass” porównuje jego treść i treść jego rodziców
+    z wersją z commita, który dodał rekord. Zwraca ostrzeżenia W5. Bez gita: brak ostrzeżeń."""
+    def git(*args):
+        return subprocess.run(["git", *args], cwd=m.root, capture_output=True)
+    if git("rev-parse", "--is-inside-work-tree").returncode != 0:
+        return []
+    latest = {}  # element → (głębokość commita, VER, commit)
+    for v in m.elements:
+        if v.type != "VER" or m.value(v, "result") != "pass":
+            continue
+        log = git("log", "--reverse", "--format=%H", f"-S{v.id}", "--", m.relative(v.file))
+        commits = log.stdout.decode().split()
+        if not commits:
+            continue  # rekord jeszcze niezacommitowany
+        commit = commits[0]
+        depth = int(git("rev-list", "--count", commit).stdout.decode().strip() or 0)
+        for item in m.ids_in(v.fields.get("items", "")):
+            if item in m.by_id and (item not in latest or depth >= latest[item][0]):
+                latest[item] = (depth, v.id, commit)
+    if not latest:
+        return []
+    old_models, found = {}, []
+    tmp = tempfile.mkdtemp()
+    try:
+        for item, (_, ver, commit) in sorted(latest.items()):
+            if commit not in old_models:
+                d = os.path.join(tmp, commit)
+                archive = git("archive", "--format=tar", commit)
+                with tarfile.open(fileobj=io.BytesIO(archive.stdout)) as t:
+                    try:
+                        t.extractall(d, filter="data")  # Python 3.8.17+, 3.10.12+, 3.11.4+
+                    except TypeError:
+                        t.extractall(d)
+                os.makedirs(os.path.join(d, "tools"), exist_ok=True)
+                shutil.copy(os.path.join(m.root, "tools", "id.toml"), os.path.join(d, "tools", "id.toml"))
+                old_models[commit] = M.Model(d).by_id
+            old = old_models[commit]
+            for ident in [item] + parents_of.get(item, []):
+                if ident in old and fingerprint(old[ident]) != fingerprint(m.by_id[ident]):
+                    who = "zmienił się" if ident == item else f"rodzic {ident} zmienił się"
+                    found.append(f"W5 {item}: {who} po weryfikacji {ver}; przejrzyj {item} i zapisz nowy rekord VER")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    return found
+
+
 def main(output):
     m = M.Model()
     errors, warnings, screen_only = [], [], []
@@ -111,13 +169,31 @@ def main(output):
             errors.append(f"E4 {e.id}: status „{e.fields[f_status]}” spoza {t['statuses']}")
         if t.get("results") and e.fields.get(f_result) and e.fields[f_result] not in t["results"]:
             errors.append(f"E4 {e.id}: result „{e.fields[f_result]}” spoza {t['results']}")
+        if t.get("qualities"):
+            for q in [x.strip() for x in m.value(e, "quality").split(",") if x.strip()]:
+                if q not in t["qualities"]:
+                    errors.append(f"E4 {e.id}: quality „{q}” spoza {t['qualities']}")
+        lists = [x.strip() for x in m.value(e, "checklist").split(",") if x.strip()]
+        failed = [x.strip() for x in m.value(e, "failed").split(",") if x.strip()]
+        for x in lists:
+            if x not in m.checklist:
+                errors.append(f"E4 {e.id}: lista „{x}” nie istnieje w checklist.md")
+        known_items = set().union(*m.checklist.values()) if m.checklist else set()
+        for x in failed:
+            if x not in known_items:
+                errors.append(f"E4 {e.id}: punkt „{x}” nie istnieje w checklist.md")
+            elif lists and x.split(".")[0] not in lists:
+                errors.append(f"E4 {e.id}: punkt „{x}” spoza wskazanych list ({', '.join(lists)})")
+        if failed and m.value(e, "result") == "pass":
+            errors.append(f"E4 {e.id}: wynik „pass”, a niespełnione punkty: {', '.join(failed)}")
         if t.get("produces"):
             for x in m.products(e)[1]:
                 errors.append(f"E4 {e.id}: „{x}” w produces: nie jest kodem typu ani ID")
         fields = t.get("fields", [])
         if fields:
             refs = [(p, r) for p in fields for r in m.ids_in(e.fields.get(p, ""))]
-            if not refs and not t.get("root"):
+            root_if = t.get("root_if", "=").split("=", 1)
+            if not refs and not t.get("root") and e.fields.get(root_if[0]) != root_if[1]:
                 errors.append(f"E1 {e.id}: brak rodzica (pola: {', '.join(fields)})")
             for p, r in refs:
                 rule = t["rules"].get(p)
@@ -219,6 +295,14 @@ def main(output):
         for e in task_elems:
             elem = m.products(e)[0]
             out.append(f"| {e.id} | {m.value(e, 'produces')} | {', '.join(x.id for x in elem) or '—'} |")
+    for k, t in types.items():
+        if t.get("qualities") and t["active"]:
+            out += ["", f"## Charakterystyki jakości ({k}, WP.13)", "",
+                    "Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie pominięto.", "",
+                    "| Charakterystyka | Liczba | Wymagania |", "| --- | --- | --- |"]
+            for q in t["qualities"]:
+                ids = [e.id for e in m.elements if e.type == k and q in [x.strip() for x in m.value(e, "quality").split(",")]]
+                out.append(f"| {q} | {len(ids)} | {', '.join(ids) or '—'} |")
     out += ["", "## Produkty pracy ISO/IEC 29110-5-1-2", "", "| Produkt | Typ | Elementy |", "| --- | --- | --- |"]
     for k, t in types.items():
         if t.get("iso"):
@@ -232,6 +316,7 @@ def main(output):
     with open(os.path.join(m.root, output) if not os.path.isabs(output) else output, "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
 
+    screen_only += impact(m, parents_of)
     for x in errors + warnings + screen_only:
         print(x)
     print(f"trace.py: {len(m.elements)} elementów, {len(errors)} błędów, {len(warnings) + len(screen_only)} ostrzeżeń")

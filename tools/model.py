@@ -238,6 +238,23 @@ class Model:
                     self.elements.append(e)
         self.by_id = seen
         self.bad_headings = self._bad_headings()
+        self.checklist = self._checklist()
+
+    def _checklist(self):
+        """checklist.md (D-31): {kod sekcji: {punkty}} z nagłówków „## KOD …” i linii „- KOD.n …”."""
+        fpath = os.path.join(self.root, "checklist.md")
+        lists, current = {}, None
+        if not os.path.exists(fpath):
+            return lists
+        for _, l in _lines_outside_code(fpath):
+            m = re.match(r"^## ([A-Z]+)\b", l)
+            if m:
+                current = lists.setdefault(m.group(1), set())
+                continue
+            m = re.match(r"^- ([A-Z]+\.\d+)\s", l)
+            if m and current is not None:
+                current.add(m.group(1))
+        return lists
 
     def _bad_headings(self):
         """Nagłówki markdown, w których po ID stoi dwukropek („### UC-02: Tytuł”): (plik, linia, ID)."""

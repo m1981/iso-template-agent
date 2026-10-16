@@ -19,6 +19,7 @@ P-01 Repozytorium jest jedynym źródłem prawdy dla wszystkich artefaktów. Kop
 | Rejestr decyzji i kolejka tematów (WP.03, WP.07) | decisions.md | D-nn, Q-nn |
 | Rejestr korekt (WP.04) | corrections.md | COR-nn |
 | Rekordy weryfikacji (WP.23) | verification.md | VER-nn |
+| Listy kontrolne przeglądu | checklist.md | REQ.n, UC.n … |
 | Rekordy walidacji (WP.22) | validation.md | VAL-nn |
 | Rekordy akceptacji (WP.01) | acceptance.md | ACC-nn |
 | Zasady projektowe | principles.md | DP-nn |
@@ -37,18 +38,19 @@ P-02 ID są niezmienne i nigdy nie są używane ponownie. Schematy ID, pola rodz
 ## Ślad
 P-03 Dziecko podaje tylko rodzica (pola z id.toml, np. `source:`, `scenarios:`, `verifies:`). Nigdzie nie wypisuje się dzieci. Jedyny wyjątek: zadanie planu wskazuje w `produces:`, co wytwarza (D-09).
 P-04 Macierz w obie strony generuje tools/trace.py do trace.md, rekord postępu tools/progress.py do progress.md, a stronę zgodności z normą tools/iso_map.py do iso-map.html (z id.toml i tools/iso29110.toml); nie edytuje się ich ręcznie.
-P-05 Pre-commit odrzuca: błędy E1–E8, nieaktualny trace.md, progress.md lub iso-map.html oraz, gdy wdrożono moduł nawigacji, łamanie jego reguł i nieaktualną mapę. Ostrzeżenia nie blokują.
+P-05 Pre-commit odrzuca: błędy E1–E8, nieaktualny trace.md, progress.md lub iso-map.html oraz, gdy wdrożono moduł nawigacji, łamanie jego reguł i nieaktualną mapę. Ostrzeżenia W1–W5 nie blokują.
 
 ## Stany i gotowość (P-06)
 Produkty pracy (typy z `product = true`) mają obowiązkowe pole `status` ze stanami normy (D-11, D-14): `initiated` → `verified` (jest rekord VER z wynikiem `pass` w verification.md; bez niego ostrzeżenie W3, D-15) → `approved` (dla wymagań decyzja D-nn, P-08). Decyzje, zadania, ryzyka projektu i rekordy mają własne statusy. Baseline nie jest stanem: wynika z tagu.
 
 Wymaganie: jeden wzorzec EARS · tekst zaczyna się zgodnie ze wzorcem · dokładnie jedno „shall” · podmiotem jest system · słowa pisane wielką literą są pojęciami ze słownika · ma źródło · status jest jednym ze stanów produktów pracy. Wszystko to sprawdza trace.py; mierzalność i sens ocenia przegląd.
+Przegląd (rekord VER albo VAL) prowadzi się według list z checklist.md (D-31): pole `checklist:` wskazuje listy, `failed:` niespełnione punkty. Wymaganie ma opcjonalne pole `quality:`; trace.md pokazuje charakterystyki jakości bez wymagań (D-33).
 Przypadek użycia: ma rodzica (scenkę w `scenarios:` albo pozycję zakresu In w `scope:`; sprawdza to parent_rules w id.toml), poziom celu i gwarancje.
 
 ## Zmiana
 P-07 Każda zmiana: edycja → `git diff` → `make check` → jeden commit na odpowiedź Użytkownika. Opis commita wskazuje co najmniej jedno istniejące ID (hook commit-msg).
-P-08 Zatwierdzenie lub zmiana zatwierdzonego wymagania wymaga decyzji D-nn w rejestrze.
-P-09 Zamknięty etap = tag `baseline-nn-nazwa` (`make baseline N=…`), wpisany w pole `tag:` kamienia milowego w plan.md. Po tagu odśwież progress.md (`make progress`) i dołącz go do następnego commita. Po każdej sesji push na GitHuba (WP.12, D-13); tagi idą razem z nim.
+P-08 Zatwierdzenie lub zmiana zatwierdzonego wymagania wymaga decyzji D-nn w rejestrze. Ostrzeżenie W5 (D-32) po zmianie mówi, które zweryfikowane elementy straciły ważność weryfikacji, bo zmieniły się one same albo ich rodzic: przejrzyj je i zapisz nowy rekord VER.
+P-09 Zamknięty etap = tag `baseline-nn-nazwa` (`make baseline N=…`), wpisany w pole `tag:` kamienia milowego w plan.md. Po tagu odśwież progress.md (`make progress`) i dołącz go do następnego commita. Po każdej sesji push na GitHuba (WP.12, D-13); tagi idą razem z nim. Przy każdym kamieniu milowym `make restore-check RECORD=1`: sprawdzenie odtworzenia z kopii zapisane jako rekord VER (PM.02.07, D-35).
 
 ## Agent
 P-10 Bez decyzji Użytkownika agent nie: zmienia znaczenia pojęć, zatwierdza wymagań, usuwa plików, zmienia reguł w id.toml. Może: poprawiać format, dodawać ślad, uruchamiać kontrole, sprzątać blokady gita. Przy założeniu, którego nie może sprawdzić, przedstawia je jako decyzję do potwierdzenia.
@@ -68,4 +70,5 @@ Komisję zmian, formalne plany V&V, CM i QA jako osobne dokumenty, audyty proces
     make new-project # raz, w kopii szablonu (historia szablonu do archive/template/)
     make navigation  # odśwież mapę (moduł nawigacji)
     make baseline N=01-nazwa
+    make restore-check [RECORD=1]  # odtworzenie z kopii: klon origin, HEAD, tagi, ślad
     make test        # po każdej zmianie tools/ lub id.toml

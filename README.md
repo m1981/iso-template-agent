@@ -22,7 +22,7 @@ Wymagany jest tylko `python3` (3.8+) i `git`; skrypty nie mają zależności.
 
 `tools/id.toml` opisuje model: rodzaje elementów, ich identyfikatory, pola, w których element wskazuje rodzica, oraz oczekiwane pokrycie. `tools/trace.py` czyta wszystkie artefakty, sprawdza model i generuje `trace.md`, czyli macierz w obie strony. Kierunek w dół nie jest nigdzie zapisany, tylko liczony, więc oba kierunki nie mogą się rozjechać.
 
-Hooki w `.githooks` blokują commit, gdy ślad ma błędy (E1–E8), gdy `trace.md`, `progress.md` lub `iso-map.html` jest nieaktualny, gdy wdrożony moduł nawigacji łamie swoje reguły albo ma nieaktualną mapę, oraz gdy opis commita nie wskazuje żadnego istniejącego ID. Ostrzeżenia (W1–W4) nie blokują.
+Hooki w `.githooks` blokują commit, gdy ślad ma błędy (E1–E8), gdy `trace.md`, `progress.md` lub `iso-map.html` jest nieaktualny, gdy wdrożony moduł nawigacji łamie swoje reguły albo ma nieaktualną mapę, oraz gdy opis commita nie wskazuje żadnego istniejącego ID. Ostrzeżenia (W1–W5) nie blokują; W5 wskazuje zweryfikowane elementy, które zmieniły się same albo przez zmianę rodzica po ostatniej weryfikacji.
 
 Część zarządcza jest wzorowana na ISO/IEC 29110-5-1-2 (profil Basic dla małych zespołów): typy z odpowiednikiem w normie mają w `id.toml` pole `iso` z tym produktem pracy, a `trace.md` pokazuje to mapowanie. Plan (`plan.md`) i rekordy (`corrections.md`, `verification.md`, `validation.md`, `acceptance.md`) mają ID jak specyfikacja, więc `tools/progress.py` generuje z nich rekord postępu (`progress.md`). `tools/iso_map.py` generuje `iso-map.html`: zależności między 23 produktami normy (dane w `tools/iso29110.toml`) i ich pokrycie przez model, z oceną w `id.toml`.
 
@@ -36,6 +36,7 @@ Język: nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku 
 | plan.md | cele, kamienie milowe, zadania, ryzyka projektu |
 | progress.md | rekord postępu (generowany) |
 | corrections.md, verification.md, validation.md, acceptance.md | rekordy: korekty, weryfikacje, walidacje, akceptacje |
+| checklist.md | listy kontrolne przeglądu (kryteria z normy) |
 | kontrakt-decyzji.md | jak agent prosi o decyzje i jak czytać odpowiedzi |
 | decisions.md | rejestr decyzji i kolejka tematów |
 | principles.md, glossary.md | zasady projektowe i pojęcia |

@@ -23,7 +23,10 @@ Format:
 - text: When the User …, System shall …
 - source: UC-nn, D-nn
 - status: initiated
+- quality: functional | performance | compatibility | usability | reliability | security | maintainability | portability | constraint | legal
 - notes: opcjonalnie
 ```
+
+Pole `quality` przypisuje wymaganie do charakterystyki jakości z ISO/IEC 29110 WP.13 (za ISO/IEC 25010): funkcjonalność, wydajność, zgodność, użyteczność (w tym dostępność), niezawodność, bezpieczeństwo, utrzymywalność, przenośność oraz ograniczenia projektowe i wymogi prawne. Pole jest opcjonalne; trace.md pokazuje, które charakterystyki nie mają jeszcze żadnego wymagania, żeby żadnej nie pominąć przez przeoczenie.
 
 Brak wymagań.

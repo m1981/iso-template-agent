@@ -9,7 +9,9 @@ Format:
 - items: SC-nn, UC-nn …
 - date: RRRR-MM-DD
 - by: Użytkownik
+- checklist: SC, UC (opcjonalnie)
 - result: pass | fail
+- failed: UC.3 (przy wyniku fail)
 - notes: co nie służy celowi
 ```
 

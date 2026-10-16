@@ -2,7 +2,7 @@
 
 Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: SC 0 · IO 0 · D 35 · Q 2 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 0 · VAL 0 · ACC 0
+Elementy: SC 0 · IO 0 · D 39 · Q 2 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 0 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 0
 
@@ -15,11 +15,15 @@ Błędy: 0 · ostrzeżenia: 0
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
-| D-31 | D | — |
-| D-32 | D | — |
-| D-33 | D | — |
+| D-36 | D | — |
+| D-37 | D | — |
+| D-38 | D | — |
+| D-39 | D | — |
 | D-34 | D | — |
 | D-35 | D | — |
+| D-33 | D | — |
+| D-32 | D | — |
+| D-31 | D | — |
 | D-30 | D | — |
 | D-29 | D | — |
 | D-28 | D | — |
@@ -51,13 +55,30 @@ Błędy: 0 · ostrzeżenia: 0
 | D-02 | D | — |
 | D-01 | D | — |
 
+## Charakterystyki jakości (REQ, WP.13)
+
+Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie pominięto.
+
+| Charakterystyka | Liczba | Wymagania |
+| --- | --- | --- |
+| functional | 0 | — |
+| performance | 0 | — |
+| compatibility | 0 | — |
+| usability | 0 | — |
+| reliability | 0 | — |
+| security | 0 | — |
+| maintainability | 0 | — |
+| portability | 0 | — |
+| constraint | 0 | — |
+| legal | 0 | — |
+
 ## Produkty pracy ISO/IEC 29110-5-1-2
 
 | Produkt | Typ | Elementy |
 | --- | --- | --- |
 | WP.02 | SC Scenka użytkownika | 0 |
 | WP.02 | IO Pozycja zakresu In/Out | 0 |
-| WP.03, WP.07 | D Decyzja | 35 |
+| WP.03, WP.07 | D Decyzja | 39 |
 | WP.13 | G Pojęcie słownika | 0 |
 | WP.13 | UC Przypadek użycia | 0 |
 | WP.13 | REQ Wymaganie EARS | 0 |

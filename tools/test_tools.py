@@ -56,6 +56,11 @@ BREAKAGES = [
     ("E7", "corrections.md", "- cause: VER-02", "- cause: UC-01"),
     ("E7", "use-cases.md", "- scenarios: SC-01\n", "- scenarios: IO-01\n"),
     ("E7", "use-cases.md", "- scope: IO-01\n", "- scope: IO-02\n"),
+    ("E4", "verification.md", "- result: pass\n", "- checklist: XYZ\n- result: pass\n"),
+    ("E4", "verification.md", "- result: pass\n", "- checklist: UC\n- result: pass\n- failed: UC.3\n"),
+    ("E4", "verification.md", "- result: fail\n", "- checklist: REQ\n- result: fail\n- failed: REQ.99\n"),
+    ("E4", "requirements.md", "- source: UC-01\n", "- source: UC-01\n- quality: speed\n"),
+    ("E1", "verification.md", "- items: UC-01\n", "- subject: inne\n"),
 ]
 
 WARNINGS = [
@@ -90,6 +95,7 @@ def prepare(tmpdir):
     for f in ("tools", ".githooks"):
         shutil.copytree(os.path.join(ROOT, f), os.path.join(tmpdir, f), ignore=shutil.ignore_patterns("__pycache__"))
     shutil.copy(os.path.join(ROOT, "decisions.md"), tmpdir)
+    shutil.copy(os.path.join(ROOT, "checklist.md"), tmpdir)
     shutil.copytree(os.path.join(ROOT, "modules", "navigation"), os.path.join(tmpdir, "navigation"),
                     ignore=shutil.ignore_patterns("__pycache__"))
     os.makedirs(os.path.join(tmpdir, "tests"), exist_ok=True)
@@ -234,9 +240,44 @@ def main():
         r = git("commit", "-q", "-m", "Pierwszy commit (D-01)")
         if r.returncode != 0:
             failures.append("commit z D-01 został odrzucony:\n" + r.stdout + r.stderr)
+        # D-32: zmiana rodzica po weryfikacji daje W5, sama zmiana stanu nie
+        scen = os.path.join(tmpdir, "scenarios.md")
+        original = open(scen, encoding="utf-8").read()
+        open(scen, "w", encoding="utf-8").write(original.replace("- status: initiated\n", "- status: verified\n"))
+        if "W5" in run_py(tmpdir, "tools/trace.py", "/dev/null").stdout:
+            failures.append("W5 po samej zmianie stanu rodzica")
+        open(scen, "w", encoding="utf-8").write(original.replace("zapisuje, potem porządkuje", "zapisuje i od razu porządkuje"))
+        r = run_py(tmpdir, "tools/trace.py", "/dev/null")
+        if "W5 UC-01: rodzic SC-01 zmienił się po weryfikacji VER-01" not in r.stdout:
+            failures.append("zmiana rodzica po weryfikacji nie dała W5:\n" + r.stdout)
+        open(scen, "w", encoding="utf-8").write(original)
+        # D-35: odtworzenie z kopii (lokalny bare jako origin)
+        backup = os.path.join(tmpdir, "..", os.path.basename(tmpdir) + "-kopia.git")
+        subprocess.run(["git", "init", "-q", "--bare", backup], capture_output=True)  # domyślna gałąź celowo inna niż main
+        git("remote", "add", "origin", backup)
+        git("push", "-q", "origin", "main")
+        r = run_py(tmpdir, "tools/restore_check.py")
+        if r.returncode != 0:
+            failures.append("restore_check nie przeszedł na świeżej kopii:\n" + r.stdout)
+        git("tag", "-a", "lokalny-tag", "-m", "x")
+        r = run_py(tmpdir, "tools/restore_check.py", "--record")
+        if r.returncode != 1 or "brak w kopii: lokalny-tag" not in r.stdout:
+            failures.append("restore_check nie wykrył tagu spoza kopii:\n" + r.stdout)
+        git("tag", "-d", "lokalny-tag")
+        verification = open(os.path.join(tmpdir, "verification.md"), encoding="utf-8").read()
+        if "- subject: repository" not in verification or "- failed: REPO.2" not in verification:
+            failures.append("restore_check --record nie dopisał rekordu VER")
+        r = run_py(tmpdir, "tools/trace.py")
+        if r.returncode != 0:
+            failures.append("rekord VER z subject: repository dał błędy śladu:\n" + r.stdout)
+        run_py(tmpdir, "tools/progress.py")
+        git("add", "-A")
+        if git("commit", "-q", "-m", "Sprawdzenie kopii (D-01)").returncode != 0:
+            failures.append("commit z rekordem odtworzenia został odrzucony")
+        shutil.rmtree(backup, ignore_errors=True)
         git("tag", "-a", "baseline-01-zakres", "-m", "Baseline")
         with open(os.path.join(tmpdir, "verification.md"), "a", encoding="utf-8") as f:
-            f.write("\n### VER-03 Przegląd CAP-01\n- items: CAP-01\n- date: 2026-10-14\n- result: pass\n")
+            f.write("\n### VER-04 Przegląd CAP-01\n- items: CAP-01\n- date: 2026-10-14\n- result: pass\n")
         run_py(tmpdir, "tools/trace.py")
         git("add", "-A")
         if git("commit", "-q", "-m", "Po baseline bez progress.md (D-01)").returncode == 0:

@@ -11,6 +11,7 @@
 #                    feature (tag "@ID" + komentarze "# pole: wartość"),
 #                    mermaid (komentarze "%% ID pole: wartość")
 #   root             true = element nie musi mieć rodzica
+#   root_if          "pole=wartość": element nie musi mieć rodzica tylko wtedy (np. VER z subject=repository, D-35)
 #   fields           pola, w których element wskazuje rodziców (P-03: dziecko podaje rodzica)
 #   parents          dozwolone kody typów rodziców
 #   parent_rules     opcjonalnie, gdy typ ma kilka pól rodzica: "pole: KOD|KOD [pole_rodzica=wartość]";
@@ -28,6 +29,8 @@
 #   produces         true = pole produces: wskazuje w dół kody typów lub ID (D-09, jawny wyjątek od P-03)
 #   results          dozwolone wartości pola result (rekordy)
 #   iso              produkt pracy ISO/IEC 29110-5-1-2, któremu odpowiada typ (D-12)
+#   qualities        dozwolone wartości pola quality (charakterystyki jakości z WP.13, D-33); trace.md
+#                    pokazuje, które charakterystyki nie mają jeszcze żadnego wymagania
 #   area_prefix      true = przedrostek ID to obszar (np. CAP); w tekście ciągłym nieznane ID tego typu
 #                    jest błędem E2 tylko wtedy, gdy jego obszar już występuje (np. „UTF-16” nie jest błędem)
 
@@ -75,6 +78,9 @@ cause = "cause"
 action = "action"
 mitigation = "mitigation"
 concerns = "concerns"
+quality = "quality"
+checklist = "checklist"
+failed = "failed"
 
 [[type]]
 code = "SC"
@@ -181,6 +187,8 @@ ears = true
 product = true
 area_prefix = true
 iso = "WP.13"
+optional = ["quality"]
+qualities = ["functional", "performance", "compatibility", "usability", "reliability", "security", "maintainability", "portability", "constraint", "legal"]
 
 [[type]]
 code = "E"
@@ -279,7 +287,8 @@ results = ["pass", "fail"]
 coverage = "COR:warning"
 coverage_if = "result=fail"
 iso = "WP.23"
-optional = ["by"]
+optional = ["by", "checklist", "failed", "subject"]
+root_if = "subject=repository"
 
 [[type]]
 code = "VAL"
@@ -293,7 +302,7 @@ results = ["pass", "fail"]
 coverage = "COR:warning"
 coverage_if = "result=fail"
 iso = "WP.22"
-optional = ["by"]
+optional = ["by", "checklist", "failed"]
 
 [[type]]
 code = "ACC"
