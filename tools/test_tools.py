@@ -1,4 +1,4 @@
-"""Test narzędzi śladu: pełny łańcuch wszystkich typów z id.toml, każdy błąd E1–E8, W1, W3 i rekord postępu.
+"""Test narzędzi śladu: pełny łańcuch wszystkich typów z id.toml, każdy błąd E1–E8, W1, W3, W4 i rekord postępu.
 
 Buduje kopię szablonu w katalogu tymczasowym z przykładowymi artefaktami (moduły
 nawigacji i ryzyk wdrożone), sprawdza, że jest bez błędów, a potem psuje ją na
@@ -60,6 +60,8 @@ OSTRZEZENIA = [
     ("W3", "requirements.md", "- source: IO-02, DP-01\n- status: initiated", "- source: IO-02, DP-01\n- status: verified", "W3 OUT-01"),
     ("W3", "requirements.md", "- source: RSK-01\n- status: initiated", "- source: RSK-01\n- status: approved", "W3 CAP-02"),
     ("W1", "corrections.md", "- cause: VER-02", "- cause: TSK-01", "W1 VER-02"),
+    ("W4", "risks.md", "- source: UC-01\n", "- source: UC-01\n- źródło: UC-01\n", "W4 RSK-01"),
+    ("W4", "plan.md", "- mitigation: mniejszy zakres\n", "- mitigation: mniejszy zakres\n- działanie: x\n", "W4 PRK-01"),
 ]
 
 
@@ -119,7 +121,7 @@ def main():
             porazki.append("W3 zgłoszone mimo rekordu VER-01 z wynikiem pass:\n" + r.stdout)
         open(sciezka, "w", encoding="utf-8").write(oryg)
         r = uruchom(kat, "tools/trace.py", "/dev/null")
-        if "W3" in r.stdout or "W1 VER" in r.stdout:
+        if "W3" in r.stdout or "W1 VER" in r.stdout or "W4" in r.stdout:
             porazki.append("łańcuch wzorcowy ma nieoczekiwane ostrzeżenia:\n" + r.stdout)
 
         r = uruchom(kat, "tools/progress.py")

@@ -20,15 +20,9 @@ Format:
 
 ### D-20 Nazwy spoza tabeli D-18
 - status: open
-- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które) · C) jak A, ale nazwy w kodzie Pythona też po angielsku (dziś po polsku: 21 z 33 funkcji i metod, atrybuty klas Element i Model, zmienne lokalne)
 - proposal: A
 - notes: założenia przyjęte przy wdrażaniu D-17: kod typu wymagań REQ (dawniej WYM); klucze w tools/id.toml po angielsku (code, pattern, file, fields, parents, required, statuses, coverage z poziomami error | warning…); pola artefaktów: source, scenarios, scope, established_by, changed_by, realizes, verifies, kind, rationale, release, person, interests, content, definition, distinct_from, exceptions, level, primary_actor, form, minimal_guarantee, success_guarantee, pattern, text, notes, measure, objective, due, tag, acceptance_criteria, milestone, produces, completed, deviation, concerns, mitigation, items, date, by, result, open_issues, cause, action, opened, impact, likelihood, severity; wartości: poziomy celu sea | kite | fish, zadania planned | in_progress | completed, ryzyka projektu open | closed, decyzje open | resolved | deferred, wyniki pass | fail i accepted | rejected, ryzyka produktu low | medium | high; w przypadku użycia brief | full w nowym polu form, bo status należy do stanów produktu; moduł nawigacji: klasy screen, modal, success, external i komentarz exception-dp01; kontrakt-decyzji.md zostaje pod polską nazwą; nazwy zmiennych i funkcji w kodzie Pythona zostają polskie
-
-### D-21 Ostrzeżenie o nieznanym polu
-- status: open
-- options: A) nowe ostrzeżenie W4: pole spoza listy znanych pól typu (łapie dawne polskie nazwy, np. źródło:, w polach opcjonalnych) · B) bez takiej kontroli
-- proposal: A
-- notes: dziś pomyłka w polu wymaganym daje błąd E1, a w polu opcjonalnym przechodzi po cichu
 
 ## W kolejce
 
@@ -39,6 +33,12 @@ Format:
 - notes: w gtd2 ID zostają (D-17); migrują nazwy pól, stanów i plików; 28 wymagań przechodzi z draft na initiated (D-11); każdy produkt dostaje status (D-14)
 
 ## Rozstrzygnięte
+
+### D-21 Ostrzeżenie o nieznanym polu
+- status: resolved
+- options: A) ostrzeżenie W4 dla pola spoza znanych pól typu · B) bez takiej kontroli
+- choice: A — znane pola: fields, required, nowy klucz optional w każdym typie id.toml oraz [project] common_fields (notes); test obejmuje dawne polskie nazwy
+- date: 2026-10-16
 
 ### D-19 Kolejność: język przed baseline
 - status: resolved

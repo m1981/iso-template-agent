@@ -14,6 +14,8 @@
 #   fields           pola, w których element wskazuje rodziców (P-03: dziecko podaje rodzica)
 #   parents          dozwolone kody typów rodziców
 #   required         pola, które muszą być niepuste
+#   optional         pozostałe dozwolone pola; pole spoza fields, required, optional i
+#                    [project] common_fields daje ostrzeżenie W4 (D-21)
 #   statuses         dozwolone wartości pola status
 #   coverage         "KOD:poziom,..." oczekiwane dzieci danego typu; poziom: error | warning;
 #                    KOD "*" = dowolne dziecko albo wzmianka w commicie
@@ -30,6 +32,8 @@ system = "System"      # podmiot wymagań EARS; zmień na nazwę swojego systemu
 # D-11: stany produktów pracy wprost z ISO/IEC 29110-5-1-2, tabela 12 (initiated, verified, approved).
 # Baseline nie jest stanem: wynika z tagów baseline-nn.
 product_states = ["initiated", "verified", "approved"]
+# Pola dozwolone w każdym typie (D-21).
+common_fields = ["notes"]
 # Produkty normy bez własnego typu elementów (D-12); pokazuje je trace.md.
 iso_other = ["WP.05 AGENTS.md", "WP.09 progress.md", "WP.11 repozytorium git", "WP.12 kopia na GitHubie (D-13)", "WP.21 trace.md"]
 
@@ -59,6 +63,7 @@ root = true
 coverage = "UC:warning"
 product = true
 iso = "WP.02"
+optional = ["person", "interests", "content"]
 
 [[type]]
 code = "IO"
@@ -71,6 +76,7 @@ coverage = "UC:warning"
 coverage_if = "kind=In"
 product = true
 iso = "WP.02"
+optional = ["rationale", "release"]
 
 [[type]]
 code = "D"
@@ -83,6 +89,7 @@ statuses = ["open", "resolved", "deferred"]
 coverage = "*:warning"
 coverage_if = "status=resolved"
 iso = "WP.03, WP.07"
+optional = ["options", "proposal", "choice", "date"]
 
 [[type]]
 code = "Q"
@@ -100,6 +107,7 @@ fields = ["established_by"]
 parents = ["D"]
 coverage = "REQ:warning"
 product = true
+optional = ["content", "exceptions"]
 
 [[type]]
 code = "G"
@@ -112,6 +120,7 @@ parents = ["D"]
 terms = true
 product = true
 iso = "WP.13"
+optional = ["definition", "distinct_from"]
 
 [[type]]
 code = "UC"
@@ -123,6 +132,7 @@ parents = ["SC", "IO"]
 coverage = "REQ:warning,E:warning"
 product = true
 iso = "WP.13"
+optional = ["level", "primary_actor", "form", "minimal_guarantee", "success_guarantee"]
 
 [[type]]
 code = "RSK"
@@ -133,6 +143,7 @@ fields = ["source"]
 parents = ["UC"]
 coverage = "REQ:error"
 product = true
+optional = ["impact", "likelihood", "severity"]
 
 [[type]]
 code = "REQ"
@@ -179,6 +190,7 @@ file = "plan.md"
 root = true
 coverage = "MS:warning"
 iso = "WP.10"
+optional = ["measure"]
 
 [[type]]
 code = "MS"
@@ -190,6 +202,7 @@ parents = ["OBJ"]
 required = ["due"]
 coverage = "TSK:warning"
 iso = "WP.10"
+optional = ["tag", "acceptance_criteria"]
 
 [[type]]
 code = "TSK"
@@ -202,6 +215,7 @@ required = ["status", "produces"]
 statuses = ["planned", "in_progress", "completed"]
 produces = true
 iso = "WP.10"
+optional = ["due", "completed", "deviation"]
 
 [[type]]
 code = "PRK"
@@ -227,6 +241,7 @@ parents = ["TSK", "MS", "PRK", "VER", "VAL", "ACC"]
 required = ["status", "action"]
 statuses = ["initiated", "approved", "completed"]
 iso = "WP.04"
+optional = ["by", "opened", "due"]
 
 [[type]]
 code = "VER"
@@ -240,6 +255,7 @@ results = ["pass", "fail"]
 coverage = "COR:warning"
 coverage_if = "result=fail"
 iso = "WP.23"
+optional = ["by"]
 
 [[type]]
 code = "VAL"
@@ -253,6 +269,7 @@ results = ["pass", "fail"]
 coverage = "COR:warning"
 coverage_if = "result=fail"
 iso = "WP.22"
+optional = ["by"]
 
 [[type]]
 code = "ACC"
@@ -266,3 +283,4 @@ results = ["accepted", "rejected"]
 coverage = "COR:warning"
 coverage_if = "result=rejected"
 iso = "WP.01"
+optional = ["by", "open_issues"]

@@ -154,11 +154,17 @@ class Model:
         self.stany = projekt.get("product_states", [])
         self.iso_inne = projekt.get("iso_other", [])
         self.pole = cfg.get("fields", {})  # rola → nazwa pola w artefaktach
+        self.wspolne = projekt.get("common_fields", [])
         self.typy = {}
         for t in cfg.get("type", []):
             if t.get("product"):
                 t["statuses"] = self.stany
                 t["required"] = list(t.get("required", [])) + [self.pole.get("status", "status")]  # D-14
+            t["znane"] = set(t.get("fields", []) + t.get("required", []) + t.get("optional", []) + self.wspolne)
+            if t.get("statuses"):
+                t["znane"].add(self.pole.get("status", "status"))
+            if t.get("produces"):
+                t["znane"].add(self.pole.get("produces", "produces"))
             t["re"] = re.compile(t["pattern"])
             t["pliki"] = sorted(glob.glob(os.path.join(korzen, t["file"])))
             t["aktywny"] = bool(t["pliki"])

@@ -12,6 +12,7 @@ Ostrzeżenia (warning):
   W1 brak oczekiwanego pokrycia (poziom „warning”)
   W2 rozstrzygnięta decyzja bez dzieci i bez wzmianki w commitach (tylko na ekranie)
   W3 produkt w stanie verified/approved bez weryfikacji VER z wynikiem „pass” (D-11, D-15)
+  W4 pole spoza znanych pól typu, np. dawna polska nazwa (D-21)
 
 Użycie: python3 tools/trace.py [plik_wyjściowy=trace.md]
 """
@@ -104,6 +105,8 @@ def main(wyjscie):
         for pole in t.get("required", []):
             if not e.pola.get(pole):
                 bledy.append(f"E1 {e.id}: brak pola „{pole}”")
+        for pole in sorted(set(e.pola) - t["znane"]):
+            ostrz.append(f"W4 {e.id}: nieznane pole „{pole}” (znane: {', '.join(sorted(t['znane']))})")
         if t.get("statuses") and e.pola.get(f_status) and e.pola[f_status] not in t["statuses"]:
             bledy.append(f"E4 {e.id}: status „{e.pola[f_status]}” spoza {t['statuses']}")
         if t.get("results") and e.pola.get(f_result) and e.pola[f_result] not in t["results"]:
