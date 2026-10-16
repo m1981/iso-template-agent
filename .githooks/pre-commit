@@ -2,6 +2,7 @@
 # Pre-commit (AGENTS.md, P-05):
 #  1. ślad według tools/id.toml (tools/trace.py) i aktualność trace.md,
 #  2. jeśli jest plan.md: aktualność progress.md (tools/progress.py),
+#  2a. aktualność iso-map.html (tools/iso_map.py),
 #  3. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność navigation-map.html.
 # Sprawdza pliki w katalogu roboczym. Włączenie w nowym klonie: make hooks
 cd "$(git rev-parse --show-toplevel)" || exit 1
@@ -30,6 +31,15 @@ if [ -f plan.md ]; then
   fi
   rm -f "$tmp"
 fi
+
+tmp=$(mktemp)
+python3 -B tools/iso_map.py "$tmp" > /dev/null
+if ! cmp -s "$tmp" iso-map.html; then
+  rm -f "$tmp"
+  echo "pre-commit: iso-map.html jest nieaktualna. Uruchom: make iso-map i dodaj plik do commita."
+  exit 1
+fi
+rm -f "$tmp"
 
 if [ -d navigation ]; then
   cd navigation || exit 1

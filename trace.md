@@ -15,10 +15,10 @@ Błędy: 0 · ostrzeżenia: 0
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
-| D-22 | D | — |
-| D-23 | D | — |
-| D-24 | D | — |
 | D-25 | D | — |
+| D-24 | D | — |
+| D-23 | D | — |
+| D-22 | D | — |
 | D-20 | D | — |
 | D-21 | D | — |
 | D-19 | D | — |
@@ -64,5 +64,5 @@ Błędy: 0 · ostrzeżenia: 0
 | WP.05 | AGENTS.md | — |
 | WP.09 | progress.md | — |
 | WP.11 | repozytorium git | — |
-| WP.12 | kopia na GitHubie (D-13) | — |
+| WP.12 | drugi remote (kopia zapasowa) | — |
 | WP.21 | trace.md | — |

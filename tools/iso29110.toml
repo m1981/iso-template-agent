@@ -1,0 +1,540 @@
+# Dane normy ISO/IEC 29110-5-1-2 (profil Basic) dla tools/iso_map.py (D-25).
+# Źródło: rozdział 09 (produkty pracy) oraz wejścia i wyjścia 72 zadań procesów PM i SI
+# (rozdziały 06 i 07), repozytorium m1981/iso-29110-5-1. To fakty z normy, bez naszej oceny;
+# ocena pokrycia jest w tools/id.toml ([project] iso_partial, iso_out_of_scope).
+# Zależność: produkt "from" jest wejściem zadania, którego wyjściem jest produkt "to".
+
+[[wp]]
+id = "WP.01"
+name = "Acceptance record"
+source = "Project management"
+
+[[wp]]
+id = "WP.02"
+name = "Agreement"
+source = "Customer Project management"
+
+[[wp]]
+id = "WP.03"
+name = "Change request"
+source = "Software implementation Customer Project management"
+
+[[wp]]
+id = "WP.04"
+name = "Correction register"
+source = "Project management"
+
+[[wp]]
+id = "WP.05"
+name = "Implementation environment"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.06"
+name = "Maintenance documentation"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.07"
+name = "Meeting record"
+source = "Project management"
+
+[[wp]]
+id = "WP.08"
+name = "Product operation guideline"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.09"
+name = "Progress status record"
+source = "Project management"
+
+[[wp]]
+id = "WP.10"
+name = "Project plan"
+source = "Project management"
+
+[[wp]]
+id = "WP.11"
+name = "Project repository"
+source = "Project management"
+
+[[wp]]
+id = "WP.12"
+name = "Project repository backup"
+source = "Project management"
+
+[[wp]]
+id = "WP.13"
+name = "Requirements specification"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.14"
+name = "Software"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.15"
+name = "Software components"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.16"
+name = "Software design"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.17"
+name = "Software product"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.18"
+name = "Software user documentation"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.19"
+name = "Test cases and test procedures"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.20"
+name = "Test report"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.21"
+name = "Traceability record"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.22"
+name = "Validation record"
+source = "Software implementation"
+
+[[wp]]
+id = "WP.23"
+name = "Verification record"
+source = "Project management Software implementation"
+
+[[edge]]
+from = "WP.01"
+to = "WP.11"
+tasks = ["PM.04.02"]
+
+[[edge]]
+from = "WP.02"
+to = "WP.03"
+tasks = ["PM.03.04"]
+
+[[edge]]
+from = "WP.02"
+to = "WP.07"
+tasks = ["PM.03.04"]
+
+[[edge]]
+from = "WP.02"
+to = "WP.10"
+tasks = ["PM.01.01", "PM.01.02", "PM.01.03", "PM.01.05", "PM.01.12"]
+
+[[edge]]
+from = "WP.02"
+to = "WP.11"
+tasks = ["PM.01.16"]
+
+[[edge]]
+from = "WP.02"
+to = "WP.13"
+tasks = ["SI.02.02"]
+
+[[edge]]
+from = "WP.02"
+to = "WP.21"
+tasks = ["SI.02.03"]
+
+[[edge]]
+from = "WP.03"
+to = "WP.07"
+tasks = ["PM.03.04"]
+
+[[edge]]
+from = "WP.04"
+to = "WP.03"
+tasks = ["PM.03.04"]
+
+[[edge]]
+from = "WP.04"
+to = "WP.07"
+tasks = ["PM.03.04"]
+
+[[edge]]
+from = "WP.05"
+to = "WP.19"
+tasks = ["SI.05.02"]
+
+[[edge]]
+from = "WP.06"
+to = "WP.17"
+tasks = ["SI.06.04"]
+
+[[edge]]
+from = "WP.06"
+to = "WP.23"
+tasks = ["SI.06.03"]
+
+[[edge]]
+from = "WP.07"
+to = "WP.03"
+tasks = ["PM.02.05"]
+
+[[edge]]
+from = "WP.07"
+to = "WP.10"
+tasks = ["PM.02.05"]
+
+[[edge]]
+from = "WP.08"
+to = "WP.11"
+tasks = ["SI.05.11"]
+
+[[edge]]
+from = "WP.08"
+to = "WP.23"
+tasks = ["SI.05.08"]
+
+[[edge]]
+from = "WP.09"
+to = "WP.03"
+tasks = ["PM.02.05", "PM.03.03", "PM.03.04"]
+
+[[edge]]
+from = "WP.09"
+to = "WP.04"
+tasks = ["PM.02.04", "PM.03.02"]
+
+[[edge]]
+from = "WP.09"
+to = "WP.07"
+tasks = ["PM.02.04", "PM.02.05", "PM.03.04"]
+
+[[edge]]
+from = "WP.09"
+to = "WP.10"
+tasks = ["PM.02.05"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.01"
+tasks = ["PM.04.01"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.03"
+tasks = ["PM.02.02", "PM.02.05", "SI.02.04"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.04"
+tasks = ["PM.02.04"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.05"
+tasks = ["SI.01.02"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.07"
+tasks = ["PM.01.14", "PM.02.04", "PM.02.05"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.09"
+tasks = ["PM.02.01", "PM.03.01"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.11"
+tasks = ["PM.01.15", "PM.01.16", "SI.06.05"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.12"
+tasks = ["PM.02.06"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.13"
+tasks = ["SI.02.04"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.17"
+tasks = ["PM.04.01", "SI.06.05"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.22"
+tasks = ["PM.01.13"]
+
+[[edge]]
+from = "WP.10"
+to = "WP.23"
+tasks = ["SI.02.04"]
+
+[[edge]]
+from = "WP.12"
+to = "WP.11"
+tasks = ["PM.02.07"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.03"
+tasks = ["SI.02.07", "SI.03.05"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.16"
+tasks = ["SI.03.03", "SI.03.05"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.17"
+tasks = ["SI.02.08"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.18"
+tasks = ["SI.02.06", "SI.02.07"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.19"
+tasks = ["SI.03.06", "SI.03.08"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.21"
+tasks = ["SI.02.03", "SI.03.02", "SI.03.04", "SI.03.05", "SI.03.08"]
+
+[[edge]]
+from = "WP.13"
+to = "WP.23"
+tasks = ["SI.02.07", "SI.03.05", "SI.03.08"]
+
+[[edge]]
+from = "WP.14"
+to = "WP.08"
+tasks = ["SI.05.07", "SI.05.08"]
+
+[[edge]]
+from = "WP.14"
+to = "WP.11"
+tasks = ["SI.05.11"]
+
+[[edge]]
+from = "WP.14"
+to = "WP.18"
+tasks = ["SI.05.09", "SI.05.10"]
+
+[[edge]]
+from = "WP.14"
+to = "WP.20"
+tasks = ["SI.05.04"]
+
+[[edge]]
+from = "WP.14"
+to = "WP.21"
+tasks = ["SI.05.06"]
+
+[[edge]]
+from = "WP.14"
+to = "WP.23"
+tasks = ["SI.05.08", "SI.05.10"]
+
+[[edge]]
+from = "WP.15"
+to = "WP.11"
+tasks = ["SI.04.07"]
+
+[[edge]]
+from = "WP.15"
+to = "WP.14"
+tasks = ["SI.05.03"]
+
+[[edge]]
+from = "WP.15"
+to = "WP.17"
+tasks = ["SI.04.07"]
+
+[[edge]]
+from = "WP.15"
+to = "WP.21"
+tasks = ["SI.04.06"]
+
+[[edge]]
+from = "WP.16"
+to = "WP.03"
+tasks = ["SI.03.05"]
+
+[[edge]]
+from = "WP.16"
+to = "WP.11"
+tasks = ["SI.03.09"]
+
+[[edge]]
+from = "WP.16"
+to = "WP.15"
+tasks = ["SI.04.03"]
+
+[[edge]]
+from = "WP.16"
+to = "WP.19"
+tasks = ["SI.03.06", "SI.03.08", "SI.04.04"]
+
+[[edge]]
+from = "WP.16"
+to = "WP.21"
+tasks = ["SI.03.04", "SI.03.05", "SI.03.08"]
+
+[[edge]]
+from = "WP.16"
+to = "WP.23"
+tasks = ["SI.03.05", "SI.03.08"]
+
+[[edge]]
+from = "WP.17"
+to = "WP.01"
+tasks = ["PM.04.01"]
+
+[[edge]]
+from = "WP.17"
+to = "WP.06"
+tasks = ["SI.06.02", "SI.06.03"]
+
+[[edge]]
+from = "WP.17"
+to = "WP.11"
+tasks = ["SI.06.05"]
+
+[[edge]]
+from = "WP.17"
+to = "WP.23"
+tasks = ["SI.06.03"]
+
+[[edge]]
+from = "WP.18"
+to = "WP.03"
+tasks = ["SI.02.07"]
+
+[[edge]]
+from = "WP.18"
+to = "WP.11"
+tasks = ["SI.05.11"]
+
+[[edge]]
+from = "WP.18"
+to = "WP.17"
+tasks = ["SI.02.08"]
+
+[[edge]]
+from = "WP.18"
+to = "WP.23"
+tasks = ["SI.02.07"]
+
+[[edge]]
+from = "WP.19"
+to = "WP.11"
+tasks = ["SI.03.09", "SI.05.11"]
+
+[[edge]]
+from = "WP.19"
+to = "WP.14"
+tasks = ["SI.05.03", "SI.05.04"]
+
+[[edge]]
+from = "WP.19"
+to = "WP.15"
+tasks = ["SI.04.05"]
+
+[[edge]]
+from = "WP.19"
+to = "WP.20"
+tasks = ["SI.05.04", "SI.05.05"]
+
+[[edge]]
+from = "WP.19"
+to = "WP.21"
+tasks = ["SI.03.07", "SI.03.08", "SI.04.06", "SI.05.06"]
+
+[[edge]]
+from = "WP.19"
+to = "WP.23"
+tasks = ["SI.03.08"]
+
+[[edge]]
+from = "WP.20"
+to = "WP.11"
+tasks = ["SI.05.11"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.03"
+tasks = ["PM.02.02", "SI.02.04", "SI.02.05", "SI.02.07", "SI.03.05"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.11"
+tasks = ["SI.03.09", "SI.04.07", "SI.05.11", "SI.06.05"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.13"
+tasks = ["SI.02.04", "SI.03.02"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.14"
+tasks = ["SI.05.03"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.15"
+tasks = ["SI.04.05"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.16"
+tasks = ["SI.03.05", "SI.04.02"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.17"
+tasks = ["SI.02.08", "SI.04.07", "SI.06.05"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.18"
+tasks = ["SI.02.07"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.19"
+tasks = ["SI.03.06", "SI.03.08", "SI.04.04", "SI.05.02"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.20"
+tasks = ["SI.05.05"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.22"
+tasks = ["SI.02.05"]
+
+[[edge]]
+from = "WP.21"
+to = "WP.23"
+tasks = ["SI.02.04", "SI.02.07", "SI.03.05", "SI.03.08"]

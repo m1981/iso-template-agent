@@ -25,7 +25,7 @@ Format:
 
 ## Terminy procesu (ISO/IEC 29110)
 
-Nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku i odpowiadają terminom normy ISO/IEC 29110-5-1-2 (D-17, D-18). Ta tabela jest jedynym miejscem tłumaczenia; treść dokumentów i rozmowa są po polsku.
+Nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku i odpowiadają terminom normy ISO/IEC 29110-5-1-2. Ta tabela jest jedynym miejscem tłumaczenia; treść dokumentów i rozmowa są po polsku.
 
 | Termin normy | Po polsku | U nas |
 | --- | --- | --- |
@@ -40,7 +40,7 @@ Nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku i odpowi
 | validation record (WP.22) | rekord walidacji | validation.md: VAL-nn |
 | acceptance record (WP.01) | rekord akceptacji | acceptance.md: ACC-nn |
 | traceability record (WP.21) | rekord śladu | trace.md (generowany) |
-| project repository (WP.11) · backup (WP.12) | repozytorium · kopia zapasowa | git · GitHub (D-13) |
+| project repository (WP.11) · backup (WP.12) | repozytorium · kopia zapasowa | git · drugi remote, np. GitHub |
 | baseline | linia bazowa | tag `baseline-nn-nazwa` |
 | requirements specification (WP.13) | specyfikacja wymagań | requirements.md, use-cases.md, glossary.md |
 

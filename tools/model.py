@@ -38,34 +38,46 @@ def _value(s, where):
     raise ValueError(f"{where}: nieobsługiwana wartość: {s}")
 
 
-def load_toml(fpath):
-    try:
-        import tomllib  # Python 3.11+
-        with open(fpath, "rb") as f:
-            return tomllib.load(f)
-    except ImportError:
-        pass
-    data, current = {}, None
+def load_toml(fpath, fallback=False):
+    """TOML przez tomllib (Python 3.11+), a bez niego przez parser podzbioru poniżej.
+    fallback=True wymusza parser podzbioru (test zgodności obu dróg)."""
+    if not fallback:
+        try:
+            import tomllib  # Python 3.11+
+            with open(fpath, "rb") as f:
+                return tomllib.load(f)
+        except ImportError:
+            pass
+    data = {}
     current = data
     with open(fpath, encoding="utf-8") as f:
-        for lineno, lineno in enumerate(f, 1):
-            s = _strip_comment(lineno).strip()
-            if not s:
-                continue
-            where = f"{fpath}:{lineno}"
-            m = re.fullmatch(r"\[\[(\w+)\]\]", s)
-            if m:
-                current = {}
-                data.setdefault(m.group(1), []).append(current)
-                continue
-            m = re.fullmatch(r"\[(\w+)\]", s)
-            if m:
-                current = data.setdefault(m.group(1), {})
-                continue
-            m = re.fullmatch(r"(\w+)\s*=\s*(.+)", s)
-            if not m:
-                raise ValueError(f"{where}: nieobsługiwana składnia: {s}")
-            current[m.group(1)] = _value(m.group(2), where)
+        lines = list(enumerate(f, 1))
+    i = 0
+    while i < len(lines):
+        lineno, line = lines[i]
+        i += 1
+        s = _strip_comment(line).strip()
+        if not s:
+            continue
+        where = f"{fpath}:{lineno}"
+        # lista rozpisana na kilka linii: "klucz = [" … aż do linii z "]"
+        if re.fullmatch(r"\w+\s*=\s*\[[^\]]*", s):
+            while i < len(lines) and "]" not in s:
+                s += " " + _strip_comment(lines[i][1]).strip()
+                i += 1
+        m = re.fullmatch(r"\[\[(\w+)\]\]", s)
+        if m:
+            current = {}
+            data.setdefault(m.group(1), []).append(current)
+            continue
+        m = re.fullmatch(r"\[(\w+)\]", s)
+        if m:
+            current = data.setdefault(m.group(1), {})
+            continue
+        m = re.fullmatch(r"(\w+)\s*=\s*(.+)", s)
+        if not m:
+            raise ValueError(f"{where}: nieobsługiwana składnia: {s}")
+        current[m.group(1)] = _value(m.group(2), where)
     return data
 
 

@@ -1,6 +1,6 @@
 # Wymagania (EARS)
 
-Wymagania systemowe w składni EARS, po angielsku, z podmiotem ustawionym w tools/id.toml (`system`). Wymaganie podaje tylko swoje źródło (P-03); pochodne i pokrycie testami pokazuje trace.md. Status to jeden ze stanów produktów pracy (D-11): `initiated`, `verified` (jest rekord VER z wynikiem `pass`), `approved` (wymaga decyzji D-nn, P-08). ID: trzy litery obszaru i numer, np. CAP-nn dla przechwytywania; prefiksy RSK, PRK, OBJ, TSK, COR, VER, VAL i ACC są zarezerwowane dla innych typów (tools/id.toml).
+Wymagania systemowe w składni EARS, po angielsku, z podmiotem ustawionym w tools/id.toml (`system`). Wymaganie podaje tylko swoje źródło (P-03); pochodne i pokrycie testami pokazuje trace.md. Status to jeden ze stanów produktów pracy: `initiated`, `verified` (jest rekord VER z wynikiem `pass`), `approved` (wymaga decyzji D-nn, P-08). ID: trzy litery obszaru i numer, np. CAP-nn dla przechwytywania; prefiksy RSK, PRK, OBJ, TSK, COR, VER, VAL i ACC są zarezerwowane dla innych typów (tools/id.toml).
 
 Wzorce EARS i to, co sprawdza trace.py:
 

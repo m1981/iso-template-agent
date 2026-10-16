@@ -1,6 +1,6 @@
 # Plan projektu
 
-Część zarządcza planu (D-08), wzorowana na ISO/IEC 29110-5-1-2 WP.10: co powstaje, po co i kiedy. Jak pracujemy (ślad, zmiany, rola agenta) opisuje AGENTS.md. Cele, kamienie milowe, zadania i ryzyka projektu mają ID (D-09), więc ślad i rekord postępu (progress.md, generowany) widzą plan tak samo jak specyfikację.
+Część zarządcza planu, wzorowana na ISO/IEC 29110-5-1-2 WP.10: co powstaje, po co i kiedy. Jak pracujemy (ślad, zmiany, rola agenta) opisuje AGENTS.md. Cele, kamienie milowe, zadania i ryzyka projektu mają ID, więc ślad i rekord postępu (progress.md, generowany) widzą plan tak samo jak specyfikację.
 
 Plan zmienia się jak każdy artefakt: edycja, przegląd diffu, commit z ID. Zmiana celu albo terminu kamienia wymaga decyzji D-nn.
 
@@ -16,7 +16,7 @@ Uzupełnij: kto (Użytkownik, agent), ile czasu tygodniowo, narzędzia (git, pyt
 ## Wersjonowanie i dostarczenie
 - repozytorium: git, jedyne źródło prawdy (P-01); lokalizacja: uzupełnij
 - wersje: commity z ID (P-07); baseline'y: tagi `baseline-nn-nazwa` przypisane do kamieni milowych (pole `tag:`)
-- kopia zapasowa i odtwarzanie (WP.12): drugi remote na GitHubie (D-13); push z tagami (`make hooks` ustawia push.followTags); odtworzenie = `git clone`
+- kopia zapasowa i odtwarzanie (WP.12): drugi remote, np. prywatne repozytorium na GitHubie (uzupełnij adres); push z tagami (`make hooks` ustawia push.followTags); odtworzenie = `git clone`
 - dostarczenie: uzupełnij, co i w jakiej postaci otrzymuje odbiorca
 
 ## Cele
@@ -39,7 +39,7 @@ Kamień milowy kończy się baseline'em: gdy w repozytorium jest tag z pola `tag
 ```
 
 ## Zadania
-Zadanie wskazuje kamień (`milestone:`) i to, co wytwarza (`produces:`): kody typów (np. `UC, REQ`) albo konkretne ID. `produces:` jest jedynym polem wskazującym w dół, jawnym wyjątkiem od P-03 (D-09). Weryfikacje, walidacje i przeglądy też są zadaniami.
+Zadanie wskazuje kamień (`milestone:`) i to, co wytwarza (`produces:`): kody typów (np. `UC, REQ`) albo konkretne ID. `produces:` jest jedynym polem wskazującym w dół, jawnym wyjątkiem od P-03. Weryfikacje, walidacje i przeglądy też są zadaniami.
 
 ```
 ### TSK-nn Tytuł zadania

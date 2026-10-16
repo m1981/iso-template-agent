@@ -18,39 +18,49 @@ Format:
 
 ## Otwarte
 
-### D-22 Historia szablonu przy starcie nowego projektu
-- status: open
-- options: A) polecenie make new-project: przenosi rejestr szablonu (D-01…), trace.md i progress.md do archive/template/ i zostawia pusty rejestr z samym formatem · B) instrukcja w README, czyszczenie ręczne · C) bez zmian, nowy projekt dziedziczy historię szablonu
-- proposal: A
-- notes: dziś kopia szablonu przenosi do nowego projektu nasze decyzje D-01…D-21 jako jego własne; dotyczy baseline'u szablonu
-
-### D-23 Przegląd szablonu przed baseline
-- status: open
-- options: A) niezależny przegląd przez osobnego agenta bez kontekstu tej rozmowy: spójność plików, nazw, poleceń i README; usterki jako lista do decyzji · B) bez przeglądu
-- proposal: A
-- notes: AGENTS.md, kolejność wdrażania, punkt 7; po dwóch dużych zmianach nazw (D-17, D-20) ryzyko pominiętych odwołań w tekście
-
-### D-24 Nazwa i miejsce baseline'u szablonu
-- status: open
-- options: A) tag baseline-01-szablon na commicie po D-22 i D-23, tworzony na Macu i wypychany stamtąd · B) inna nazwa (wskaż)
-- proposal: A
-- notes: ta sesja nie może wypychać tagów na GitHuba (HTTP 403), więc tag powstaje na Macu; baseline-00-przed-en też czeka tam na push
-
-### D-25 Zakres odświeżenia strony ISO (Q-01)
-- status: open
-- options: A) strona generowana w repozytorium z tools/id.toml (pole iso) przez skrypt, sprawdzana przez pre-commit jak trace.md, więc nie może się zestarzeć; opublikowana kopia odświeżana z niej · B) ręczna aktualizacja obu opublikowanych stron (ISO i „Model śledzalności”) · C) ręcznie tylko strona ISO, strona „Model śledzalności” do archiwum
-- proposal: A
-- notes: obie strony pokazują stan sprzed D-08…D-21 (polskie kody, braki już uzupełnione)
+Brak otwartych decyzji.
 
 ## W kolejce
 
 ### Q-01 Strona „ISO 29110 a nasz model śladu” po rozszerzeniu
-- notes: kolory pokrycia na stronie pokazują stan sprzed D-08…D-19; odświeżyć
+- notes: kolory pokrycia na stronie pokazują stan sprzed D-08…D-19; odświeżyć. Zrobione w D-25 (2026-10-16).
 
 ### Q-02 Przeniesienie zmian szablonu do gtd2
 - notes: w gtd2 ID zostają (D-17); migrują nazwy pól, stanów i plików; 28 wymagań przechodzi z draft na initiated (D-11); każdy produkt dostaje status (D-14)
 
 ## Rozstrzygnięte
+
+### D-25 Zakres odświeżenia strony ISO (Q-01)
+- status: resolved
+- options: A) strona generowana w repozytorium z tools/id.toml (pole iso) przez skrypt, sprawdzana przez pre-commit jak trace.md, więc nie może się zestarzeć; opublikowana kopia odświeżana z niej · B) ręczna aktualizacja obu opublikowanych stron (ISO i „Model śledzalności”) · C) ręcznie tylko strona ISO, strona „Model śledzalności” do archiwum
+- proposal: A
+- choice: A — tools/iso29110.toml (dane normy), ocena w id.toml (iso_partial, iso_out_of_scope), tools/iso_map.py → iso-map.html sprawdzana przez pre-commit; opublikowana strona odświeżona; sekcja „Model śladu” zastępuje stronę „Model śledzalności”
+- date: 2026-10-16
+- notes: obie strony pokazują stan sprzed D-08…D-21 (polskie kody, braki już uzupełnione)
+
+### D-24 Nazwa i miejsce baseline'u szablonu
+- status: resolved
+- options: A) tag baseline-01-szablon na commicie po D-22 i D-23, tworzony na Macu i wypychany stamtąd · B) inna nazwa (wskaż)
+- proposal: A
+- choice: A — wykonanie po rozstrzygnięciu usterek z przeglądu (D-23), na Macu
+- date: 2026-10-16
+- notes: ta sesja nie może wypychać tagów na GitHuba (HTTP 403), więc tag powstaje na Macu; baseline-00-przed-en też czeka tam na push
+
+### D-23 Przegląd szablonu przed baseline
+- status: resolved
+- options: A) niezależny przegląd przez osobnego agenta bez kontekstu tej rozmowy: spójność plików, nazw, poleceń i README; usterki jako lista do decyzji · B) bez przeglądu
+- proposal: A
+- choice: A — przegląd przez osobnego agenta 2026-10-16; usterki jako osobne decyzje
+- date: 2026-10-16
+- notes: AGENTS.md, kolejność wdrażania, punkt 7; po dwóch dużych zmianach nazw (D-17, D-20) ryzyko pominiętych odwołań w tekście
+
+### D-22 Historia szablonu przy starcie nowego projektu
+- status: resolved
+- options: A) polecenie make new-project: przenosi rejestr szablonu (D-01…), trace.md i progress.md do archive/template/ i zostawia pusty rejestr z samym formatem · B) instrukcja w README, czyszczenie ręczne · C) bez zmian, nowy projekt dziedziczy historię szablonu
+- proposal: A
+- choice: A — tools/new_project.py (make new-project): przenosi decisions.md, trace.md, progress.md do archive/template/, zakłada rejestr z D-01; odmawia przy niezacommitowanych zmianach i przy drugim uruchomieniu; artefakty szablonu nie powołują się już na decyzje szablonu; test na kopii całego szablonu
+- date: 2026-10-16
+- notes: dziś kopia szablonu przenosi do nowego projektu nasze decyzje D-01…D-21 jako jego własne; dotyczy baseline'u szablonu
 
 ### D-20 Nazwy spoza tabeli D-18
 - status: resolved

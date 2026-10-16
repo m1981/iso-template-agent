@@ -83,6 +83,22 @@ def prepare(tmpdir):
 
 def main():
     failures = []
+    # parser zastępczy (Python < 3.11, np. 3.10 na Macu) musi dawać to samo co tomllib
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import model as M
+    for name in ("id.toml", "iso29110.toml"):
+        fpath = os.path.join(ROOT, "tools", name)
+        if M.load_toml(fpath, fallback=True) != M.load_toml(fpath):
+            failures.append(f"parser zastępczy czyta tools/{name} inaczej niż tomllib")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        zly = os.path.join(tmpdir, "zly.toml")
+        open(zly, "w", encoding="utf-8").write('a = "x"\n\nb = nie-napis\n')
+        try:
+            M.load_toml(zly, fallback=True)
+            failures.append("parser zastępczy przyjął niepoprawną wartość")
+        except ValueError as e:
+            if f"{zly}:3:" not in str(e):
+                failures.append(f"komunikat parsera zastępczego nie podaje numeru linii: {e}")
     with tempfile.TemporaryDirectory() as tmpdir:
         prepare(tmpdir)
         r = run_py(tmpdir, "tools/trace.py")
@@ -140,6 +156,11 @@ def main():
         git("config", "core.hooksPath", ".githooks")
         run_py(tmpdir, "tools/trace.py")
         run_py(tmpdir, "tools/progress.py")
+        run_py(tmpdir, "tools/iso_map.py")
+        iso_map = open(os.path.join(tmpdir, "iso-map.html"), encoding="utf-8").read()
+        for expected in ('<td>WP.10</td><td>Project plan</td>', 'TSK -.-&gt;|"produces (w dół)"|', "class WP01,"):
+            if expected not in iso_map:
+                failures.append(f"iso-map.html nie zawiera: {expected}")
         git("add", "-A")
         if git("commit", "-q", "-m", "bez identyfikatora").returncode == 0:
             failures.append("commit-msg przepuścił opis bez ID")
@@ -160,15 +181,71 @@ def main():
         r = git("commit", "-q", "-m", "Po baseline (D-01)")
         if r.returncode != 0:
             failures.append("commit z aktualnym progress.md został odrzucony:\n" + r.stdout + r.stderr)
+        with open(os.path.join(tmpdir, "iso-map.html"), "a", encoding="utf-8") as f:
+            f.write("x\n")
+        git("add", "-A")
+        if git("commit", "-q", "-m", "Zmiana strony (D-01)").returncode == 0:
+            failures.append("pre-commit przepuścił nieaktualny iso-map.html")
+        git("checkout", "HEAD", "--", "iso-map.html")
         with open(os.path.join(tmpdir, "trace.md"), "a", encoding="utf-8") as f:
             f.write("x\n")
         git("add", "-A")
         if git("commit", "-q", "-m", "Zmiana (D-01)").returncode == 0:
             failures.append("pre-commit przepuścił nieaktualny trace.md")
 
+        # D-22: start nowego projektu z kopii szablonu
+        r = run_py(tmpdir, "tools/new_project.py")
+        if r.returncode == 0:
+            failures.append("new_project.py zadziałał mimo niezacommitowanych zmian")
+        git("checkout", "HEAD", "--", "trace.md")
+        r = run_py(tmpdir, "tools/new_project.py")
+        archive = os.path.join(tmpdir, "archive", "template")
+        if r.returncode != 0:
+            failures.append("new_project.py odmówił na czystym repozytorium:\n" + r.stdout + r.stderr)
+        for name in ("decisions.md", "trace.md", "progress.md"):
+            if not os.path.exists(os.path.join(archive, name)):
+                failures.append(f"new_project.py nie przeniósł {name} do archive/template/")
+        nowy = open(os.path.join(tmpdir, "decisions.md"), encoding="utf-8").read()
+        if "### D-01 Start projektu z szablonu" not in nowy or "### D-02" in nowy:
+            failures.append("nowy decisions.md nie zawiera samej decyzji D-01")
+        git("add", "-A")
+        r = git("commit", "-q", "-m", "Start projektu (D-01)")
+        if r.returncode != 0:
+            failures.append("pierwszy commit nowego projektu został odrzucony:\n" + r.stdout + r.stderr)
+        if run_py(tmpdir, "tools/new_project.py").returncode == 0:
+            failures.append("new_project.py zadziałał drugi raz")
+
+    # D-22 na prawdziwych plikach: kopia całego szablonu z modułem ryzyk, start projektu, pierwszy commit
+    # (moduł nawigacji ma przykładową mapę z UC-01 do zastąpienia, więc sprawdza go pierwsza część testu)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        copy = os.path.join(tmpdir, "projekt")
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns(".git", "__pycache__", "archive"))
+        shutil.copy(os.path.join(copy, "modules", "risks", "risks.md"), copy)
+
+        def git2(*a):
+            return subprocess.run(["git", *a], cwd=copy, capture_output=True, text=True)
+        git2("init", "-q", "-b", "main")
+        git2("config", "user.name", "test"), git2("config", "user.email", "test@example.com")
+        git2("config", "core.hooksPath", ".githooks")
+        run_py(copy, "tools/trace.py"), run_py(copy, "tools/progress.py")
+        git2("add", "-A")
+        r = git2("commit", "-q", "-m", "Kopia szablonu (D-01)")
+        if r.returncode != 0:
+            failures.append("commit kopii szablonu został odrzucony:\n" + r.stdout + r.stderr)
+        r = run_py(copy, "tools/new_project.py")
+        if r.returncode != 0:
+            failures.append("new_project.py na kopii szablonu nie zadziałał:\n" + r.stdout + r.stderr)
+        r = run_py(copy, "tools/trace.py")
+        if r.returncode != 0:
+            failures.append("po new_project.py ślad kopii szablonu ma błędy:\n" + r.stdout)
+        git2("add", "-A")
+        r = git2("commit", "-q", "-m", "Start projektu (D-01)")
+        if r.returncode != 0:
+            failures.append("pierwszy commit projektu z kopii szablonu został odrzucony:\n" + r.stdout + r.stderr)
+
     for p in failures:
         print("NIE:", p)
-    print(f"test_tools: {len(BREAKAGES)} psuć, {len(WARNINGS)} ostrzeżeń, postęp, hooki commit-msg i pre-commit — {'OK' if not failures else f'{len(failures)} porażek'}")
+    print(f"test_tools: {len(BREAKAGES)} psuć, {len(WARNINGS)} ostrzeżeń, postęp, new-project, hooki commit-msg i pre-commit — {'OK' if not failures else f'{len(failures)} porażek'}")
     return 1 if failures else 0
 
 

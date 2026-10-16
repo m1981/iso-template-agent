@@ -35,7 +35,25 @@ product_states = ["initiated", "verified", "approved"]
 # Pola dozwolone w każdym typie (D-21).
 common_fields = ["notes"]
 # Produkty normy bez własnego typu elementów (D-12); pokazuje je trace.md.
-iso_other = ["WP.05 AGENTS.md", "WP.09 progress.md", "WP.11 repozytorium git", "WP.12 kopia na GitHubie (D-13)", "WP.21 trace.md"]
+iso_other = ["WP.05 AGENTS.md", "WP.09 progress.md", "WP.11 repozytorium git", "WP.12 drugi remote (kopia zapasowa)", "WP.21 trace.md"]
+# Ocena pokrycia dla strony iso-map.html (D-25): "WP.nn powód". Produkt bez typu i bez wpisu w iso_other
+# ani w poniższych listach jest brakiem. Dane normy (nazwy, zależności): tools/iso29110.toml.
+iso_partial = [
+  "WP.05 narzędzia opisane w AGENTS.md i plan.md; środowisko implementacji przyjdzie z etapem kodu",
+  "WP.07 rejestr decyzji bez listy uczestników i ustaleń, które nie są decyzjami",
+  "WP.09 bez zasobów i kosztów, bo plan ich nie śledzi",
+  "WP.10 bez szacunku pracochłonności i kosztów",
+  "WP.16 tylko ekrany (moduł nawigacji); architektura i projekt szczegółowy z etapem kodu",
+]
+iso_out_of_scope = [
+  "WP.06 etap utrzymania",
+  "WP.08 etap eksploatacji",
+  "WP.14 etap kodu",
+  "WP.15 etap kodu",
+  "WP.17 etap kodu",
+  "WP.18 etap kodu",
+  "WP.20 etap kodu",
+]
 
 # Nazwy pól, które skrypty czytają wprost (poza fields i required typów). Zmiana nazwy pola = zmiana tutaj.
 [fields]

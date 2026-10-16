@@ -4,7 +4,7 @@ Szablon repozytorium do prowadzenia specyfikacji przez człowieka z agentem LLM.
 
 ## Start
 
-1. Skopiuj repozytorium pod nową nazwą i uruchom `make hooks`.
+1. Skopiuj repozytorium pod nową nazwą, uruchom `make hooks` i `make new-project` (historia szablonu trafia do `archive/template/`, rejestr zaczyna się od D-01), potem ustaw własny remote.
 2. W `tools/id.toml` ustaw `system` (podmiot wymagań EARS).
 3. Uzupełnij `plan.md`: produkt i zakres, cele, kamienie milowe, zadania.
 4. Pracuj według `AGENTS.md`: słownik, scenki, zakres, przypadki użycia, wymagania, testy.
@@ -18,7 +18,7 @@ Wymagany jest tylko `python3` (3.8+) i `git`; skrypty nie mają zależności.
 
 Hooki w `.githooks` blokują commit, gdy ślad ma błędy, `trace.md` lub `progress.md` jest nieaktualny albo opis commita nie wskazuje żadnego istniejącego ID.
 
-Część zarządcza jest wzorowana na ISO/IEC 29110-5-1-2 (profil Basic dla małych zespołów): każdy typ elementu w `id.toml` ma pole `iso` z odpowiadającym mu produktem pracy, a `trace.md` pokazuje to mapowanie. Plan (`plan.md`) i rekordy (`corrections.md`, `verification.md`, `validation.md`, `acceptance.md`) mają ID jak specyfikacja, więc `tools/progress.py` generuje z nich rekord postępu (`progress.md`).
+Część zarządcza jest wzorowana na ISO/IEC 29110-5-1-2 (profil Basic dla małych zespołów): każdy typ elementu w `id.toml` ma pole `iso` z odpowiadającym mu produktem pracy, a `trace.md` pokazuje to mapowanie. Plan (`plan.md`) i rekordy (`corrections.md`, `verification.md`, `validation.md`, `acceptance.md`) mają ID jak specyfikacja, więc `tools/progress.py` generuje z nich rekord postępu (`progress.md`). `tools/iso_map.py` generuje `iso-map.html`: zależności między 23 produktami normy (dane w `tools/iso29110.toml`) i ich pokrycie przez model, z oceną w `id.toml`.
 
 Język: nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku i odpowiadają terminom normy; treść jest po polsku. Tabela tłumaczeń jest w `glossary.md`.
 
@@ -36,5 +36,6 @@ Język: nazwy w warstwie maszynowej (kody, pola, stany, pliki) są po angielsku 
 | scenarios.md, scope.md | skąd biorą się cele: opowieści użytkownika, In/Out, aktorzy i cele |
 | use-cases.md, requirements.md, tests/ | specyfikacja i kryteria akceptacji |
 | trace.md | macierz śladu (generowana) |
+| iso-map.html | zgodność z ISO/IEC 29110 (generowana) |
 | tools/ | model śladu, skrypty i ich test (`make test`) |
 | modules/ | nawigacja, ryzyka, model stanów |
