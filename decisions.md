@@ -18,7 +18,29 @@ Format:
 
 ## Otwarte
 
-Brak otwartych decyzji.
+### D-22 Historia szablonu przy starcie nowego projektu
+- status: open
+- options: A) polecenie make new-project: przenosi rejestr szablonu (D-01…), trace.md i progress.md do archive/template/ i zostawia pusty rejestr z samym formatem · B) instrukcja w README, czyszczenie ręczne · C) bez zmian, nowy projekt dziedziczy historię szablonu
+- proposal: A
+- notes: dziś kopia szablonu przenosi do nowego projektu nasze decyzje D-01…D-21 jako jego własne; dotyczy baseline'u szablonu
+
+### D-23 Przegląd szablonu przed baseline
+- status: open
+- options: A) niezależny przegląd przez osobnego agenta bez kontekstu tej rozmowy: spójność plików, nazw, poleceń i README; usterki jako lista do decyzji · B) bez przeglądu
+- proposal: A
+- notes: AGENTS.md, kolejność wdrażania, punkt 7; po dwóch dużych zmianach nazw (D-17, D-20) ryzyko pominiętych odwołań w tekście
+
+### D-24 Nazwa i miejsce baseline'u szablonu
+- status: open
+- options: A) tag baseline-01-szablon na commicie po D-22 i D-23, tworzony na Macu i wypychany stamtąd · B) inna nazwa (wskaż)
+- proposal: A
+- notes: ta sesja nie może wypychać tagów na GitHuba (HTTP 403), więc tag powstaje na Macu; baseline-00-przed-en też czeka tam na push
+
+### D-25 Zakres odświeżenia strony ISO (Q-01)
+- status: open
+- options: A) strona generowana w repozytorium z tools/id.toml (pole iso) przez skrypt, sprawdzana przez pre-commit jak trace.md, więc nie może się zestarzeć; opublikowana kopia odświeżana z niej · B) ręczna aktualizacja obu opublikowanych stron (ISO i „Model śledzalności”) · C) ręcznie tylko strona ISO, strona „Model śledzalności” do archiwum
+- proposal: A
+- notes: obie strony pokazują stan sprzed D-08…D-21 (polskie kody, braki już uzupełnione)
 
 ## W kolejce
 
