@@ -12,15 +12,39 @@ ROOT = os.path.dirname(TOOLS_DIR)
 
 # ---------- id.toml (podzbiór TOML: [tabela], [[tablica]], napisy, true/false, listy napisów)
 
-def _strip_comment(lineno):
-    in_string, prev = False, ""
-    for i, z in enumerate(lineno):
-        if z == '"' and prev != "\\":
-            in_string = not in_string
-        elif z == "#" and not in_string:
-            return lineno[:i]
-        prev = z
-    return lineno
+def _scan(line):
+    """Znaki linii poza napisami TOML: (indeks, znak); napisy "…" z ucieczkami \\ są pomijane."""
+    in_string, escaped = False, False
+    for i, ch in enumerate(line):
+        if in_string:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_string = False
+        elif ch == '"':
+            in_string = True
+        else:
+            yield i, ch
+
+
+def _strip_comment(line):
+    for i, ch in _scan(line):
+        if ch == "#":
+            return line[:i]
+    return line
+
+
+def _list_closed(value):
+    """Czy wartość zaczynająca się od „[” ma już zamykający „]” poza napisami."""
+    depth = 0
+    for _, ch in _scan(value):
+        if ch == "[":
+            depth += 1
+        elif ch == "]":
+            depth -= 1
+    return depth <= 0
 
 
 def _unescape(s):
@@ -60,9 +84,10 @@ def load_toml(fpath, fallback=False):
         if not s:
             continue
         where = f"{fpath}:{lineno}"
-        # lista rozpisana na kilka linii: "klucz = [" … aż do linii z "]"
-        if re.fullmatch(r"\w+\s*=\s*\[[^\]]*", s):
-            while i < len(lines) and "]" not in s:
+        # lista rozpisana na kilka linii: "klucz = [" … aż do zamykającego "]" poza napisami
+        m = re.fullmatch(r"\w+\s*=\s*(\[.*)", s)
+        if m and not _list_closed(m.group(1)):
+            while i < len(lines) and not _list_closed(s.split("=", 1)[1]):
                 s += " " + _strip_comment(lines[i][1]).strip()
                 i += 1
         m = re.fullmatch(r"\[\[(\w+)\]\]", s)
@@ -115,35 +140,45 @@ def _markdown(type_def, fpath):
                 yield elem
             continue
         if elem is not None:
-            m = re.match(r"^- ([^:]{1,40}):\s*(.*)$", l)
+            m = re.match(r"^- (\w+):\s*(.*)$", l)
             if m:
                 elem.fields[m.group(1).strip().lower()] = m.group(2).strip()
 
 
 def _feature(type_def, fpath):
-    elem = None
+    """Element = tag @ID, komentarze „# pole: wartość” i pierwszy scenariusz po tagu.
+    Kolejny tag, nagłówek Feature albo scenariusz bez tagu kończy element."""
+    elem, before_scenario = None, False
     for lineno, l in _lines_outside_code(fpath):
         s = l.strip()
-        tags = re.findall(r"@(\S+)", s) if s.startswith("@") else []
-        matched = [t for t in tags if type_def["re"].fullmatch(t)]
-        if matched:
-            elem = Element(type_def["code"], matched[0], "", fpath, lineno)
-            yield elem
+        if s.startswith("@"):
+            matched = [t for t in re.findall(r"@(\S+)", s) if type_def["re"].fullmatch(t)]
+            elem = Element(type_def["code"], matched[0], "", fpath, lineno) if matched else None
+            before_scenario = bool(matched)
+            if elem is not None:
+                yield elem
+            continue
+        if re.match(r"^(?:Feature|Funkcja)\s*:", s):
+            elem = None
             continue
         if elem is None:
             continue
-        m = re.match(r"^#\s*([^:]{1,40}):\s*(.*)$", s)
+        m = re.match(r"^(?:Scenario|Scenariusz|Scenario Outline|Szablon scenariusza)\s*:\s*(.*)$", s)
+        if m:
+            if before_scenario:
+                elem.title, before_scenario = m.group(1).strip(), False
+            else:
+                elem = None
+            continue
+        m = re.match(r"^#\s*(\w+):\s*(.*)$", s)
         if m:
             elem.fields[m.group(1).strip().lower()] = m.group(2).strip()
-        m = re.match(r"^(?:Scenario|Scenariusz)\s*:\s*(.*)$", s)
-        if m:
-            elem.title = m.group(1).strip()
 
 
 def _mermaid(type_def, fpath):
     elements = {}
     for lineno, l in _lines_outside_code(fpath):
-        m = re.match(r"^\s*%%\s*(\S+)(?:\s+([^:]{1,40}):\s*(.*))?$", l)
+        m = re.match(r"^\s*%%\s*(\S+)(?:\s+(\w+):\s*(.*))?$", l)
         if not m or not type_def["re"].fullmatch(m.group(1)):
             continue
         ident = m.group(1)
@@ -177,11 +212,19 @@ class Model:
                 t["known"].add(self.field_names.get("status", "status"))
             if t.get("produces"):
                 t["known"].add(self.field_names.get("produces", "produces"))
+            t["rules"] = {}
+            for rule in t.get("parent_rules", []):  # "pole: KOD|KOD [pole=wartość]" (D-28)
+                m = re.fullmatch(r"\s*(\w+)\s*:\s*([\w|]+)(?:\s+(\w+)=(\S+))?\s*", rule)
+                if not m:
+                    raise ValueError(f"tools/id.toml, typ {t['code']}: niepoprawna reguła parent_rules: {rule}")
+                t["rules"][m.group(1)] = (m.group(2).split("|"), (m.group(3), m.group(4)) if m.group(3) else None)
             t["re"] = re.compile(t["pattern"])
             t["paths"] = sorted(glob.glob(os.path.join(root, t["file"])))
             t["active"] = bool(t["paths"])
             self.types[t["code"]] = t
-        self.re_id = re.compile("|".join(f"(?:{t['pattern']})" for t in self.types.values()))
+        # ID jest osobnym słowem: bez liter, cyfr ani łącznika tuż przed i tuż po (np. nie „SHA-256”, nie „CODE-01”)
+        alternatives = "|".join(f"(?:{t['pattern']})" for t in self.types.values())
+        self.re_id = re.compile(rf"(?<![\w-])(?:{alternatives})(?![\w-])")
         self.elements, self.duplicates = [], []
         seen = {}
         for t in self.types.values():
@@ -194,6 +237,20 @@ class Model:
                     seen[e.id] = e
                     self.elements.append(e)
         self.by_id = seen
+        self.bad_headings = self._bad_headings()
+
+    def _bad_headings(self):
+        """Nagłówki markdown, w których po ID stoi dwukropek („### UC-02: Tytuł”): (plik, linia, ID)."""
+        found = []
+        for t in self.types.values():
+            if t.get("format", "markdown") != "markdown":
+                continue
+            for p in t["paths"]:
+                for lineno, l in _lines_outside_code(p):
+                    m = re.match(r"^#{2,4}\s+(\S+):(?:\s|$)", l)
+                    if m and t["re"].fullmatch(m.group(1)):
+                        found.append((p, lineno, m.group(1)))
+        return found
 
     def ids_in(self, content):
         return self.re_id.findall(content or "")

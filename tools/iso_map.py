@@ -94,12 +94,14 @@ def trace_model(m):
         iso = f" · {t['iso']}" if t.get("iso") else ""
         lines.append(f'  {code}["{code} {t["name"]}{iso}"]')
     for code, t in m.types.items():
-        label = ", ".join(t.get("fields", []))
         for parent in t.get("parents", []):
+            fields = [f for f in t.get("fields", []) if f not in t["rules"] or parent in t["rules"][f][0]]
+            conds = [f"{k}={v}" for f in fields if f in t["rules"] and t["rules"][f][1] for k, v in [t["rules"][f][1]]]
+            label = ", ".join(fields) + (f" ({', '.join(conds)})" if conds else "")
             lines.append(f'  {code} -->|"{label}"| {parent}')
     for code, t in m.types.items():
         if t.get("produces"):
-            lines.append(f'  {code} -.->|"produces (w dół)"| PRODUKTY["produkty pracy: dowolny kod typu albo ID"]')
+            lines.append(f'  {code} -.->|"produces (w dół)"| PRODUCTS["produkty pracy: dowolny kod typu albo ID"]')
     return "\n".join(lines)
 
 
@@ -213,10 +215,10 @@ def main(output):
     summary = "".join(f'<span><span class="pill {s}">{LABEL[s]}</span> {counts[s]}</span>' for s in ORDER)
     core = [e for e in edges if e["to"] not in SINKS]
     core_ids = {e["from"] for e in core} | {e["to"] for e in core}
-    pomijane = [wp["id"] for wp in wps if wp["id"] not in core_ids]
+    skipped = [wp["id"] for wp in wps if wp["id"] not in core_ids]
     core_note = ("Pominięte krawędzie do produktów, do których prowadzi prawie każde zadanie: "
                  + ", ".join(f"{k} ({v})" for k, v in SINKS.items())
-                 + (f". Produkty bez innych zależności: {', '.join(pomijane)}." if pomijane else ".")
+                 + (f". Produkty bez innych zależności: {', '.join(skipped)}." if skipped else ".")
                  + " Wszystkie zależności są na pełnym grafie niżej.")
     page = (PAGE.replace("{SUMMARY}", summary)
             .replace("{CORE}", html.escape(flowchart(wps, core, cov), quote=False))

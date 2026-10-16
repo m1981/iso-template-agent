@@ -30,6 +30,41 @@ Brak otwartych decyzji.
 
 ## Rozstrzygnięte
 
+### D-30 Stara strona „Model śledzalności”
+- status: resolved
+- options: A) usunąć (nieodwracalne) · B) zostawić
+- proposal: B
+- choice: B — strona zostaje; aktualny model jest w sekcji „Model śladu” strony ISO
+- date: 2026-10-16
+
+### D-29 Historia gita w nowym projekcie
+- status: resolved
+- options: A) kopia plików bez .git i git init; make new-project odmawia poza repozytorium · B) make new-project usuwa tagi szablonu · C) tylko opisać
+- proposal: A
+- choice: A — README, „Start”: rsync bez .git, git init, commit „Kopia szablonu”, make new-project; new_project.py odmawia poza repozytorium i nie podaje skrótu commita jako wersji szablonu; test na kopii bez historii
+- date: 2026-10-16
+
+### D-28 Pole wskazuje typ rodzica
+- status: resolved
+- options: A) parent_rules w id.toml: pole → dozwolone typy i warunek rodzica · B) bez zmian
+- proposal: A
+- choice: A — klucz parent_rules; dla UC: scenarios → SC, scope → IO z kind=In; naruszenie to E7; etykiety strzałek w iso-map.html według reguł
+- date: 2026-10-16
+
+### D-27 Niespójności i drobiazgi z przeglądu (D-23)
+- status: resolved
+- options: A) poprawić wszystkie · B) wybrane
+- proposal: A
+- choice: A — bez numerów D-nn w progress.md; uwaga o odwołaniach do decyzji szablonu obejmuje Makefile i .githooks/; README: pole iso tylko w typach z odpowiednikiem w normie, pełna lista blokad hooków; AGENTS: schemat ID wymagań ABC-nn; angielskie nazwy w kodzie (skipped, PRODUCTS, bad_toml, new_register, {{RULES}}, {{PATHS}}, parametr line); lista czytających id.toml; poziom cloud w formacie przypadku użycia; nagłówek z dwukropkiem po ID ma własny komunikat, a pola to tylko słowa (\w+)
+- date: 2026-10-16
+
+### D-26 Błędy z przeglądu (D-23)
+- status: resolved
+- options: A) poprawić wszystkie z testem na każdy · B) wybrane
+- proposal: A
+- choice: A — test działa z własnym system; commit-msg ignoruje diff pod nożyczkami i uwzględnia core.commentChar; ID jako osobne słowo, a ID wymagań w tekście ciągłym sprawdzane tylko dla istniejących obszarów (area_prefix); scenariusz bez tagu kończy element AT; reguły mapy widzą ekrany bez krawędzi; parser zastępczy TOML zgodny z tomllib dla ], # i \\ w napisach; każdy test sprawdzony przez wycofanie poprawki
+- date: 2026-10-16
+
 ### D-25 Zakres odświeżenia strony ISO (Q-01)
 - status: resolved
 - options: A) strona generowana w repozytorium z tools/id.toml (pole iso) przez skrypt, sprawdzana przez pre-commit jak trace.md, więc nie może się zestarzeć; opublikowana kopia odświeżana z niej · B) ręczna aktualizacja obu opublikowanych stron (ISO i „Model śledzalności”) · C) ręcznie tylko strona ISO, strona „Model śledzalności” do archiwum

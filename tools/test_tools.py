@@ -54,6 +54,8 @@ BREAKAGES = [
     ("E4", "verification.md", "- result: pass\n", "- result: ok\n"),
     ("E4", "use-cases.md", "- status: initiated\n", "- status: brief\n"),
     ("E7", "corrections.md", "- cause: VER-02", "- cause: UC-01"),
+    ("E7", "use-cases.md", "- scenarios: SC-01\n", "- scenarios: IO-01\n"),
+    ("E7", "use-cases.md", "- scope: IO-01\n", "- scope: IO-02\n"),
 ]
 
 WARNINGS = [
@@ -63,6 +65,21 @@ WARNINGS = [
     ("W4", "risks.md", "- source: UC-01\n", "- source: UC-01\n- źródło: UC-01\n", "W4 RSK-01"),
     ("W4", "plan.md", "- mitigation: mniejszy zakres\n", "- mitigation: mniejszy zakres\n- działanie: x\n", "W4 PRK-01"),
 ]
+
+
+# Przykłady używają podmiotu wymagań z tools/id.toml, więc test działa także po ustawieniu własnego `system`.
+sys.path.insert(0, os.path.join(ROOT, "tools"))
+import model as M  # noqa: E402
+
+SYSTEM = M.load_toml(os.path.join(ROOT, "tools", "id.toml")).get("project", {}).get("system", "System")
+
+
+def for_system(text):
+    return text.replace("System shall", f"{SYSTEM} shall")
+
+
+FIXTURES = {name: for_system(text) for name, text in FIXTURES.items()}
+BREAKAGES = [(code, name, for_system(a), for_system(b)) for code, name, a, b in BREAKAGES]
 
 
 def run_py(tmpdir, *args, stdin_text=None):
@@ -84,20 +101,23 @@ def prepare(tmpdir):
 def main():
     failures = []
     # parser zastępczy (Python < 3.11, np. 3.10 na Macu) musi dawać to samo co tomllib
-    sys.path.insert(0, os.path.join(ROOT, "tools"))
-    import model as M
     for name in ("id.toml", "iso29110.toml"):
         fpath = os.path.join(ROOT, "tools", name)
         if M.load_toml(fpath, fallback=True) != M.load_toml(fpath):
             failures.append(f"parser zastępczy czyta tools/{name} inaczej niż tomllib")
     with tempfile.TemporaryDirectory() as tmpdir:
-        zly = os.path.join(tmpdir, "zly.toml")
-        open(zly, "w", encoding="utf-8").write('a = "x"\n\nb = nie-napis\n')
+        bad_toml = os.path.join(tmpdir, "bad_toml.toml")
+        open(bad_toml, "w", encoding="utf-8").write('a = "x"\n\nb = nie-napis\n')
+        hard_toml = os.path.join(tmpdir, "hard_toml.toml")
+        open(hard_toml, "w", encoding="utf-8").write('a = "C:\\\\" # komentarz\nb = [\n  "x [y]",\n  "z # nie komentarz",\n]\n')
+        expected_toml = {"a": "C:\\", "b": ["x [y]", "z # nie komentarz"]}
+        if M.load_toml(hard_toml, fallback=True) != expected_toml:
+            failures.append(f"parser zastępczy źle czyta napisy z \\\\, # i ]: {M.load_toml(hard_toml, fallback=True)}")
         try:
-            M.load_toml(zly, fallback=True)
+            M.load_toml(bad_toml, fallback=True)
             failures.append("parser zastępczy przyjął niepoprawną wartość")
         except ValueError as e:
-            if f"{zly}:3:" not in str(e):
+            if f"{bad_toml}:3:" not in str(e):
                 failures.append(f"komunikat parsera zastępczego nie podaje numeru linii: {e}")
     with tempfile.TemporaryDirectory() as tmpdir:
         prepare(tmpdir)
@@ -140,6 +160,42 @@ def main():
         if "W3" in r.stdout or "W1 VER" in r.stdout or "W4" in r.stdout:
             failures.append("łańcuch wzorcowy ma nieoczekiwane ostrzeżenia:\n" + r.stdout)
 
+        def with_change(name, a, b, check):
+            """Zmienia plik, uruchamia trace.py, przywraca plik; check(stdout, kod) zwraca opis porażki albo None."""
+            fpath = os.path.join(tmpdir, name)
+            original = open(fpath, encoding="utf-8").read()
+            assert a in original, (name, a)
+            open(fpath, "w", encoding="utf-8").write(original.replace(a, b, 1))
+            r = run_py(tmpdir, "tools/trace.py", "/dev/null")
+            open(fpath, "w", encoding="utf-8").write(original)
+            problem = check(r.stdout, r.returncode)
+            if problem:
+                failures.append(problem + ":\n" + r.stdout)
+
+        # #3: tekst w kształcie ID nie jest odnośnikiem; nieznane ID z istniejącego obszaru jest
+        with_change("scope.md", "- kind: In\n", "- kind: In\n\nAlgorytm SHA-256, kodowanie UTF-16, wersja UC-990 i kod xUC-99.\n",
+                    lambda out, rc: "tekst SHA-256/UTF-16/UC-990/xUC-99 dał błąd" if rc != 0 else None)
+        with_change("scope.md", "- kind: In\n", "- kind: In\n\nPatrz CAP-09.\n",
+                    lambda out, rc: "nieznane CAP-09 w tekście nie dało E2" if "E2 scope.md" not in out else None)
+        # #15: dwukropek po ID w nagłówku ma własny komunikat; punkt rozszerzenia nie jest polem
+        with_change("use-cases.md", "### UC-01 Przechwycić", "### UC-01: Przechwycić",
+                    lambda out, rc: "nagłówek „UC-01:” bez komunikatu o dwukropku" if "dwukropek" not in out else None)
+        with_change("use-cases.md", "- status: initiated\n", "- status: initiated\n- 3a. Brak sieci: zapis lokalny\n",
+                    lambda out, rc: "punkt rozszerzenia „3a.” potraktowany jak pole" if "W4" in out else None)
+        # #4: scenariusz bez tagu nie dopisuje pól do poprzedniego testu AT
+        with_change("tests/capture.feature", "    Given x\n",
+                    "    Given x\n\n  Scenario: Inny bez tagu\n  # verifies: OUT-01\n  # todo: dopisać\n    Given y\n",
+                    lambda out, rc: "scenariusz bez tagu zmienił pola AT-01" if ("W4 AT-01" in out or rc != 0) else None)
+        # #5: ekran bez krawędzi jest widoczny dla reguł mapy
+        screens = os.path.join(tmpdir, "navigation", "screens.mmd")
+        original = open(screens, encoding="utf-8").read()
+        open(screens, "a", encoding="utf-8").write('  E06["E-06 Sierota"]\n  class E06 modal\n')
+        r = subprocess.run([sys.executable, "-B", "check.py", "screens.mmd"], cwd=os.path.join(tmpdir, "navigation"),
+                           capture_output=True, text=True)
+        if r.returncode == 0 or "E-06 Sierota" not in r.stdout:
+            failures.append("ekran bez krawędzi nie został zgłoszony przez reguły mapy:\n" + r.stdout)
+        open(screens, "w", encoding="utf-8").write(original)
+
         r = run_py(tmpdir, "tools/progress.py")
         progress_md = open(os.path.join(tmpdir, "progress.md"), encoding="utf-8").read()
         for expected in ("| MS-01 Zakres i przypadki użycia | OBJ-01 | 2026-11-01 | baseline-01-zakres | nie | ACC-01 accepted |",
@@ -164,6 +220,17 @@ def main():
         git("add", "-A")
         if git("commit", "-q", "-m", "bez identyfikatora").returncode == 0:
             failures.append("commit-msg przepuścił opis bez ID")
+        # #2: diff pod linią nożyczek (git commit -v) nie liczy się do opisu; core.commentChar jest uwzględniany
+        msg = os.path.join(tmpdir, "msg.txt")
+        open(msg, "w", encoding="utf-8").write("poprawka bez identyfikatora\n# ------------------------ >8 ------------------------\n+ D-01\n")
+        if run_py(tmpdir, "tools/check_commit.py", msg).returncode == 0:
+            failures.append("commit-msg przepuścił opis bez ID, licząc ID z diffu pod nożyczkami")
+        git("config", "core.commentChar", ";")
+        open(msg, "w", encoding="utf-8").write("; komentarz bez znaczenia\nZmiana (D-01)\n")
+        if run_py(tmpdir, "tools/check_commit.py", msg).returncode != 0:
+            failures.append("commit-msg nie uwzględnił core.commentChar")
+        git("config", "--unset", "core.commentChar")
+        os.remove(msg)
         r = git("commit", "-q", "-m", "Pierwszy commit (D-01)")
         if r.returncode != 0:
             failures.append("commit z D-01 został odrzucony:\n" + r.stdout + r.stderr)
@@ -205,8 +272,8 @@ def main():
         for name in ("decisions.md", "trace.md", "progress.md"):
             if not os.path.exists(os.path.join(archive, name)):
                 failures.append(f"new_project.py nie przeniósł {name} do archive/template/")
-        nowy = open(os.path.join(tmpdir, "decisions.md"), encoding="utf-8").read()
-        if "### D-01 Start projektu z szablonu" not in nowy or "### D-02" in nowy:
+        new_register = open(os.path.join(tmpdir, "decisions.md"), encoding="utf-8").read()
+        if "### D-01 Start projektu z szablonu" not in new_register or "### D-02" in new_register:
             failures.append("nowy decisions.md nie zawiera samej decyzji D-01")
         git("add", "-A")
         r = git("commit", "-q", "-m", "Start projektu (D-01)")
@@ -215,33 +282,43 @@ def main():
         if run_py(tmpdir, "tools/new_project.py").returncode == 0:
             failures.append("new_project.py zadziałał drugi raz")
 
-    # D-22 na prawdziwych plikach: kopia całego szablonu z modułem ryzyk, start projektu, pierwszy commit
-    # (moduł nawigacji ma przykładową mapę z UC-01 do zastąpienia, więc sprawdza go pierwsza część testu)
-    with tempfile.TemporaryDirectory() as tmpdir:
-        copy = os.path.join(tmpdir, "projekt")
-        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns(".git", "__pycache__", "archive"))
-        shutil.copy(os.path.join(copy, "modules", "risks", "risks.md"), copy)
+    # D-22, D-29 na prawdziwych plikach: kopia szablonu bez historii, start projektu, pierwszy commit.
+    # Tylko w samym szablonie (w projekcie archive/template/ już jest). Moduł nawigacji ma przykładową
+    # mapę z UC-01 do zastąpienia, więc sprawdza go pierwsza część testu.
+    in_template = not os.path.exists(os.path.join(ROOT, "archive", "template"))
+    if in_template:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            copy = os.path.join(tmpdir, "projekt")
+            shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns(".git", "__pycache__", "archive"))
+            if not os.path.exists(os.path.join(copy, "risks.md")):
+                shutil.copy(os.path.join(copy, "modules", "risks", "risks.md"), copy)
+            r = run_py(copy, "tools/new_project.py")
+            if r.returncode == 0:
+                failures.append("new_project.py zadziałał poza repozytorium gita")
 
-        def git2(*a):
-            return subprocess.run(["git", *a], cwd=copy, capture_output=True, text=True)
-        git2("init", "-q", "-b", "main")
-        git2("config", "user.name", "test"), git2("config", "user.email", "test@example.com")
-        git2("config", "core.hooksPath", ".githooks")
-        run_py(copy, "tools/trace.py"), run_py(copy, "tools/progress.py")
-        git2("add", "-A")
-        r = git2("commit", "-q", "-m", "Kopia szablonu (D-01)")
-        if r.returncode != 0:
-            failures.append("commit kopii szablonu został odrzucony:\n" + r.stdout + r.stderr)
-        r = run_py(copy, "tools/new_project.py")
-        if r.returncode != 0:
-            failures.append("new_project.py na kopii szablonu nie zadziałał:\n" + r.stdout + r.stderr)
-        r = run_py(copy, "tools/trace.py")
-        if r.returncode != 0:
-            failures.append("po new_project.py ślad kopii szablonu ma błędy:\n" + r.stdout)
-        git2("add", "-A")
-        r = git2("commit", "-q", "-m", "Start projektu (D-01)")
-        if r.returncode != 0:
-            failures.append("pierwszy commit projektu z kopii szablonu został odrzucony:\n" + r.stdout + r.stderr)
+            def git2(*a):
+                return subprocess.run(["git", *a], cwd=copy, capture_output=True, text=True)
+            git2("init", "-q", "-b", "main")
+            git2("config", "user.name", "test"), git2("config", "user.email", "test@example.com")
+            git2("config", "core.hooksPath", ".githooks")
+            for script in ("trace.py", "progress.py", "iso_map.py"):  # moduł ryzyk zmienia pliki generowane
+                run_py(copy, "tools/" + script)
+            git2("add", "-A")
+            r = git2("commit", "-q", "-m", "Kopia szablonu (D-01)")
+            if r.returncode != 0:
+                failures.append("commit kopii szablonu został odrzucony:\n" + r.stdout + r.stderr)
+            r = run_py(copy, "tools/new_project.py")
+            if r.returncode != 0:
+                failures.append("new_project.py na kopii szablonu nie zadziałał:\n" + r.stdout + r.stderr)
+            r = run_py(copy, "tools/trace.py")
+            if r.returncode != 0:
+                failures.append("po new_project.py ślad kopii szablonu ma błędy:\n" + r.stdout)
+            git2("add", "-A")
+            r = git2("commit", "-q", "-m", "Start projektu (D-01)")
+            if r.returncode != 0:
+                failures.append("pierwszy commit projektu z kopii szablonu został odrzucony:\n" + r.stdout + r.stderr)
+            if git2("tag").stdout.strip():
+                failures.append("kopia szablonu bez historii ma tagi szablonu")
 
     for p in failures:
         print("NIE:", p)

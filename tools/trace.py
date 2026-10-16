@@ -5,7 +5,7 @@ Generuje trace.md (macierz w obie strony) i sprawdza model. Kod wyjścia 1 = bł
 Błędy (error):
   E1 brak wymaganego pola albo rodzica       E5 tekst niezgodny ze wzorcem EARS / nie jedno „shall”
   E2 nieznane ID (w polu rodzica lub tekście) E6 pojęcie spoza słownika w tekście EARS
-  E3 zdublowane ID                            E7 rodzic niedozwolonego typu
+  E3 zdublowane ID                            E7 rodzic niedozwolonego typu albo niezgodny z parent_rules
   E4 niedozwolona wartość (status, result,    E8 brak wymaganego pokrycia (poziom „error”)
      pattern, wpis w produces:)
 Ostrzeżenia (warning):
@@ -116,16 +116,20 @@ def main(output):
                 errors.append(f"E4 {e.id}: „{x}” w produces: nie jest kodem typu ani ID")
         fields = t.get("fields", [])
         if fields:
-            ids = []
-            for p in fields:
-                ids += m.ids_in(e.fields.get(p, ""))
-            if not ids and not t.get("root"):
+            refs = [(p, r) for p in fields for r in m.ids_in(e.fields.get(p, ""))]
+            if not refs and not t.get("root"):
                 errors.append(f"E1 {e.id}: brak rodzica (pola: {', '.join(fields)})")
-            for r in ids:
+            for p, r in refs:
+                rule = t["rules"].get(p)
                 if r not in by_id:
                     errors.append(f"E2 {e.id}: nieznany rodzic {r}")
                 elif by_id[r].type not in t.get("parents", []):
                     errors.append(f"E7 {e.id}: rodzic {r} typu {by_id[r].type} niedozwolony (dozwolone: {', '.join(t.get('parents', []))})")
+                elif rule and by_id[r].type not in rule[0]:
+                    errors.append(f"E7 {e.id}: pole „{p}” wskazuje {r} typu {by_id[r].type}; dozwolone tu: {', '.join(rule[0])}")
+                elif rule and rule[1] and by_id[r].fields.get(rule[1][0]) != rule[1][1]:
+                    k, v = rule[1]
+                    errors.append(f"E7 {e.id}: pole „{p}” wymaga rodzica z {k}={v}, a {r} ma {k}={by_id[r].fields.get(k) or 'brak'}")
                 else:
                     parents_of[e.id].append(r)
                     children[r].append(e.id)
@@ -143,11 +147,20 @@ def main(output):
             if missing:
                 errors.append(f"E6 {e.id}: pojęcia spoza słownika: {', '.join(sorted(set(missing)))}")
 
+    areas = {k: {e.id.split("-")[0] for e in m.elements if e.type == k}
+             for k, t in types.items() if t.get("area_prefix")}
+    bad = {(p, lineno): ident for p, lineno, ident in m.bad_headings}
+    for p, lineno, ident in m.bad_headings:
+        errors.append(f"E2 {m.relative(p)}:{lineno}: po ID w nagłówku stoi dwukropek („{ident}:”); zapisz „### {ident} Tytuł”")
     for p in m.active_files():
         for lineno, l in M._lines_outside_code(p):
             for ref in m.ids_in(l):
-                if ref not in by_id:
-                    errors.append(f"E2 {m.relative(p)}:{lineno}: nieznany odnośnik {ref}")
+                if ref in by_id or bad.get((p, lineno)) == ref:
+                    continue
+                area_type = next((k for k in areas if types[k]["re"].fullmatch(ref)), None)
+                if area_type and ref.split("-")[0] not in areas[area_type]:
+                    continue  # np. „UTF-16”: kształt ID wymagania, ale obszar nie istnieje
+                errors.append(f"E2 {m.relative(p)}:{lineno}: nieznany odnośnik {ref}")
 
     commit_ids = None
     for e in m.elements:

@@ -5,8 +5,9 @@ Przenosi historię szablonu (decisions.md, trace.md, progress.md) do archive/tem
 „Start projektu z szablonu”, żeby pierwszy commit miał ID (hook commit-msg).
 Potem odświeża trace.md i progress.md.
 
-Odmawia, gdy archive/template/ już istnieje (projekt był już założony) albo gdy
-w repozytorium są niezacommitowane zmiany (żeby każdy krok dało się cofnąć gitem).
+Odmawia, gdy archive/template/ już istnieje (projekt był już założony), gdy katalog
+nie jest repozytorium gita albo gdy są niezacommitowane zmiany (żeby każdy krok dało
+się cofnąć gitem). Projekt zaczyna się od kopii plików bez historii szablonu (README.md, Start).
 
 Użycie: python3 tools/new_project.py   (albo: make new-project)
 """
@@ -50,7 +51,7 @@ Brak tematów w kolejce.
 
 ### D-01 Start projektu z szablonu
 - status: resolved
-- choice: projekt założony z szablonu ai-sldc-template, wersja {version}; historia szablonu w archive/template/
+- choice: projekt założony z szablonu ai-sldc-template{version}; historia szablonu w archive/template/
 - date: {date}
 """
 
@@ -63,11 +64,16 @@ def main():
     if os.path.exists(os.path.join(ROOT, ARCHIVE)):
         print(f"new_project: {ARCHIVE}/ już istnieje; projekt był już założony, nic nie zmieniam.")
         return 1
+    inside = git("rev-parse", "--show-toplevel")
+    if inside.returncode != 0 or os.path.realpath(inside.stdout.strip()) != os.path.realpath(ROOT):
+        print("new_project: ten katalog nie jest repozytorium gita; najpierw git init i pierwszy commit (README.md, Start).")
+        return 1
     status = git("status", "--porcelain")
-    if status.returncode == 0 and status.stdout.strip():
+    if status.stdout.strip():
         print("new_project: w repozytorium są niezacommitowane zmiany; zacommituj je albo odłóż i uruchom ponownie.")
         return 1
-    version = git("describe", "--tags", "--always").stdout.strip() or "nieznana"
+    tag = git("describe", "--tags", "--abbrev=0").stdout.strip()
+    version = f", wersja {tag}" if tag else ""
     os.makedirs(os.path.join(ROOT, ARCHIVE))
     for name in MOVED:
         src = os.path.join(ROOT, name)

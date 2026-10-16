@@ -6,7 +6,7 @@ Ten plik opisuje proces: ślad, zmiany, rolę agenta (ISO/IEC 29110 WP.05 i czę
 
 Język (D-17): warstwa maszynowa po angielsku (kody ID, nazwy pól, stany, nazwy plików i skryptów, kody błędów), treść i rozmowa po polsku. Tłumaczenie terminów normy: glossary.md, „Terminy procesu”.
 
-Odwołania D-nn w tym pliku, README.md i tools/ wskazują decyzje szablonu; po `make new-project` są w archive/template/decisions.md.
+Odwołania D-nn w tym pliku, README.md, Makefile, .githooks/ i tools/ wskazują decyzje szablonu; po `make new-project` są w archive/template/decisions.md.
 
 ## Artefakty i źródła prawdy
 P-01 Repozytorium jest jedynym źródłem prawdy dla wszystkich artefaktów. Kopie w innych narzędziach są widokami albo archiwum.
@@ -26,7 +26,7 @@ P-01 Repozytorium jest jedynym źródłem prawdy dla wszystkich artefaktów. Kop
 | Scenki użytkownika | scenarios.md | SC-nn |
 | Zakres In/Out, aktorzy i cele | scope.md | IO-nn |
 | Przypadki użycia | use-cases.md | UC-nn |
-| Wymagania EARS | requirements.md | OBS-nn |
+| Wymagania EARS (typ REQ) | requirements.md | ABC-nn: trzy litery obszaru, np. CAP-nn |
 | Testy akceptacyjne | tests/*.feature | AT-nn |
 | Macierz śladu, generowana (WP.21) | trace.md | — |
 | Zgodność z ISO/IEC 29110, generowana | iso-map.html | — |
@@ -43,7 +43,7 @@ P-05 Pre-commit odrzuca: błędy E1–E8, nieaktualny trace.md, progress.md lub 
 Produkty pracy (typy z `product = true`) mają obowiązkowe pole `status` ze stanami normy (D-11, D-14): `initiated` → `verified` (jest rekord VER z wynikiem `pass` w verification.md; bez niego ostrzeżenie W3, D-15) → `approved` (dla wymagań decyzja D-nn, P-08). Decyzje, zadania, ryzyka projektu i rekordy mają własne statusy. Baseline nie jest stanem: wynika z tagu.
 
 Wymaganie: jeden wzorzec EARS · tekst zaczyna się zgodnie ze wzorcem · dokładnie jedno „shall” · podmiotem jest system · słowa pisane wielką literą są pojęciami ze słownika · ma źródło · status jest jednym ze stanów produktów pracy. Wszystko to sprawdza trace.py; mierzalność i sens ocenia przegląd.
-Przypadek użycia: ma rodzica (scenkę albo zakres In), poziom celu i gwarancje.
+Przypadek użycia: ma rodzica (scenkę w `scenarios:` albo pozycję zakresu In w `scope:`; sprawdza to parent_rules w id.toml), poziom celu i gwarancje.
 
 ## Zmiana
 P-07 Każda zmiana: edycja → `git diff` → `make check` → jeden commit na odpowiedź Użytkownika. Opis commita wskazuje co najmniej jedno istniejące ID (hook commit-msg).

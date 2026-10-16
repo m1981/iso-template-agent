@@ -8,7 +8,7 @@ Format:
 
 ```
 ### UC-nn Cel zwykłymi słowami
-- level: sea | kite | fish
+- level: cloud | kite | sea | fish
 - scenarios: SC-nn
 - scope: IO-nn
 - primary_actor: G-AKT-nn

@@ -1,6 +1,6 @@
 # Rekord postępu
 
-Plik generowany przez tools/progress.py z plan.md, rekordów, stanów produktów i tagów git; nie edytuj ręcznie (D-10, ISO/IEC 29110 WP.09).
+Plik generowany przez tools/progress.py z plan.md, rekordów, stanów produktów i tagów git; nie edytuj ręcznie (ISO/IEC 29110 WP.09).
 
 Zadania: 0 · planned 0 · in_progress 0 · completed 0
 
@@ -24,7 +24,7 @@ Zadania: 0 · planned 0 · in_progress 0 · completed 0
 | Korekta | Status | Przyczyna | Działanie |
 | --- | --- | --- | --- |
 
-## Stan produktów pracy (D-11)
+## Stan produktów pracy
 
 | Typ | ISO | initiated | verified | approved |
 | --- | --- | --- | --- | --- |

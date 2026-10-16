@@ -41,7 +41,7 @@ def main(output):
 
     out = ["# Rekord postępu", "",
            "Plik generowany przez tools/progress.py z plan.md, rekordów, stanów produktów i tagów git; "
-           "nie edytuj ręcznie (D-10, ISO/IEC 29110 WP.09).", ""]
+           "nie edytuj ręcznie (ISO/IEC 29110 WP.09).", ""]
 
     tasks = of_type("TSK")
     counts = Counter(m.value(e, "status") for e in tasks)
@@ -75,7 +75,7 @@ def main(output):
     for e in open_corrections:
         out.append(f"| {e.id} {e.title} | " + " | ".join(v(e, "status", "cause", "action")) + " |")
 
-    out += ["", "## Stan produktów pracy (D-11)", "", "| Typ | ISO | " + " | ".join(m.states) + " |",
+    out += ["", "## Stan produktów pracy", "", "| Typ | ISO | " + " | ".join(m.states) + " |",
             "| --- | --- | " + " | ".join("---" for _ in m.states) + " |"]
     for k, type_def in m.types.items():
         if type_def.get("product") and type_def["active"]:

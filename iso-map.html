@@ -197,8 +197,8 @@ flowchart BT
   ACC["ACC Akceptacja · WP.01"]
   DP --&gt;|"established_by"| D
   G --&gt;|"changed_by"| D
-  UC --&gt;|"scenarios, scope"| SC
-  UC --&gt;|"scenarios, scope"| IO
+  UC --&gt;|"scenarios"| SC
+  UC --&gt;|"scope (kind=In)"| IO
   RSK --&gt;|"source"| UC
   REQ --&gt;|"source"| UC
   REQ --&gt;|"source"| D
@@ -236,7 +236,7 @@ flowchart BT
   VAL --&gt;|"items"| E
   VAL --&gt;|"items"| AT
   ACC --&gt;|"milestone"| MS
-  TSK -.-&gt;|"produces (w dół)"| PRODUKTY["produkty pracy: dowolny kod typu albo ID"]
+  TSK -.-&gt;|"produces (w dół)"| PRODUCTS["produkty pracy: dowolny kod typu albo ID"]
 </pre></div>
   </section>
 

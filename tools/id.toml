@@ -1,6 +1,6 @@
 # Model śledzalności (D-06) i jedyne źródło schematów ID (D-05).
 # Warstwa maszynowa po angielsku (D-17, D-18): kody, pola, stany, klucze; komentarze i treść po polsku.
-# Czytają go tools/model.py, trace.py, progress.py i check_commit.py; AGENTS.md tylko tu odsyła.
+# Czytają go tools/model.py, trace.py, progress.py, iso_map.py i check_commit.py; AGENTS.md tylko tu odsyła.
 #
 # Klucze typu:
 #   code, name       krótki kod i nazwa rodzaju elementu (nazwa po polsku, dla ludzi)
@@ -13,6 +13,8 @@
 #   root             true = element nie musi mieć rodzica
 #   fields           pola, w których element wskazuje rodziców (P-03: dziecko podaje rodzica)
 #   parents          dozwolone kody typów rodziców
+#   parent_rules     opcjonalnie, gdy typ ma kilka pól rodzica: "pole: KOD|KOD [pole_rodzica=wartość]";
+#                    pole może wskazywać tylko te typy, a rodzic musi spełniać warunek (D-28)
 #   required         pola, które muszą być niepuste
 #   optional         pozostałe dozwolone pola; pole spoza fields, required, optional i
 #                    [project] common_fields daje ostrzeżenie W4 (D-21)
@@ -26,6 +28,8 @@
 #   produces         true = pole produces: wskazuje w dół kody typów lub ID (D-09, jawny wyjątek od P-03)
 #   results          dozwolone wartości pola result (rekordy)
 #   iso              produkt pracy ISO/IEC 29110-5-1-2, któremu odpowiada typ (D-12)
+#   area_prefix      true = przedrostek ID to obszar (np. CAP); w tekście ciągłym nieznane ID tego typu
+#                    jest błędem E2 tylko wtedy, gdy jego obszar już występuje (np. „UTF-16” nie jest błędem)
 
 [project]
 system = "System"      # podmiot wymagań EARS; zmień na nazwę swojego systemu
@@ -147,6 +151,7 @@ pattern = "UC-\\d{2}"
 file = "use-cases.md"
 fields = ["scenarios", "scope"]
 parents = ["SC", "IO"]
+parent_rules = ["scenarios: SC", "scope: IO kind=In"]
 coverage = "REQ:warning,E:warning"
 product = true
 iso = "WP.13"
@@ -174,6 +179,7 @@ required = ["pattern", "text"]
 coverage = "AT:warning"
 ears = true
 product = true
+area_prefix = true
 iso = "WP.13"
 
 [[type]]

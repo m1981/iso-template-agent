@@ -95,7 +95,9 @@ def clicks(g, a, b):
 def main(path):
     edge_list, node_class, labels, exceptions, realized = parse_map(path)
     g = graph(edge_list, node_class)
-    screens = [n for n in g if n != "NAV" and node_class.get(n) != "external"]
+    # ekrany: węzły z krawędzi oraz zadeklarowane bez krawędzi (etykieta albo klasa), żeby R1–R7 widziały sieroty
+    declared = list(dict.fromkeys(list(g) + list(labels) + list(node_class)))
+    screens = [n for n in declared if n != "NAV" and node_class.get(n) != "external"]
     label_of = lambda n: labels.get(n, n)
     results = []
 
