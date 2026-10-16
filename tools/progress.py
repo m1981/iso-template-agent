@@ -17,75 +17,75 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import model as M  # noqa: E402
 
 
-def tagi(korzen):
+def tags(root):
     try:
         out = subprocess.run(["git", "for-each-ref", "--format=%(refname:short) %(creatordate:short)", "refs/tags"],
-                             cwd=korzen, capture_output=True, text=True, check=True).stdout
+                             cwd=root, capture_output=True, text=True, check=True).stdout
     except Exception:
         return {}
     return dict(l.split(" ", 1) for l in out.splitlines() if " " in l)
 
 
-def main(wyjscie):
+def main(output):
     m = M.Model()
-    if not m.typy.get("TSK", {}).get("aktywny"):
+    if not m.types.get("TSK", {}).get("active"):
         print("progress.py: brak plan.md, pomijam")
         return 0
-    po_typie = lambda kod: [e for e in m.elementy if e.typ == kod]  # noqa: E731
-    v = lambda e, *role: [m.p(e, r) or "—" for r in role]  # noqa: E731
-    t = tagi(m.korzen)
-    akc = {}
-    for a in po_typie("ACC"):
-        for k in m.ids_w(m.p(a, "milestone")):
-            akc.setdefault(k, []).append(f"{a.id} {m.p(a, 'result')}")
+    of_type = lambda code: [e for e in m.elements if e.type == code]  # noqa: E731
+    v = lambda e, *role: [m.value(e, r) or "—" for r in role]  # noqa: E731
+    t = tags(m.root)
+    acceptances = {}
+    for a in of_type("ACC"):
+        for k in m.ids_in(m.value(a, "milestone")):
+            acceptances.setdefault(k, []).append(f"{a.id} {m.value(a, 'result')}")
 
     out = ["# Rekord postępu", "",
            "Plik generowany przez tools/progress.py z plan.md, rekordów, stanów produktów i tagów git; "
            "nie edytuj ręcznie (D-10, ISO/IEC 29110 WP.09).", ""]
 
-    zad = po_typie("TSK")
-    licz = Counter(m.p(e, "status") for e in zad)
-    out += [f"Zadania: {len(zad)} · " + " · ".join(f"{s} {licz.get(s, 0)}" for s in m.typy["TSK"]["statuses"]), ""]
+    tasks = of_type("TSK")
+    counts = Counter(m.value(e, "status") for e in tasks)
+    out += [f"Zadania: {len(tasks)} · " + " · ".join(f"{s} {counts.get(s, 0)}" for s in m.types["TSK"]["statuses"]), ""]
 
     out += ["## Kamienie milowe", "", "| Kamień | Cel | Termin | Tag | Osiągnięty | Akceptacja |",
             "| --- | --- | --- | --- | --- | --- |"]
-    for e in po_typie("MS"):
-        tag = m.p(e, "tag")
-        osiag = f"tak, {t[tag]}" if tag in t else "nie"
-        cel, termin = v(e, "objective", "due")
-        out.append(f"| {e.id} {e.tytul} | {cel} | {termin} | {tag or '—'} | {osiag} | {', '.join(akc.get(e.id, [])) or '—'} |")
+    for e in of_type("MS"):
+        tag = m.value(e, "tag")
+        reached = f"tak, {t[tag]}" if tag in t else "nie"
+        objective, due = v(e, "objective", "due")
+        out.append(f"| {e.id} {e.title} | {objective} | {due} | {tag or '—'} | {reached} | {', '.join(acceptances.get(e.id, [])) or '—'} |")
 
     out += ["", "## Zadania: planowane i rzeczywiste", "",
             "| Zadanie | Kamień | Status | Termin | Zakończono | Produkuje | Produkty według stanu |",
             "| --- | --- | --- | --- | --- | --- | --- |"]
-    for e in zad:
-        el = m.produkty(e)[0]
-        st = Counter(m.stan(x) for x in el)
-        stany = " · ".join(f"{s} {st[s]}" for s in m.stany if st.get(s)) or "brak elementów"
-        kam, status, termin, kon, prod = v(e, "milestone", "status", "due", "completed", "produces")
-        out.append(f"| {e.id} {e.tytul} | {kam} | {status} | {termin} | {kon} | {prod} | {stany} |")
+    for e in tasks:
+        elem = m.products(e)[0]
+        state_counts = Counter(m.state(x) for x in elem)
+        state_summary = " · ".join(f"{s} {state_counts[s]}" for s in m.states if state_counts.get(s)) or "brak elementów"
+        ms, status, due, done, prods = v(e, "milestone", "status", "due", "completed", "produces")
+        out.append(f"| {e.id} {e.title} | {ms} | {status} | {due} | {done} | {prods} | {state_summary} |")
 
     out += ["", "## Ryzyka projektu", "", "| Ryzyko | Status | Dotyczy | Działanie |", "| --- | --- | --- | --- |"]
-    for e in po_typie("PRK"):
-        out.append(f"| {e.id} {e.tytul} | " + " | ".join(v(e, "status", "concerns", "mitigation")) + " |")
+    for e in of_type("PRK"):
+        out.append(f"| {e.id} {e.title} | " + " | ".join(v(e, "status", "concerns", "mitigation")) + " |")
 
-    kor = [e for e in po_typie("COR") if m.p(e, "status") != "completed"]
+    open_corrections = [e for e in of_type("COR") if m.value(e, "status") != "completed"]
     out += ["", "## Korekty niezakończone (WP.04)", "", "| Korekta | Status | Przyczyna | Działanie |",
             "| --- | --- | --- | --- |"]
-    for e in kor:
-        out.append(f"| {e.id} {e.tytul} | " + " | ".join(v(e, "status", "cause", "action")) + " |")
+    for e in open_corrections:
+        out.append(f"| {e.id} {e.title} | " + " | ".join(v(e, "status", "cause", "action")) + " |")
 
-    out += ["", "## Stan produktów pracy (D-11)", "", "| Typ | ISO | " + " | ".join(m.stany) + " |",
-            "| --- | --- | " + " | ".join("---" for _ in m.stany) + " |"]
-    for k, typ in m.typy.items():
-        if typ.get("product") and typ["aktywny"]:
-            st = Counter(m.stan(e) for e in po_typie(k))
-            out.append(f"| {k} {typ['name']} | {typ.get('iso', '—')} | " + " | ".join(str(st.get(s, 0)) for s in m.stany) + " |")
+    out += ["", "## Stan produktów pracy (D-11)", "", "| Typ | ISO | " + " | ".join(m.states) + " |",
+            "| --- | --- | " + " | ".join("---" for _ in m.states) + " |"]
+    for k, type_def in m.types.items():
+        if type_def.get("product") and type_def["active"]:
+            state_counts = Counter(m.state(e) for e in of_type(k))
+            out.append(f"| {k} {type_def['name']} | {type_def.get('iso', '—')} | " + " | ".join(str(state_counts.get(s, 0)) for s in m.states) + " |")
 
-    sciezka = wyjscie if os.path.isabs(wyjscie) else os.path.join(m.korzen, wyjscie)
-    with open(sciezka, "w", encoding="utf-8") as f:
+    fpath = output if os.path.isabs(output) else os.path.join(m.root, output)
+    with open(fpath, "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
-    print(f"progress.py: {len(zad)} zadań, {len(po_typie('MS'))} kamieni, {len(kor)} korekt niezakończonych")
+    print(f"progress.py: {len(tasks)} zadań, {len(of_type('MS'))} kamieni, {len(open_corrections)} korekt niezakończonych")
     return 0
 
 

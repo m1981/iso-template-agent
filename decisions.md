@@ -18,11 +18,7 @@ Format:
 
 ## Otwarte
 
-### D-20 Nazwy spoza tabeli D-18
-- status: open
-- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które) · C) jak A, ale nazwy w kodzie Pythona też po angielsku (dziś po polsku: 21 z 33 funkcji i metod, atrybuty klas Element i Model, zmienne lokalne)
-- proposal: A
-- notes: założenia przyjęte przy wdrażaniu D-17: kod typu wymagań REQ (dawniej WYM); klucze w tools/id.toml po angielsku (code, pattern, file, fields, parents, required, statuses, coverage z poziomami error | warning…); pola artefaktów: source, scenarios, scope, established_by, changed_by, realizes, verifies, kind, rationale, release, person, interests, content, definition, distinct_from, exceptions, level, primary_actor, form, minimal_guarantee, success_guarantee, pattern, text, notes, measure, objective, due, tag, acceptance_criteria, milestone, produces, completed, deviation, concerns, mitigation, items, date, by, result, open_issues, cause, action, opened, impact, likelihood, severity; wartości: poziomy celu sea | kite | fish, zadania planned | in_progress | completed, ryzyka projektu open | closed, decyzje open | resolved | deferred, wyniki pass | fail i accepted | rejected, ryzyka produktu low | medium | high; w przypadku użycia brief | full w nowym polu form, bo status należy do stanów produktu; moduł nawigacji: klasy screen, modal, success, external i komentarz exception-dp01; kontrakt-decyzji.md zostaje pod polską nazwą; nazwy zmiennych i funkcji w kodzie Pythona zostają polskie
+Brak otwartych decyzji.
 
 ## W kolejce
 
@@ -33,6 +29,14 @@ Format:
 - notes: w gtd2 ID zostają (D-17); migrują nazwy pól, stanów i plików; 28 wymagań przechodzi z draft na initiated (D-11); każdy produkt dostaje status (D-14)
 
 ## Rozstrzygnięte
+
+### D-20 Nazwy spoza tabeli D-18
+- status: resolved
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które) · C) jak A, ale nazwy w kodzie Pythona też po angielsku (przed zmianą po polsku: 20 z 30 funkcji i metod, atrybuty klas Element i Model, zmienne lokalne)
+- proposal: A
+- choice: C — nazwy spoza tabeli przyjęte jak wdrożono; identyfikatory w kodzie (tools/, modules/navigation/) po angielsku; zmiana po tokenach, równoważność drzew składni, wynik skryptów identyczny z wzorcem sprzed zmiany w 23 przypadkach; komunikaty i opisy zostają po polsku
+- date: 2026-10-16
+- notes: założenia przyjęte przy wdrażaniu D-17: kod typu wymagań REQ (dawniej WYM); klucze w tools/id.toml po angielsku (code, pattern, file, fields, parents, required, statuses, coverage z poziomami error | warning…); pola artefaktów: source, scenarios, scope, established_by, changed_by, realizes, verifies, kind, rationale, release, person, interests, content, definition, distinct_from, exceptions, level, primary_actor, form, minimal_guarantee, success_guarantee, pattern, text, notes, measure, objective, due, tag, acceptance_criteria, milestone, produces, completed, deviation, concerns, mitigation, items, date, by, result, open_issues, cause, action, opened, impact, likelihood, severity; wartości: poziomy celu sea | kite | fish, zadania planned | in_progress | completed, ryzyka projektu open | closed, decyzje open | resolved | deferred, wyniki pass | fail i accepted | rejected, ryzyka produktu low | medium | high; w przypadku użycia brief | full w nowym polu form, bo status należy do stanów produktu; moduł nawigacji: klasy screen, modal, success, external i komentarz exception-dp01; kontrakt-decyzji.md zostaje pod polską nazwą
 
 ### D-21 Ostrzeżenie o nieznanym polu
 - status: resolved

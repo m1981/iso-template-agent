@@ -11,9 +11,9 @@ import subprocess
 import sys
 import tempfile
 
-KORZEN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PLIKI = {
+FIXTURES = {
     "scenarios.md": "### SC-01 Ania zapisuje sprawy w biegu\n- person: Ania\n- content: zapisuje, potem porządkuje\n- status: initiated\n",
     "scope.md": ("### IO-01 Przechwytywanie\n- kind: In\n- status: initiated\n\n"
                  "### IO-02 Powiadamianie osób spoza systemu\n- kind: Out\n- status: initiated\n"),
@@ -39,7 +39,7 @@ PLIKI = {
     "tests/capture.feature": ("Feature: Przechwytywanie\n\n  @AT-01\n  # verifies: CAP-01\n  # status: initiated\n  Scenario: Zapis\n    Given x\n"),
 }
 
-PSUCIA = [
+BREAKAGES = [
     ("E1", "use-cases.md", "- scenarios: SC-01\n- scope: IO-01\n", ""),
     ("E1", "scenarios.md", "- status: initiated\n", ""),
     ("E2", "requirements.md", "- source: UC-01\n", "- source: UC-09\n"),
@@ -56,7 +56,7 @@ PSUCIA = [
     ("E7", "corrections.md", "- cause: VER-02", "- cause: UC-01"),
 ]
 
-OSTRZEZENIA = [
+WARNINGS = [
     ("W3", "requirements.md", "- source: IO-02, DP-01\n- status: initiated", "- source: IO-02, DP-01\n- status: verified", "W3 OUT-01"),
     ("W3", "requirements.md", "- source: RSK-01\n- status: initiated", "- source: RSK-01\n- status: approved", "W3 CAP-02"),
     ("W1", "corrections.md", "- cause: VER-02", "- cause: TSK-01", "W1 VER-02"),
@@ -65,111 +65,111 @@ OSTRZEZENIA = [
 ]
 
 
-def uruchom(kat, *args, wejscie=None):
-    return subprocess.run([sys.executable, "-B", *args], cwd=kat, capture_output=True, text=True, input=wejscie)
+def run_py(tmpdir, *args, stdin_text=None):
+    return subprocess.run([sys.executable, "-B", *args], cwd=tmpdir, capture_output=True, text=True, input=stdin_text)
 
 
-def przygotuj(kat):
+def prepare(tmpdir):
     for f in ("tools", ".githooks"):
-        shutil.copytree(os.path.join(KORZEN, f), os.path.join(kat, f), ignore=shutil.ignore_patterns("__pycache__"))
-    shutil.copy(os.path.join(KORZEN, "decisions.md"), kat)
-    shutil.copytree(os.path.join(KORZEN, "modules", "navigation"), os.path.join(kat, "navigation"),
+        shutil.copytree(os.path.join(ROOT, f), os.path.join(tmpdir, f), ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copy(os.path.join(ROOT, "decisions.md"), tmpdir)
+    shutil.copytree(os.path.join(ROOT, "modules", "navigation"), os.path.join(tmpdir, "navigation"),
                     ignore=shutil.ignore_patterns("__pycache__"))
-    os.makedirs(os.path.join(kat, "tests"), exist_ok=True)
-    for p, tresc in PLIKI.items():
-        with open(os.path.join(kat, p), "w", encoding="utf-8") as f:
-            f.write(tresc)
+    os.makedirs(os.path.join(tmpdir, "tests"), exist_ok=True)
+    for p, content in FIXTURES.items():
+        with open(os.path.join(tmpdir, p), "w", encoding="utf-8") as f:
+            f.write(content)
 
 
 def main():
-    porazki = []
-    with tempfile.TemporaryDirectory() as kat:
-        przygotuj(kat)
-        r = uruchom(kat, "tools/trace.py")
+    failures = []
+    with tempfile.TemporaryDirectory() as tmpdir:
+        prepare(tmpdir)
+        r = run_py(tmpdir, "tools/trace.py")
         if r.returncode != 0:
-            porazki.append("łańcuch wzorcowy ma błędy:\n" + r.stdout)
-        slad = open(os.path.join(kat, "trace.md"), encoding="utf-8").read()
-        for oczek in ("| UC-01 | UC | SC-01, IO-01 |", "| CAP-01 | REQ | UC-01 |", "| CAP-01 | REQ | AT-01 |",
+            failures.append("łańcuch wzorcowy ma błędy:\n" + r.stdout)
+        trace_md = open(os.path.join(tmpdir, "trace.md"), encoding="utf-8").read()
+        for expected in ("| UC-01 | UC | SC-01, IO-01 |", "| CAP-01 | REQ | UC-01 |", "| CAP-01 | REQ | AT-01 |",
                       "| UC-01 | UC | RSK-01, CAP-01, E-01, E-02, E-03, E-04, E-05, VER-01 |", "| D-01 | D | DP-01, G-ELM-01 |",
                       "| TSK-01 | UC, CAP-01 | UC-01, CAP-01 |", "| WP.23 | VER Weryfikacja | 2 |", "| WP.21 | trace.md | — |",
                       "| SC-01 | SC | UC-01, VAL-01 |"):
-            if oczek not in slad:
-                porazki.append(f"trace.md nie zawiera wiersza: {oczek}")
-        for kod, plik, a, b in PSUCIA:
-            sciezka = os.path.join(kat, plik)
-            oryg = open(sciezka, encoding="utf-8").read()
-            assert a in oryg, (kod, a)
-            open(sciezka, "w", encoding="utf-8").write(oryg.replace(a, b, 1))
-            r = uruchom(kat, "tools/trace.py", "/dev/null")
-            if r.returncode != 1 or f"\n{kod} " not in "\n" + r.stdout:
-                porazki.append(f"{kod} ({plik}) nie został zgłoszony:\n{r.stdout}")
-            open(sciezka, "w", encoding="utf-8").write(oryg)
-        for kod, plik, a, b, oczek in OSTRZEZENIA:
-            sciezka = os.path.join(kat, plik)
-            oryg = open(sciezka, encoding="utf-8").read()
-            assert a in oryg, (kod, a)
-            open(sciezka, "w", encoding="utf-8").write(oryg.replace(a, b, 1))
-            r = uruchom(kat, "tools/trace.py", "/dev/null")
-            if r.returncode != 0 or f"\n{oczek}" not in "\n" + r.stdout:
-                porazki.append(f"{kod} nie zostało zgłoszone jako ostrzeżenie:\n{r.stdout}")
-            open(sciezka, "w", encoding="utf-8").write(oryg)
-        sciezka = os.path.join(kat, "use-cases.md")
-        oryg = open(sciezka, encoding="utf-8").read()
-        open(sciezka, "w", encoding="utf-8").write(oryg.replace("- status: initiated\n", "- status: verified\n"))
-        r = uruchom(kat, "tools/trace.py", "/dev/null")
+            if expected not in trace_md:
+                failures.append(f"trace.md nie zawiera wiersza: {expected}")
+        for code, file, a, b in BREAKAGES:
+            fpath = os.path.join(tmpdir, file)
+            original = open(fpath, encoding="utf-8").read()
+            assert a in original, (code, a)
+            open(fpath, "w", encoding="utf-8").write(original.replace(a, b, 1))
+            r = run_py(tmpdir, "tools/trace.py", "/dev/null")
+            if r.returncode != 1 or f"\n{code} " not in "\n" + r.stdout:
+                failures.append(f"{code} ({file}) nie został zgłoszony:\n{r.stdout}")
+            open(fpath, "w", encoding="utf-8").write(original)
+        for code, file, a, b, expected in WARNINGS:
+            fpath = os.path.join(tmpdir, file)
+            original = open(fpath, encoding="utf-8").read()
+            assert a in original, (code, a)
+            open(fpath, "w", encoding="utf-8").write(original.replace(a, b, 1))
+            r = run_py(tmpdir, "tools/trace.py", "/dev/null")
+            if r.returncode != 0 or f"\n{expected}" not in "\n" + r.stdout:
+                failures.append(f"{code} nie zostało zgłoszone jako ostrzeżenie:\n{r.stdout}")
+            open(fpath, "w", encoding="utf-8").write(original)
+        fpath = os.path.join(tmpdir, "use-cases.md")
+        original = open(fpath, encoding="utf-8").read()
+        open(fpath, "w", encoding="utf-8").write(original.replace("- status: initiated\n", "- status: verified\n"))
+        r = run_py(tmpdir, "tools/trace.py", "/dev/null")
         if "W3" in r.stdout:
-            porazki.append("W3 zgłoszone mimo rekordu VER-01 z wynikiem pass:\n" + r.stdout)
-        open(sciezka, "w", encoding="utf-8").write(oryg)
-        r = uruchom(kat, "tools/trace.py", "/dev/null")
+            failures.append("W3 zgłoszone mimo rekordu VER-01 z wynikiem pass:\n" + r.stdout)
+        open(fpath, "w", encoding="utf-8").write(original)
+        r = run_py(tmpdir, "tools/trace.py", "/dev/null")
         if "W3" in r.stdout or "W1 VER" in r.stdout or "W4" in r.stdout:
-            porazki.append("łańcuch wzorcowy ma nieoczekiwane ostrzeżenia:\n" + r.stdout)
+            failures.append("łańcuch wzorcowy ma nieoczekiwane ostrzeżenia:\n" + r.stdout)
 
-        r = uruchom(kat, "tools/progress.py")
-        postep = open(os.path.join(kat, "progress.md"), encoding="utf-8").read()
-        for oczek in ("| MS-01 Zakres i przypadki użycia | OBJ-01 | 2026-11-01 | baseline-01-zakres | nie | ACC-01 accepted |",
+        r = run_py(tmpdir, "tools/progress.py")
+        progress_md = open(os.path.join(tmpdir, "progress.md"), encoding="utf-8").read()
+        for expected in ("| MS-01 Zakres i przypadki użycia | OBJ-01 | 2026-11-01 | baseline-01-zakres | nie | ACC-01 accepted |",
                       "| TSK-01 Napisać przypadki i wymagania | MS-01 | in_progress | — | — | UC, CAP-01 | initiated 2 |",
                       "| COR-01 Doprecyzować CAP-02 | initiated | VER-02 | poprawić tekst |",
                       "| REQ Wymaganie EARS | WP.13 | 3 | 0 | 0 |"):
-            if oczek not in postep:
-                porazki.append(f"progress.md nie zawiera wiersza: {oczek}")
+            if expected not in progress_md:
+                failures.append(f"progress.md nie zawiera wiersza: {expected}")
 
         def git(*a):
-            return subprocess.run(["git", *a], cwd=kat, capture_output=True, text=True)
+            return subprocess.run(["git", *a], cwd=tmpdir, capture_output=True, text=True)
         git("init", "-q", "-b", "main")
         git("config", "user.name", "test"), git("config", "user.email", "test@example.com")
         git("config", "core.hooksPath", ".githooks")
-        uruchom(kat, "tools/trace.py")
-        uruchom(kat, "tools/progress.py")
+        run_py(tmpdir, "tools/trace.py")
+        run_py(tmpdir, "tools/progress.py")
         git("add", "-A")
         if git("commit", "-q", "-m", "bez identyfikatora").returncode == 0:
-            porazki.append("commit-msg przepuścił opis bez ID")
+            failures.append("commit-msg przepuścił opis bez ID")
         r = git("commit", "-q", "-m", "Pierwszy commit (D-01)")
         if r.returncode != 0:
-            porazki.append("commit z D-01 został odrzucony:\n" + r.stdout + r.stderr)
+            failures.append("commit z D-01 został odrzucony:\n" + r.stdout + r.stderr)
         git("tag", "-a", "baseline-01-zakres", "-m", "Baseline")
-        with open(os.path.join(kat, "verification.md"), "a", encoding="utf-8") as f:
+        with open(os.path.join(tmpdir, "verification.md"), "a", encoding="utf-8") as f:
             f.write("\n### VER-03 Przegląd CAP-01\n- items: CAP-01\n- date: 2026-10-14\n- result: pass\n")
-        uruchom(kat, "tools/trace.py")
+        run_py(tmpdir, "tools/trace.py")
         git("add", "-A")
         if git("commit", "-q", "-m", "Po baseline bez progress.md (D-01)").returncode == 0:
-            porazki.append("pre-commit przepuścił nieaktualny progress.md po tagu")
-        uruchom(kat, "tools/progress.py")
-        if "| baseline-01-zakres | tak, " not in open(os.path.join(kat, "progress.md"), encoding="utf-8").read():
-            porazki.append("progress.md nie pokazuje osiągniętego kamienia MS-01 po tagu")
+            failures.append("pre-commit przepuścił nieaktualny progress.md po tagu")
+        run_py(tmpdir, "tools/progress.py")
+        if "| baseline-01-zakres | tak, " not in open(os.path.join(tmpdir, "progress.md"), encoding="utf-8").read():
+            failures.append("progress.md nie pokazuje osiągniętego kamienia MS-01 po tagu")
         git("add", "-A")
         r = git("commit", "-q", "-m", "Po baseline (D-01)")
         if r.returncode != 0:
-            porazki.append("commit z aktualnym progress.md został odrzucony:\n" + r.stdout + r.stderr)
-        with open(os.path.join(kat, "trace.md"), "a", encoding="utf-8") as f:
+            failures.append("commit z aktualnym progress.md został odrzucony:\n" + r.stdout + r.stderr)
+        with open(os.path.join(tmpdir, "trace.md"), "a", encoding="utf-8") as f:
             f.write("x\n")
         git("add", "-A")
         if git("commit", "-q", "-m", "Zmiana (D-01)").returncode == 0:
-            porazki.append("pre-commit przepuścił nieaktualny trace.md")
+            failures.append("pre-commit przepuścił nieaktualny trace.md")
 
-    for p in porazki:
+    for p in failures:
         print("NIE:", p)
-    print(f"test_tools: {len(PSUCIA)} psuć, {len(OSTRZEZENIA)} ostrzeżeń, postęp, hooki commit-msg i pre-commit — {'OK' if not porazki else f'{len(porazki)} porażek'}")
-    return 1 if porazki else 0
+    print(f"test_tools: {len(BREAKAGES)} psuć, {len(WARNINGS)} ostrzeżeń, postęp, hooki commit-msg i pre-commit — {'OK' if not failures else f'{len(failures)} porażek'}")
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":

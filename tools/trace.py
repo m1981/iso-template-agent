@@ -25,10 +25,10 @@ from collections import defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import model as M  # noqa: E402
 
-SLOWA_EARS = {"When", "While", "If", "Where", "Then", "The", "A", "An", "Each", "Every"}
+EARS_WORDS = {"When", "While", "If", "Where", "Then", "The", "A", "An", "Each", "Every"}
 
 
-def wzorzec_ears(system):
+def ears_checks(system):
     return {
         "ubiquitous": lambda t: t.startswith(f"{system} shall"),
         "event": lambda t: t.startswith("When "),
@@ -39,190 +39,190 @@ def wzorzec_ears(system):
     }
 
 
-def pojecia(m):
+def term_names(m):
     """Angielskie nazwy pojęć ze słownika: nawias na końcu tytułu, synonimy po średniku."""
-    zbior = set()
-    for e in m.elementy:
-        if not m.typy[e.typ].get("terms"):
+    names = set()
+    for e in m.elements:
+        if not m.types[e.type].get("terms"):
             continue
-        n = re.search(r"\(([^()]*)\)\s*$", e.tytul)
+        n = re.search(r"\(([^()]*)\)\s*$", e.title)
         if n:
             for p in n.group(1).split(";"):
                 if p.strip():
-                    zbior.add(p.strip().lower())
-    return zbior
+                    names.add(p.strip().lower())
+    return names
 
 
-def nieznane_pojecia(tekst, znane, system):
-    bez_cytatow = re.sub(r'"[^"]*"|“[^”]*”|„[^”]*”', " ", tekst)
-    bez_cytatow = bez_cytatow.replace(system, " ")
-    brak = []
-    for ciag in re.findall(r"[A-Z][\w/'-]*(?:\s+[A-Z][\w/'-]*)*", bez_cytatow):
-        slowa = ciag.split()
+def unknown_terms(content, known, system):
+    unquoted = re.sub(r'"[^"]*"|“[^”]*”|„[^”]*”', " ", content)
+    unquoted = unquoted.replace(system, " ")
+    missing = []
+    for run_of_words in re.findall(r"[A-Z][\w/'-]*(?:\s+[A-Z][\w/'-]*)*", unquoted):
+        words = run_of_words.split()
         i = 0
-        while i < len(slowa):
-            if slowa[i] in SLOWA_EARS:
+        while i < len(words):
+            if words[i] in EARS_WORDS:
                 i += 1
                 continue
-            dopas = 0
-            for j in range(len(slowa), i, -1):
-                fraza = " ".join(slowa[i:j]).lower()
-                if fraza in znane or (fraza.endswith("s") and fraza[:-1] in znane):
-                    dopas = j
+            matched_end = 0
+            for j in range(len(words), i, -1):
+                phrase = " ".join(words[i:j]).lower()
+                if phrase in known or (phrase.endswith("s") and phrase[:-1] in known):
+                    matched_end = j
                     break
-            if dopas:
-                i = dopas
+            if matched_end:
+                i = matched_end
             else:
-                brak.append(slowa[i])
+                missing.append(words[i])
                 i += 1
-    return brak
+    return missing
 
 
-def wzmianki_w_commitach(m):
+def ids_in_commits(m):
     try:
-        log = subprocess.run(["git", "log", "--format=%B"], cwd=m.korzen,
+        log = subprocess.run(["git", "log", "--format=%B"], cwd=m.root,
                              capture_output=True, text=True, check=True).stdout
     except Exception:
         return set()
-    return set(m.ids_w(log))
+    return set(m.ids_in(log))
 
 
-def main(wyjscie):
+def main(output):
     m = M.Model()
-    bledy, ostrz, ekran = [], [], []
-    typy, po_id = m.typy, m.po_id
-    rodzice_el = defaultdict(list)
-    dzieci = defaultdict(list)
-    znane_poj = pojecia(m)
-    ears = wzorzec_ears(m.system)
-    f_status, f_result = m.pole.get("status", "status"), m.pole.get("result", "result")
+    errors, warnings, screen_only = [], [], []
+    types, by_id = m.types, m.by_id
+    parents_of = defaultdict(list)
+    children = defaultdict(list)
+    known_terms = term_names(m)
+    ears = ears_checks(m.system)
+    f_status, f_result = m.field_names.get("status", "status"), m.field_names.get("result", "result")
 
-    for e, pierwszy in m.duplikaty:
-        bledy.append(f"E3 {e.id}: zdublowane ID ({m.wzgledna(e.plik)}:{e.linia} i {m.wzgledna(pierwszy.plik)}:{pierwszy.linia})")
+    for e, first in m.duplicates:
+        errors.append(f"E3 {e.id}: zdublowane ID ({m.relative(e.file)}:{e.lineno} i {m.relative(first.file)}:{first.lineno})")
 
-    for e in m.elementy:
-        t = typy[e.typ]
-        for pole in t.get("required", []):
-            if not e.pola.get(pole):
-                bledy.append(f"E1 {e.id}: brak pola „{pole}”")
-        for pole in sorted(set(e.pola) - t["znane"]):
-            ostrz.append(f"W4 {e.id}: nieznane pole „{pole}” (znane: {', '.join(sorted(t['znane']))})")
-        if t.get("statuses") and e.pola.get(f_status) and e.pola[f_status] not in t["statuses"]:
-            bledy.append(f"E4 {e.id}: status „{e.pola[f_status]}” spoza {t['statuses']}")
-        if t.get("results") and e.pola.get(f_result) and e.pola[f_result] not in t["results"]:
-            bledy.append(f"E4 {e.id}: result „{e.pola[f_result]}” spoza {t['results']}")
+    for e in m.elements:
+        t = types[e.type]
+        for field in t.get("required", []):
+            if not e.fields.get(field):
+                errors.append(f"E1 {e.id}: brak pola „{field}”")
+        for field in sorted(set(e.fields) - t["known"]):
+            warnings.append(f"W4 {e.id}: nieznane pole „{field}” (znane: {', '.join(sorted(t['known']))})")
+        if t.get("statuses") and e.fields.get(f_status) and e.fields[f_status] not in t["statuses"]:
+            errors.append(f"E4 {e.id}: status „{e.fields[f_status]}” spoza {t['statuses']}")
+        if t.get("results") and e.fields.get(f_result) and e.fields[f_result] not in t["results"]:
+            errors.append(f"E4 {e.id}: result „{e.fields[f_result]}” spoza {t['results']}")
         if t.get("produces"):
-            for x in m.produkty(e)[1]:
-                bledy.append(f"E4 {e.id}: „{x}” w produces: nie jest kodem typu ani ID")
-        pola = t.get("fields", [])
-        if pola:
+            for x in m.products(e)[1]:
+                errors.append(f"E4 {e.id}: „{x}” w produces: nie jest kodem typu ani ID")
+        fields = t.get("fields", [])
+        if fields:
             ids = []
-            for p in pola:
-                ids += m.ids_w(e.pola.get(p, ""))
+            for p in fields:
+                ids += m.ids_in(e.fields.get(p, ""))
             if not ids and not t.get("root"):
-                bledy.append(f"E1 {e.id}: brak rodzica (pola: {', '.join(pola)})")
+                errors.append(f"E1 {e.id}: brak rodzica (pola: {', '.join(fields)})")
             for r in ids:
-                if r not in po_id:
-                    bledy.append(f"E2 {e.id}: nieznany rodzic {r}")
-                elif po_id[r].typ not in t.get("parents", []):
-                    bledy.append(f"E7 {e.id}: rodzic {r} typu {po_id[r].typ} niedozwolony (dozwolone: {', '.join(t.get('parents', []))})")
+                if r not in by_id:
+                    errors.append(f"E2 {e.id}: nieznany rodzic {r}")
+                elif by_id[r].type not in t.get("parents", []):
+                    errors.append(f"E7 {e.id}: rodzic {r} typu {by_id[r].type} niedozwolony (dozwolone: {', '.join(t.get('parents', []))})")
                 else:
-                    rodzice_el[e.id].append(r)
-                    dzieci[r].append(e.id)
-        tekst, wz = m.p(e, "text"), m.p(e, "pattern")
-        if t.get("ears") and tekst and wz:
-            if wz not in ears:
-                bledy.append(f"E4 {e.id}: nieznany wzorzec EARS „{wz}”")
-            elif not ears[wz](tekst):
-                bledy.append(f"E5 {e.id}: tekst nie pasuje do wzorca {wz}")
-            if tekst.count(" shall ") != 1:
-                bledy.append(f"E5 {e.id}: tekst musi mieć dokładnie jedno „shall”")
-            if not tekst.startswith(m.system) and f" {m.system} shall" not in tekst:
-                bledy.append(f"E5 {e.id}: podmiotem „shall” musi być {m.system}")
-            brak = nieznane_pojecia(tekst, znane_poj, m.system)
-            if brak:
-                bledy.append(f"E6 {e.id}: pojęcia spoza słownika: {', '.join(sorted(set(brak)))}")
+                    parents_of[e.id].append(r)
+                    children[r].append(e.id)
+        content, pattern_name = m.value(e, "text"), m.value(e, "pattern")
+        if t.get("ears") and content and pattern_name:
+            if pattern_name not in ears:
+                errors.append(f"E4 {e.id}: nieznany wzorzec EARS „{pattern_name}”")
+            elif not ears[pattern_name](content):
+                errors.append(f"E5 {e.id}: tekst nie pasuje do wzorca {pattern_name}")
+            if content.count(" shall ") != 1:
+                errors.append(f"E5 {e.id}: tekst musi mieć dokładnie jedno „shall”")
+            if not content.startswith(m.system) and f" {m.system} shall" not in content:
+                errors.append(f"E5 {e.id}: podmiotem „shall” musi być {m.system}")
+            missing = unknown_terms(content, known_terms, m.system)
+            if missing:
+                errors.append(f"E6 {e.id}: pojęcia spoza słownika: {', '.join(sorted(set(missing)))}")
 
-    for p in m.pliki_aktywne():
-        for nr, l in M._linie_bez_kodu(p):
-            for ref in m.ids_w(l):
-                if ref not in po_id:
-                    bledy.append(f"E2 {m.wzgledna(p)}:{nr}: nieznany odnośnik {ref}")
+    for p in m.active_files():
+        for lineno, l in M._lines_outside_code(p):
+            for ref in m.ids_in(l):
+                if ref not in by_id:
+                    errors.append(f"E2 {m.relative(p)}:{lineno}: nieznany odnośnik {ref}")
 
-    commity = None
-    for e in m.elementy:
-        t = typy[e.typ]
+    commit_ids = None
+    for e in m.elements:
+        t = types[e.type]
         if not t.get("coverage"):
             continue
-        war = t.get("coverage_if")
-        if war:
-            pole, wart = war.split("=", 1)
-            if e.pola.get(pole.strip()) != wart.strip():
+        condition = t.get("coverage_if")
+        if condition:
+            field, expected_value = condition.split("=", 1)
+            if e.fields.get(field.strip()) != expected_value.strip():
                 continue
-        for regula in t["coverage"].split(","):
-            kod, poziom = [x.strip() for x in regula.split(":")]
-            if kod == "*":
-                if dzieci.get(e.id):
+        for rule in t["coverage"].split(","):
+            code, level = [x.strip() for x in rule.split(":")]
+            if code == "*":
+                if children.get(e.id):
                     continue
-                if commity is None:
-                    commity = wzmianki_w_commitach(m)
-                if e.id not in commity:
-                    ekran.append(f"W2 {e.id}: brak dzieci i wzmianki w commitach")
+                if commit_ids is None:
+                    commit_ids = ids_in_commits(m)
+                if e.id not in commit_ids:
+                    screen_only.append(f"W2 {e.id}: brak dzieci i wzmianki w commitach")
                 continue
-            if kod not in typy or not typy[kod]["aktywny"]:
+            if code not in types or not types[code]["active"]:
                 continue
-            if not any(po_id[c].typ == kod for c in dzieci.get(e.id, [])):
-                wpis = f"{e.id}: brak dzieci typu {kod} ({typy[kod]['name']})"
-                if poziom == "error":
-                    bledy.append("E8 " + wpis)
+            if not any(by_id[c].type == code for c in children.get(e.id, [])):
+                entry = f"{e.id}: brak dzieci typu {code} ({types[code]['name']})"
+                if level == "error":
+                    errors.append("E8 " + entry)
                 else:
-                    ostrz.append("W1 " + wpis)
+                    warnings.append("W1 " + entry)
 
-    if "VER" in typy and typy["VER"]["aktywny"] and len(m.stany) > 1:
-        for e in m.elementy:
-            if typy[e.typ].get("product") and m.stan(e) in m.stany[1:]:
-                if not any(po_id[c].typ == "VER" and m.p(po_id[c], "result") == "pass" for c in dzieci.get(e.id, [])):
-                    ostrz.append(f"W3 {e.id}: stan „{m.stan(e)}” bez weryfikacji VER z wynikiem „pass”")
+    if "VER" in types and types["VER"]["active"] and len(m.states) > 1:
+        for e in m.elements:
+            if types[e.type].get("product") and m.state(e) in m.states[1:]:
+                if not any(by_id[c].type == "VER" and m.value(by_id[c], "result") == "pass" for c in children.get(e.id, [])):
+                    warnings.append(f"W3 {e.id}: stan „{m.state(e)}” bez weryfikacji VER z wynikiem „pass”")
 
-    aktywne = [k for k, t in typy.items() if t["aktywny"]]
-    liczby = " · ".join(f"{k} {sum(1 for e in m.elementy if e.typ == k)}" for k in aktywne)
+    active_types = [k for k, t in types.items() if t["active"]]
+    counts_line = " · ".join(f"{k} {sum(1 for e in m.elements if e.type == k)}" for k in active_types)
     out = ["# Macierz śladu", "",
            "Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).", "",
-           f"Elementy: {liczby or 'brak'}", "",
-           f"Błędy: {len(bledy)} · ostrzeżenia: {len(ostrz)}", "",
+           f"Elementy: {counts_line or 'brak'}", "",
+           f"Błędy: {len(errors)} · ostrzeżenia: {len(warnings)}", "",
            "## W górę: element → rodzice", "",
            "| Element | Typ | Rodzice |", "| --- | --- | --- |"]
-    for e in m.elementy:
-        if typy[e.typ].get("fields"):
-            out.append(f"| {e.id} | {e.typ} | {', '.join(rodzice_el.get(e.id, [])) or '—'} |")
+    for e in m.elements:
+        if types[e.type].get("fields"):
+            out.append(f"| {e.id} | {e.type} | {', '.join(parents_of.get(e.id, [])) or '—'} |")
     out += ["", "## W dół: element → dzieci", "", "| Element | Typ | Dzieci |", "| --- | --- | --- |"]
-    for e in m.elementy:
-        if dzieci.get(e.id) or typy[e.typ].get("coverage"):
-            out.append(f"| {e.id} | {e.typ} | {', '.join(dzieci.get(e.id, [])) or '—'} |")
-    zadania = [e for e in m.elementy if typy[e.typ].get("produces")]
-    if zadania:
+    for e in m.elements:
+        if children.get(e.id) or types[e.type].get("coverage"):
+            out.append(f"| {e.id} | {e.type} | {', '.join(children.get(e.id, [])) or '—'} |")
+    task_elems = [e for e in m.elements if types[e.type].get("produces")]
+    if task_elems:
         out += ["", "## Plan → produkty (produces:, wyjątek od P-03)", "",
                 "| Zadanie | Produkuje | Elementy |", "| --- | --- | --- |"]
-        for e in zadania:
-            el = m.produkty(e)[0]
-            out.append(f"| {e.id} | {m.p(e, 'produces')} | {', '.join(x.id for x in el) or '—'} |")
+        for e in task_elems:
+            elem = m.products(e)[0]
+            out.append(f"| {e.id} | {m.value(e, 'produces')} | {', '.join(x.id for x in elem) or '—'} |")
     out += ["", "## Produkty pracy ISO/IEC 29110-5-1-2", "", "| Produkt | Typ | Elementy |", "| --- | --- | --- |"]
-    for k, t in typy.items():
+    for k, t in types.items():
         if t.get("iso"):
-            ile = sum(1 for e in m.elementy if e.typ == k) if t["aktywny"] else "nieaktywny"
-            out.append(f"| {t['iso']} | {k} {t['name']} | {ile} |")
-    for w in m.iso_inne:
-        wp, _, gdzie = w.partition(" ")
-        out.append(f"| {wp} | {gdzie} | — |")
-    if bledy or ostrz:
-        out += ["", "## Błędy i ostrzeżenia", ""] + [f"- {x}" for x in bledy + ostrz]
-    with open(os.path.join(m.korzen, wyjscie) if not os.path.isabs(wyjscie) else wyjscie, "w", encoding="utf-8") as f:
+            n_elems = sum(1 for e in m.elements if e.type == k) if t["active"] else "nieaktywny"
+            out.append(f"| {t['iso']} | {k} {t['name']} | {n_elems} |")
+    for w in m.iso_other:
+        wp, _, where = w.partition(" ")
+        out.append(f"| {wp} | {where} | — |")
+    if errors or warnings:
+        out += ["", "## Błędy i ostrzeżenia", ""] + [f"- {x}" for x in errors + warnings]
+    with open(os.path.join(m.root, output) if not os.path.isabs(output) else output, "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
 
-    for x in bledy + ostrz + ekran:
+    for x in errors + warnings + screen_only:
         print(x)
-    print(f"trace.py: {len(m.elementy)} elementów, {len(bledy)} błędów, {len(ostrz) + len(ekran)} ostrzeżeń")
-    return 1 if bledy else 0
+    print(f"trace.py: {len(m.elements)} elementów, {len(errors)} błędów, {len(warnings) + len(screen_only)} ostrzeżeń")
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
