@@ -20,20 +20,21 @@ Format:
 
 ### D-36 Role normy a sesje agenta
 - status: open
-- options: A) Użytkownik pełni role klienta i kierownika projektu (walidacja, akceptacja, zatwierdzenia); sesja autora: analityk, lider techniczny, asystent kierownika, projektant ekranów; sesja weryfikatora: osobny agent bez kontekstu rozmowy, tylko rekordy VER i propozycje korekt; na etapie kodu osobne sesje programisty i testera · B) osobna sesja dla każdej roli normy · C) jedna sesja, role tylko opisane
+- options: A) model Użytkownik + sesja autora + sesja weryfikatora przyjęty jako hipoteza i sprawdzony pilotem na gtd2 (przy Q-02) według kryteriów akceptacji kamienia milowego; sesje programisty i testera dopiero z etapem kodu · B) wdrożyć pełny model ról od razu · C) odłożyć
 - proposal: A
-- notes: role rozdziału 8 i załącznika B; norma pozwala łączyć role w jednej osobie, ale rozdziela autora i zatwierdzającego (SI.02.04–05, SI.03.08) i wymaga niezależnej weryfikacji (uwaga 2 przy SI.O7)
+- notes: zawężona 2026-10-17 po pytaniu Użytkownika o zależności i walidację; D-37 i D-38 zależą od tej decyzji (D-38 działa też bez niej, ale wtedy sprawdza tylko osobne commity, nie osobne sesje); role rozdziału 8 i załącznika B; norma pozwala łączyć role w jednej osobie, ale rozdziela autora i zatwierdzającego (SI.02.04–05, SI.03.08) i wymaga niezależnej weryfikacji (uwaga 2 przy SI.O7)
 
 ### D-37 Karty ról
 - status: open
-- options: A) katalog roles/ z kartą dla każdego rodzaju sesji (cel, wejścia, pliki do zapisu, czego nie robi, listy kontrolne, wynik na koniec sesji) oraz tabela ról normy w AGENTS.md · B) tylko tabela w AGENTS.md
+- options: A) teraz tylko karta weryfikatora (roles/verifier.md: wejścia, pliki do zapisu, czego nie robi, listy kontrolne, wynik sesji) i tabela ról normy w AGENTS.md; sesja autora działa według AGENTS.md · B) karty dla wszystkich rodzajów sesji od razu · C) tylko tabela
 - proposal: A
+- notes: zależy od D-36; zawężona 2026-10-17 — karta powstaje dla sesji, której faktycznie użyjemy w pilocie
 
 ### D-38 Rozdział autora i weryfikatora w commicie
 - status: open
 - options: A) błąd E9: commit, który dodaje rekord VER albo VAL z wynikiem pass, nie może w tym samym commicie zmieniać weryfikowanych elementów · B) ostrzeżenie · C) bez kontroli
 - proposal: A
-- notes: mechaniczny odpowiednik zasady „autor nie zatwierdza sam siebie”, sprawdzalny w hooku
+- notes: mechaniczny odpowiednik zasady „autor nie zatwierdza sam siebie”, sprawdzalny w hooku; test według tablicy decyzyjnej: nowy rekord, wynik pass, element zmieniony w tym samym commicie — E9 tylko gdy wszystkie trzy, po jednym przypadku na zmianę każdego warunku (MC/DC) zamiast wszystkich kombinacji
 
 ### D-39 Założenia przy D-31, D-32, D-33, D-35
 - status: open
