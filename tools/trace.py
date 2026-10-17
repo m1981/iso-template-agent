@@ -93,11 +93,6 @@ def ids_in_commits(m):
     return set(m.ids_in(log))
 
 
-def fingerprint(e):
-    """Treść elementu bez pola status (zmiana stanu nie jest zmianą treści)."""
-    return (e.title, tuple(sorted((k, v) for k, v in e.fields.items() if k != "status")))
-
-
 def impact(m, parents_of):
     """D-32: dla każdego elementu z rekordem VER „pass” porównuje jego treść i treść jego rodziców
     z wersją z commita, który dodał rekord. Zwraca ostrzeżenia W5. Bez gita: brak ostrzeżeń."""
@@ -137,7 +132,7 @@ def impact(m, parents_of):
                 old_models[commit] = M.Model(d).by_id
             old = old_models[commit]
             for ident in [item] + parents_of.get(item, []):
-                if ident in old and fingerprint(old[ident]) != fingerprint(m.by_id[ident]):
+                if ident in old and M.fingerprint(old[ident]) != M.fingerprint(m.by_id[ident]):
                     who = "zmienił się" if ident == item else f"rodzic {ident} zmienił się"
                     found.append(f"W5 {item}: {who} po weryfikacji {ver}; przejrzyj {item} i zapisz nowy rekord VER")
     finally:

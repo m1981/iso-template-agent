@@ -1,6 +1,7 @@
 #!/bin/sh
 # Pre-commit (AGENTS.md, P-05):
 #  1. ślad według tools/id.toml (tools/trace.py) i aktualność trace.md,
+#  1a. autor nie weryfikuje sam siebie w jednym commicie (tools/check_separation.py, E9),
 #  2. jeśli jest plan.md: aktualność progress.md (tools/progress.py),
 #  2a. aktualność iso-map.html (tools/iso_map.py),
 #  3. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność navigation-map.html.
@@ -20,6 +21,8 @@ if ! cmp -s "$tmp" trace.md; then
   exit 1
 fi
 rm -f "$tmp" "$tmp.log"
+
+python3 -B tools/check_separation.py || exit 1
 
 if [ -f plan.md ]; then
   tmp=$(mktemp)

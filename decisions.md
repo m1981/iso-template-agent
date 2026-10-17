@@ -18,35 +18,7 @@ Format:
 
 ## Otwarte
 
-### D-36 Role normy a sesje agenta
-- status: open
-- options: A) model Użytkownik + sesja autora + sesja weryfikatora przyjęty jako hipoteza i sprawdzony pilotem na gtd2 (przy Q-02) według kryteriów akceptacji kamienia milowego; sesje programisty i testera dopiero z etapem kodu · B) wdrożyć pełny model ról od razu · C) odłożyć
-- proposal: A
-- notes: zawężona 2026-10-17 po pytaniu Użytkownika o zależności i walidację; D-37 i D-38 zależą od tej decyzji (D-38 działa też bez niej, ale wtedy sprawdza tylko osobne commity, nie osobne sesje); role rozdziału 8 i załącznika B; norma pozwala łączyć role w jednej osobie, ale rozdziela autora i zatwierdzającego (SI.02.04–05, SI.03.08) i wymaga niezależnej weryfikacji (uwaga 2 przy SI.O7)
-
-### D-37 Karty ról
-- status: open
-- options: A) teraz tylko karta weryfikatora (roles/verifier.md: wejścia, pliki do zapisu, czego nie robi, listy kontrolne, wynik sesji) i tabela ról normy w AGENTS.md; sesja autora działa według AGENTS.md · B) karty dla wszystkich rodzajów sesji od razu · C) tylko tabela
-- proposal: A
-- notes: zależy od D-36; zawężona 2026-10-17 — karta powstaje dla sesji, której faktycznie użyjemy w pilocie
-
-### D-38 Rozdział autora i weryfikatora w commicie
-- status: open
-- options: A) błąd E9: commit, który dodaje rekord VER albo VAL z wynikiem pass, nie może w tym samym commicie zmieniać weryfikowanych elementów · B) ostrzeżenie · C) bez kontroli
-- proposal: A
-- notes: mechaniczny odpowiednik zasady „autor nie zatwierdza sam siebie”, sprawdzalny w hooku; test według tablicy decyzyjnej: nowy rekord, wynik pass, element zmieniony w tym samym commicie — E9 tylko gdy wszystkie trzy, po jednym przypadku na zmianę każdego warunku (MC/DC) zamiast wszystkich kombinacji
-
-### D-39 Założenia przy D-31, D-32, D-33, D-35
-- status: open
-- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
-- proposal: A
-- notes: W5 tylko na ekranie, bo zależy od historii gita i w trace.md psułby kontrolę aktualności; rekord odtworzenia kopii ma subject: repository zamiast items (nowy klucz root_if w id.toml); numerów punktów list kontrolnych się nie zmienia ani nie używa ponownie; lista wartości quality obejmuje też constraint i legal (WP.13: ograniczenia i wymogi prawne)
-
-### D-34 Role normy w małym zespole
-- status: deferred
-- options: A) tabela w AGENTS.md: kto pełni role normy (klient, kierownik projektu, analityk, lider techniczny, projektant, weryfikator) — Użytkownik, agent albo niezależny agent — i kto co zatwierdza · B) bez zmian
-- proposal: A
-- notes: rozdział 8 i role przy każdym zadaniu; dziś P-10 mówi, czego agent nie robi bez decyzji, ale nie przypisuje ról z normy; Użytkownik poprosił 2026-10-17 o zaprojektowanie procesu z rolami normy i rozważenie rozdziału ról między sesje; rozbita na D-36, D-37, D-38
+Brak otwartych decyzji.
 
 ## W kolejce
 
@@ -56,7 +28,71 @@ Format:
 ### Q-02 Przeniesienie zmian szablonu do gtd2
 - notes: w gtd2 ID zostają (D-17); migrują nazwy pól, stanów i plików; 28 wymagań przechodzi z draft na initiated (D-11); każdy produkt dostaje status (D-14)
 
+### Q-03 Pilot ról na gtd2 (D-36)
+- notes: przy Q-02; weryfikator w osobnej sesji według roles/verifier.md przegląda 10 wymagań uznanych za gotowe; kryteria: co najmniej jedna potwierdzona usterka, najwyżej 1 na 3 zgłoszenia odrzucone, zero zmian w plikach produktów, najwyżej dwa pytania o kontekst; zapis w gtd2 jako kamień milowy z acceptance_criteria i rekord ACC, w szablonie decyzja zamykająca
+
+### Q-04 Karta sesji autora
+- notes: odłożone w D-37; wróć, gdy pilot pokaże powtarzalne usterki tego samego rodzaju (np. rozwiązanie w wymaganiu) albo sesja autora zacznie mieszać role; opis w roles/README.md
+
+### Q-05 Sesje programisty i testera
+- notes: odłożone w D-36; tester czarnej skrzynki pisze testy z wymagań bez wglądu w kod, raport testów WP.20; wróć na początku etapu kodu; opis w roles/README.md
+
+### Q-06 Rola w opisie commita i uprawnienia do plików
+- notes: odłożone w D-38; linia „Role: verifier” i kontrola, że commit roli zmienia tylko dozwolone pliki; wróć, gdy w pilocie weryfikator zmieni plik produktu albo E9 okaże się za słabe; opis w roles/README.md
+
+### Q-07 Pełna tabela ról i odpowiedzialności
+- notes: odłożone w D-36; wszystkie role normy (CUS, PJM, TL, AN, DES, PR, TES, WT) przypisane do zadań PM i SI; wróć, gdy dołączy druga osoba albo zewnętrzny klient
+
+### Q-08 Elementy normy świadomie pominięte
+- notes: z przeglądu normy 2026-10-16; studium wykonalności (5.2), instrukcje dostarczenia (PM.01.02), czas trwania, pracochłonność i koszt (PM.01.04, PM.01.08), plan testów (załącznik B), proces wsparcia po dostarczeniu (załącznik A), przykładowe wypełnione artefakty (załącznik E); wróć, gdy pojawi się zewnętrzny klient, budżet albo etap kodu
+
+### Q-09 Skrypt modułu model stanów
+- notes: modules/state-model ma konwencję, nie ma skryptu sprawdzającego (stany i przejścia wskazują wymagania, stany nieosiągalne i bez wyjścia)
+
+### Q-10 Zaległe czynności na Macu
+- notes: git pull --ff-only; git push origin baseline-00-przed-en (brak w kopii, wykrył make restore-check 2026-10-17); potem tag baseline-01-szablon (D-24) i make restore-check RECORD=1
+
 ## Rozstrzygnięte
+
+### D-39 Założenia przy D-31, D-32, D-33, D-35
+- status: resolved
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
+- proposal: A
+- choice: A — założenia przyjęte jak wdrożono
+- date: 2026-10-17
+- notes: W5 tylko na ekranie, bo zależy od historii gita i w trace.md psułby kontrolę aktualności; rekord odtworzenia kopii ma subject: repository zamiast items (nowy klucz root_if w id.toml); numerów punktów list kontrolnych się nie zmienia ani nie używa ponownie; lista wartości quality obejmuje też constraint i legal (WP.13: ograniczenia i wymogi prawne)
+
+### D-38 Rozdział autora i weryfikatora w commicie
+- status: resolved
+- options: A) błąd E9: commit, który dodaje rekord VER albo VAL z wynikiem pass, nie może w tym samym commicie zmieniać weryfikowanych elementów · B) ostrzeżenie · C) bez kontroli
+- proposal: A
+- choice: A — tools/check_separation.py w pre-commit (E9); test tablicą decyzyjną: 4 przypadki MC/DC i 3 brzegowe (nowy element, sama zmiana stanu, rekord kopii); każdy warunek sprawdzony wycofaniem; pierwszy commit repozytorium (import) nie jest sprawdzany
+- date: 2026-10-17
+- notes: mechaniczny odpowiednik zasady „autor nie zatwierdza sam siebie”, sprawdzalny w hooku; test według tablicy decyzyjnej: nowy rekord, wynik pass, element zmieniony w tym samym commicie — E9 tylko gdy wszystkie trzy, po jednym przypadku na zmianę każdego warunku (MC/DC) zamiast wszystkich kombinacji
+
+### D-37 Karty ról
+- status: resolved
+- options: A) teraz tylko karta weryfikatora (roles/verifier.md: wejścia, pliki do zapisu, czego nie robi, listy kontrolne, wynik sesji) i tabela ról normy w AGENTS.md; sesja autora działa według AGENTS.md · B) karty dla wszystkich rodzajów sesji od razu · C) tylko tabela
+- proposal: A
+- choice: A — roles/verifier.md i tabela ról normy w AGENTS.md; karta autora odłożona (Q-04)
+- date: 2026-10-17
+- notes: zależy od D-36; zawężona 2026-10-17 — karta powstaje dla sesji, której faktycznie użyjemy w pilocie
+
+### D-36 Role normy a sesje agenta
+- status: resolved
+- options: A) model Użytkownik + sesja autora + sesja weryfikatora przyjęty jako hipoteza i sprawdzony pilotem na gtd2 (przy Q-02) według kryteriów akceptacji kamienia milowego; sesje programisty i testera dopiero z etapem kodu · B) wdrożyć pełny model ról od razu · C) odłożyć
+- proposal: A
+- choice: A — model Użytkownik + sesja autora + sesja weryfikatora jako hipoteza; pilot na gtd2 według czterech kryteriów (Q-03, roles/README.md); sesje programisty i testera z etapem kodu (Q-05)
+- date: 2026-10-17
+- notes: zawężona 2026-10-17 po pytaniu Użytkownika o zależności i walidację; D-37 i D-38 zależą od tej decyzji (D-38 działa też bez niej, ale wtedy sprawdza tylko osobne commity, nie osobne sesje); role rozdziału 8 i załącznika B; norma pozwala łączyć role w jednej osobie, ale rozdziela autora i zatwierdzającego (SI.02.04–05, SI.03.08) i wymaga niezależnej weryfikacji (uwaga 2 przy SI.O7)
+
+### D-34 Role normy w małym zespole
+- status: resolved
+- options: A) tabela w AGENTS.md: kto pełni role normy (klient, kierownik projektu, analityk, lider techniczny, projektant, weryfikator) — Użytkownik, agent albo niezależny agent — i kto co zatwierdza · B) bez zmian
+- proposal: A
+- choice: rozbita na D-36, D-37, D-38 (rozstrzygnięte 2026-10-17)
+- date: 2026-10-17
+- notes: rozdział 8 i role przy każdym zadaniu; dziś P-10 mówi, czego agent nie robi bez decyzji, ale nie przypisuje ról z normy; Użytkownik poprosił 2026-10-17 o zaprojektowanie procesu z rolami normy i rozważenie rozdziału ról między sesje; rozbita na D-36, D-37, D-38
 
 ### D-35 Sprawdzenie odtworzenia kopii zapasowej
 - status: resolved

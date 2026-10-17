@@ -117,6 +117,11 @@ class Element:
         return f"{self.id} ({self.type})"
 
 
+def fingerprint(e):
+    """Treść elementu bez pola status (zmiana stanu nie jest zmianą treści; D-32, D-38)."""
+    return (e.title, tuple(sorted((k, v) for k, v in e.fields.items() if k != "status")))
+
+
 def _lines_outside_code(fpath):
     """Linie pliku z pominięciem bloków ``` (tam są przykłady formatu)."""
     in_code = False

@@ -1,4 +1,4 @@
-"""Test narzędzi śladu: pełny łańcuch wszystkich typów z id.toml, każdy błąd E1–E8, W1, W3, W4 i rekord postępu.
+"""Test narzędzi śladu: pełny łańcuch wszystkich typów z id.toml, każdy błąd E1–E9, W1, W3, W4, W5 i rekord postępu.
 
 Buduje kopię szablonu w katalogu tymczasowym z przykładowymi artefaktami (moduły
 nawigacji i ryzyk wdrożone), sprawdza, że jest bez błędów, a potem psuje ją na
@@ -323,6 +323,54 @@ def main():
         if run_py(tmpdir, "tools/new_project.py").returncode == 0:
             failures.append("new_project.py zadziałał drugi raz")
 
+    # D-38: E9 według tablicy decyzyjnej (MC/DC): rekord nowy × wynik pass × element zmieniony w tym commicie
+    with tempfile.TemporaryDirectory() as tmpdir:
+        prepare(tmpdir)
+
+        def git3(*a):
+            return subprocess.run(["git", *a], cwd=tmpdir, capture_output=True, text=True)
+        git3("init", "-q", "-b", "main")
+        git3("config", "user.name", "test"), git3("config", "user.email", "test@example.com")
+        git3("config", "core.hooksPath", ".githooks")
+        for script in ("trace.py", "progress.py", "iso_map.py"):
+            run_py(tmpdir, "tools/" + script)
+        git3("add", "-A")
+        if git3("commit", "-q", "-m", "Import (D-01)").returncode != 0:
+            failures.append("E9: pierwszy commit (import) został odrzucony")
+
+        def attempt(changes):
+            """changes: [(plik, a, b)]; „+” w a = dopisz b na końcu. Zwraca (czy commit przeszedł, wyjście)."""
+            for name, a, b in changes:
+                fpath = os.path.join(tmpdir, name)
+                text = open(fpath, encoding="utf-8").read()
+                text = text + b if a == "+" else text.replace(a, b, 1)
+                open(fpath, "w", encoding="utf-8").write(text)
+            for script in ("trace.py", "progress.py", "iso_map.py"):
+                run_py(tmpdir, "tools/" + script)
+            git3("add", "-A")
+            r = git3("commit", "-q", "-m", "Próba (D-01)")
+            git3("reset", "-q", "--hard", "HEAD~1" if r.returncode == 0 else "HEAD")
+            return r.returncode == 0, r.stdout + r.stderr
+
+        change_cap = ("requirements.md", "store it in the Inbox.", "store it in the Inbox at once.")
+        new_ver = lambda result, items="CAP-01": ("verification.md", "+", f"\n### VER-10 Przegląd\n- items: {items}\n- date: 2026-10-17\n- result: {result}\n")
+        cases = [
+            ("1 nowy rekord, pass, element zmieniony", [change_cap, new_ver("pass")], False),
+            ("2 nowy rekord, pass, element bez zmian", [new_ver("pass")], True),
+            ("3 nowy rekord, fail, element zmieniony", [change_cap, new_ver("fail")], True),
+            ("4 stary rekord VER-01, element zmieniony", [("use-cases.md", "Przechwycić Element", "Przechwycić Element szybko")], True),
+            ("5 nowy element weryfikowany w tym samym commicie",
+             [("requirements.md", "+", "\n### CAP-03\n- pattern: event\n- text: When the User submits an Item, System shall show it.\n- source: UC-01\n- status: initiated\n"),
+              new_ver("pass", "CAP-03")], False),
+            ("6 sama zmiana stanu przy weryfikacji", [("requirements.md", "- source: UC-01\n- status: initiated", "- source: UC-01\n- status: verified"), new_ver("pass")], True),
+            ("7 rekord kopii zapasowej (subject: repository)",
+             [change_cap, ("verification.md", "+", "\n### VER-10 Kopia\n- subject: repository\n- date: 2026-10-17\n- result: pass\n")], True),
+        ]
+        for name, changes, expect_ok in cases:
+            ok, out = attempt([(f, a, for_system(b)) for f, a, b in changes])
+            if ok != expect_ok or (not expect_ok and "E9 VER-10" not in out):
+                failures.append(f"E9, przypadek {name}: commit {'przeszedł' if ok else 'odrzucony'}, oczekiwano {'przejścia' if expect_ok else 'E9'}:\n{out}")
+
     # D-22, D-29 na prawdziwych plikach: kopia szablonu bez historii, start projektu, pierwszy commit.
     # Tylko w samym szablonie (w projekcie archive/template/ już jest). Moduł nawigacji ma przykładową
     # mapę z UC-01 do zastąpienia, więc sprawdza go pierwsza część testu.
@@ -363,7 +411,7 @@ def main():
 
     for p in failures:
         print("NIE:", p)
-    print(f"test_tools: {len(BREAKAGES)} psuć, {len(WARNINGS)} ostrzeżeń, postęp, new-project, hooki commit-msg i pre-commit — {'OK' if not failures else f'{len(failures)} porażek'}")
+    print(f"test_tools: {len(BREAKAGES)} psuć, {len(WARNINGS)} ostrzeżeń, E9 (7 przypadków), postęp, new-project, hooki commit-msg i pre-commit — {'OK' if not failures else f'{len(failures)} porażek'}")
     return 1 if failures else 0
 
 

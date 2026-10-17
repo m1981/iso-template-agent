@@ -2,7 +2,7 @@
 
 Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: SC 0 · IO 0 · D 39 · Q 2 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 0 · VAL 0 · ACC 0
+Elementy: SC 0 · IO 0 · D 39 · Q 10 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 0 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 0
 
@@ -15,10 +15,10 @@ Błędy: 0 · ostrzeżenia: 0
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
-| D-36 | D | — |
-| D-37 | D | — |
-| D-38 | D | — |
 | D-39 | D | — |
+| D-38 | D | — |
+| D-37 | D | — |
+| D-36 | D | — |
 | D-34 | D | — |
 | D-35 | D | — |
 | D-33 | D | — |
