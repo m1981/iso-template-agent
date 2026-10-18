@@ -18,11 +18,41 @@ Format:
 
 ## Otwarte
 
-### D-40 Adres origin na Macu
+### D-43 Trzy warstwy: praca nad procesem, szablon procesu, projekty z szablonu
 - status: open
-- options: A) przełączyć na HTTPS: git remote set-url origin https://github.com/m1981/iso-template-agent (logowanie przez przeglądarkę albo token) · B) zostawić SSH git@github.com:m1981/iso-template-agent.git (wymaga klucza SSH dodanego w GitHubie)
-- proposal: A, jeśli push z Maca przez SSH nie działa; B, jeśli działa
-- notes: oba adresy to to samo repozytorium; kopia agenta w chmurze używa HTTPS; dotyczy Q-10 (push tagów z Maca)
+- options: A) to repozytorium jest projektem procesu; szablon dla copiera leży w podkatalogu template/ (copier.yml, _subdirectory); projekty (GTD i kolejne) powstają przez copier copy i dostają poprawki procesu przez copier update · B) jedno repozytorium bez podziału; new-project przenosi do archive/template/ cały zapis pracy nad szablonem (rejestr, rekordy, materiały wejściowe, pliki generowane) · C) bez zmian
+- proposal: A
+- notes: Użytkownik przy odpowiedzi: proces pracy nad procesem, GTD jako klient i pilot procesu, szablon procesu, copier generuje nowe projekty z meta-szablonu. Próba z copierem 9.19.1 (2026-10-19): pliki z _skip_if_exists zostają nietknięte przy update; lokalna zmiana pliku procesu daje konflikt przy update; copier wybiera wersję po tagach vX.Y.Z, a w _commit zapisuje nazwę z git describe (wybrał baseline-02-x stojący na tym samym commicie co v0.2.0)
+
+### D-45 Kopiowanie szablonu bez rsync
+- status: open
+- options: A) git archive HEAD | tar -x -C ../nowy-projekt · B) make new-project DEST=… robi kopię i start jednym poleceniem
+- proposal: rozstrzyga D-43: przy D-43 A kopię robi copier copy i D-45 się zamyka
+- notes: README obiecuje tylko python3 i git, a krok 1 używa rsync, którego nie ma w kopii agenta
+
+### D-47 Pliki procesu a pliki projektu
+- status: open
+- options: A) każdy plik ma jednego właściciela: pliki procesu (AGENTS.md, process/, tools/, .githooks/, Makefile) aktualizuje copier update; pliki projektu (project/, spec/, records/) copier zakłada raz (_skip_if_exists); dostosowanie procesu do projektu tylko w jednym pliku projektu (project/tailoring.md), nigdy w plikach procesu · B) wszystkie pliki aktualizowane, konflikty rozwiązywane ręcznie przy każdym update
+- proposal: A
+- notes: próba z D-43 pokazała konflikt przy update po lokalnej zmianie AGENTS.md; tools/id.toml miesza reguły procesu (typy) z ustawieniami projektu (system, ocena zgodności z normą)
+
+### D-48 Czy praca nad procesem sama używa procesu
+- status: open
+- options: A) tak: katalog główny ma własny rejestr, rekordy i materiały wejściowe, a narzędzia z template/tools/ działają na nim przez parametr katalogu i osobny model śladu dla warstwy procesu · B) tylko rejestr i git, bez kontroli śladu w warstwie procesu
+- proposal: A
+- notes: dziś szablon sprawdza sam siebie hookami (D-01…D-46, VER-01); w warstwie procesu klientem są projekty, więc wyniki pilota z GTD (Q-03) stają się tu rekordami walidacji
+
+### D-49 Wersje szablonu
+- status: open
+- options: A) wydania szablonu jako tagi vX.Y.Z (dla copiera), tagi baseline-nn zostają dla kamieni pracy nad procesem i nie stoją na tym samym commicie co wydanie · B) jeden rodzaj tagów
+- proposal: A
+- notes: copier szuka wersji w tagach vX.Y.Z; gdy na commicie stoi też baseline-nn, w .copier-answers.yml ląduje nazwa baseline'u
+
+### D-50 Kolejność wykonania D-41, D-42, D-44
+- status: open
+- options: A) najpierw D-43 (szablon do template/), potem D-41, D-42 i D-44 w szablonie, na końcu przejście gtd2 na copier (zamiast Q-02) · B) najpierw D-41, D-42, D-44 w obecnym płaskim układzie, copier później
+- proposal: A
+- notes: przy B pliki przenosi się dwa razy
 
 ## W kolejce
 
@@ -57,6 +87,43 @@ Format:
 - notes: zrobione 2026-10-18: Mac zsynchronizowany do f855d51 (drzewo identyczne z kopią), test i make check przechodzą na Pythonie 3.10, tag baseline-01-szablon założony na Macu (D-24). Tagi baseline-00-przed-en i baseline-01-szablon wypchnięte z Maca przez Użytkownika. 2026-10-19: make restore-check RECORD=1 z kopii origin na 7779435, wynik pass (VER-01). Q-10 zamknięta.
 
 ## Rozstrzygnięte
+
+### D-46 Autor commitów agenta
+- status: resolved
+- options: A) bez zmian: autor to Użytkownik, udział agenta w linii Co-Authored-By · B) nowe commity agenta jako Claude (noreply@anthropic.com) · C) jak B i przepisanie 18ab080 z wymuszonym pushem
+- proposal: A
+- choice: A — autorem commitów zostaje Użytkownik; opublikowanej historii nie przepisujemy
+- date: 2026-10-19
+
+### D-44 Kolejność startu w README
+- status: resolved
+- options: A) kroki według normy: umowa → plan → zatwierdzenie i baseline → środowisko → specyfikacja, każdy krok z wynikiem i commitem · B) obecna kolejność
+- proposal: A
+- choice: A — wykonanie według D-50
+- date: 2026-10-19
+- notes: ISO/IEC 29110 5.2 (warunki wejścia), PM.01.01–PM.01.16, SI.01, SI.02
+
+### D-42 Układ katalogów
+- status: resolved
+- options: A) katalogi według rodzaju dokumentu (ISO/IEC/IEEE 15289): process/, project/, spec/, records/, reports/ (generowane), reference/; w katalogu głównym README.md, AGENTS.md, CLAUDE.md, Makefile · B) tylko reports/ i reference/ · C) płasko
+- proposal: A
+- choice: A — wykonanie według D-50; przeniesienie przez git mv, bez usuwania
+- date: 2026-10-19
+
+### D-41 Umowa projektu (WP.02)
+- status: resolved
+- options: A) nowy plik agreement.md: produkt, cel, ogólny zakres, co dostarczamy, kto akceptuje, wykonalność; zatwierdzany decyzją D, objęty pierwszym baseline'em; plan.md odsyła do niego · B) sekcja w plan.md
+- proposal: A
+- choice: A — wykonanie według D-50
+- date: 2026-10-19
+- notes: WP.02 (tabela 14), PM.01.01 (wejście: Agreement [approved]), WP.11: „requirements baseline (i.e. agreement)”
+
+### D-40 Adres origin na Macu
+- status: resolved
+- options: A) przełączyć na HTTPS · B) zostawić SSH git@github.com:m1981/iso-template-agent.git
+- proposal: B (push z Maca przez SSH zadziałał: commit 7779435)
+- choice: B — na Macu zostaje SSH
+- date: 2026-10-19
 
 ### D-39 Założenia przy D-31, D-32, D-33, D-35
 - status: resolved
