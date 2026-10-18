@@ -18,7 +18,11 @@ Format:
 
 ## Otwarte
 
-Brak otwartych decyzji.
+### D-40 Adres origin na Macu
+- status: open
+- options: A) przełączyć na HTTPS: git remote set-url origin https://github.com/m1981/iso-template-agent (logowanie przez przeglądarkę albo token) · B) zostawić SSH git@github.com:m1981/iso-template-agent.git (wymaga klucza SSH dodanego w GitHubie)
+- proposal: A, jeśli push z Maca przez SSH nie działa; B, jeśli działa
+- notes: oba adresy to to samo repozytorium; kopia agenta w chmurze używa HTTPS; dotyczy Q-10 (push tagów z Maca)
 
 ## W kolejce
 
