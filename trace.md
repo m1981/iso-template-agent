@@ -2,7 +2,7 @@
 
 Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: SC 0 · IO 0 · D 40 · Q 10 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 0 · VAL 0 · ACC 0
+Elementy: SC 0 · IO 0 · D 40 · Q 10 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 1 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 0
 
@@ -10,6 +10,7 @@ Błędy: 0 · ostrzeżenia: 0
 
 | Element | Typ | Rodzice |
 | --- | --- | --- |
+| VER-01 | VER | — |
 
 ## W dół: element → dzieci
 
@@ -55,6 +56,7 @@ Błędy: 0 · ostrzeżenia: 0
 | D-03 | D | — |
 | D-02 | D | — |
 | D-01 | D | — |
+| VER-01 | VER | — |
 
 ## Charakterystyki jakości (REQ, WP.13)
 
@@ -90,7 +92,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | WP.10 | TSK Zadanie | 0 |
 | WP.10 | PRK Ryzyko projektu | 0 |
 | WP.04 | COR Korekta | 0 |
-| WP.23 | VER Weryfikacja | 0 |
+| WP.23 | VER Weryfikacja | 1 |
 | WP.22 | VAL Walidacja | 0 |
 | WP.01 | ACC Akceptacja | 0 |
 | WP.05 | AGENTS.md | — |

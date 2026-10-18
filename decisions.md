@@ -54,7 +54,7 @@ Format:
 - notes: modules/state-model ma konwencję, nie ma skryptu sprawdzającego (stany i przejścia wskazują wymagania, stany nieosiągalne i bez wyjścia)
 
 ### Q-10 Zaległe czynności na Macu
-- notes: zrobione 2026-10-18: Mac zsynchronizowany do f855d51 (drzewo identyczne z kopią), test i make check przechodzą na Pythonie 3.10, tag baseline-01-szablon założony na Macu (D-24). Czeka: push tagów baseline-00-przed-en i baseline-01-szablon z terminala na Macu (sesja agenta dostaje 403 przy pushu tagów), potem make restore-check RECORD=1
+- notes: zrobione 2026-10-18: Mac zsynchronizowany do f855d51 (drzewo identyczne z kopią), test i make check przechodzą na Pythonie 3.10, tag baseline-01-szablon założony na Macu (D-24). Tagi baseline-00-przed-en i baseline-01-szablon wypchnięte z Maca przez Użytkownika. 2026-10-19: make restore-check RECORD=1 z kopii origin na 7779435, wynik pass (VER-01). Q-10 zamknięta.
 
 ## Rozstrzygnięte
 

@@ -19,4 +19,10 @@ Format:
 - notes: znalezione usterki
 ```
 
-Brak weryfikacji.
+### VER-01 Odtworzenie repozytorium z kopii zapasowej
+- subject: repository
+- date: 2026-10-19
+- by: make restore-check
+- checklist: REPO
+- result: pass
+- notes: kopia https://github.com/m1981/iso-template-agent, HEAD 777943539fe9, tagi 2
