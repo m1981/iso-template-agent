@@ -50,7 +50,7 @@ Brak otwartych decyzji.
 - notes: modules/state-model ma konwencję, nie ma skryptu sprawdzającego (stany i przejścia wskazują wymagania, stany nieosiągalne i bez wyjścia)
 
 ### Q-10 Zaległe czynności na Macu
-- notes: git pull --ff-only; git push origin baseline-00-przed-en (brak w kopii, wykrył make restore-check 2026-10-17); potem tag baseline-01-szablon (D-24) i make restore-check RECORD=1
+- notes: zrobione 2026-10-18: Mac zsynchronizowany do f855d51 (drzewo identyczne z kopią), test i make check przechodzą na Pythonie 3.10, tag baseline-01-szablon założony na Macu (D-24). Czeka: push tagów baseline-00-przed-en i baseline-01-szablon z terminala na Macu (sesja agenta dostaje 403 przy pushu tagów), potem make restore-check RECORD=1
 
 ## Rozstrzygnięte
 
