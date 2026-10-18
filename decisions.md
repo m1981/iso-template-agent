@@ -30,11 +30,11 @@ Format:
 - proposal: rozstrzyga D-43: przy D-43 A kopię robi copier copy i D-45 się zamyka
 - notes: README obiecuje tylko python3 i git, a krok 1 używa rsync, którego nie ma w kopii agenta
 
-### D-47 Pliki procesu a pliki projektu
+### D-47 Co dostarcza copier, a co należy do projektu
 - status: open
-- options: A) każdy plik ma jednego właściciela: pliki procesu (AGENTS.md, process/, tools/, .githooks/, Makefile) aktualizuje copier update; pliki projektu (project/, spec/, records/) copier zakłada raz (_skip_if_exists); dostosowanie procesu do projektu tylko w jednym pliku projektu (project/tailoring.md), nigdy w plikach procesu · B) wszystkie pliki aktualizowane, konflikty rozwiązywane ręcznie przy każdym update
+- options: A) copier dostarcza i aktualizuje tylko katalog process/: narzędzia, reguły (AGENTS procesu, kontrakt, listy kontrolne, role, reguły id.toml), puste wzorce dokumentów, hooki, opis migracji; dokumenty projektu (project/, spec/, records/) powstają ze wzorców jawnym poleceniem make init i są poza zbiorem copiera; AGENTS.md, CLAUDE.md, README.md i Makefile w katalogu głównym należą do projektu i wpinają proces jedną linią; ustawienia projektu (system, prefiksy obszarów, moduły, ocena zgodności) w jednym pliku lokalnym · B) copier zarządza całym drzewem, dokumenty projektu zakłada raz przez _skip_if_exists, konflikty rozwiązywane ręcznie
 - proposal: A
-- notes: próba z D-43 pokazała konflikt przy update po lokalnej zmianie AGENTS.md; tools/id.toml miesza reguły procesu (typy) z ustawieniami projektu (system, ocena zgodności z normą)
+- notes: przeformułowana 2026-10-19 po dokumencie Użytkownika „Copier: konfiguracja i proces pracy dla nowego zastosowania” (historia truth-ledger → kuchnie): _skip_if_exists odtwarza usunięty plik przy update; własność musi być ustalona dla każdej ścieżki; główny AGENTS.md należy do projektu; przestrzeń nazw od pierwszego wydania. Poprzednie brzmienie: pliki procesu aktualizowane, pliki projektu przez _skip_if_exists, dostosowanie w project/tailoring.md
 
 ### D-48 Czy praca nad procesem sama używa procesu
 - status: open
@@ -53,6 +53,18 @@ Format:
 - options: A) najpierw D-43 (szablon do template/), potem D-41, D-42 i D-44 w szablonie, na końcu przejście gtd2 na copier (zamiast Q-02) · B) najpierw D-41, D-42, D-44 w obecnym płaskim układzie, copier później
 - proposal: A
 - notes: przy B pliki przenosi się dwa razy
+
+### D-51 Migracja dokumentów po zmianie procesu
+- status: open
+- options: A) każde wydanie, które zmienia reguły dotyczące istniejących dokumentów, ma wpis w process/MIGRATIONS.md: która reguła, których dokumentów dotyczy (nowe, w toku, zakończone), jak je znaleźć (kody błędów i ostrzeżeń trace.py), kroki i warunek zakończenia; projekt zapisuje zakończenie migracji decyzją D i polem migrated_to w pliku ustawień; trace.py ostrzega, gdy wersja procesu jest nowsza niż migrated_to · B) tylko zasada w tekście, bez kontroli
+- proposal: A
+- notes: zasada Użytkownika (2026-10-19), dosłownie: „Copier aktualizuje narzędzia, normy i wzorce. Dostosowanie istniejących dokumentów wymaga jawnie opisanej migracji i osobnego kroku. Aktualizacja pakietu nie oznacza automatycznie zakończenia migracji dokumentów.” Opcje dotyczą tylko tego, jak ją wykonać. Przykład z naszej historii: D-17 zmieniła nazwy pól i stanów, a gtd2 wymaga migracji (Q-02)
+
+### D-52 Bramka aktualizacji projektu
+- status: open
+- options: A) jedno polecenie make process-update V=vX.Y.Z: odmawia przy brudnym drzewie, wymaga jawnej wersji, używa przypiętej wersji copiera i właściwego pliku answers, zapisuje pełny log i kod wyjścia, wykrywa znaczniki konfliktu także w nowych plikach, uruchamia make check i make test; nie robi stash ani commita · B) instrukcja w README, kroki ręczne
+- proposal: A
+- notes: copier 9.19.1 w próbie z D-43 zakończył update kodem 0 i zostawił konflikt (UU); dokument Użytkownika potwierdza to samo dla 9.17.1
 
 ## W kolejce
 
@@ -85,6 +97,9 @@ Format:
 
 ### Q-10 Zaległe czynności na Macu
 - notes: zrobione 2026-10-18: Mac zsynchronizowany do f855d51 (drzewo identyczne z kopią), test i make check przechodzą na Pythonie 3.10, tag baseline-01-szablon założony na Macu (D-24). Tagi baseline-00-przed-en i baseline-01-szablon wypchnięte z Maca przez Użytkownika. 2026-10-19: make restore-check RECORD=1 z kopii origin na 7779435, wynik pass (VER-01). Q-10 zamknięta.
+
+### Q-11 Stan projektu wobec aktualizacji (active, frozen, retired)
+- notes: z dokumentu Użytkownika o copierze (2026-10-19); bramka aktualizacji odmawia dla frozen i retired. Wróć, gdy z szablonu korzysta więcej niż jeden projekt albo gdy któryś projekt ma przestać przyjmować aktualizacje
 
 ## Rozstrzygnięte
 
