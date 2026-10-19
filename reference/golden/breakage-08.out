@@ -1,0 +1,6 @@
+E7 CAP-02: rodzic SC-01 typu SC niedozwolony (dozwolone: UC, D, DP, RSK, IO)
+E8 RSK-01: brak dzieci typu REQ (Wymaganie EARS)
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 2 błędów, 2 ostrzeżeń
+[kod 1]

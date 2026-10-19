@@ -1,0 +1,5 @@
+W4 RSK-01: nieznane pole „źródło” (znane: impact, likelihood, notes, severity, source, status)
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 0 błędów, 3 ostrzeżeń
+[kod 0]

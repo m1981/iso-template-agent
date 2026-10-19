@@ -1,0 +1,5 @@
+E4 VER-01: wynik „pass”, a niespełnione punkty: UC.3
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 1 błędów, 2 ostrzeżeń
+[kod 1]

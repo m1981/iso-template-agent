@@ -1,0 +1,6 @@
+E7 UC-01: pole „scope” wymaga rodzica z kind=In, a IO-02 ma kind=Out
+W1 IO-01: brak dzieci typu UC (Przypadek użycia)
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 1 błędów, 3 ostrzeżeń
+[kod 1]

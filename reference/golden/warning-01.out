@@ -1,0 +1,5 @@
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+W3 OUT-01: stan „verified” bez weryfikacji VER z wynikiem „pass”
+trace.py: 29 elementów, 0 błędów, 3 ostrzeżeń
+[kod 0]

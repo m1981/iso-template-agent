@@ -1,0 +1,7 @@
+E3 IO-01: zdublowane ID (scope.md:5 i scope.md:1)
+E2 OUT-01: nieznany rodzic IO-02
+E2 requirements.md:16: nieznany odnośnik IO-02
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 28 elementów, 3 błędów, 2 ostrzeżeń
+[kod 1]

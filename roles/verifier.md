@@ -22,7 +22,7 @@ Użytkownik nie dopowiada kontekstu poza tą wiadomością. Każde pytanie weryf
 2. Sprawdź też powiązania: rodzica (czy element z niego wynika) i dzieci z trace.md (czy nadal pasują).
 3. Zapisz jeden rekord VER na przegląd w verification.md: `items`, `date`, `by: agent-weryfikator`, `checklist`, `result`, przy wyniku `fail` pole `failed` z numerami punktów i `notes` z opisem każdej usterki (gdzie, co, dlaczego).
 4. Przy wyniku `fail` zaproponuj korektę w corrections.md: `cause: VER-nn`, `action`, `status: initiated`.
-5. `make check`, jeden commit z ID rekordu w opisie (np. „Weryfikacja UC-01, REQ (VER-03)”).
+5. `make check`, jeden commit z ID rekordu w opisie (np. „Weryfikacja UC-nn, REQ (VER-nn)”).
 
 ## Czego nie robisz
 

@@ -81,6 +81,7 @@ concerns = "concerns"
 quality = "quality"
 checklist = "checklist"
 failed = "failed"
+runner = "runner"
 
 [[type]]
 code = "SC"
@@ -211,6 +212,7 @@ fields = ["verifies"]
 parents = ["REQ"]
 product = true
 iso = "WP.19"
+optional = ["runner"]    # D-60: plik::przypadek testu automatycznego, np. tools/test_tools.py::chain
 
 # ---------- Plan (D-08, D-09): plan.md, ISO/IEC 29110 WP.10
 

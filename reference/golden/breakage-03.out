@@ -1,0 +1,7 @@
+E2 CAP-01: nieznany rodzic UC-09
+E2 requirements.md:4: nieznany odnośnik UC-09
+W1 UC-01: brak dzieci typu REQ (Wymaganie EARS)
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 2 błędów, 3 ostrzeżeń
+[kod 1]

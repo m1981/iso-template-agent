@@ -1,0 +1,5 @@
+E5 CAP-01: tekst musi mieć dokładnie jedno „shall”
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 1 błędów, 2 ostrzeżeń
+[kod 1]

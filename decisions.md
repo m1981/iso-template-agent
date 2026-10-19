@@ -18,34 +18,11 @@ Format:
 
 ## Otwarte
 
-### D-59 Wymagania szablonu
+### D-64 Założenia przy wykonaniu D-59…D-63
 - status: open
-- options: A) przed przeniesieniem spisać wymagania szablonu w warstwie procesu (spec/requirements.md, EARS, podmiot „Process kit”), każde ze źródłem w decyzji D-nn; obszary: TRC ślad, HKS hooki, SEP rozdział ról, DST dystrybucja, INI zakładanie projektu, UPD bramka aktualizacji, MIG migracje, LAY układ i własność plików, LNG język, ISO zgodność · B) bez wymagań; decyzje i testy wystarczą
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
 - proposal: A
-- notes: dziś wymagania szablonu są rozproszone w 58 decyzjach; bez nich nie da się wykazać, że przeniesienie niczego nie zgubiło (każde wymaganie musi mieć test przed i po)
-
-### D-60 Powiązanie testów w Pythonie z wymaganiami
-- status: open
-- options: A) katalog testów w warstwie procesu (spec/tests/catalog.md): wpisy AT-nn z verifies: REQ i polem runner: plik::przypadek; testy wypisują nazwy przypadków, a kontrola sprawdza, że każdy runner istnieje i przeszedł; nowe pole runner to zmiana reguł id.toml · B) tylko pliki .feature dla scenariuszy ludzkich, testy w Pythonie bez śladu · C) znaczniki „# verifies:” w kodzie testów i nowy format parsera
-- proposal: A
-- notes: wynik przebiegu z nazwami przypadków to raport testów (WP.20)
-
-### D-61 Weryfikacja samego przeniesienia
-- status: open
-- options: A) przed przeniesieniem złoty wzorzec wyjść narzędzi (trace.md, progress.md, iso-map.html, komunikaty 21 psuć i 5 ostrzeżeń na fixture); po przeniesieniu wyjścia identyczne poza ścieżkami; do tego niezmienniki: treść przeniesionych dokumentów bajt w bajt, pokrycie mapy 50/50, git log --follow dla każdego pliku, nowe narzędzie check_refs.py w make check (każda ścieżka wspomniana w dokumentach i kodzie procesu istnieje) · B) wystarczą make test i make test-distribution
-- proposal: A
-- notes: check_refs.py zostaje na stałe: łapie dokładnie te „małe zależności”, o które pyta Użytkownik, także przy przyszłych zmianach
-
-### D-62 Kontrola przecieku domeny do procesu
-- status: open
-- options: A) automatyczna: w process/ dozwolone są tylko zastępcze ID z „nn” (np. UC-nn), a nie konkretne numery; w projekcie kontrola, że pliki process/ nie zawierają pojęć z jego słownika; w warstwie procesu punkt listy kontrolnej przeglądu rejestru: decyzja dotyczy procesu, nie produktu klienta · B) tylko punkt listy kontrolnej
-- proposal: A
-- notes: z D-57: w poprzednim podejściu terminy, decyzje i zadania produktu klienta trafiały do rejestrów procesu
-
-### D-63 Kryteria odbioru wydania v1.0.0
-- status: open
-- options: A) kamień milowy w planie warstwy procesu z acceptance_criteria AC-1…AC-9 (lista w odpowiedzi z 2026-10-19), rekordy VAL z pilota gtd2 i rekord ACC Użytkownika; tag v1.0.0 dopiero po ACC · B) v1.0.0 po przejściu testów, bez pilota
-- proposal: A
+- notes: (1) katalog testów jako plik Gherkin spec/tests/process-kit.feature zamiast catalog.md: typ AT zostaje jednym formatem; (2) pliki warstwy procesu (spec/, project/plan.md, reports/, reference/golden/) od razu w docelowych miejscach; do przeniesienia ślad liczy przejściowy tools/process_kit_view.py (make process-kit), a reports/ nie sprawdza pre-commit; (3) check_refs.py pomija rejestr decyzji, doc/, reference/, archive/, pliki generowane, .gitignore i kod testów; sama nazwa pliku wystarcza, gdy taki plik istnieje; 16 wyjątków z powodem w tools/check_refs.allow; (4) check_leak.py pomija D-nn i Q-nn (decyzje szablonu, D-56) i kod testów; ID wymagań liczy tylko w obszarach, które projekt ma; wyjątek dla przykładowej mapy modułu nawigacji (2 pliki, test używa jej jako danych); lista plików procesu w Makefile do przeniesienia; (5) termin kamienia „Wydanie v1.0.0”: 2026-11-30; (6) poprawione przykłady z konkretnymi ID na „nn” w roles/verifier.md i komentarzu tools/model.py; (7) złoty wzorzec ze stałym rejestrem z jedną decyzją, żeby nie zależał od rejestru szablonu; (8) bez testu zostają LAY-01, LAY-02, MIG-01, MIG-02 (powstaną z przeniesieniem i migracjami) oraz ręczne TRC-01 i LNG-01 do przeglądu
 
 ## W kolejce
 
@@ -83,6 +60,45 @@ Format:
 - notes: z dokumentu Użytkownika o copierze (2026-10-19); bramka aktualizacji odmawia dla frozen i retired. Wróć, gdy z szablonu korzysta więcej niż jeden projekt albo gdy któryś projekt ma przestać przyjmować aktualizacje
 
 ## Rozstrzygnięte
+
+### D-63 Kryteria odbioru wydania v1.0.0
+- status: resolved
+- options: A) kamień milowy w planie warstwy procesu z acceptance_criteria AC-1…AC-9 (lista w odpowiedzi z 2026-10-19), rekordy VAL z pilota gtd2 i rekord ACC Użytkownika; tag v1.0.0 dopiero po ACC · B) v1.0.0 po przejściu testów, bez pilota
+- proposal: A
+- choice: A — project/plan.md warstwy procesu: cel, kamień milowy „Wydanie v1.0.0” z kryteriami AC-1…AC-9, 10 zadań i 2 ryzyka projektu
+- date: 2026-10-19
+
+### D-62 Kontrola przecieku domeny do procesu
+- status: resolved
+- options: A) automatyczna: w process/ dozwolone są tylko zastępcze ID z „nn” (np. UC-nn), a nie konkretne numery; w projekcie kontrola, że pliki process/ nie zawierają pojęć z jego słownika; w warstwie procesu punkt listy kontrolnej przeglądu rejestru: decyzja dotyczy procesu, nie produktu klienta · B) tylko punkt listy kontrolnej
+- proposal: A
+- choice: A — tools/check_leak.py w make check (konkretne ID i pojęcia słownika projektu); lista TPL w checklist.md
+- date: 2026-10-19
+- notes: z D-57: w poprzednim podejściu terminy, decyzje i zadania produktu klienta trafiały do rejestrów procesu
+
+### D-61 Weryfikacja samego przeniesienia
+- status: resolved
+- options: A) przed przeniesieniem złoty wzorzec wyjść narzędzi (trace.md, progress.md, iso-map.html, komunikaty 21 psuć i 5 ostrzeżeń na fixture); po przeniesieniu wyjścia identyczne poza ścieżkami; do tego niezmienniki: treść przeniesionych dokumentów bajt w bajt, pokrycie mapy 50/50, git log --follow dla każdego pliku, nowe narzędzie check_refs.py w make check (każda ścieżka wspomniana w dokumentach i kodzie procesu istnieje) · B) wystarczą make test i make test-distribution
+- proposal: A
+- choice: A — tools/golden_master.py i wzorzec w reference/golden/ (31 plików); tools/check_refs.py z listą wyjątków w make check
+- date: 2026-10-19
+- notes: check_refs.py zostaje na stałe: łapie dokładnie te „małe zależności”, o które pyta Użytkownik, także przy przyszłych zmianach
+
+### D-60 Powiązanie testów w Pythonie z wymaganiami
+- status: resolved
+- options: A) katalog testów w warstwie procesu (spec/tests/catalog.md): wpisy AT-nn z verifies: REQ i polem runner: plik::przypadek; testy wypisują nazwy przypadków, a kontrola sprawdza, że każdy runner istnieje i przeszedł; nowe pole runner to zmiana reguł id.toml · B) tylko pliki .feature dla scenariuszy ludzkich, testy w Pythonie bez śladu · C) znaczniki „# verifies:” w kodzie testów i nowy format parsera
+- proposal: A
+- choice: A — pole runner: w typie AT (id.toml) i kontrola E4 w trace.py; katalog jako spec/tests/process-kit.feature (52 testy, 50 z runner:); testy wypisują wiersze CASE; tools/test_report.py (make test-report) zapisuje raport testów
+- date: 2026-10-19
+- notes: wynik przebiegu z nazwami przypadków to raport testów (WP.20)
+
+### D-59 Wymagania szablonu
+- status: resolved
+- options: A) przed przeniesieniem spisać wymagania szablonu w warstwie procesu (spec/requirements.md, EARS, podmiot „Process kit”), każde ze źródłem w decyzji D-nn; obszary: TRC ślad, HKS hooki, SEP rozdział ról, DST dystrybucja, INI zakładanie projektu, UPD bramka aktualizacji, MIG migracje, LAY układ i własność plików, LNG język, ISO zgodność · B) bez wymagań; decyzje i testy wystarczą
+- proposal: A
+- choice: A — spec/requirements.md warstwy procesu: 56 wymagań EARS (podmiot „Process kit”) w 15 obszarach, każde ze źródłem w decyzji; słownik 26 pojęć procesu w spec/glossary.md
+- date: 2026-10-19
+- notes: dziś wymagania szablonu są rozproszone w 58 decyzjach; bez nich nie da się wykazać, że przeniesienie niczego nie zgubiło (każde wymaganie musi mieć test przed i po)
 
 ### D-58 new_project.py
 - status: resolved

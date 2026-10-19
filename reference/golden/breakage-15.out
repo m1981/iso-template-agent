@@ -1,0 +1,6 @@
+E7 UC-01: pole „scenarios” wskazuje IO-01 typu IO; dozwolone tu: SC
+W1 SC-01: brak dzieci typu UC (Przypadek użycia)
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+trace.py: 29 elementów, 1 błędów, 3 ostrzeżeń
+[kod 1]

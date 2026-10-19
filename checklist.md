@@ -97,3 +97,11 @@ Punkty mówią, czego szukać; skrypty i tak sprawdzają format (EARS, słownik,
 - REPO.1 Klon z kopii ma ten sam ostatni commit co repozytorium lokalne.
 - REPO.2 Klon ma te same tagi baseline.
 - REPO.3 W klonie kontrole śladu przechodzą bez błędów.
+
+## TPL Rejestr i dokumenty szablonu
+
+Źródło: D-57, D-62 (proces oddzielony od produktu klienta). Lista dla przeglądu rejestru i dokumentów w repozytorium szablonu, nie w projekcie.
+
+- TPL.1 Decyzja dotyczy procesu albo szablonu, a nie produktu, który powstaje w projekcie.
+- TPL.2 Treść nie zawiera pojęć, ID, zadań ani danych projektu klienta; przykłady używają ID zastępczych z „nn”.
+- TPL.3 Wniosek z projektu (np. z pilota) jest zapisany jako potrzeba procesu ze wskazaniem źródła, bez przenoszenia treści dziedziny.

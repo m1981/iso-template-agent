@@ -1,0 +1,6 @@
+E7 COR-01: rodzic UC-01 typu UC niedozwolony (dozwolone: TSK, MS, PRK, VER, VAL, ACC)
+W1 CAP-02: brak dzieci typu AT (Test akceptacyjny)
+W1 OUT-01: brak dzieci typu AT (Test akceptacyjny)
+W1 VER-02: brak dzieci typu COR (Korekta)
+trace.py: 29 elementów, 1 błędów, 3 ostrzeżeń
+[kod 1]

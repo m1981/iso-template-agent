@@ -1,0 +1,364 @@
+<title>ISO 29110 a nasz model śladu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=Public+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Układ: arkusz zgodności — podsumowanie, rdzeń zależności, tabela produkt po produkcie, model śladu, pełny graf */
+:root {
+  --bg: #f5f6f8; --panel: #ffffff; --fg: #1b2433; --muted: #586477; --line: #d6dce5;
+  --covered: #2f7d4a; --covered-bg: #e3f2e8; --partial: #8a5a00; --partial-bg: #fcf0d8;
+  --missing: #a33a2a; --missing-bg: #fbe4df; --out: #5d6674; --out-bg: #eceef1;
+  --f-display: "Literata", Georgia, serif; --f-body: "Public Sans", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12161d; --panel: #1a2029; --fg: #e3e8ef; --muted: #9aa6b6; --line: #2e3744;
+  --covered: #86d3a0; --covered-bg: #17321f; --partial: #f0b35c; --partial-bg: #3a2a12;
+  --missing: #f19a8c; --missing-bg: #3b1b16; --out: #a8b1be; --out-bg: #232a34; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12161d; --panel: #1a2029; --fg: #e3e8ef; --muted: #9aa6b6; --line: #2e3744;
+  --covered: #86d3a0; --covered-bg: #17321f; --partial: #f0b35c; --partial-bg: #3a2a12;
+  --missing: #f19a8c; --missing-bg: #3b1b16; --out: #a8b1be; --out-bg: #232a34; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.55 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 48px; display: grid; gap: 32px; }
+.wrap > * { min-width: 0; }
+h1 { font: 600 clamp(1.6rem, 3vw, 2.2rem)/1.15 var(--f-display); margin: 0; text-wrap: balance; }
+h2 { font: 600 1.2rem/1.3 var(--f-display); margin: 0 0 8px; text-wrap: balance; }
+p { margin: 0; }
+.lead, .note { color: var(--muted); max-width: 75ch; }
+.lead { margin-top: 8px; }
+.note { font-size: 0.86rem; margin-top: 8px; }
+code { font-family: var(--f-mono); font-size: 0.85em; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 16px; font-variant-numeric: tabular-nums; }
+.summary span { display: inline-flex; align-items: center; gap: 8px; }
+.diagram, .tbl { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; }
+.diagram { padding: 12px; }
+.diagram pre { margin: 0; min-width: 900px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+td:first-child { font-family: var(--f-mono); font-size: 0.82rem; white-space: nowrap; }
+.pill { font: 600 0.72rem/1 var(--f-mono); padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.covered { color: var(--covered); background: var(--covered-bg); }
+.pill.partial { color: var(--partial); background: var(--partial-bg); }
+.pill.missing { color: var(--missing); background: var(--missing-bg); }
+.pill.out_of_scope { color: var(--out); background: var(--out-bg); }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>ISO 29110 a nasz model śladu</h1>
+    <p class="lead">Produkty pracy profilu Basic (ISO/IEC 29110-5-1-2) i zależności między nimi, wyprowadzone z wejść i wyjść 72 zadań procesów PM i SI, oraz to, jak pokrywa je model z <code>tools/id.toml</code>. Strona jest generowana przez <code>tools/iso_map.py</code>; pre-commit pilnuje, żeby nie odbiegała od modelu.</p>
+    <div class="summary"><span><span class="pill covered">mamy</span> 11</span><span><span class="pill partial">częściowo</span> 5</span><span><span class="pill missing">brak</span> 0</span><span><span class="pill out_of_scope">poza etapem</span> 7</span></div>
+  </header>
+
+  <section>
+    <h2>Rdzeń zależności</h2>
+    <div class="diagram"><pre class="mermaid">
+flowchart LR
+  WP01["WP.01 Acceptance record"]
+  WP02["WP.02 Agreement"]
+  WP03["WP.03 Change request"]
+  WP04["WP.04 Correction register"]
+  WP05["WP.05 Implementation environment"]
+  WP06["WP.06 Maintenance documentation"]
+  WP07["WP.07 Meeting record"]
+  WP08["WP.08 Product operation guideline"]
+  WP09["WP.09 Progress status record"]
+  WP10["WP.10 Project plan"]
+  WP12["WP.12 Project repository backup"]
+  WP13["WP.13 Requirements specification"]
+  WP14["WP.14 Software"]
+  WP15["WP.15 Software components"]
+  WP16["WP.16 Software design"]
+  WP17["WP.17 Software product"]
+  WP18["WP.18 Software user documentation"]
+  WP19["WP.19 Test cases and test procedures"]
+  WP20["WP.20 Test report"]
+  WP21["WP.21 Traceability record"]
+  WP22["WP.22 Validation record"]
+  WP02 --&gt; WP07
+  WP02 --&gt; WP10
+  WP02 --&gt; WP13
+  WP02 --&gt; WP21
+  WP03 --&gt; WP07
+  WP04 --&gt; WP07
+  WP05 --&gt; WP19
+  WP06 --&gt; WP17
+  WP07 --&gt; WP10
+  WP09 --&gt; WP04
+  WP09 --&gt; WP07
+  WP09 --&gt; WP10
+  WP10 --&gt; WP01
+  WP10 --&gt; WP04
+  WP10 --&gt; WP05
+  WP10 --&gt; WP07
+  WP10 --&gt; WP09
+  WP10 --&gt; WP12
+  WP10 --&gt; WP13
+  WP10 --&gt; WP17
+  WP10 --&gt; WP22
+  WP13 --&gt; WP16
+  WP13 --&gt; WP17
+  WP13 --&gt; WP18
+  WP13 --&gt; WP19
+  WP13 --&gt; WP21
+  WP14 --&gt; WP08
+  WP14 --&gt; WP18
+  WP14 --&gt; WP20
+  WP14 --&gt; WP21
+  WP15 --&gt; WP14
+  WP15 --&gt; WP17
+  WP15 --&gt; WP21
+  WP16 --&gt; WP15
+  WP16 --&gt; WP19
+  WP16 --&gt; WP21
+  WP17 --&gt; WP01
+  WP17 --&gt; WP06
+  WP18 --&gt; WP17
+  WP19 --&gt; WP14
+  WP19 --&gt; WP15
+  WP19 --&gt; WP20
+  WP19 --&gt; WP21
+  WP21 --&gt; WP13
+  WP21 --&gt; WP14
+  WP21 --&gt; WP15
+  WP21 --&gt; WP16
+  WP21 --&gt; WP17
+  WP21 --&gt; WP18
+  WP21 --&gt; WP19
+  WP21 --&gt; WP20
+  WP21 --&gt; WP22
+  classDef covered fill:#dcefe2,stroke:#2f7d4a,color:#13311d
+  classDef partial fill:#fbeccf,stroke:#a9761a,color:#3a2906
+  classDef missing fill:#f9dad3,stroke:#b2412f,color:#3d120b
+  classDef out_of_scope fill:#eceef1,stroke:#7a828e,color:#22262c,stroke-dasharray:4 3
+  class WP01,WP02,WP03,WP04,WP12,WP13,WP19,WP21,WP22 covered
+  class WP05,WP07,WP09,WP10,WP16 partial
+  class WP06,WP08,WP14,WP15,WP17,WP18,WP20 out_of_scope
+</pre></div>
+    <p class="note">Pominięte krawędzie do produktów, do których prowadzi prawie każde zadanie: WP.11 (repozytorium), WP.23 (rekord weryfikacji), WP.03 (wniosek o zmianę). Produkty bez innych zależności: WP.11, WP.23. Wszystkie zależności są na pełnym grafie niżej.</p>
+  </section>
+
+  <section>
+    <h2>Produkt po produkcie</h2>
+    <div class="tbl"><table><thead><tr><th>Produkt</th><th>Nazwa w normie</th><th>Źródło</th><th>U nas</th><th>Pokrycie</th><th>Uwagi</th></tr></thead><tbody>
+<tr><td>WP.01</td><td>Acceptance record</td><td>Project management</td><td>ACC · acceptance.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.02</td><td>Agreement</td><td>Customer Project management</td><td>SC · scenarios.md<br>IO · scope.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.03</td><td>Change request</td><td>Software implementation Customer Project management</td><td>D · decisions.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.04</td><td>Correction register</td><td>Project management</td><td>COR · corrections.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.05</td><td>Implementation environment</td><td>Software implementation</td><td>AGENTS.md</td><td><span class="pill partial">częściowo</span></td><td>narzędzia opisane w AGENTS.md i plan.md; środowisko implementacji przyjdzie z etapem kodu</td></tr>
+<tr><td>WP.06</td><td>Maintenance documentation</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap utrzymania</td></tr>
+<tr><td>WP.07</td><td>Meeting record</td><td>Project management</td><td>D · decisions.md</td><td><span class="pill partial">częściowo</span></td><td>rejestr decyzji bez listy uczestników i ustaleń, które nie są decyzjami</td></tr>
+<tr><td>WP.08</td><td>Product operation guideline</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap eksploatacji</td></tr>
+<tr><td>WP.09</td><td>Progress status record</td><td>Project management</td><td>progress.md</td><td><span class="pill partial">częściowo</span></td><td>bez zasobów i kosztów, bo plan ich nie śledzi</td></tr>
+<tr><td>WP.10</td><td>Project plan</td><td>Project management</td><td>OBJ · plan.md<br>MS · plan.md<br>TSK · plan.md<br>PRK · plan.md</td><td><span class="pill partial">częściowo</span></td><td>bez szacunku pracochłonności i kosztów</td></tr>
+<tr><td>WP.11</td><td>Project repository</td><td>Project management</td><td>repozytorium git</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.12</td><td>Project repository backup</td><td>Project management</td><td>drugi remote (kopia zapasowa)</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.13</td><td>Requirements specification</td><td>Software implementation</td><td>G · glossary.md<br>UC · use-cases.md<br>REQ · requirements.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.14</td><td>Software</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
+<tr><td>WP.15</td><td>Software components</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
+<tr><td>WP.16</td><td>Software design</td><td>Software implementation</td><td>E · navigation/screens.mmd</td><td><span class="pill partial">częściowo</span></td><td>tylko ekrany (moduł nawigacji); architektura i projekt szczegółowy z etapem kodu</td></tr>
+<tr><td>WP.17</td><td>Software product</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
+<tr><td>WP.18</td><td>Software user documentation</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
+<tr><td>WP.19</td><td>Test cases and test procedures</td><td>Software implementation</td><td>AT · tests/*.feature</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.20</td><td>Test report</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
+<tr><td>WP.21</td><td>Traceability record</td><td>Software implementation</td><td>trace.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.22</td><td>Validation record</td><td>Software implementation</td><td>VAL · validation.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.23</td><td>Verification record</td><td>Project management Software implementation</td><td>VER · verification.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+</tbody></table></div>
+    <p class="note">Elementy naszego modelu bez osobnego odpowiednika w normie: zasady projektowe (DP), ryzyka produktu (RSK; norma zna tylko ryzyka projektu w planie), kolejka tematów (Q) i ślad na poziomie commitów. Norma traktuje profil Basic jako minimum, więc takie dodatki są z nią zgodne.</p>
+  </section>
+
+  <section>
+    <h2>Model śladu</h2>
+    <p class="note" style="margin:0 0 10px">Strzałka biegnie od dziecka do rodzica, tak jak zapisuje się ją w pliku (P-03); etykieta to pole, w którym dziecko wskazuje rodzica. Kierunek w dół liczy <code>tools/trace.py</code>. Jedyny wyjątek, pole <code>produces</code> zadania, jest przerywane.</p>
+    <div class="diagram"><pre class="mermaid">
+flowchart BT
+  SC["SC Scenka użytkownika · WP.02"]
+  IO["IO Pozycja zakresu In/Out · WP.02"]
+  D["D Decyzja · WP.03, WP.07"]
+  Q["Q Temat w kolejce"]
+  DP["DP Zasada projektowa"]
+  G["G Pojęcie słownika · WP.13"]
+  UC["UC Przypadek użycia · WP.13"]
+  RSK["RSK Ryzyko produktu"]
+  REQ["REQ Wymaganie EARS · WP.13"]
+  E["E Ekran · WP.16"]
+  AT["AT Test akceptacyjny · WP.19"]
+  OBJ["OBJ Cel projektu · WP.10"]
+  MS["MS Kamień milowy · WP.10"]
+  TSK["TSK Zadanie · WP.10"]
+  PRK["PRK Ryzyko projektu · WP.10"]
+  COR["COR Korekta · WP.04"]
+  VER["VER Weryfikacja · WP.23"]
+  VAL["VAL Walidacja · WP.22"]
+  ACC["ACC Akceptacja · WP.01"]
+  DP --&gt;|"established_by"| D
+  G --&gt;|"changed_by"| D
+  UC --&gt;|"scenarios"| SC
+  UC --&gt;|"scope (kind=In)"| IO
+  RSK --&gt;|"source"| UC
+  REQ --&gt;|"source"| UC
+  REQ --&gt;|"source"| D
+  REQ --&gt;|"source"| DP
+  REQ --&gt;|"source"| RSK
+  REQ --&gt;|"source"| IO
+  E --&gt;|"realizes"| UC
+  AT --&gt;|"verifies"| REQ
+  MS --&gt;|"objective"| OBJ
+  TSK --&gt;|"milestone"| MS
+  PRK --&gt;|"concerns"| OBJ
+  PRK --&gt;|"concerns"| MS
+  PRK --&gt;|"concerns"| TSK
+  COR --&gt;|"cause"| TSK
+  COR --&gt;|"cause"| MS
+  COR --&gt;|"cause"| PRK
+  COR --&gt;|"cause"| VER
+  COR --&gt;|"cause"| VAL
+  COR --&gt;|"cause"| ACC
+  VER --&gt;|"items"| SC
+  VER --&gt;|"items"| IO
+  VER --&gt;|"items"| DP
+  VER --&gt;|"items"| G
+  VER --&gt;|"items"| UC
+  VER --&gt;|"items"| RSK
+  VER --&gt;|"items"| REQ
+  VER --&gt;|"items"| E
+  VER --&gt;|"items"| AT
+  VER --&gt;|"items"| OBJ
+  VER --&gt;|"items"| MS
+  VER --&gt;|"items"| TSK
+  VAL --&gt;|"items"| SC
+  VAL --&gt;|"items"| UC
+  VAL --&gt;|"items"| REQ
+  VAL --&gt;|"items"| E
+  VAL --&gt;|"items"| AT
+  ACC --&gt;|"milestone"| MS
+  TSK -.-&gt;|"produces (w dół)"| PRODUCTS["produkty pracy: dowolny kod typu albo ID"]
+</pre></div>
+  </section>
+
+  <section>
+    <h2>Pełny graf zależności</h2>
+    <p class="note" style="margin:0 0 10px">Strzałka biegnie od produktu wejściowego do wyjściowego dowolnego zadania PM lub SI; 84 zależności.</p>
+    <div class="diagram"><pre class="mermaid">
+flowchart LR
+  WP01["WP.01 Acceptance record"]
+  WP02["WP.02 Agreement"]
+  WP03["WP.03 Change request"]
+  WP04["WP.04 Correction register"]
+  WP05["WP.05 Implementation environment"]
+  WP06["WP.06 Maintenance documentation"]
+  WP07["WP.07 Meeting record"]
+  WP08["WP.08 Product operation guideline"]
+  WP09["WP.09 Progress status record"]
+  WP10["WP.10 Project plan"]
+  WP11["WP.11 Project repository"]
+  WP12["WP.12 Project repository backup"]
+  WP13["WP.13 Requirements specification"]
+  WP14["WP.14 Software"]
+  WP15["WP.15 Software components"]
+  WP16["WP.16 Software design"]
+  WP17["WP.17 Software product"]
+  WP18["WP.18 Software user documentation"]
+  WP19["WP.19 Test cases and test procedures"]
+  WP20["WP.20 Test report"]
+  WP21["WP.21 Traceability record"]
+  WP22["WP.22 Validation record"]
+  WP23["WP.23 Verification record"]
+  WP01 --&gt; WP11
+  WP02 --&gt; WP03
+  WP02 --&gt; WP07
+  WP02 --&gt; WP10
+  WP02 --&gt; WP11
+  WP02 --&gt; WP13
+  WP02 --&gt; WP21
+  WP03 --&gt; WP07
+  WP04 --&gt; WP03
+  WP04 --&gt; WP07
+  WP05 --&gt; WP19
+  WP06 --&gt; WP17
+  WP06 --&gt; WP23
+  WP07 --&gt; WP03
+  WP07 --&gt; WP10
+  WP08 --&gt; WP11
+  WP08 --&gt; WP23
+  WP09 --&gt; WP03
+  WP09 --&gt; WP04
+  WP09 --&gt; WP07
+  WP09 --&gt; WP10
+  WP10 --&gt; WP01
+  WP10 --&gt; WP03
+  WP10 --&gt; WP04
+  WP10 --&gt; WP05
+  WP10 --&gt; WP07
+  WP10 --&gt; WP09
+  WP10 --&gt; WP11
+  WP10 --&gt; WP12
+  WP10 --&gt; WP13
+  WP10 --&gt; WP17
+  WP10 --&gt; WP22
+  WP10 --&gt; WP23
+  WP12 --&gt; WP11
+  WP13 --&gt; WP03
+  WP13 --&gt; WP16
+  WP13 --&gt; WP17
+  WP13 --&gt; WP18
+  WP13 --&gt; WP19
+  WP13 --&gt; WP21
+  WP13 --&gt; WP23
+  WP14 --&gt; WP08
+  WP14 --&gt; WP11
+  WP14 --&gt; WP18
+  WP14 --&gt; WP20
+  WP14 --&gt; WP21
+  WP14 --&gt; WP23
+  WP15 --&gt; WP11
+  WP15 --&gt; WP14
+  WP15 --&gt; WP17
+  WP15 --&gt; WP21
+  WP16 --&gt; WP03
+  WP16 --&gt; WP11
+  WP16 --&gt; WP15
+  WP16 --&gt; WP19
+  WP16 --&gt; WP21
+  WP16 --&gt; WP23
+  WP17 --&gt; WP01
+  WP17 --&gt; WP06
+  WP17 --&gt; WP11
+  WP17 --&gt; WP23
+  WP18 --&gt; WP03
+  WP18 --&gt; WP11
+  WP18 --&gt; WP17
+  WP18 --&gt; WP23
+  WP19 --&gt; WP11
+  WP19 --&gt; WP14
+  WP19 --&gt; WP15
+  WP19 --&gt; WP20
+  WP19 --&gt; WP21
+  WP19 --&gt; WP23
+  WP20 --&gt; WP11
+  WP21 --&gt; WP03
+  WP21 --&gt; WP11
+  WP21 --&gt; WP13
+  WP21 --&gt; WP14
+  WP21 --&gt; WP15
+  WP21 --&gt; WP16
+  WP21 --&gt; WP17
+  WP21 --&gt; WP18
+  WP21 --&gt; WP19
+  WP21 --&gt; WP20
+  WP21 --&gt; WP22
+  WP21 --&gt; WP23
+  classDef covered fill:#dcefe2,stroke:#2f7d4a,color:#13311d
+  classDef partial fill:#fbeccf,stroke:#a9761a,color:#3a2906
+  classDef missing fill:#f9dad3,stroke:#b2412f,color:#3d120b
+  classDef out_of_scope fill:#eceef1,stroke:#7a828e,color:#22262c,stroke-dasharray:4 3
+  class WP01,WP02,WP03,WP04,WP11,WP12,WP13,WP19,WP21,WP22,WP23 covered
+  class WP05,WP07,WP09,WP10,WP16 partial
+  class WP06,WP08,WP14,WP15,WP17,WP18,WP20 out_of_scope
+</pre></div>
+  </section>
+</div>

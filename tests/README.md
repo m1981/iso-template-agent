@@ -17,3 +17,5 @@ Feature: Przechwytywanie
 ```
 
 Testy są pisane na etapie specyfikacji jako kryteria akceptacji; ich uruchamianie przychodzi z kodem.
+
+Test automatyczny wskazuje swój przypadek komentarzem `# runner: plik::przypadek` (kilka po przecinku); skrypt testów wypisuje wiersz `CASE przypadek: pass|fail`. `make test-report` uruchamia wskazane skrypty i zapisuje raport testów (WP.20): test przechodzi tylko wtedy, gdy przeszły wszystkie jego przypadki (D-60). Test bez `runner:` jest ręczny i ocenia go przegląd.

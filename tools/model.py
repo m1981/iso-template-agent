@@ -262,7 +262,7 @@ class Model:
         return lists
 
     def _bad_headings(self):
-        """Nagłówki markdown, w których po ID stoi dwukropek („### UC-02: Tytuł”): (plik, linia, ID)."""
+        """Nagłówki markdown, w których po ID stoi dwukropek („### UC-nn: Tytuł”): (plik, linia, ID)."""
         found = []
         for t in self.types.values():
             if t.get("format", "markdown") != "markdown":

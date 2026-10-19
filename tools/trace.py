@@ -7,7 +7,7 @@ Błędy (error):
   E2 nieznane ID (w polu rodzica lub tekście) E6 pojęcie spoza słownika w tekście EARS
   E3 zdublowane ID                            E7 rodzic niedozwolonego typu albo niezgodny z parent_rules
   E4 niedozwolona wartość (status, result,    E8 brak wymaganego pokrycia (poziom „error”)
-     pattern, wpis w produces:)
+     pattern, wpis w produces:, runner:)
 Ostrzeżenia (warning):
   W1 brak oczekiwanego pokrycia (poziom „warning”)
   W2 rozstrzygnięta decyzja bez dzieci i bez wzmianki w commitach (tylko na ekranie)
@@ -184,6 +184,10 @@ def main(output):
         if t.get("produces"):
             for x in m.products(e)[1]:
                 errors.append(f"E4 {e.id}: „{x}” w produces: nie jest kodem typu ani ID")
+        for x in [w.strip() for w in m.value(e, "runner").split(",") if w.strip()]:  # D-60
+            path, sep, case_name = x.partition("::")
+            if not sep or not case_name.strip() or not os.path.isfile(os.path.join(m.root, path)):
+                errors.append(f"E4 {e.id}: runner „{x}” nie wskazuje istniejącego pliku z przypadkiem (plik::przypadek)")
         fields = t.get("fields", [])
         if fields:
             refs = [(p, r) for p in fields for r in m.ids_in(e.fields.get(p, ""))]

@@ -1,0 +1,19 @@
+# Wyjątki dla tools/check_refs.py (D-61): ścieżka # powód. Zbędny wpis to błąd.
+archive/template/ # powstaje dopiero po make new-project w projekcie (D-22)
+archive/template/decisions.md # powstaje dopiero po make new-project w projekcie (D-22)
+navigation/ # moduł nawigacji po wdrożeniu w projekcie (modules/navigation/README.md)
+navigation/screens.mmd # moduł nawigacji po wdrożeniu w projekcie
+navigation/check.py # moduł nawigacji po wdrożeniu w projekcie
+navigation/navigation-map.html # moduł nawigacji po wdrożeniu w projekcie
+states.mmd # moduł modelu stanów po wdrożeniu w projekcie (modules/state-model/README.md)
+roles/programmer.md # karta odłożona do etapu kodu (Q-05)
+roles/tester.md # karta odłożona do etapu kodu (Q-05)
+ai-sldc-template/ # stara nazwa szablonu w README, „Start”; do przepisania w D-44
+nowy-projekt/ # przykładowy katalog docelowy w README, „Start”; do przepisania w D-44
+process/ # katalog pakietu w projekcie z copiera (D-47); w tym repozytorium od przeniesienia (D-54)
+.copier-answers.process.yml # plik copiera w projekcie (D-53)
+.git/process-update.log # log bramki w projekcie, powstaje przy make process-update (D-53)
+process-update.log # jak wyżej, nazwa w wywołaniu git rev-parse --git-path
+archive/ # katalog archiwum w projekcie (po make new-project) i dla plików narzędzi wycofanych przy przeniesieniu
+MIGRATIONS.md # process/MIGRATIONS.md powstaje z zadaniem migracji w planie warstwy procesu (D-51)
+chain/ # podkatalog złotego wzorca w kodzie golden_master.py (reference/golden/chain/)

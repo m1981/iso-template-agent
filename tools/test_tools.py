@@ -36,7 +36,7 @@ FIXTURES = {
     "corrections.md": "### COR-01 Doprecyzować CAP-02\n- cause: VER-02\n- action: poprawić tekst\n- status: initiated\n",
     "validation.md": "### VAL-01 Walidacja SC-01\n- items: SC-01\n- date: 2026-10-14\n- result: pass\n",
     "acceptance.md": "### ACC-01 Odbiór MS-01\n- milestone: MS-01\n- date: 2026-10-14\n- result: accepted\n",
-    "tests/capture.feature": ("Feature: Przechwytywanie\n\n  @AT-01\n  # verifies: CAP-01\n  # status: initiated\n  Scenario: Zapis\n    Given x\n"),
+    "tests/capture.feature": ("Feature: Przechwytywanie\n\n  @AT-01\n  # verifies: CAP-01\n  # runner: tools/test_tools.py::chain\n  # status: initiated\n  Scenario: Zapis\n    Given x\n"),
 }
 
 BREAKAGES = [
@@ -61,6 +61,7 @@ BREAKAGES = [
     ("E4", "verification.md", "- result: fail\n", "- checklist: REQ\n- result: fail\n- failed: REQ.99\n"),
     ("E4", "requirements.md", "- source: UC-01\n", "- source: UC-01\n- quality: speed\n"),
     ("E1", "verification.md", "- items: UC-01\n", "- subject: inne\n"),
+    ("E4", "tests/capture.feature", "# runner: tools/test_tools.py::chain", "# runner: tools/brak.py::chain"),
 ]
 
 WARNINGS = [
@@ -104,8 +105,25 @@ def prepare(tmpdir):
             f.write(content)
 
 
+class Failures(list):
+    """Lista porażek przypisanych do nazwanych przypadków; raport testów czyta wiersze CASE (D-60)."""
+
+    def __init__(self):
+        super().__init__()
+        self.current, self.cases = None, {}
+
+    def case(self, name):
+        self.current = name
+        self.cases.setdefault(name, True)
+
+    def append(self, msg):
+        super().append(f"[{self.current}] {msg}")
+        self.cases[self.current] = False
+
+
 def main():
-    failures = []
+    failures = Failures()
+    failures.case("toml-fallback")
     # parser zastępczy (Python < 3.11, np. 3.10 na Macu) musi dawać to samo co tomllib
     for name in ("id.toml", "iso29110.toml"):
         fpath = os.path.join(ROOT, "tools", name)
@@ -127,6 +145,7 @@ def main():
                 failures.append(f"komunikat parsera zastępczego nie podaje numeru linii: {e}")
     with tempfile.TemporaryDirectory() as tmpdir:
         prepare(tmpdir)
+        failures.case("chain")
         r = run_py(tmpdir, "tools/trace.py")
         if r.returncode != 0:
             failures.append("łańcuch wzorcowy ma błędy:\n" + r.stdout)
@@ -137,7 +156,8 @@ def main():
                       "| SC-01 | SC | UC-01, VAL-01 |"):
             if expected not in trace_md:
                 failures.append(f"trace.md nie zawiera wiersza: {expected}")
-        for code, file, a, b in BREAKAGES:
+        for i, (code, file, a, b) in enumerate(BREAKAGES, 1):
+            failures.case(f"breakage-{i:02d}")
             fpath = os.path.join(tmpdir, file)
             original = open(fpath, encoding="utf-8").read()
             assert a in original, (code, a)
@@ -146,7 +166,8 @@ def main():
             if r.returncode != 1 or f"\n{code} " not in "\n" + r.stdout:
                 failures.append(f"{code} ({file}) nie został zgłoszony:\n{r.stdout}")
             open(fpath, "w", encoding="utf-8").write(original)
-        for code, file, a, b, expected in WARNINGS:
+        for i, (code, file, a, b, expected) in enumerate(WARNINGS, 1):
+            failures.case(f"warning-{i:02d}")
             fpath = os.path.join(tmpdir, file)
             original = open(fpath, encoding="utf-8").read()
             assert a in original, (code, a)
@@ -155,6 +176,7 @@ def main():
             if r.returncode != 0 or f"\n{expected}" not in "\n" + r.stdout:
                 failures.append(f"{code} nie zostało zgłoszone jako ostrzeżenie:\n{r.stdout}")
             open(fpath, "w", encoding="utf-8").write(original)
+        failures.case("w3-with-record")
         fpath = os.path.join(tmpdir, "use-cases.md")
         original = open(fpath, encoding="utf-8").read()
         open(fpath, "w", encoding="utf-8").write(original.replace("- status: initiated\n", "- status: verified\n"))
@@ -162,6 +184,7 @@ def main():
         if "W3" in r.stdout:
             failures.append("W3 zgłoszone mimo rekordu VER-01 z wynikiem pass:\n" + r.stdout)
         open(fpath, "w", encoding="utf-8").write(original)
+        failures.case("chain-no-warnings")
         r = run_py(tmpdir, "tools/trace.py", "/dev/null")
         if "W3" in r.stdout or "W1 VER" in r.stdout or "W4" in r.stdout:
             failures.append("łańcuch wzorcowy ma nieoczekiwane ostrzeżenia:\n" + r.stdout)
@@ -178,20 +201,40 @@ def main():
             if problem:
                 failures.append(problem + ":\n" + r.stdout)
 
+        # D-33: sekcja charakterystyk jakości pokazuje liczbę wymagań i charakterystyki bez wymagań
+        failures.case("quality-section")
+        fpath = os.path.join(tmpdir, "requirements.md")
+        original = open(fpath, encoding="utf-8").read()
+        assert "- source: RSK-01\n" in original
+        open(fpath, "w", encoding="utf-8").write(original.replace("- source: RSK-01\n", "- source: RSK-01\n- quality: reliability\n", 1))
+        quality_md = os.path.join(tmpdir, "quality.md")
+        run_py(tmpdir, "tools/trace.py", quality_md)
+        open(fpath, "w", encoding="utf-8").write(original)
+        quality_text = open(quality_md, encoding="utf-8").read()
+        for expected in ("| reliability | 1 | CAP-02 |", "| security | 0 | — |"):
+            if expected not in quality_text:
+                failures.append(f"sekcja charakterystyk jakości nie zawiera wiersza: {expected}")
+        os.remove(quality_md)
+
+        failures.case("id-in-text")
         # #3: tekst w kształcie ID nie jest odnośnikiem; nieznane ID z istniejącego obszaru jest
         with_change("scope.md", "- kind: In\n", "- kind: In\n\nAlgorytm SHA-256, kodowanie UTF-16, wersja UC-990 i kod xUC-99.\n",
                     lambda out, rc: "tekst SHA-256/UTF-16/UC-990/xUC-99 dał błąd" if rc != 0 else None)
         with_change("scope.md", "- kind: In\n", "- kind: In\n\nPatrz CAP-09.\n",
                     lambda out, rc: "nieznane CAP-09 w tekście nie dało E2" if "E2 scope.md" not in out else None)
+        failures.case("heading-colon")
         # #15: dwukropek po ID w nagłówku ma własny komunikat; punkt rozszerzenia nie jest polem
         with_change("use-cases.md", "### UC-01 Przechwycić", "### UC-01: Przechwycić",
                     lambda out, rc: "nagłówek „UC-01:” bez komunikatu o dwukropku" if "dwukropek" not in out else None)
+        failures.case("extension-point")
         with_change("use-cases.md", "- status: initiated\n", "- status: initiated\n- 3a. Brak sieci: zapis lokalny\n",
                     lambda out, rc: "punkt rozszerzenia „3a.” potraktowany jak pole" if "W4" in out else None)
+        failures.case("feature-untagged")
         # #4: scenariusz bez tagu nie dopisuje pól do poprzedniego testu AT
         with_change("tests/capture.feature", "    Given x\n",
                     "    Given x\n\n  Scenario: Inny bez tagu\n  # verifies: OUT-01\n  # todo: dopisać\n    Given y\n",
                     lambda out, rc: "scenariusz bez tagu zmienił pola AT-01" if ("W4 AT-01" in out or rc != 0) else None)
+        failures.case("nav-orphan")
         # #5: ekran bez krawędzi jest widoczny dla reguł mapy
         screens = os.path.join(tmpdir, "navigation", "screens.mmd")
         original = open(screens, encoding="utf-8").read()
@@ -202,6 +245,7 @@ def main():
             failures.append("ekran bez krawędzi nie został zgłoszony przez reguły mapy:\n" + r.stdout)
         open(screens, "w", encoding="utf-8").write(original)
 
+        failures.case("progress")
         r = run_py(tmpdir, "tools/progress.py")
         progress_md = open(os.path.join(tmpdir, "progress.md"), encoding="utf-8").read()
         for expected in ("| MS-01 Zakres i przypadki użycia | OBJ-01 | 2026-11-01 | baseline-01-zakres | nie | ACC-01 accepted |",
@@ -219,10 +263,12 @@ def main():
         run_py(tmpdir, "tools/trace.py")
         run_py(tmpdir, "tools/progress.py")
         run_py(tmpdir, "tools/iso_map.py")
+        failures.case("iso-map")
         iso_map = open(os.path.join(tmpdir, "iso-map.html"), encoding="utf-8").read()
         for expected in ('<td>WP.10</td><td>Project plan</td>', 'TSK -.-&gt;|"produces (w dół)"|', "class WP01,"):
             if expected not in iso_map:
                 failures.append(f"iso-map.html nie zawiera: {expected}")
+        failures.case("commit-msg")
         git("add", "-A")
         if git("commit", "-q", "-m", "bez identyfikatora").returncode == 0:
             failures.append("commit-msg przepuścił opis bez ID")
@@ -237,9 +283,11 @@ def main():
             failures.append("commit-msg nie uwzględnił core.commentChar")
         git("config", "--unset", "core.commentChar")
         os.remove(msg)
+        failures.case("first-commit")
         r = git("commit", "-q", "-m", "Pierwszy commit (D-01)")
         if r.returncode != 0:
             failures.append("commit z D-01 został odrzucony:\n" + r.stdout + r.stderr)
+        failures.case("w5")
         # D-32: zmiana rodzica po weryfikacji daje W5, sama zmiana stanu nie
         scen = os.path.join(tmpdir, "scenarios.md")
         original = open(scen, encoding="utf-8").read()
@@ -251,6 +299,7 @@ def main():
         if "W5 UC-01: rodzic SC-01 zmienił się po weryfikacji VER-01" not in r.stdout:
             failures.append("zmiana rodzica po weryfikacji nie dała W5:\n" + r.stdout)
         open(scen, "w", encoding="utf-8").write(original)
+        failures.case("restore-check")
         # D-35: odtworzenie z kopii (lokalny bare jako origin)
         backup = os.path.join(tmpdir, "..", os.path.basename(tmpdir) + "-kopia.git")
         subprocess.run(["git", "init", "-q", "--bare", backup], capture_output=True)  # domyślna gałąź celowo inna niż main
@@ -275,6 +324,7 @@ def main():
         if git("commit", "-q", "-m", "Sprawdzenie kopii (D-01)").returncode != 0:
             failures.append("commit z rekordem odtworzenia został odrzucony")
         shutil.rmtree(backup, ignore_errors=True)
+        failures.case("precommit-progress")
         git("tag", "-a", "baseline-01-zakres", "-m", "Baseline")
         with open(os.path.join(tmpdir, "verification.md"), "a", encoding="utf-8") as f:
             f.write("\n### VER-04 Przegląd CAP-01\n- items: CAP-01\n- date: 2026-10-14\n- result: pass\n")
@@ -289,18 +339,21 @@ def main():
         r = git("commit", "-q", "-m", "Po baseline (D-01)")
         if r.returncode != 0:
             failures.append("commit z aktualnym progress.md został odrzucony:\n" + r.stdout + r.stderr)
+        failures.case("precommit-iso-map")
         with open(os.path.join(tmpdir, "iso-map.html"), "a", encoding="utf-8") as f:
             f.write("x\n")
         git("add", "-A")
         if git("commit", "-q", "-m", "Zmiana strony (D-01)").returncode == 0:
             failures.append("pre-commit przepuścił nieaktualny iso-map.html")
         git("checkout", "HEAD", "--", "iso-map.html")
+        failures.case("precommit-trace")
         with open(os.path.join(tmpdir, "trace.md"), "a", encoding="utf-8") as f:
             f.write("x\n")
         git("add", "-A")
         if git("commit", "-q", "-m", "Zmiana (D-01)").returncode == 0:
             failures.append("pre-commit przepuścił nieaktualny trace.md")
 
+        failures.case("new-project")
         # D-22: start nowego projektu z kopii szablonu
         r = run_py(tmpdir, "tools/new_project.py")
         if r.returncode == 0:
@@ -323,6 +376,73 @@ def main():
         if run_py(tmpdir, "tools/new_project.py").returncode == 0:
             failures.append("new_project.py zadziałał drugi raz")
 
+    # D-60: raport testów: pass tylko gdy przeszły wszystkie przypadki; brak przypadku i kod 2 to nie sukces
+    failures.case("test-report")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        prepare(tmpdir)
+        with open(os.path.join(tmpdir, "tools", "fake_runner.py"), "w", encoding="utf-8") as f:
+            f.write('print("CASE a: pass")\nprint("CASE b: fail")\n')
+        with open(os.path.join(tmpdir, "tools", "not_run.py"), "w", encoding="utf-8") as f:
+            f.write('import sys\nprint("NIE URUCHOMIONO")\nsys.exit(2)\n')
+        capture = os.path.join(tmpdir, "tests", "capture.feature")  # bez rekurencji: AT-01 nie uruchamia test_tools.py
+        text = open(capture, encoding="utf-8").read()
+        assert "tools/test_tools.py::chain" in text
+        open(capture, "w", encoding="utf-8").write(text.replace("tools/test_tools.py::chain", "tools/fake_runner.py::a"))
+        with open(os.path.join(tmpdir, "tests", "report.feature"), "w", encoding="utf-8") as f:
+            f.write(for_system("Feature: Raport\n\n"
+                    "  @AT-02\n  # verifies: CAP-01\n  # runner: tools/fake_runner.py::a\n  # status: initiated\n  Scenario: a\n    Given x\n\n"
+                    "  @AT-03\n  # verifies: CAP-02\n  # runner: tools/fake_runner.py::a, tools/fake_runner.py::b\n  # status: initiated\n  Scenario: b\n    Given x\n\n"
+                    "  @AT-04\n  # verifies: OUT-01\n  # runner: tools/fake_runner.py::c\n  # status: initiated\n  Scenario: c\n    Given x\n\n"
+                    "  @AT-05\n  # verifies: OUT-01\n  # runner: tools/not_run.py::d\n  # status: initiated\n  Scenario: d\n    Given x\n\n"
+                    "  @AT-06\n  # verifies: OUT-01\n  # status: initiated\n  Scenario: ręczny\n    Given x\n"))
+        r = run_py(tmpdir, "tools/test_report.py", "report.md")
+        report = open(os.path.join(tmpdir, "report.md"), encoding="utf-8").read() if os.path.exists(os.path.join(tmpdir, "report.md")) else ""
+        for expected in ("| AT-02 | CAP-01 | pass |", "| AT-03 | CAP-02 | fail | tools/fake_runner.py::b: fail |",
+                         "| AT-04 | OUT-01 | fail | tools/fake_runner.py::c: brak przypadku |",
+                         "| AT-05 | OUT-01 | fail | tools/not_run.py::d: nie uruchomiono |", "| AT-06 | OUT-01 | ręczny |"):
+            if expected not in report:
+                failures.append(f"raport testów nie zawiera: {expected}\n{report}")
+        if r.returncode != 1:
+            failures.append(f"raport testów z porażkami zakończył się kodem {r.returncode}")
+
+    # D-61: odwołania do ścieżek; brak pliku, sama nazwa pliku, wzorzec, wyjątek z powodem i zbędny wyjątek
+    failures.case("refs")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        os.makedirs(os.path.join(tmpdir, "tools"))
+        shutil.copy(os.path.join(ROOT, "tools", "check_refs.py"), os.path.join(tmpdir, "tools"))
+        files = {"tools/trace.py": "# x\n", "docs/a.md": "Zobacz tools/trace.py, trace.py, spec/*.md i UC-nn.md.\n",
+                 "docs/b.md": "Patrz brak/plik.md.\n", "docs/c.md": "Powstanie: later.md\n",
+                 "tools/check_refs.allow": "later.md # powstaje później\nstary.md # już nikt nie wspomina\n"}
+        for name, text in files.items():
+            os.makedirs(os.path.dirname(os.path.join(tmpdir, name)), exist_ok=True)
+            open(os.path.join(tmpdir, name), "w", encoding="utf-8").write(text)
+        subprocess.run(["git", "init", "-q"], cwd=tmpdir, capture_output=True)
+        subprocess.run(["git", "add", *files], cwd=tmpdir, capture_output=True)  # bez samego narzędzia: fixture to tylko pliki
+        r = run_py(tmpdir, "tools/check_refs.py")
+        errs = [x for x in r.stdout.splitlines() if ": " in x and not x.startswith("check_refs:")]
+        expected = ["docs/b.md:1: brak ścieżki „brak/plik.md”", "tools/check_refs.allow:2: zbędny wyjątek „stary.md” (ścieżka istnieje albo nikt o niej nie wspomina)"]
+        if r.returncode != 1 or errs != expected:
+            failures.append(f"check_refs: oczekiwane {expected}, jest:\n{r.stdout}")
+
+    # D-62: przeciek domeny: konkretne ID i pojęcia ze słownika projektu w plikach procesu
+    failures.case("leak-id")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        prepare(tmpdir)
+        os.makedirs(os.path.join(tmpdir, "process"))
+        open(os.path.join(tmpdir, "process", "ok.md"), "w", encoding="utf-8").write("Wzór: UC-nn, CAP-nn, D-17, kodowanie UTF-16.\n")
+        r = run_py(tmpdir, "tools/check_leak.py", "--glossary", "glossary.md", "process")
+        if r.returncode != 0:
+            failures.append("check_leak: zastępcze ID, D-nn i UTF-16 zgłoszone jako przeciek:\n" + r.stdout)
+        for name, text, expected in (("leak-id", "Przykład: UC-01.\n", "konkretne ID UC-01 (UC)"),
+                                     ("leak-id", "Przykład: CAP-03.\n", "konkretne ID CAP-03 (REQ)"),
+                                     ("leak-term", "Każdy Item ma termin.\n", "pojęcie projektu „Item”"),
+                                     ("leak-term", "Każdy element ma termin.\n", "pojęcie projektu „Element”")):
+            failures.case(name)
+            open(os.path.join(tmpdir, "process", "leak.md"), "w", encoding="utf-8").write(text)
+            r = run_py(tmpdir, "tools/check_leak.py", "--glossary", "glossary.md", "process")
+            if r.returncode != 1 or expected not in r.stdout:
+                failures.append(f"check_leak nie zgłosił: {expected}\n{r.stdout}")
+
     # D-38: E9 według tablicy decyzyjnej (MC/DC): rekord nowy × wynik pass × element zmieniony w tym commicie
     with tempfile.TemporaryDirectory() as tmpdir:
         prepare(tmpdir)
@@ -334,6 +454,7 @@ def main():
         git3("config", "core.hooksPath", ".githooks")
         for script in ("trace.py", "progress.py", "iso_map.py"):
             run_py(tmpdir, "tools/" + script)
+        failures.case("e9-import")
         git3("add", "-A")
         if git3("commit", "-q", "-m", "Import (D-01)").returncode != 0:
             failures.append("E9: pierwszy commit (import) został odrzucony")
@@ -367,6 +488,7 @@ def main():
              [change_cap, ("verification.md", "+", "\n### VER-10 Kopia\n- subject: repository\n- date: 2026-10-17\n- result: pass\n")], True),
         ]
         for name, changes, expect_ok in cases:
+            failures.case("e9-" + name.split()[0])
             ok, out = attempt([(f, a, for_system(b)) for f, a, b in changes])
             if ok != expect_ok or (not expect_ok and "E9 VER-10" not in out):
                 failures.append(f"E9, przypadek {name}: commit {'przeszedł' if ok else 'odrzucony'}, oczekiwano {'przejścia' if expect_ok else 'E9'}:\n{out}")
@@ -376,6 +498,7 @@ def main():
     # mapę z UC-01 do zastąpienia, więc sprawdza go pierwsza część testu.
     in_template = not os.path.exists(os.path.join(ROOT, "archive", "template"))
     if in_template:
+        failures.case("template-copy")
         with tempfile.TemporaryDirectory() as tmpdir:
             copy = os.path.join(tmpdir, "projekt")
             shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns(".git", "__pycache__", "archive"))
@@ -411,6 +534,8 @@ def main():
 
     for p in failures:
         print("NIE:", p)
+    for name, ok in failures.cases.items():
+        print(f"CASE {name}: {'pass' if ok else 'fail'}")
     print(f"test_tools: {len(BREAKAGES)} psuć, {len(WARNINGS)} ostrzeżeń, E9 (7 przypadków), postęp, new-project, hooki commit-msg i pre-commit — {'OK' if not failures else f'{len(failures)} porażek'}")
     return 1 if failures else 0
 

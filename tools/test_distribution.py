@@ -38,11 +38,20 @@ import process_update as PU  # noqa: E402
 
 ANSWERS = PU.ANSWERS
 failures = []
+CASES = {}          # nazwa przypadku → przeszedł (raport testów czyta wiersze CASE, D-60)
+CURRENT = [None]
+
+
+def case(name):
+    print(name)
+    CURRENT[0] = name
+    CASES.setdefault(name, True)
 
 
 def check(cond, msg):
     if not cond:
         failures.append(msg)
+        CASES[CURRENT[0]] = False
         print("  BŁĄD: " + msg)
 
 
@@ -187,7 +196,7 @@ def main():
         tdir = os.path.join(tmp, "szablon")
         build_template(tdir)
 
-        print("copy")
+        case("copy")
         c = os.path.join(tmp, "copy")
         make_client(tdir, c)
         check(PU.answers_commit(c) == "v1.0.0", f"copy: answers {PU.answers_commit(c)} zamiast v1.0.0")
@@ -196,7 +205,7 @@ def main():
               f"copy: nieoczekiwany payload {payload}")
         check(not os.path.exists(os.path.join(c, "copier.yml")), "copy: copier.yml trafił do projektu")
 
-        print("update")
+        case("update")
         before = snapshot(c)
         rc, out = gate(c, "v1.1.0")
         check(rc == 0, f"update: bramka kod {rc}\n{out}")
@@ -207,7 +216,7 @@ def main():
               "update: AGENTS.md procesu bez zmiany z wydania")
         commit_all(c, "aktualizacja procesu v1.1.0")
 
-        print("missing")
+        case("missing")
         rc, out = gate(c, "v9.9.9")
         check(rc == 1 and "copier zakończył się kodem" in out,
               f"missing: brak zgłoszenia błędu copiera dla nieistniejącego wydania (kod {rc})\n{out}")
@@ -215,18 +224,18 @@ def main():
         git(c, "clean", "-q", "-fd")
         check(git(c, "status", "--porcelain=v1", "--untracked-files=all").stdout == "", "missing: drzewo nie wróciło do stanu po commicie")
 
-        print("repeat")
+        case("repeat")
         rc, out = gate(c, "v1.1.0")
         check(rc == 0, f"repeat: bramka kod {rc}\n{out}")
         check(git(c, "status", "--porcelain=v1", "--untracked-files=all").stdout == "", "repeat: drzewo zmienione")
 
-        print("version")
+        case("version")
         for bad in ("1.1.0", "v1.1", "latest", "HEAD"):
             rc, out = gate(c, bad)
             check(rc == 2 and "vX.Y.Z" in out, f"version: wersja „{bad}” przyjęta (kod {rc})")
         check(git(c, "status", "--porcelain=v1", "--untracked-files=all").stdout == "", "version: drzewo zmienione")
 
-        print("markers")
+        case("markers")
         m = os.path.join(tmp, "markers")
         init_repo(m)
         write(os.path.join(m, "a.md"), "start\n")
@@ -238,7 +247,7 @@ def main():
         check(found == ["process/nowy.md", "process/plik.rej"],
               f"markers: wykryte {found}; oczekiwane znaczniki w nowym pliku i .rej, bez nagłówka =======")
 
-        print("binary")
+        case("binary")
         b = os.path.join(tmp, "binary")
         init_repo(b)
         with open(os.path.join(b, "logo.bin"), "wb") as f:
@@ -257,7 +266,7 @@ def main():
         found = PU.find_conflicts(b, PU.changed_paths(b))
         check(found == ["logo.bin"], f"binary: konflikt pliku binarnego niewykryty (wykryte {found})")
 
-        print("conflict")
+        case("conflict")
         c2 = os.path.join(tmp, "conflict")
         make_client(tdir, c2)
         mutate(os.path.join(c2, "process", "AGENTS.md"), "Proces wersja 1", "Proces wersja 1 z lokalną zmianą")
@@ -267,7 +276,7 @@ def main():
               f"conflict: bramka nie wykryła konfliktu (kod {rc})\n{out}")
         print(f"  copier zakończył się kodem {copier_rc_from_log(c2)} mimo konfliktu")
 
-        print("dirty")
+        case("dirty")
         c3 = os.path.join(tmp, "dirty")
         make_client(tdir, c3)
         mutate(os.path.join(c3, "project", "plan.md"), "Plan projektu", "Plan projektu w toku")
@@ -276,7 +285,7 @@ def main():
         check(rc == 2 and "niezacommitowane" in out, f"dirty: oczekiwana odmowa (kod {rc})\n{out}")
         check(snapshot(c3, include_payload=True) == before, "dirty: odmowa zmieniła pliki")
 
-        print("tags")
+        case("tags")
         t2 = os.path.join(tmp, "szablon-tagi")
         shutil.copytree(tdir, t2)
         git(t2, "tag", "baseline-02-proces", "v1.1.0")
@@ -288,7 +297,7 @@ def main():
               f"tags: answers {recorded}, bramka kod {rc}: bramka musi przechodzić tylko przy v1.1.0\n{out}")
         print(f"  answers zapisał {recorded}; bramka kod {rc}")
 
-        print("jump")
+        case("jump")
         c5 = os.path.join(tmp, "jump")
         make_client(tdir, c5)
         rc, out = gate(c5, "v1.2.0")
@@ -298,7 +307,7 @@ def main():
         check("check v1.1" in r.stdout, "jump: brak zmiany z v1.1.0")
         commit_all(c5, "aktualizacja procesu v1.2.0")
 
-        print("scope")
+        case("scope")
         before = open(os.path.join(c5, "README.md"), encoding="utf-8").read()
         rc, out = gate(c5, "v1.3.0")
         check(rc == 1 and "poza zakresem" in out and "README.md" in out,
@@ -307,7 +316,7 @@ def main():
                                       if open(os.path.join(c5, "README.md"), encoding="utf-8").read() != before
                                       else "bez zmian w treści"))
 
-        print("validation")
+        case("validation")
         c6 = os.path.join(tmp, "validation")
         make_client(tdir, c6)
         write(os.path.join(c6, "spec", "old-format.md"), "dokument w starym formacie\n")
@@ -319,7 +328,7 @@ def main():
         check(git(c6, "rev-parse", "HEAD").stdout == head, "validation: bramka coś zacommitowała")
         check("pakiet zaktualizowany" not in out, "validation: bramka ogłosiła sukces")
 
-        print("hooks")
+        case("hooks")
         h = os.path.join(tmp, "hooks")
         init_repo(h)
         shutil.copy(os.path.join(ROOT, "Makefile"), h)
@@ -332,9 +341,11 @@ def main():
         check(r.returncode == 0 and git(h, "config", "--get", "core.hooksPath").stdout.strip() == ".githooks",
               f"hooks: make hooks nie ustawił .githooks (kod {r.returncode}) {r.stdout}{r.stderr}")
 
-    print("isolation")
+    case("isolation")
     check(root_state() == before_root, "isolation: test zmienił repozytorium, z którego go uruchomiono")
 
+    for name, ok in CASES.items():
+        print(f"CASE {name}: {'pass' if ok else 'fail'}")
     if failures:
         print(f"test_distribution: {len(failures)} błędów")
         return 1

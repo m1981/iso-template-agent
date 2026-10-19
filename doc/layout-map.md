@@ -2,7 +2,7 @@
 
 Propozycja do zatwierdzenia (D-54). Nic jeszcze nie jest przeniesione. Podstawa: D-41 (umowa), D-42 (katalogi według rodzaju dokumentu), D-43 (trzy warstwy, copier), D-44 (kolejność startu), D-47 (copier dostarcza tylko `process/`), D-48 (warstwa procesu sama używa procesu), D-49 (wersje), D-51 (migracje), D-52 i D-53 (bramka).
 
-Stan wyjściowy: commit 01f5c30, 49 śledzonych plików, plus ta mapa (50). Tabela w części 3 obejmuje każdy z nich dokładnie raz; sprawdza to polecenie z części 6.
+Stan wyjściowy: commit 01f5c30, 49 śledzonych plików, plus ta mapa (50). Uzupełnienie 2026-10-19 (D-59…D-64): wymagania, testy, plan i raporty warstwy procesu oraz nowe narzędzia; wiersz zakończony „/” obejmuje cały katalog. Tabela w części 3 obejmuje każdy z nich dokładnie raz; sprawdza to polecenie z części 6.
 
 ## 1. Trzy warstwy po przeniesieniu
 
@@ -12,9 +12,10 @@ Stan wyjściowy: commit 01f5c30, 49 śledzonych plików, plus ta mapa (50). Tabe
 README.md  AGENTS.md  CLAUDE.md  Makefile  .gitignore   # dla autora procesu
 copier.yml                                              # konfiguracja szablonu
 CHANGELOG.md                                            # wydania vX.Y.Z (D-49)
-project/decisions.md  project/settings.toml             # rejestr warstwy procesu (D-01…D-53 i dalej)
-records/  reports/  reference/                          # rekordy, raporty generowane, materiały wejściowe
-tests/test_distribution.py                              # test granicy dystrybucji (poza payloadem)
+project/decisions.md  project/plan.md  project/settings.toml   # rejestr i plan warstwy procesu
+spec/requirements.md  spec/glossary.md  spec/tests/      # wymagania i testy szablonu (D-59, D-60)
+records/  reports/  reference/                          # rekordy, raporty generowane, materiały wejściowe (w tym reference/golden/)
+tests/test_distribution.py  tests/golden_master.py      # testy warstwy procesu (poza payloadem)
 template/                                               # tylko to trafia do projektu
   .copier-answers.process.yml.jinja
   process/                                              # payload copiera (D-47)
@@ -97,6 +98,21 @@ Kolumny: obecna ścieżka → ścieżka w repozytorium iso-template-agent po prz
 | `scenarios.md` | wzorzec template/process/templates/spec/scenarios.md | spec/scenarios.md | |
 | `scope.md` | wzorzec template/process/templates/spec/scope.md | spec/scope.md | |
 | `tests/README.md` | wzorzec template/process/templates/spec/tests/README.md | spec/tests/README.md | testy akceptacyjne to specyfikacja (WP.19) |
+| `project/plan.md` | zostaje: plan warstwy procesu (D-63) | — | nowy 2026-10-19; do przeniesienia liczy go make process-kit |
+| `reference/golden/` | zostaje: złoty wzorzec (D-61), 31 plików | — | porównanie po przeniesieniu: make golden z --strip katalogów |
+| `reports/progress.md` | zostaje: rekord postępu warstwy procesu | — | generowany przez make process-kit; po przeniesieniu przez narzędzia z --root . |
+| `reports/test-report.md` | zostaje: raport testów warstwy procesu (WP.20) | — | generowany przez make process-kit TESTS=1 |
+| `reports/trace.md` | zostaje: macierz śladu warstwy procesu | — | generowany jak wyżej; dzisiejszy trace.md szablonu znika w jego miejsce |
+| `spec/glossary.md` | zostaje: słownik pojęć procesu (D-59) | — | pojęcia procesu, nie produktu (D-57) |
+| `spec/requirements.md` | zostaje: wymagania szablonu (D-59) | — |  |
+| `spec/tests/process-kit.feature` | zostaje: testy akceptacyjne szablonu (D-60) | — | ścieżki w runner: zmieniają się z tools/ na template/process/tools/ i tests/ |
+| `tools/check_leak.py` | template/process/tools/check_leak.py | process/tools/check_leak.py | w projekcie domyślnie sprawdza process/ ze słownikiem spec/glossary.md |
+| `tools/check_leak.allow` | wyjątki warstwy procesu w katalogu głównym; wzorzec pusty w template/process/templates/ | project/check_leak.allow | wyjątki należą do projektu, nie do pakietu (D-47) |
+| `tools/check_refs.py` | template/process/tools/check_refs.py | process/tools/check_refs.py |  |
+| `tools/check_refs.allow` | wyjątki warstwy procesu w katalogu głównym; wzorzec pusty w template/process/templates/ | project/check_refs.allow | jak wyżej |
+| `tools/golden_master.py` | tests/golden_master.py | — | narzędzie warstwy procesu |
+| `tools/process_kit_view.py` | archive/tools/process_kit_view.py | — | przejściowe (D-64): po przeniesieniu narzędzia czytają warstwę procesu wprost |
+| `tools/test_report.py` | template/process/tools/test_report.py | process/tools/test_report.py |  |
 | `tools/check_commit.py` | template/process/tools/check_commit.py | process/tools/check_commit.py | |
 | `tools/check_separation.py` | template/process/tools/check_separation.py | process/tools/check_separation.py | kopiuje id.toml do migawek: nowe ścieżki + settings.toml |
 | `tools/id.toml` | reguły → template/process/tools/id.toml; [project] system i ocena zgodności → wzorzec template/process/templates/project/settings.toml | process/tools/id.toml + project/settings.toml | D-55; ścieżki `file` w typach zmieniają się na project/…, spec/…, records/… |
@@ -144,7 +160,15 @@ Kolumny: obecna ścieżka → ścieżka w repozytorium iso-template-agent po prz
 
 Pokrycie tabeli z części 3 (każdy śledzony plik dokładnie raz):
 
-    git ls-files | sort > /tmp/a; grep -o '^| `[^`]*`' doc/layout-map.md | sed 's/^| `//; s/`$//' | sort > /tmp/b; diff /tmp/a /tmp/b && echo pokrycie pełne
+    python3 - <<'EOF'
+    import re, subprocess
+    rows = re.findall(r"^\| `([^`]*)`", open("doc/layout-map.md", encoding="utf-8").read(), re.M)
+    files = subprocess.run(["git", "ls-files"], capture_output=True, text=True).stdout.split()
+    covered = {f: [r for r in rows if f == r or (r.endswith("/") and f.startswith(r))] for f in files}
+    print("bez wiersza:", [f for f, r in covered.items() if not r])
+    print("w kilku wierszach:", [f for f, r in covered.items() if len(r) > 1])
+    print("wiersz bez pliku:", [r for r in rows if not any(f == r or (r.endswith("/") and f.startswith(r)) for f in files)])
+    EOF
 
 Po przeniesieniu (osobny commit, `git mv`, bez usuwania):
 - `make check` i `make test` w warstwie procesu;
