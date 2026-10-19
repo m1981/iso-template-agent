@@ -18,53 +18,11 @@ Format:
 
 ## Otwarte
 
-### D-43 Trzy warstwy: praca nad procesem, szablon procesu, projekty z szablonu
+### D-53 Założenia przy wykonaniu D-49 i D-52
 - status: open
-- options: A) to repozytorium jest projektem procesu; szablon dla copiera leży w podkatalogu template/ (copier.yml, _subdirectory); projekty (GTD i kolejne) powstają przez copier copy i dostają poprawki procesu przez copier update · B) jedno repozytorium bez podziału; new-project przenosi do archive/template/ cały zapis pracy nad szablonem (rejestr, rekordy, materiały wejściowe, pliki generowane) · C) bez zmian
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
 - proposal: A
-- notes: Użytkownik przy odpowiedzi: proces pracy nad procesem, GTD jako klient i pilot procesu, szablon procesu, copier generuje nowe projekty z meta-szablonu. Próba z copierem 9.19.1 (2026-10-19): pliki z _skip_if_exists zostają nietknięte przy update; lokalna zmiana pliku procesu daje konflikt przy update; copier wybiera wersję po tagach vX.Y.Z, a w _commit zapisuje nazwę z git describe (wybrał baseline-02-x stojący na tym samym commicie co v0.2.0)
-
-### D-45 Kopiowanie szablonu bez rsync
-- status: open
-- options: A) git archive HEAD | tar -x -C ../nowy-projekt · B) make new-project DEST=… robi kopię i start jednym poleceniem
-- proposal: rozstrzyga D-43: przy D-43 A kopię robi copier copy i D-45 się zamyka
-- notes: README obiecuje tylko python3 i git, a krok 1 używa rsync, którego nie ma w kopii agenta
-
-### D-47 Co dostarcza copier, a co należy do projektu
-- status: open
-- options: A) copier dostarcza i aktualizuje tylko katalog process/: narzędzia, reguły (AGENTS procesu, kontrakt, listy kontrolne, role, reguły id.toml), puste wzorce dokumentów, hooki, opis migracji; dokumenty projektu (project/, spec/, records/) powstają ze wzorców jawnym poleceniem make init i są poza zbiorem copiera; AGENTS.md, CLAUDE.md, README.md i Makefile w katalogu głównym należą do projektu i wpinają proces jedną linią; ustawienia projektu (system, prefiksy obszarów, moduły, ocena zgodności) w jednym pliku lokalnym · B) copier zarządza całym drzewem, dokumenty projektu zakłada raz przez _skip_if_exists, konflikty rozwiązywane ręcznie
-- proposal: A
-- notes: przeformułowana 2026-10-19 po dokumencie Użytkownika „Copier: konfiguracja i proces pracy dla nowego zastosowania” (historia truth-ledger → kuchnie): _skip_if_exists odtwarza usunięty plik przy update; własność musi być ustalona dla każdej ścieżki; główny AGENTS.md należy do projektu; przestrzeń nazw od pierwszego wydania. Poprzednie brzmienie: pliki procesu aktualizowane, pliki projektu przez _skip_if_exists, dostosowanie w project/tailoring.md
-
-### D-48 Czy praca nad procesem sama używa procesu
-- status: open
-- options: A) tak: katalog główny ma własny rejestr, rekordy i materiały wejściowe, a narzędzia z template/tools/ działają na nim przez parametr katalogu i osobny model śladu dla warstwy procesu · B) tylko rejestr i git, bez kontroli śladu w warstwie procesu
-- proposal: A
-- notes: dziś szablon sprawdza sam siebie hookami (D-01…D-46, VER-01); w warstwie procesu klientem są projekty, więc wyniki pilota z GTD (Q-03) stają się tu rekordami walidacji
-
-### D-49 Wersje szablonu
-- status: open
-- options: A) wydania szablonu jako tagi vX.Y.Z (dla copiera), tagi baseline-nn zostają dla kamieni pracy nad procesem i nie stoją na tym samym commicie co wydanie · B) jeden rodzaj tagów
-- proposal: A
-- notes: copier szuka wersji w tagach vX.Y.Z; gdy na commicie stoi też baseline-nn, w .copier-answers.yml ląduje nazwa baseline'u
-
-### D-50 Kolejność wykonania D-41, D-42, D-44
-- status: open
-- options: A) najpierw D-43 (szablon do template/), potem D-41, D-42 i D-44 w szablonie, na końcu przejście gtd2 na copier (zamiast Q-02) · B) najpierw D-41, D-42, D-44 w obecnym płaskim układzie, copier później
-- proposal: A
-- notes: przy B pliki przenosi się dwa razy
-
-### D-51 Migracja dokumentów po zmianie procesu
-- status: open
-- options: A) każde wydanie, które zmienia reguły dotyczące istniejących dokumentów, ma wpis w process/MIGRATIONS.md: która reguła, których dokumentów dotyczy (nowe, w toku, zakończone), jak je znaleźć (kody błędów i ostrzeżeń trace.py), kroki i warunek zakończenia; projekt zapisuje zakończenie migracji decyzją D i polem migrated_to w pliku ustawień; trace.py ostrzega, gdy wersja procesu jest nowsza niż migrated_to · B) tylko zasada w tekście, bez kontroli
-- proposal: A
-- notes: zasada Użytkownika (2026-10-19), dosłownie: „Copier aktualizuje narzędzia, normy i wzorce. Dostosowanie istniejących dokumentów wymaga jawnie opisanej migracji i osobnego kroku. Aktualizacja pakietu nie oznacza automatycznie zakończenia migracji dokumentów.” Opcje dotyczą tylko tego, jak ją wykonać. Przykład z naszej historii: D-17 zmieniła nazwy pól i stanów, a gtd2 wymaga migracji (Q-02)
-
-### D-52 Bramka aktualizacji projektu
-- status: open
-- options: A) jedno polecenie make process-update V=vX.Y.Z: odmawia przy brudnym drzewie, wymaga jawnej wersji, używa przypiętej wersji copiera i właściwego pliku answers, zapisuje pełny log i kod wyjścia, wykrywa znaczniki konfliktu także w nowych plikach, uruchamia make check i make test; nie robi stash ani commita · B) instrukcja w README, kroki ręczne
-- proposal: A
-- notes: copier 9.19.1 w próbie z D-43 zakończył update kodem 0 i zostawił konflikt (UU); dokument Użytkownika potwierdza to samo dla 9.17.1
+- notes: (1) przypięta wersja copiera 9.19.1, bo na niej przeszedł test granicy dystrybucji; dokument Użytkownika sprawdzał 9.17.1, więc _min_copier_version w szablonie testowym to 9.17.1; (2) plik answers: .copier-answers.process.yml; (3) log bramki w .git/process-update.log; (4) walidacja w bramce: make check i make test; (5) bramka bez --defaults pokazuje pytania copiera na ekranie, a do logu zapisuje tylko polecenie i kod; (6) process_update.py i test_distribution.py leżą na razie w tools/; przy przeniesieniu (D-50) bramka idzie do process/tools/, a test do warstwy procesu poza szablonem; (7) make hooks odmawia, gdy core.hooksPath wskazuje inny katalog niż .githooks
 
 ## W kolejce
 
@@ -102,6 +60,70 @@ Format:
 - notes: z dokumentu Użytkownika o copierze (2026-10-19); bramka aktualizacji odmawia dla frozen i retired. Wróć, gdy z szablonu korzysta więcej niż jeden projekt albo gdy któryś projekt ma przestać przyjmować aktualizacje
 
 ## Rozstrzygnięte
+
+### D-52 Bramka aktualizacji projektu
+- status: resolved
+- options: A) jedno polecenie make process-update V=vX.Y.Z: odmawia przy brudnym drzewie, wymaga jawnej wersji, używa przypiętej wersji copiera i właściwego pliku answers, zapisuje pełny log i kod wyjścia, wykrywa znaczniki konfliktu także w nowych plikach, uruchamia make check i make test; nie robi stash ani commita · B) instrukcja w README, kroki ręczne
+- proposal: A
+- choice: A — make process-update V=vX.Y.Z (tools/process_update.py)
+- date: 2026-10-19
+- notes: copier 9.19.1 w próbie z D-43 zakończył update kodem 0 i zostawił konflikt (UU); dokument Użytkownika potwierdza to samo dla 9.17.1
+
+### D-51 Migracja dokumentów po zmianie procesu
+- status: resolved
+- options: A) każde wydanie, które zmienia reguły dotyczące istniejących dokumentów, ma wpis w process/MIGRATIONS.md: która reguła, których dokumentów dotyczy (nowe, w toku, zakończone), jak je znaleźć (kody błędów i ostrzeżeń trace.py), kroki i warunek zakończenia; projekt zapisuje zakończenie migracji decyzją D i polem migrated_to w pliku ustawień; trace.py ostrzega, gdy wersja procesu jest nowsza niż migrated_to · B) tylko zasada w tekście, bez kontroli
+- proposal: A
+- choice: A — process/MIGRATIONS.md przy każdym wydaniu zmieniającym reguły; zakończenie migracji decyzją w projekcie i polem migrated_to; trace.py ostrzega, gdy wersja procesu jest nowsza
+- date: 2026-10-19
+- notes: zasada Użytkownika (2026-10-19), dosłownie: „Copier aktualizuje narzędzia, normy i wzorce. Dostosowanie istniejących dokumentów wymaga jawnie opisanej migracji i osobnego kroku. Aktualizacja pakietu nie oznacza automatycznie zakończenia migracji dokumentów.” Opcje dotyczą tylko tego, jak ją wykonać. Przykład z naszej historii: D-17 zmieniła nazwy pól i stanów, a gtd2 wymaga migracji (Q-02)
+
+### D-50 Kolejność wykonania D-41, D-42, D-44
+- status: resolved
+- options: A) najpierw D-43 (szablon do template/), potem D-41, D-42 i D-44 w szablonie, na końcu przejście gtd2 na copier (zamiast Q-02) · B) najpierw D-41, D-42, D-44 w obecnym płaskim układzie, copier później
+- proposal: A
+- choice: A — najpierw testy granicy dystrybucji na małym szablonie, potem template/ z D-41, D-42, D-44, na końcu gtd2 (zamiast Q-02)
+- date: 2026-10-19
+- notes: przy B pliki przenosi się dwa razy
+
+### D-49 Wersje szablonu
+- status: resolved
+- options: A) wydania szablonu jako tagi vX.Y.Z (dla copiera), tagi baseline-nn zostają dla kamieni pracy nad procesem i nie stoją na tym samym commicie co wydanie · B) jeden rodzaj tagów
+- proposal: A
+- choice: A — wydania jako nieprzesuwane tagi vX.Y.Z z przetestowanego commita, jawna wersja przy copy i update, copier przypięty, baseline-nn nigdy na commicie wydania
+- date: 2026-10-19
+- notes: copier szuka wersji w tagach vX.Y.Z; gdy na commicie stoi też baseline-nn, w .copier-answers.yml ląduje nazwa baseline'u
+
+### D-48 Czy praca nad procesem sama używa procesu
+- status: resolved
+- options: A) tak: katalog główny ma własny rejestr, rekordy i materiały wejściowe, a narzędzia z template/tools/ działają na nim przez parametr katalogu i osobny model śladu dla warstwy procesu · B) tylko rejestr i git, bez kontroli śladu w warstwie procesu
+- proposal: A
+- choice: A — warstwa procesu sama używa procesu: własny rejestr i rekordy, narzędzia z template/ przez parametr katalogu
+- date: 2026-10-19
+- notes: dziś szablon sprawdza sam siebie hookami (D-01…D-46, VER-01); w warstwie procesu klientem są projekty, więc wyniki pilota z GTD (Q-03) stają się tu rekordami walidacji
+
+### D-47 Co dostarcza copier, a co należy do projektu
+- status: resolved
+- options: A) copier dostarcza i aktualizuje tylko katalog process/: narzędzia, reguły (AGENTS procesu, kontrakt, listy kontrolne, role, reguły id.toml), puste wzorce dokumentów, hooki, opis migracji; dokumenty projektu (project/, spec/, records/) powstają ze wzorców jawnym poleceniem make init i są poza zbiorem copiera; AGENTS.md, CLAUDE.md, README.md i Makefile w katalogu głównym należą do projektu i wpinają proces jedną linią; ustawienia projektu (system, prefiksy obszarów, moduły, ocena zgodności) w jednym pliku lokalnym · B) copier zarządza całym drzewem, dokumenty projektu zakłada raz przez _skip_if_exists, konflikty rozwiązywane ręcznie
+- proposal: A
+- choice: A — copier dostarcza tylko process/; dokumenty projektu przez make init, poza zbiorem copiera; AGENTS.md, CLAUDE.md, README.md, Makefile w katalogu głównym należą do projektu; ustawienia projektu w jednym pliku
+- date: 2026-10-19
+- notes: przeformułowana 2026-10-19 po dokumencie Użytkownika „Copier: konfiguracja i proces pracy dla nowego zastosowania” (historia truth-ledger → kuchnie): _skip_if_exists odtwarza usunięty plik przy update; własność musi być ustalona dla każdej ścieżki; główny AGENTS.md należy do projektu; przestrzeń nazw od pierwszego wydania. Poprzednie brzmienie: pliki procesu aktualizowane, pliki projektu przez _skip_if_exists, dostosowanie w project/tailoring.md
+
+### D-45 Kopiowanie szablonu bez rsync
+- status: resolved
+- options: A) git archive HEAD | tar -x -C ../nowy-projekt · B) make new-project DEST=… robi kopię i start jednym poleceniem
+- proposal: rozstrzyga D-43: przy D-43 A kopię robi copier copy i D-45 się zamyka
+- choice: zamknięta przez D-43 A: kopię robi copier copy (Użytkownik: „patrz d43”)
+- date: 2026-10-19
+- notes: README obiecuje tylko python3 i git, a krok 1 używa rsync, którego nie ma w kopii agenta
+
+### D-43 Trzy warstwy: praca nad procesem, szablon procesu, projekty z szablonu
+- status: resolved
+- options: A) to repozytorium jest projektem procesu; szablon dla copiera leży w podkatalogu template/ (copier.yml, _subdirectory); projekty (GTD i kolejne) powstają przez copier copy i dostają poprawki procesu przez copier update · B) jedno repozytorium bez podziału; new-project przenosi do archive/template/ cały zapis pracy nad szablonem (rejestr, rekordy, materiały wejściowe, pliki generowane) · C) bez zmian
+- proposal: A
+- choice: A — to repozytorium jest projektem procesu; szablon w template/; projekty przez copier copy i update
+- date: 2026-10-19
+- notes: Użytkownik przy odpowiedzi: proces pracy nad procesem, GTD jako klient i pilot procesu, szablon procesu, copier generuje nowe projekty z meta-szablonu. Próba z copierem 9.19.1 (2026-10-19): pliki z _skip_if_exists zostają nietknięte przy update; lokalna zmiana pliku procesu daje konflikt przy update; copier wybiera wersję po tagach vX.Y.Z, a w _commit zapisuje nazwę z git describe (wybrał baseline-02-x stojący na tym samym commicie co v0.2.0)
 
 ### D-46 Autor commitów agenta
 - status: resolved

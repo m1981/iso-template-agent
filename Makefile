@@ -1,5 +1,5 @@
 # Te same komendy dla człowieka i agenta (AGENTS.md, sekcja Polecenia).
-.PHONY: check trace progress iso-map navigation hooks baseline test new-project restore-check
+.PHONY: check trace progress iso-map navigation hooks baseline test test-distribution new-project restore-check process-update
 
 check: trace progress iso-map ## wszystkie kontrole (to samo co pre-commit, bez sprawdzania aktualności)
 	@if [ -d navigation ]; then cd navigation && python3 -B check.py screens.mmd; fi
@@ -22,10 +22,18 @@ test: ## test narzędzi śladu i hooków (po zmianie tools/ lub id.toml)
 new-project: ## raz, w kopii szablonu: historia szablonu do archive/template/, pusty rejestr z D-01 (D-22)
 	python3 -B tools/new_project.py
 
+test-distribution: ## test granicy dystrybucji copierem na małym szablonie (D-50); wymaga copiera w przypiętej wersji
+	python3 -B tools/test_distribution.py
+
+process-update: ## w projekcie z copiera: aktualizacja procesu do wersji V=vX.Y.Z z kontrolą wyniku (D-52)
+	python3 -B tools/process_update.py $(V)
+
 restore-check: ## sprawdź odtworzenie z kopii (klon origin: HEAD, tagi, ślad); RECORD=1 dopisuje rekord VER (D-35)
 	python3 -B tools/restore_check.py $(if $(RECORD),--record)
 
-hooks: ## włącz hooki w nowym klonie; push wysyła też tagi baseline (D-13)
+hooks: ## włącz hooki w nowym klonie; push wysyła też tagi baseline (D-13); nie nadpisuje innego menedżera hooków
+	@cur=$$(git config --get core.hooksPath); if [ -n "$$cur" ] && [ "$$cur" != .githooks ]; then \
+	  echo "make hooks: core.hooksPath wskazuje już $$cur (inny menedżer hooków). Nie nadpisuję: wepnij kontrole z .githooks/ do niego albo zmień ustawienie ręcznie."; exit 1; fi
 	git config core.hooksPath .githooks
 	git config push.followTags true
 

@@ -84,3 +84,5 @@ Komisję zmian, formalne plany V&V, CM i QA jako osobne dokumenty, audyty proces
     make baseline N=01-nazwa
     make restore-check [RECORD=1]  # odtworzenie z kopii: klon origin, HEAD, tagi, ślad
     make test        # po każdej zmianie tools/ lub id.toml
+    make test-distribution         # granica dystrybucji copierem (wymaga copiera w przypiętej wersji)
+    make process-update V=vX.Y.Z   # w projekcie z copiera: aktualizacja procesu z kontrolą wyniku (D-52)
