@@ -18,11 +18,34 @@ Format:
 
 ## Otwarte
 
-### D-53 Założenia przy wykonaniu D-49 i D-52
+### D-54 Mapa ścieżek przejścia na trzy warstwy
 - status: open
-- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
+- options: A) zatwierdzić doc/layout-map.md w całości: układ trzech warstw, właściciele, każdy z 50 plików z nowym miejscem, nowe pliki, zmiany w narzędziach (w tym ścieżki file w id.toml); przeniesienie jednym commitem przez git mv · B) zatwierdzić z poprawkami (wskaż wiersze)
 - proposal: A
-- notes: (1) przypięta wersja copiera 9.19.1, bo na niej przeszedł test granicy dystrybucji; dokument Użytkownika sprawdzał 9.17.1, więc _min_copier_version w szablonie testowym to 9.17.1; (2) plik answers: .copier-answers.process.yml; (3) log bramki w .git/process-update.log; (4) walidacja w bramce: make check i make test; (5) bramka bez --defaults pokazuje pytania copiera na ekranie, a do logu zapisuje tylko polecenie i kod; (6) process_update.py i test_distribution.py leżą na razie w tools/; przy przeniesieniu (D-50) bramka idzie do process/tools/, a test do warstwy procesu poza szablonem; (7) make hooks odmawia, gdy core.hooksPath wskazuje inny katalog niż .githooks
+- notes: założenia w mapie: umowa (agreement.md) bez nowego typu ID, zatwierdzana decyzją D; moduły wdraża init.py --module zamiast cp -r; dane modułu nawigacji w spec/navigation/, kod w process/modules/navigation/; ryzyka produktu (RSK) w spec/risks.md; warstwa procesu ma tylko te typy, których pliki istnieją (D, Q, VER, VAL…), bo typ bez pliku jest nieaktywny
+
+### D-55 Podział tools/id.toml
+- status: open
+- options: A) reguły modelu (typy, pola, stany, wspólne pola) w process/tools/id.toml; system, ocena zgodności z normą (iso_other, iso_partial, iso_out_of_scope) i migrated_to w project/settings.toml · B) jak A, ale ocena zgodności zostaje w regułach procesu
+- proposal: A
+- notes: ocena zależy od etapu projektu (np. WP.14 oprogramowanie poza etapem specyfikacji); wzorzec settings.toml niesie ocenę domyślną
+
+### D-56 Odwołania do decyzji szablonu w plikach procesu
+- status: open
+- options: A) w plikach process/ odwołania do decyzji warstwy procesu piszemy jako „szablon D-nn” i odsyłamy do CHANGELOG.md w repozytorium szablonu; numer D-nn projektu się nie miesza · B) bez odwołań do decyzji w plikach procesu; uzasadnienia tylko w rejestrze warstwy procesu · C) zostawić D-nn bez oznaczenia
+- proposal: A
+- notes: dziś 16 plików procesu (AGENTS.md, README.md, Makefile, hooki, narzędzia, id.toml, karty ról, moduły) ma 108 odwołań D-nn; w projekcie D-01 to „Start projektu”, więc gołe D-17 wskazywałoby złą decyzję
+
+### D-57 Podział słownika
+- status: open
+- options: A) tabela „Terminy procesu (ISO/IEC 29110)” do process/terms.md (aktualizuje copier); spec/glossary.md tylko z pojęciami projektu · B) cały słownik w projekcie
+- proposal: A
+
+### D-58 new_project.py
+- status: open
+- options: A) do archive/tools/ (archiwum, bez usuwania); nowy init.py zakłada dokumenty ze wzorców · B) przerobić new_project.py na init.py w tym samym pliku (historia zostaje w git log --follow)
+- proposal: B
+- notes: B zachowuje historię pliku i nie zostawia martwego kodu; A zachowuje plik do wglądu
 
 ## W kolejce
 
@@ -60,6 +83,14 @@ Format:
 - notes: z dokumentu Użytkownika o copierze (2026-10-19); bramka aktualizacji odmawia dla frozen i retired. Wróć, gdy z szablonu korzysta więcej niż jeden projekt albo gdy któryś projekt ma przestać przyjmować aktualizacje
 
 ## Rozstrzygnięte
+
+### D-53 Założenia przy wykonaniu D-49 i D-52
+- status: resolved
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
+- proposal: A
+- choice: A — założenia przyjęte jak wdrożono
+- date: 2026-10-19
+- notes: (1) przypięta wersja copiera 9.19.1, bo na niej przeszedł test granicy dystrybucji; dokument Użytkownika sprawdzał 9.17.1, więc _min_copier_version w szablonie testowym to 9.17.1; (2) plik answers: .copier-answers.process.yml; (3) log bramki w .git/process-update.log; (4) walidacja w bramce: make check i make test; (5) bramka bez --defaults pokazuje pytania copiera na ekranie, a do logu zapisuje tylko polecenie i kod; (6) process_update.py i test_distribution.py leżą na razie w tools/; przy przeniesieniu (D-50) bramka idzie do process/tools/, a test do warstwy procesu poza szablonem; (7) make hooks odmawia, gdy core.hooksPath wskazuje inny katalog niż .githooks
 
 ### D-52 Bramka aktualizacji projektu
 - status: resolved
