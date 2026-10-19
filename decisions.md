@@ -18,34 +18,34 @@ Format:
 
 ## Otwarte
 
-### D-54 Mapa ścieżek przejścia na trzy warstwy
+### D-59 Wymagania szablonu
 - status: open
-- options: A) zatwierdzić doc/layout-map.md w całości: układ trzech warstw, właściciele, każdy z 50 plików z nowym miejscem, nowe pliki, zmiany w narzędziach (w tym ścieżki file w id.toml); przeniesienie jednym commitem przez git mv · B) zatwierdzić z poprawkami (wskaż wiersze)
+- options: A) przed przeniesieniem spisać wymagania szablonu w warstwie procesu (spec/requirements.md, EARS, podmiot „Process kit”), każde ze źródłem w decyzji D-nn; obszary: TRC ślad, HKS hooki, SEP rozdział ról, DST dystrybucja, INI zakładanie projektu, UPD bramka aktualizacji, MIG migracje, LAY układ i własność plików, LNG język, ISO zgodność · B) bez wymagań; decyzje i testy wystarczą
 - proposal: A
-- notes: założenia w mapie: umowa (agreement.md) bez nowego typu ID, zatwierdzana decyzją D; moduły wdraża init.py --module zamiast cp -r; dane modułu nawigacji w spec/navigation/, kod w process/modules/navigation/; ryzyka produktu (RSK) w spec/risks.md; warstwa procesu ma tylko te typy, których pliki istnieją (D, Q, VER, VAL…), bo typ bez pliku jest nieaktywny
+- notes: dziś wymagania szablonu są rozproszone w 58 decyzjach; bez nich nie da się wykazać, że przeniesienie niczego nie zgubiło (każde wymaganie musi mieć test przed i po)
 
-### D-55 Podział tools/id.toml
+### D-60 Powiązanie testów w Pythonie z wymaganiami
 - status: open
-- options: A) reguły modelu (typy, pola, stany, wspólne pola) w process/tools/id.toml; system, ocena zgodności z normą (iso_other, iso_partial, iso_out_of_scope) i migrated_to w project/settings.toml · B) jak A, ale ocena zgodności zostaje w regułach procesu
+- options: A) katalog testów w warstwie procesu (spec/tests/catalog.md): wpisy AT-nn z verifies: REQ i polem runner: plik::przypadek; testy wypisują nazwy przypadków, a kontrola sprawdza, że każdy runner istnieje i przeszedł; nowe pole runner to zmiana reguł id.toml · B) tylko pliki .feature dla scenariuszy ludzkich, testy w Pythonie bez śladu · C) znaczniki „# verifies:” w kodzie testów i nowy format parsera
 - proposal: A
-- notes: ocena zależy od etapu projektu (np. WP.14 oprogramowanie poza etapem specyfikacji); wzorzec settings.toml niesie ocenę domyślną
+- notes: wynik przebiegu z nazwami przypadków to raport testów (WP.20)
 
-### D-56 Odwołania do decyzji szablonu w plikach procesu
+### D-61 Weryfikacja samego przeniesienia
 - status: open
-- options: A) w plikach process/ odwołania do decyzji warstwy procesu piszemy jako „szablon D-nn” i odsyłamy do CHANGELOG.md w repozytorium szablonu; numer D-nn projektu się nie miesza · B) bez odwołań do decyzji w plikach procesu; uzasadnienia tylko w rejestrze warstwy procesu · C) zostawić D-nn bez oznaczenia
+- options: A) przed przeniesieniem złoty wzorzec wyjść narzędzi (trace.md, progress.md, iso-map.html, komunikaty 21 psuć i 5 ostrzeżeń na fixture); po przeniesieniu wyjścia identyczne poza ścieżkami; do tego niezmienniki: treść przeniesionych dokumentów bajt w bajt, pokrycie mapy 50/50, git log --follow dla każdego pliku, nowe narzędzie check_refs.py w make check (każda ścieżka wspomniana w dokumentach i kodzie procesu istnieje) · B) wystarczą make test i make test-distribution
 - proposal: A
-- notes: dziś 16 plików procesu (AGENTS.md, README.md, Makefile, hooki, narzędzia, id.toml, karty ról, moduły) ma 108 odwołań D-nn; w projekcie D-01 to „Start projektu”, więc gołe D-17 wskazywałoby złą decyzję
+- notes: check_refs.py zostaje na stałe: łapie dokładnie te „małe zależności”, o które pyta Użytkownik, także przy przyszłych zmianach
 
-### D-57 Podział słownika
+### D-62 Kontrola przecieku domeny do procesu
 - status: open
-- options: A) tabela „Terminy procesu (ISO/IEC 29110)” do process/terms.md (aktualizuje copier); spec/glossary.md tylko z pojęciami projektu · B) cały słownik w projekcie
+- options: A) automatyczna: w process/ dozwolone są tylko zastępcze ID z „nn” (np. UC-nn), a nie konkretne numery; w projekcie kontrola, że pliki process/ nie zawierają pojęć z jego słownika; w warstwie procesu punkt listy kontrolnej przeglądu rejestru: decyzja dotyczy procesu, nie produktu klienta · B) tylko punkt listy kontrolnej
 - proposal: A
+- notes: z D-57: w poprzednim podejściu terminy, decyzje i zadania produktu klienta trafiały do rejestrów procesu
 
-### D-58 new_project.py
+### D-63 Kryteria odbioru wydania v1.0.0
 - status: open
-- options: A) do archive/tools/ (archiwum, bez usuwania); nowy init.py zakłada dokumenty ze wzorców · B) przerobić new_project.py na init.py w tym samym pliku (historia zostaje w git log --follow)
-- proposal: B
-- notes: B zachowuje historię pliku i nie zostawia martwego kodu; A zachowuje plik do wglądu
+- options: A) kamień milowy w planie warstwy procesu z acceptance_criteria AC-1…AC-9 (lista w odpowiedzi z 2026-10-19), rekordy VAL z pilota gtd2 i rekord ACC Użytkownika; tag v1.0.0 dopiero po ACC · B) v1.0.0 po przejściu testów, bez pilota
+- proposal: A
 
 ## W kolejce
 
@@ -83,6 +83,45 @@ Format:
 - notes: z dokumentu Użytkownika o copierze (2026-10-19); bramka aktualizacji odmawia dla frozen i retired. Wróć, gdy z szablonu korzysta więcej niż jeden projekt albo gdy któryś projekt ma przestać przyjmować aktualizacje
 
 ## Rozstrzygnięte
+
+### D-58 new_project.py
+- status: resolved
+- options: A) do archive/tools/ (archiwum, bez usuwania); nowy init.py zakłada dokumenty ze wzorców · B) przerobić new_project.py na init.py w tym samym pliku (historia zostaje w git log --follow)
+- proposal: B
+- choice: B — new_project.py przerobiony na init.py w tym samym pliku (git mv)
+- date: 2026-10-19
+- notes: B zachowuje historię pliku i nie zostawia martwego kodu; A zachowuje plik do wglądu
+
+### D-57 Podział słownika
+- status: resolved
+- options: A) tabela „Terminy procesu (ISO/IEC 29110)” do process/terms.md (aktualizuje copier); spec/glossary.md tylko z pojęciami projektu · B) cały słownik w projekcie
+- proposal: A
+- choice: A — terminy normy w process/terms.md, w spec/glossary.md tylko pojęcia projektu. Użytkownik: „ważne, żeby domena nie przeciekała do procesu”; w poprzednim podejściu w rejestrach procesu z czasem pojawiały się terminy, decyzje i zadania z produktu klienta
+- date: 2026-10-19
+
+### D-56 Odwołania do decyzji szablonu w plikach procesu
+- status: resolved
+- options: A) w plikach process/ odwołania do decyzji warstwy procesu piszemy jako „szablon D-nn” i odsyłamy do CHANGELOG.md w repozytorium szablonu; numer D-nn projektu się nie miesza · B) bez odwołań do decyzji w plikach procesu; uzasadnienia tylko w rejestrze warstwy procesu · C) zostawić D-nn bez oznaczenia
+- proposal: A
+- choice: A — w plikach procesu „szablon D-nn” z odesłaniem do CHANGELOG.md
+- date: 2026-10-19
+- notes: dziś 16 plików procesu (AGENTS.md, README.md, Makefile, hooki, narzędzia, id.toml, karty ról, moduły) ma 108 odwołań D-nn; w projekcie D-01 to „Start projektu”, więc gołe D-17 wskazywałoby złą decyzję
+
+### D-55 Podział tools/id.toml
+- status: resolved
+- options: A) reguły modelu (typy, pola, stany, wspólne pola) w process/tools/id.toml; system, ocena zgodności z normą (iso_other, iso_partial, iso_out_of_scope) i migrated_to w project/settings.toml · B) jak A, ale ocena zgodności zostaje w regułach procesu
+- proposal: A
+- choice: A — reguły w process/tools/id.toml; system, ocena zgodności i migrated_to w project/settings.toml
+- date: 2026-10-19
+- notes: ocena zależy od etapu projektu (np. WP.14 oprogramowanie poza etapem specyfikacji); wzorzec settings.toml niesie ocenę domyślną
+
+### D-54 Mapa ścieżek przejścia na trzy warstwy
+- status: resolved
+- options: A) zatwierdzić doc/layout-map.md w całości: układ trzech warstw, właściciele, każdy z 50 plików z nowym miejscem, nowe pliki, zmiany w narzędziach (w tym ścieżki file w id.toml); przeniesienie jednym commitem przez git mv · B) zatwierdzić z poprawkami (wskaż wiersze)
+- proposal: A
+- choice: A — mapa doc/layout-map.md zatwierdzona w całości; przeniesienie jednym commitem przez git mv, po przygotowaniu weryfikacji (D-59…D-63)
+- date: 2026-10-19
+- notes: założenia w mapie: umowa (agreement.md) bez nowego typu ID, zatwierdzana decyzją D; moduły wdraża init.py --module zamiast cp -r; dane modułu nawigacji w spec/navigation/, kod w process/modules/navigation/; ryzyka produktu (RSK) w spec/risks.md; warstwa procesu ma tylko te typy, których pliki istnieją (D, Q, VER, VAL…), bo typ bez pliku jest nieaktywny
 
 ### D-53 Założenia przy wykonaniu D-49 i D-52
 - status: resolved
