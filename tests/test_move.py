@@ -91,7 +91,7 @@ STAY_PREFIXES = ("spec/", "project/plan.md", "reports/", "reference/golden/")
 EDITED = {
     # narzędzia i hooki: nowe ścieżki (model śladu, raporty, korzeń projektu), D-56, D-73
     *(PROC + "/tools/" + n for n in ("check_commit.py", "check_leak.py", "check_refs.py", "check_separation.py",
-                                     "id.toml", "init.py", "iso_map.py", "model.py", "process_update.py",
+                                     "id.toml", "init.py", "iso29110.toml", "iso_map.py", "model.py", "process_update.py",
                                      "progress.py", "restore_check.py", "test_report.py", "test_tools.py", "trace.py")),
     PROC + "/hooks/commit-msg", PROC + "/hooks/pre-commit",
     PROC + "/modules/navigation/README.md", PROC + "/modules/navigation/build.py",
