@@ -18,6 +18,11 @@ Format:
 
 ## Otwarte
 
+### D-73 Kryteria odbioru w rekordzie postępu
+- status: open
+- options: A) progress.md dostaje sekcję „Kryteria odbioru” z kamieniami i zadaniami, które je mają; sekcja tylko wtedy, gdy są (bez zmiany złotego wzorca) · B) bez zmian: kryteria czyta się w planie
+- proposal: A
+
 ## W kolejce
 
 ### Q-01 Strona „ISO 29110 a nasz model śladu” po rozszerzeniu
@@ -57,6 +62,22 @@ Format:
 - notes: plik Użytkownika PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md (D-66). Tematy poza D-68 i D-69: krótszy AGENTS.md i ładowanie kontekstu według zadania (K0–K6); minimalny start z profilem ryzyka i definicją ukończenia; zakres szablonu: sama specyfikacja czy cały cykl z kodem i TDD; rejestr aktywacji pakietów praktyk (available, proposed, pilot, active…); pomiar wartości praktyk (słuszna uwaga: kryterium 1 pilota Q-03 jest nierozstrzygające); strona ISO rozdzielająca wsparcie przez szablon, zastosowanie w projekcie, wykonanie i ocenę zgodności; zmiana kontraktu (co agent rozstrzyga sam, commit na spójną zmianę zamiast na odpowiedź). Wróć po wydaniu v1.0.0 albo wcześniej, gdy któryś temat zablokuje pilota
 
 ## Rozstrzygnięte
+
+### D-72 Commity przeniesienia
+- status: resolved
+- options: A) dwa commity w jednej odpowiedzi: najpierw wyłącznie git mv, potem zmiany ścieżek i narzędzi; wyjątek od P-07 · B) jeden commit (D-54)
+- proposal: A
+- choice: A — przy przeniesieniu (zadanie przeniesienia w project/plan.md) dwa commity w jednej odpowiedzi; wyjątek od zasady jednego commita na odpowiedź dotyczy tylko tego zadania
+- date: 2026-10-22
+- notes: git rozpoznaje przeniesienie po podobieństwie treści; commit z samym git mv daje pewną historię (K-4)
+
+### D-71 Kryteria odbioru zadań
+- status: resolved
+- options: A) opcjonalne pole acceptance_criteria w typie TSK (id.toml) i kryteria K-1…K-11 w zadaniu przeniesienia · B) kryteria w notes zadania · C) tylko w mapie
+- proposal: A
+- choice: A — pole acceptance_criteria w TSK (id.toml, wzór w plan.md, fixture testu); K-1…K-11 w zadaniu przeniesienia w project/plan.md
+- date: 2026-10-22
+- notes: uzasadnienie propozycji mówiło, że rekord postępu pokaże kryteria; to nieprawda, progress.py nie pokazuje ich nawet dla kamieni (D-73)
 
 ### D-70 Commit 7779435 bez ID w opisie
 - status: resolved

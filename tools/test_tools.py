@@ -29,7 +29,7 @@ FIXTURES = {
                         "### OUT-01\n- pattern: ubiquitous\n- text: System shall not notify a Delegate.\n- source: IO-02, DP-01\n- status: initiated\n"),
     "plan.md": ("### OBJ-01 Specyfikacja gotowa do implementacji\n- measure: wymagania zweryfikowane\n\n"
                 "### MS-01 Zakres i przypadki użycia\n- objective: OBJ-01\n- due: 2026-11-01\n- tag: baseline-01-zakres\n\n"
-                "### TSK-01 Napisać przypadki i wymagania\n- milestone: MS-01\n- produces: UC, CAP-01\n- status: in_progress\n\n"
+                "### TSK-01 Napisać przypadki i wymagania\n- milestone: MS-01\n- produces: UC, CAP-01\n- status: in_progress\n- acceptance_criteria: przypadki i wymagania bez błędów śladu\n\n"
                 "### PRK-01 Za mało czasu\n- concerns: MS-01\n- status: open\n- mitigation: mniejszy zakres\n"),
     "verification.md": ("### VER-01 Przegląd UC-01\n- items: UC-01\n- date: 2026-10-14\n- result: pass\n\n"
                         "### VER-02 Przegląd CAP-02\n- items: CAP-02\n- date: 2026-10-14\n- result: fail\n"),

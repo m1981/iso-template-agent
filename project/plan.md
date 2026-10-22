@@ -61,6 +61,8 @@ Użytkownik (klient, decyzje kierownika projektu, walidacja i odbiór); sesja au
 - milestone: MS-01
 - produces: LAY-01, LAY-02
 - status: planned
+- acceptance_criteria: K-1 każdy śledzony plik jest tam, gdzie wskazuje doc/layout-map.md, i nic nie leży poza mapą (skrypt pokrycia przed i po) · K-2 nic nie zginęło: liczba plików po równa liczbie przed powiększonej o nowe pliki z części 4 mapy, wycofane narzędzia w archive/ · K-3 treść przeniesionych dokumentów bajt w bajt taka sama poza zmianami ścieżek wypisanymi w mapie · K-4 git log --follow każdego pliku sięga sprzed przeniesienia · K-5 make golden bez różnic po usunięciu prefiksów katalogów · K-6 ślad warstwy procesu liczony wprost: 0 błędów i tyle samo elementów co w widoku przed przeniesieniem, process_kit_view.py w archive/ · K-7 na prawdziwym template/: copier copy, init.py, make check i pierwszy commit przez hooki; aktualizacja do próbnej wersji nie zmienia plików projektu · K-8 LAY-01 i LAY-02 mają testy automatyczne, które przechodzą · K-9 w template/ nie ma plików warstwy procesu, a check_leak.py przechodzi na template/process/ · K-10 zbędne wyjątki check_refs usunięte, check_refs bez błędów · K-11 K-1…K-10 na Linuksie (Python 3.13) i na Macu (Python 3.10)
+- notes: commity według D-72: najpierw sam git mv, potem zmiany ścieżek i narzędzi, w jednej odpowiedzi
 
 ### TSK-06 Weryfikacja przeniesienia: złoty wzorzec, niezmienniki, odwołania
 - milestone: MS-01

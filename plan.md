@@ -49,6 +49,7 @@ Zadanie wskazuje kamień (`milestone:`) i to, co wytwarza (`produces:`): kody ty
 - due: RRRR-MM-DD
 - completed: RRRR-MM-DD
 - deviation: opcjonalnie, dlaczego inaczej niż w planie
+- acceptance_criteria: opcjonalnie, co musi być spełnione, żeby zadanie uznać za wykonane
 ```
 
 ## Ryzyka projektu

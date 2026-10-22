@@ -17,3 +17,6 @@ process-update.log # jak wyżej, nazwa w wywołaniu git rev-parse --git-path
 archive/ # katalog archiwum w projekcie (po make new-project) i dla plików narzędzi wycofanych przy przeniesieniu
 MIGRATIONS.md # process/MIGRATIONS.md powstaje z zadaniem migracji w planie warstwy procesu (D-51)
 chain/ # podkatalog złotego wzorca w kodzie golden_master.py (reference/golden/chain/)
+template/ # katalog szablonu copiera, powstaje przy przeniesieniu (D-54); kryteria zadania przeniesienia w project/plan.md
+template/process/ # jak wyżej
+init.py # process/tools/init.py powstaje przy przeniesieniu z new_project.py (D-58)

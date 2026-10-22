@@ -249,7 +249,7 @@ required = ["status", "produces"]
 statuses = ["planned", "in_progress", "completed"]
 produces = true
 iso = "WP.10"
-optional = ["due", "completed", "deviation"]
+optional = ["due", "completed", "deviation", "acceptance_criteria"]   # D-71: kryteria odbioru zadania
 
 [[type]]
 code = "PRK"
