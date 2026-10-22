@@ -19,6 +19,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "ad47c56e2a95d3fced3a6ffa5597a49c9ae52000"   # ostatni commit przed przeniesieniem
@@ -274,9 +275,16 @@ def main():
         left = [e for e in entries if e in TRANSITIONAL_ALLOW]
         if left:
             fail(f"przejściowe wyjątki zostały: {', '.join(left)}")
-        r = run(f"{PROC}/tools/check_refs.py", env={"PROCESS_ROOT": ROOT})
+        # na świeżym klonie HEAD: resztki w katalogu roboczym (puste katalogi po git mv,
+        # ignorowane __pycache__) nie mogą zamaskować brakującej ścieżki
+        with tempfile.TemporaryDirectory() as tmp:
+            clone = os.path.join(tmp, "clone")
+            subprocess.run(["git", "clone", "-q", ROOT, clone], check=True, capture_output=True)
+            r = subprocess.run([sys.executable, "-B", os.path.join(clone, PROC, "tools", "check_refs.py")],
+                               cwd=clone, capture_output=True, text=True,
+                               env=dict(os.environ, PROCESS_ROOT=clone))
         if r.returncode != 0:
-            fail("check_refs:\n" + r.stdout[-800:])
+            fail("check_refs na klonie HEAD:\n" + r.stdout[-800:])
 
     for name, ok in CASES.items():
         print(f"CASE {name}: {'pass' if ok else 'fail'}")

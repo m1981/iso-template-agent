@@ -11,8 +11,8 @@ które powstają dopiero w projekcie albo po wdrożeniu modułu. Wpis, który ju
 
 W projekcie (pakiet w process/) pakiet jest pomijany: sprawdza go repozytorium szablonu.
 Sama nazwa pliku bez katalogu (np. „trace.py”) wystarcza, gdy jakiś śledzony plik ma taką nazwę.
-Pomijane pliki: rejestr decyzji, doc/ i materiały wejściowe (zapis historii i planów, w tym ścieżek
-dawnych i przyszłych), pliki generowane, .gitignore (wzorce), kod testów i scenariusze .feature (ścieżki danych testowych
+Pomijane pliki: rejestr decyzji, reference/ i archive/ (materiały wejściowe i archiwum: zapis historii
+i planów, w tym ścieżek dawnych i przyszłych), pliki generowane, .gitignore (wzorce), kod testów i scenariusze .feature (ścieżki danych testowych
 w katalogu tymczasowym; sprawdza je uruchomienie testów).
 
 Względem korzenia, katalogu pliku, pakietu procesu, katalogu nad pakietem (układ projektu) i wzorców.
