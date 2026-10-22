@@ -171,6 +171,13 @@ Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN pl
 - quality: compatibility
 - status: initiated
 
+### HKS-05
+- pattern: event
+- text: When a Commit is attempted, Process kit shall check the content staged for that Commit and not the working tree.
+- source: D-69
+- quality: reliability
+- status: initiated
+
 ## SEP Rozdział autora i weryfikatora
 
 ### SEP-01

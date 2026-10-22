@@ -39,7 +39,7 @@ P-02 ID są niezmienne i nigdy nie są używane ponownie. Schematy ID, pola rodz
 ## Ślad
 P-03 Dziecko podaje tylko rodzica (pola z id.toml, np. `source:`, `scenarios:`, `verifies:`). Nigdzie nie wypisuje się dzieci. Jedyny wyjątek: zadanie planu wskazuje w `produces:`, co wytwarza (D-09).
 P-04 Macierz w obie strony generuje tools/trace.py do trace.md, rekord postępu tools/progress.py do progress.md, a stronę zgodności z normą tools/iso_map.py do iso-map.html (z id.toml i tools/iso29110.toml); nie edytuje się ich ręcznie.
-P-05 Pre-commit odrzuca: błędy E1–E9, nieaktualny trace.md, progress.md lub iso-map.html oraz, gdy wdrożono moduł nawigacji, łamanie jego reguł i nieaktualną mapę. Ostrzeżenia W1–W5 nie blokują.
+P-05 Pre-commit sprawdza zawartość przygotowaną do commita (indeks), nie katalog roboczy (D-69), i odrzuca: błędy E1–E9, nieaktualny trace.md, progress.md lub iso-map.html oraz, gdy wdrożono moduł nawigacji, łamanie jego reguł i nieaktualną mapę. Ostrzeżenia W1–W5 nie blokują.
 
 ## Stany i gotowość (P-06)
 Produkty pracy (typy z `product = true`) mają obowiązkowe pole `status` ze stanami normy (D-11, D-14): `initiated` → `verified` (jest rekord VER z wynikiem `pass` w verification.md; bez niego ostrzeżenie W3, D-15) → `approved` (dla wymagań decyzja D-nn, P-08). Decyzje, zadania, ryzyka projektu i rekordy mają własne statusy. Baseline nie jest stanem: wynika z tagu.

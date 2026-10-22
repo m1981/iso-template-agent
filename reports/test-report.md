@@ -2,9 +2,9 @@
 
 Plik generowany przez tools/test_report.py (ISO/IEC 29110 WP.20, D-60); nie edytuj ręcznie.
 
-Data: 2026-10-19 · commit: 3ce8d92 (z niezacommitowanymi zmianami) · Python 3.13.16
+Data: 2026-10-22 · commit: 1cef40c (z niezacommitowanymi zmianami) · Python 3.13.16
 
-Testy automatyczne: 50 · przeszły: 50 · nie przeszły: 0 · ręczne: 2
+Testy automatyczne: 51 · przeszły: 51 · nie przeszły: 0 · ręczne: 2
 
 | Test | Weryfikuje | Wynik | Przypadki albo problem |
 | --- | --- | --- | --- |
@@ -60,10 +60,11 @@ Testy automatyczne: 50 · przeszły: 50 · nie przeszły: 0 · ręczne: 2
 | AT-52 | TRC-18 | pass | tools/test_tools.py::quality-section |
 | AT-50 | TRC-01 | ręczny | — |
 | AT-51 | LNG-01 | ręczny | — |
+| AT-53 | HKS-05 | pass | tools/test_tools.py::precommit-index |
 
 ## Przebiegi
 
 | Plik | Kod wyjścia | Przypadki pass | Przypadki fail |
 | --- | --- | --- | --- |
 | tools/test_distribution.py | 0 | 15 | 0 |
-| tools/test_tools.py | 0 | 60 | 0 |
+| tools/test_tools.py | 0 | 61 | 0 |

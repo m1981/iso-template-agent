@@ -2,7 +2,7 @@
 
 Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: D 64 · Q 11 · G 26 · REQ 56 · AT 52 · OBJ 1 · MS 1 · TSK 10 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
+Elementy: D 70 · Q 12 · G 26 · REQ 57 · AT 53 · OBJ 1 · MS 1 · TSK 10 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 4
 
@@ -59,6 +59,7 @@ Błędy: 0 · ostrzeżenia: 4
 | HKS-02 | REQ | D-06, D-26 |
 | HKS-03 | REQ | D-10, D-16, D-25 |
 | HKS-04 | REQ | D-53 |
+| HKS-05 | REQ | D-69 |
 | SEP-01 | REQ | D-38 |
 | SEP-02 | REQ | D-38 |
 | PLN-01 | REQ | D-10, D-16 |
@@ -144,6 +145,7 @@ Błędy: 0 · ostrzeżenia: 4
 | AT-52 | AT | TRC-18 |
 | AT-50 | AT | TRC-01 |
 | AT-51 | AT | LNG-01 |
+| AT-53 | AT | HKS-05 |
 | MS-01 | MS | OBJ-01 |
 | TSK-01 | TSK | MS-01 |
 | TSK-02 | TSK | MS-01 |
@@ -163,7 +165,13 @@ Błędy: 0 · ostrzeżenia: 4
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
+| D-70 | D | — |
+| D-69 | D | HKS-05 |
+| D-68 | D | — |
+| D-67 | D | — |
 | D-64 | D | — |
+| D-66 | D | — |
+| D-65 | D | — |
 | D-63 | D | — |
 | D-62 | D | LEK-01, LEK-02 |
 | D-61 | D | LAY-03 |
@@ -250,6 +258,7 @@ Błędy: 0 · ostrzeżenia: 4
 | HKS-02 | REQ | AT-19 |
 | HKS-03 | REQ | AT-20 |
 | HKS-04 | REQ | AT-21 |
+| HKS-05 | REQ | AT-53 |
 | SEP-01 | REQ | AT-22 |
 | SEP-02 | REQ | AT-23 |
 | PLN-01 | REQ | AT-24 |
@@ -293,8 +302,8 @@ Błędy: 0 · ostrzeżenia: 4
 
 | Zadanie | Produkuje | Elementy |
 | --- | --- | --- |
-| TSK-01 | REQ, G | TRC-01, TRC-02, TRC-03, TRC-04, TRC-05, TRC-06, TRC-07, TRC-08, TRC-09, TRC-10, TRC-11, TRC-12, TRC-13, TRC-14, TRC-15, TRC-16, TRC-17, TRC-18, TRC-19, HKS-01, HKS-02, HKS-03, HKS-04, SEP-01, SEP-02, PLN-01, PLN-02, PLN-03, REC-01, REC-02, REP-01, REP-02, ISO-01, INI-01, INI-02, INI-03, DST-01, DST-02, UPD-01, UPD-02, UPD-03, UPD-04, UPD-05, UPD-06, UPD-07, UPD-08, MIG-01, MIG-02, LAY-01, LAY-02, LAY-03, LEK-01, LEK-02, TST-01, TST-02, LNG-01, G-ART-01, G-ART-02, G-ART-03, G-ART-04, G-ART-05, G-ART-06, G-ART-07, G-ART-08, G-ART-09, G-ART-10, G-ART-11, G-ART-12, G-ART-13, G-NAR-01, G-NAR-02, G-NAR-03, G-NAR-04, G-REP-01, G-REP-02, G-REP-03, G-DST-01, G-DST-02, G-DST-03, G-DST-04, G-DST-05, G-DST-06 |
-| TSK-02 | AT | AT-01, AT-02, AT-03, AT-04, AT-05, AT-06, AT-07, AT-08, AT-09, AT-10, AT-11, AT-12, AT-13, AT-14, AT-15, AT-16, AT-17, AT-18, AT-19, AT-20, AT-21, AT-22, AT-23, AT-24, AT-25, AT-26, AT-27, AT-28, AT-29, AT-30, AT-31, AT-32, AT-33, AT-34, AT-35, AT-36, AT-37, AT-38, AT-39, AT-40, AT-41, AT-42, AT-43, AT-44, AT-45, AT-46, AT-47, AT-48, AT-49, AT-52, AT-50, AT-51 |
+| TSK-01 | REQ, G | TRC-01, TRC-02, TRC-03, TRC-04, TRC-05, TRC-06, TRC-07, TRC-08, TRC-09, TRC-10, TRC-11, TRC-12, TRC-13, TRC-14, TRC-15, TRC-16, TRC-17, TRC-18, TRC-19, HKS-01, HKS-02, HKS-03, HKS-04, HKS-05, SEP-01, SEP-02, PLN-01, PLN-02, PLN-03, REC-01, REC-02, REP-01, REP-02, ISO-01, INI-01, INI-02, INI-03, DST-01, DST-02, UPD-01, UPD-02, UPD-03, UPD-04, UPD-05, UPD-06, UPD-07, UPD-08, MIG-01, MIG-02, LAY-01, LAY-02, LAY-03, LEK-01, LEK-02, TST-01, TST-02, LNG-01, G-ART-01, G-ART-02, G-ART-03, G-ART-04, G-ART-05, G-ART-06, G-ART-07, G-ART-08, G-ART-09, G-ART-10, G-ART-11, G-ART-12, G-ART-13, G-NAR-01, G-NAR-02, G-NAR-03, G-NAR-04, G-REP-01, G-REP-02, G-REP-03, G-DST-01, G-DST-02, G-DST-03, G-DST-04, G-DST-05, G-DST-06 |
+| TSK-02 | AT | AT-01, AT-02, AT-03, AT-04, AT-05, AT-06, AT-07, AT-08, AT-09, AT-10, AT-11, AT-12, AT-13, AT-14, AT-15, AT-16, AT-17, AT-18, AT-19, AT-20, AT-21, AT-22, AT-23, AT-24, AT-25, AT-26, AT-27, AT-28, AT-29, AT-30, AT-31, AT-32, AT-33, AT-34, AT-35, AT-36, AT-37, AT-38, AT-39, AT-40, AT-41, AT-42, AT-43, AT-44, AT-45, AT-46, AT-47, AT-48, AT-49, AT-52, AT-50, AT-51, AT-53 |
 | TSK-03 | VER | VER-01 |
 | TSK-04 | LAY-03, LEK-01, LEK-02 | LAY-03, LEK-01, LEK-02 |
 | TSK-05 | LAY-01, LAY-02 | LAY-01, LAY-02 |
@@ -314,7 +323,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | performance | 0 | — |
 | compatibility | 1 | HKS-04 |
 | usability | 3 | TRC-16, SEP-02, INI-03 |
-| reliability | 12 | REP-01, INI-01, DST-02, UPD-01, UPD-02, UPD-03, UPD-04, UPD-05, UPD-06, UPD-07, LAY-02, TST-02 |
+| reliability | 13 | HKS-05, REP-01, INI-01, DST-02, UPD-01, UPD-02, UPD-03, UPD-04, UPD-05, UPD-06, UPD-07, LAY-02, TST-02 |
 | security | 0 | — |
 | maintainability | 8 | TRC-01, TRC-11, MIG-01, LAY-01, LAY-03, LEK-01, LEK-02, LNG-01 |
 | portability | 1 | TRC-14 |
@@ -327,12 +336,12 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | --- | --- | --- |
 | WP.02 | SC Scenka użytkownika | nieaktywny |
 | WP.02 | IO Pozycja zakresu In/Out | nieaktywny |
-| WP.03, WP.07 | D Decyzja | 64 |
+| WP.03, WP.07 | D Decyzja | 70 |
 | WP.13 | G Pojęcie słownika | 26 |
 | WP.13 | UC Przypadek użycia | nieaktywny |
-| WP.13 | REQ Wymaganie EARS | 56 |
+| WP.13 | REQ Wymaganie EARS | 57 |
 | WP.16 | E Ekran | nieaktywny |
-| WP.19 | AT Test akceptacyjny | 52 |
+| WP.19 | AT Test akceptacyjny | 53 |
 | WP.10 | OBJ Cel projektu | 1 |
 | WP.10 | MS Kamień milowy | 1 |
 | WP.10 | TSK Zadanie | 10 |

@@ -469,3 +469,12 @@ Feature: Szablon procesu (Process kit)
     Given kody typów, pola, stany, nazwy plików i kody błędów
     When przegląd według glossary.md, „Terminy procesu”
     Then wszystkie są po angielsku
+
+  @AT-53
+  # verifies: HKS-05
+  # runner: tools/test_tools.py::precommit-index
+  # status: initiated
+  Scenario: Kontrola zawartości indeksu
+    Given błąd słownika tylko w indeksie przy poprawnym katalogu roboczym, a potem błąd tylko w katalogu roboczym przy poprawnym indeksie
+    When Użytkownik robi commit w obu sytuacjach
+    Then pierwszy commit jest odrzucony z E6, a drugi przechodzi

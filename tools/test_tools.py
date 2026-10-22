@@ -346,6 +346,33 @@ def main():
         if git("commit", "-q", "-m", "Zmiana strony (D-01)").returncode == 0:
             failures.append("pre-commit przepuścił nieaktualny iso-map.html")
         git("checkout", "HEAD", "--", "iso-map.html")
+        # D-69: pre-commit sprawdza zawartość indeksu, nie katalog roboczy
+        failures.case("precommit-index")
+        req = os.path.join(tmpdir, "requirements.md")
+        good = open(req, encoding="utf-8").read()
+        bad = good.replace("store it in the Inbox", "store it in the Archive", 1)
+        assert bad != good
+        open(req, "w", encoding="utf-8").write(bad)
+        git("add", "requirements.md")
+        open(req, "w", encoding="utf-8").write(good)  # błąd tylko w indeksie
+        r = git("commit", "-q", "-m", "Błąd tylko w indeksie (D-01)")
+        if r.returncode == 0 or "E6" not in r.stdout + r.stderr:
+            failures.append("pre-commit przepuścił błąd obecny tylko w indeksie:\n" + r.stdout + r.stderr)
+            if r.returncode == 0:
+                git("reset", "-q", "--hard", "HEAD~1")
+        git("reset", "-q")
+        git("checkout", "HEAD", "--", "requirements.md")
+        open(req, "w", encoding="utf-8").write(bad)  # błąd tylko w katalogu roboczym
+        with open(os.path.join(tmpdir, "notatka.txt"), "w", encoding="utf-8") as f:
+            f.write("notatka\n")
+        git("add", "notatka.txt")
+        r = git("commit", "-q", "-m", "Notatka przy błędzie poza indeksem (D-01)")
+        if r.returncode != 0:
+            failures.append("pre-commit odrzucił commit przez błąd spoza indeksu:\n" + r.stdout + r.stderr)
+        git("checkout", "HEAD", "--", "requirements.md")
+        if git("status", "--porcelain").stdout.strip():
+            failures.append("po przypadku precommit-index drzewo nie jest czyste:\n" + git("status", "--porcelain").stdout)
+
         failures.case("precommit-trace")
         with open(os.path.join(tmpdir, "trace.md"), "a", encoding="utf-8") as f:
             f.write("x\n")

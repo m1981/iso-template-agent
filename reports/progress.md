@@ -14,8 +14,8 @@ Zadania: 10 · planned 6 · in_progress 0 · completed 4
 
 | Zadanie | Kamień | Status | Termin | Zakończono | Produkuje | Produkty według stanu |
 | --- | --- | --- | --- | --- | --- | --- |
-| TSK-01 Wymagania szablonu ze źródłami w decyzjach | MS-01 | completed | — | 2026-10-19 | REQ, G | initiated 82 |
-| TSK-02 Katalog testów akceptacyjnych z runner: i raport testów | MS-01 | completed | — | 2026-10-19 | AT | initiated 52 |
+| TSK-01 Wymagania szablonu ze źródłami w decyzjach | MS-01 | completed | — | 2026-10-19 | REQ, G | initiated 83 |
+| TSK-02 Katalog testów akceptacyjnych z runner: i raport testów | MS-01 | completed | — | 2026-10-19 | AT | initiated 53 |
 | TSK-03 Złoty wzorzec wyjść narzędzi przed przeniesieniem | MS-01 | completed | — | 2026-10-19 | VER | brak elementów |
 | TSK-04 Kontrole check_refs.py i check_leak.py w make check | MS-01 | completed | — | 2026-10-19 | LAY-03, LEK-01, LEK-02 | initiated 3 |
 | TSK-05 Przeniesienie na trzy warstwy według mapy (D-54) | MS-01 | planned | — | — | LAY-01, LAY-02 | initiated 2 |
@@ -42,5 +42,5 @@ Zadania: 10 · planned 6 · in_progress 0 · completed 4
 | Typ | ISO | initiated | verified | approved |
 | --- | --- | --- | --- | --- |
 | G Pojęcie słownika | WP.13 | 26 | 0 | 0 |
-| REQ Wymaganie EARS | WP.13 | 56 | 0 | 0 |
-| AT Test akceptacyjny | WP.19 | 52 | 0 | 0 |
+| REQ Wymaganie EARS | WP.13 | 57 | 0 | 0 |
+| AT Test akceptacyjny | WP.19 | 53 | 0 | 0 |

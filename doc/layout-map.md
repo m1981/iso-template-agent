@@ -29,6 +29,7 @@ process/
   MIGRATIONS.md                                             # migracje dokumentów (D-51)
   process.mk                                                # cele make, wpinane z Makefile projektu
   roles/  hooks/  tools/  modules/
+  practices/                                                # zarezerwowane: pakiety praktyk wzorowane na załączniku E (D-68, Q-12)
   templates/                                                # puste wzorce dokumentów projektu
 ```
 
@@ -43,6 +44,7 @@ spec/      glossary.md  principles.md  scenarios.md  scope.md  use-cases.md  req
            tests/*.feature   [navigation/]  [risks.md]  # moduły, gdy wdrożone
 records/   corrections.md  verification.md  validation.md  acceptance.md
 reports/   trace.md  progress.md  iso-map.html          # tylko generowane
+evidence/                                               # zarezerwowane: wybrane dowody przyrostów i odbioru (D-68, Q-12)
 reference/                                              # materiały wejściowe, bez kontroli śladu
 ```
 
@@ -77,6 +79,7 @@ Kolumny: obecna ścieżka → ścieżka w repozytorium iso-template-agent po prz
 | `corrections.md` | records/corrections.md i wzorzec | records/corrections.md | |
 | `decisions.md` | project/decisions.md: rejestr warstwy procesu, bez zmian treści; nagłówek pustego rejestru z new_project.py → wzorzec template/process/templates/project/decisions.md | project/decisions.md ze wzorca, z D-01 „Start projektu” | numeracja D-nn warstwy procesu ciągnie się dalej (D-54…) |
 | `doc/layout-map.md` | reference/layout-map.md | — | ta mapa; po przeniesieniu zapis planu przejścia |
+| `doc/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md` | reference/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md | — | propozycja Użytkownika z 2026-10-22 (D-66, D-67, Q-12) |
 | `doc/sessions/REF-GTD_system_modeling_with_EARS.md` | reference/sessions/REF-GTD_system_modeling_with_EARS.md | — | materiał wejściowy warstwy procesu |
 | `glossary.md` | tabela „Terminy procesu (ISO/IEC 29110)” → template/process/terms.md; reszta → wzorzec template/process/templates/spec/glossary.md | spec/glossary.md (pojęcia projektu) | D-57 |
 | `iso-map.html` | reports/iso-map.html (generowany w warstwie procesu) | reports/iso-map.html (generowany) | |
@@ -144,6 +147,8 @@ Kolumny: obecna ścieżka → ścieżka w repozytorium iso-template-agent po prz
 | template/process/templates/root/AGENTS.md, CLAUDE.md, README.md, Makefile | szablon | wpięcie procesu w projekt |
 | template/process/templates/project/settings.toml | szablon | system, ocena zgodności, `migrated_to` (D-51) |
 | project/settings.toml | proces | ustawienia warstwy procesu |
+| process/practices/ (zarezerwowany) | szablon | pakiety praktyk: cel, warunki użycia, procedura, dowód, koszt (D-68); treść według Q-12, bez pustych plików do tego czasu |
+| evidence/ (zarezerwowany, w projekcie) | projekt | wybrane dowody przyrostów i odbioru (D-68); zakłada go init.py dopiero, gdy pakiet praktyki go potrzebuje |
 | reference/ | proces | materiały wejściowe; tu też dokument Użytkownika o copierze, jeśli Użytkownik się zgodzi (kolejka) |
 
 ## 5. Zmiany w narzędziach, bez których przeniesienie nie zadziała
