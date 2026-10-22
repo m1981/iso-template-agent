@@ -1,0 +1,8 @@
+# Szablon procesu dla copiera (D-43, D-47, D-49, D-53). Projekt dostaje tylko zawartość template/:
+# pakiet process/ i plik copiera. Dokumenty projektu zakłada potem process/tools/init.py (D-58).
+# Bez _tasks i bez _skip_if_exists (D-47): copy i update niczego nie uruchamiają i nie zakładają plików projektu.
+# Wersje: nieprzesuwane tagi vX.Y.Z z przetestowanego commita; copy i update zawsze z --vcs-ref (D-49).
+_min_copier_version: "9.17.1"
+_subdirectory: template
+_answers_file: .copier-answers.process.yml
+_templates_suffix: .jinja

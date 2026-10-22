@@ -1,7 +1,7 @@
-"""Bramka aktualizacji procesu w projekcie (D-52, D-47, D-49, D-51).
+"""Bramka aktualizacji procesu w projekcie (szablon D-52, szablon D-47, szablon D-49, szablon D-51).
 
 Aktualizuje pakiet procesu copierem do jawnie podanej wersji i sprawdza wynik. Kod 0 copiera
-nie wystarcza: copier potrafi zakończyć update kodem 0 i zostawić konflikt (próba przy D-43).
+nie wystarcza: copier potrafi zakończyć update kodem 0 i zostawić konflikt (próba przy szablon D-43).
 
 Kolejno:
   1. odmawia, gdy wersja nie ma postaci vX.Y.Z, gdy nie ma pliku answers, gdy drzewo nie jest
@@ -12,7 +12,7 @@ Kolejno:
      zmiany tylko w process/ i w pliku answers, wersja w answers równa podanej;
   4. uruchamia walidację projektu (make check, make test).
 Niczego nie commituje, nie robi stash, nie instaluje hooków. Pakiet zaktualizowany nie znaczy,
-że migracja dokumentów jest zakończona (D-51): to osobny krok.
+że migracja dokumentów jest zakończona (szablon D-51): to osobny krok.
 
 Użycie: python3 tools/process_update.py vX.Y.Z [--defaults]   (albo: make process-update V=vX.Y.Z)
 Kod wyjścia: 0 wszystko spełnione; 1 aktualizacja wykonana, ale wynik nie przeszedł kontroli
@@ -24,7 +24,7 @@ import shutil
 import subprocess
 import sys
 
-COPIER_VERSION = "9.19.1"   # przypięta wersja (D-49); zmiana tylko po teście granicy dystrybucji
+COPIER_VERSION = "9.19.1"   # przypięta wersja (szablon D-49); zmiana tylko po teście granicy dystrybucji
 ANSWERS = ".copier-answers.process.yml"
 PAYLOAD = "process/"
 CHECKS = [["make", "check"], ["make", "test"]]
@@ -150,7 +150,7 @@ def main(argv):
     after = answers_commit(root)
     print(f"  4. wersja w {ANSWERS}: {after}")
     if after != version:
-        problems.append(f"{ANSWERS} wskazuje {after} zamiast {version} (D-49: tag wydania nie może dzielić commita z innym tagiem)")
+        problems.append(f"{ANSWERS} wskazuje {after} zamiast {version} (szablon D-49: tag wydania nie może dzielić commita z innym tagiem)")
 
     if not problems:
         results = []
@@ -170,7 +170,7 @@ def main(argv):
             print("  - " + p)
         return 1
     print(f"process_update: pakiet zaktualizowany do {version} i sprawdzony; nic nie zacommitowano.")
-    print("  Przejrzyj git diff i zacommituj. Migracja istniejących dokumentów to osobny krok (D-51).")
+    print("  Przejrzyj git diff i zacommituj. Migracja istniejących dokumentów to osobny krok (szablon D-51).")
     return 0
 
 

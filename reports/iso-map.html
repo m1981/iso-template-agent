@@ -49,7 +49,7 @@ td:first-child { font-family: var(--f-mono); font-size: 0.82rem; white-space: no
 <div class="wrap">
   <header>
     <h1>ISO 29110 a nasz model śladu</h1>
-    <p class="lead">Produkty pracy profilu Basic (ISO/IEC 29110-5-1-2) i zależności między nimi, wyprowadzone z wejść i wyjść 72 zadań procesów PM i SI, oraz to, jak pokrywa je model z <code>tools/id.toml</code>. Strona jest generowana przez <code>tools/iso_map.py</code>; pre-commit pilnuje, żeby nie odbiegała od modelu.</p>
+    <p class="lead">Produkty pracy profilu Basic (ISO/IEC 29110-5-1-2) i zależności między nimi, wyprowadzone z wejść i wyjść 72 zadań procesów PM i SI, oraz to, jak pokrywa je model z <code>process/tools/id.toml</code>. Strona jest generowana przez <code>process/tools/iso_map.py</code>; pre-commit pilnuje, żeby nie odbiegała od modelu.</p>
     <div class="summary"><span><span class="pill covered">mamy</span> 11</span><span><span class="pill partial">częściowo</span> 5</span><span><span class="pill missing">brak</span> 0</span><span><span class="pill out_of_scope">poza etapem</span> 7</span></div>
   </header>
 
@@ -144,29 +144,29 @@ flowchart LR
   <section>
     <h2>Produkt po produkcie</h2>
     <div class="tbl"><table><thead><tr><th>Produkt</th><th>Nazwa w normie</th><th>Źródło</th><th>U nas</th><th>Pokrycie</th><th>Uwagi</th></tr></thead><tbody>
-<tr><td>WP.01</td><td>Acceptance record</td><td>Project management</td><td>ACC · acceptance.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.02</td><td>Agreement</td><td>Customer Project management</td><td>SC · scenarios.md<br>IO · scope.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.03</td><td>Change request</td><td>Software implementation Customer Project management</td><td>D · decisions.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.04</td><td>Correction register</td><td>Project management</td><td>COR · corrections.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.05</td><td>Implementation environment</td><td>Software implementation</td><td>AGENTS.md</td><td><span class="pill partial">częściowo</span></td><td>narzędzia opisane w AGENTS.md i plan.md; środowisko implementacji przyjdzie z etapem kodu</td></tr>
+<tr><td>WP.01</td><td>Acceptance record</td><td>Project management</td><td>ACC · records/acceptance.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.02</td><td>Agreement</td><td>Customer Project management</td><td>SC · spec/scenarios.md<br>IO · spec/scope.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.03</td><td>Change request</td><td>Software implementation Customer Project management</td><td>D · project/decisions.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.04</td><td>Correction register</td><td>Project management</td><td>COR · records/corrections.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.05</td><td>Implementation environment</td><td>Software implementation</td><td>process/AGENTS.md</td><td><span class="pill partial">częściowo</span></td><td>narzędzia opisane w process/AGENTS.md i project/plan.md; środowisko implementacji przyjdzie z etapem kodu</td></tr>
 <tr><td>WP.06</td><td>Maintenance documentation</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap utrzymania</td></tr>
-<tr><td>WP.07</td><td>Meeting record</td><td>Project management</td><td>D · decisions.md</td><td><span class="pill partial">częściowo</span></td><td>rejestr decyzji bez listy uczestników i ustaleń, które nie są decyzjami</td></tr>
+<tr><td>WP.07</td><td>Meeting record</td><td>Project management</td><td>D · project/decisions.md</td><td><span class="pill partial">częściowo</span></td><td>rejestr decyzji bez listy uczestników i ustaleń, które nie są decyzjami</td></tr>
 <tr><td>WP.08</td><td>Product operation guideline</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap eksploatacji</td></tr>
-<tr><td>WP.09</td><td>Progress status record</td><td>Project management</td><td>progress.md</td><td><span class="pill partial">częściowo</span></td><td>bez zasobów i kosztów, bo plan ich nie śledzi</td></tr>
-<tr><td>WP.10</td><td>Project plan</td><td>Project management</td><td>OBJ · plan.md<br>MS · plan.md<br>TSK · plan.md<br>PRK · plan.md</td><td><span class="pill partial">częściowo</span></td><td>bez szacunku pracochłonności i kosztów</td></tr>
+<tr><td>WP.09</td><td>Progress status record</td><td>Project management</td><td>reports/progress.md</td><td><span class="pill partial">częściowo</span></td><td>bez zasobów i kosztów, bo plan ich nie śledzi</td></tr>
+<tr><td>WP.10</td><td>Project plan</td><td>Project management</td><td>OBJ · project/plan.md<br>MS · project/plan.md<br>TSK · project/plan.md<br>PRK · project/plan.md</td><td><span class="pill partial">częściowo</span></td><td>bez szacunku pracochłonności i kosztów</td></tr>
 <tr><td>WP.11</td><td>Project repository</td><td>Project management</td><td>repozytorium git</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
 <tr><td>WP.12</td><td>Project repository backup</td><td>Project management</td><td>drugi remote (kopia zapasowa)</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.13</td><td>Requirements specification</td><td>Software implementation</td><td>G · glossary.md<br>UC · use-cases.md<br>REQ · requirements.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.13</td><td>Requirements specification</td><td>Software implementation</td><td>G · spec/glossary.md<br>UC · spec/use-cases.md<br>REQ · spec/requirements.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
 <tr><td>WP.14</td><td>Software</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
 <tr><td>WP.15</td><td>Software components</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
-<tr><td>WP.16</td><td>Software design</td><td>Software implementation</td><td>E · navigation/screens.mmd</td><td><span class="pill partial">częściowo</span></td><td>tylko ekrany (moduł nawigacji); architektura i projekt szczegółowy z etapem kodu</td></tr>
+<tr><td>WP.16</td><td>Software design</td><td>Software implementation</td><td>E · spec/navigation/screens.mmd</td><td><span class="pill partial">częściowo</span></td><td>tylko ekrany (moduł nawigacji); architektura i projekt szczegółowy z etapem kodu</td></tr>
 <tr><td>WP.17</td><td>Software product</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
 <tr><td>WP.18</td><td>Software user documentation</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
-<tr><td>WP.19</td><td>Test cases and test procedures</td><td>Software implementation</td><td>AT · tests/*.feature</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.19</td><td>Test cases and test procedures</td><td>Software implementation</td><td>AT · spec/tests/*.feature</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
 <tr><td>WP.20</td><td>Test report</td><td>Software implementation</td><td>—</td><td><span class="pill out_of_scope">poza etapem</span></td><td>etap kodu</td></tr>
-<tr><td>WP.21</td><td>Traceability record</td><td>Software implementation</td><td>trace.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.22</td><td>Validation record</td><td>Software implementation</td><td>VAL · validation.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
-<tr><td>WP.23</td><td>Verification record</td><td>Project management Software implementation</td><td>VER · verification.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.21</td><td>Traceability record</td><td>Software implementation</td><td>reports/trace.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.22</td><td>Validation record</td><td>Software implementation</td><td>VAL · records/validation.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
+<tr><td>WP.23</td><td>Verification record</td><td>Project management Software implementation</td><td>VER · records/verification.md</td><td><span class="pill covered">mamy</span></td><td>—</td></tr>
 </tbody></table></div>
     <p class="note">Elementy naszego modelu bez osobnego odpowiednika w normie: zasady projektowe (DP), ryzyka produktu (RSK; norma zna tylko ryzyka projektu w planie), kolejka tematów (Q) i ślad na poziomie commitów. Norma traktuje profil Basic jako minimum, więc takie dodatki są z nią zgodne.</p>
   </section>

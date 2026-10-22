@@ -1,59 +1,66 @@
 #!/bin/sh
-# Pre-commit (AGENTS.md, P-05). Sprawdza zawartość przygotowaną do commita (indeks), nie katalog
-# roboczy (D-69): migawka indeksu trafia do katalogu tymczasowego i tam działają kontrole.
-#  1. ślad według tools/id.toml (tools/trace.py) i aktualność trace.md,
-#  1a. autor nie weryfikuje sam siebie w jednym commicie (tools/check_separation.py, E9; czyta indeks sam),
-#  2. jeśli jest plan.md: aktualność progress.md (tools/progress.py),
-#  2a. aktualność iso-map.html (tools/iso_map.py),
-#  3. jeśli wdrożono moduł nawigacji: reguły mapy i aktualność navigation-map.html.
+# Pre-commit (process/AGENTS.md, P-05). Sprawdza zawartość przygotowaną do commita (indeks), nie katalog
+# roboczy (szablon D-69): migawka indeksu trafia do katalogu tymczasowego i tam działają kontrole.
+#  1. ślad według id.toml (trace.py) i aktualność reports/trace.md,
+#  1a. autor nie weryfikuje sam siebie w jednym commicie (check_separation.py, E9; czyta indeks sam),
+#  2. jeśli jest project/plan.md: aktualność reports/progress.md (progress.py),
+#  2a. aktualność reports/iso-map.html (iso_map.py),
+#  3. jeśli wdrożono moduł nawigacji (spec/navigation/): reguły mapy i aktualność navigation-map.html.
+# Narzędzia leżą obok hooków (../tools): w projekcie process/, w repozytorium szablonu template/process/.
 # Włączenie w nowym klonie: make hooks
-cd "$(git rev-parse --show-toplevel)" || exit 1
+root=$(git rev-parse --show-toplevel) || exit 1
+cd "$root" || exit 1
 git_dir=$(cd "$(git rev-parse --git-dir)" && pwd) || exit 1
+hooks_dir=$(cd "$(dirname "$0")" && pwd) || exit 1
+proc=$(cd "$hooks_dir/.." && pwd) || exit 1
+proc_rel=${proc#"$root"/}
 
 snap=$(mktemp -d) || exit 1
 trap 'rm -rf "$snap"' EXIT
 git checkout-index --all --prefix="$snap/" || { echo "pre-commit: nie udało się odczytać indeksu"; exit 1; }
 
 # narzędzia z migawki, git z prawdziwego repozytorium (tagi i historia dla progress.py i W5)
-in_snap() { (cd "$snap" && GIT_DIR="$git_dir" GIT_WORK_TREE="$snap" python3 -B "$@"); }
+in_snap() { (cd "$snap" && PROCESS_ROOT="$snap" GIT_DIR="$git_dir" GIT_WORK_TREE="$snap" python3 -B "$@"); }
+tools="$proc_rel/tools"
 
-if ! in_snap tools/trace.py "$snap/.trace.out" > "$snap/.trace.log"; then
+if ! in_snap "$tools/trace.py" "$snap/.trace.out" > "$snap/.trace.log"; then
   grep '^E' "$snap/.trace.log"
   echo
-  echo "pre-commit: ślad ma błędy (powyżej, w zawartości przygotowanej do commita). Popraw artefakty albo tools/id.toml."
+  echo "pre-commit: ślad ma błędy (powyżej, w zawartości przygotowanej do commita). Popraw artefakty albo id.toml."
   exit 1
 fi
-if ! cmp -s "$snap/.trace.out" "$snap/trace.md"; then
-  echo "pre-commit: trace.md w commicie jest nieaktualny. Uruchom: make trace i dodaj plik do commita."
+if ! cmp -s "$snap/.trace.out" "$snap/reports/trace.md"; then
+  echo "pre-commit: reports/trace.md w commicie jest nieaktualny. Uruchom: make trace i dodaj plik do commita."
   exit 1
 fi
 
-python3 -B tools/check_separation.py || exit 1
+PROCESS_ROOT="$root" python3 -B "$proc/tools/check_separation.py" || exit 1
 
-if [ -f "$snap/plan.md" ]; then
-  in_snap tools/progress.py "$snap/.progress.out" > /dev/null
-  if ! cmp -s "$snap/.progress.out" "$snap/progress.md"; then
-    echo "pre-commit: progress.md w commicie jest nieaktualny. Uruchom: make progress i dodaj plik do commita."
+if [ -f "$snap/project/plan.md" ]; then
+  in_snap "$tools/progress.py" "$snap/.progress.out" > /dev/null
+  if ! cmp -s "$snap/.progress.out" "$snap/reports/progress.md"; then
+    echo "pre-commit: reports/progress.md w commicie jest nieaktualny. Uruchom: make progress i dodaj plik do commita."
     exit 1
   fi
 fi
 
-in_snap tools/iso_map.py "$snap/.iso-map.out" > /dev/null
-if ! cmp -s "$snap/.iso-map.out" "$snap/iso-map.html"; then
-  echo "pre-commit: iso-map.html w commicie jest nieaktualna. Uruchom: make iso-map i dodaj plik do commita."
+in_snap "$tools/iso_map.py" "$snap/.iso-map.out" > /dev/null
+if ! cmp -s "$snap/.iso-map.out" "$snap/reports/iso-map.html"; then
+  echo "pre-commit: reports/iso-map.html w commicie jest nieaktualna. Uruchom: make iso-map i dodaj plik do commita."
   exit 1
 fi
 
-if [ -d "$snap/navigation" ]; then
-  if ! (cd "$snap/navigation" && python3 -B check.py screens.mmd > /dev/null); then
-    (cd "$snap/navigation" && python3 -B check.py screens.mmd) | grep -E 'Reguła|---|UWAGA'
+nav="$snap/spec/navigation"
+if [ -d "$nav" ]; then
+  if ! in_snap "$proc_rel/modules/navigation/check.py" "$nav/screens.mmd" > /dev/null; then
+    in_snap "$proc_rel/modules/navigation/check.py" "$nav/screens.mmd" | grep -E 'Reguła|---|UWAGA'
     echo
     echo "pre-commit: mapa nawigacji łamie reguły (wiersze UWAGA powyżej)."
     exit 1
   fi
-  (cd "$snap/navigation" && python3 -B build.py "$snap/.navigation-map.out" > /dev/null)
-  if ! cmp -s "$snap/.navigation-map.out" "$snap/navigation/navigation-map.html"; then
-    echo "pre-commit: navigation/navigation-map.html w commicie jest nieaktualna. Uruchom: make navigation i dodaj plik."
+  in_snap "$proc_rel/modules/navigation/build.py" "$snap/.navigation-map.out" "$nav/screens.mmd" > /dev/null
+  if ! cmp -s "$snap/.navigation-map.out" "$nav/navigation-map.html"; then
+    echo "pre-commit: spec/navigation/navigation-map.html w commicie jest nieaktualna. Uruchom: make navigation i dodaj plik."
     exit 1
   fi
 fi

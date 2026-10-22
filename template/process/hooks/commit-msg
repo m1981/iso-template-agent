@@ -1,3 +1,7 @@
 #!/bin/sh
-# commit-msg (AGENTS.md, P-07): opis commita musi wskazać co najmniej jedno istniejące ID.
-exec python3 -B "$(git rev-parse --show-toplevel)/tools/check_commit.py" "$1"
+# commit-msg (process/AGENTS.md, P-07): opis commita musi wskazać co najmniej jedno istniejące ID.
+# Narzędzia leżą obok hooków (../tools); korzeniem projektu jest katalog główny repozytorium.
+hooks_dir=$(cd "$(dirname "$0")" && pwd) || exit 1
+PROCESS_ROOT=$(git rev-parse --show-toplevel) || exit 1
+export PROCESS_ROOT
+exec python3 -B "$hooks_dir/../tools/check_commit.py" "$1"

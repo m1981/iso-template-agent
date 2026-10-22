@@ -2,7 +2,7 @@
 
 Wymagania wobec samego szablonu procesu (D-59), w składni EARS, z podmiotem „Process kit” (ustawienie system warstwy procesu). Każde wymaganie wskazuje decyzję, z której wynika (`source:`); test akceptacyjny, który je sprawdza, jest w spec/tests/process-kit.feature (D-60). Wymaganie bez testu to luka widoczna w macierzy śladu (W1), a nie przeoczenie.
 
-Do przeniesienia (D-54) plik leży w docelowym miejscu warstwy procesu, a ślad liczy dla niego `make process-kit` (widok tymczasowy, tools/process_kit_view.py). Wymagania o układzie i migracjach (LAY, MIG) opisują stan po przeniesieniu; dziś nie mają testów.
+Ślad liczy dla niego `make trace` warstwy procesu (narzędzia z template/process/tools, D-48). Wymagania o migracjach (MIG) nie mają jeszcze testów: powstaną z zadaniem migracji w project/plan.md.
 
 Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN plan i postęp · REC rekordy i listy kontrolne · REP repozytorium i kopia · ISO zgodność z normą · INI start projektu · DST dystrybucja · UPD bramka aktualizacji · MIG migracje · LAY układ i własność plików · LEK przeciek domeny · TST katalog testów · LNG język.
 
@@ -262,14 +262,14 @@ Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN pl
 
 ### INI-01
 - pattern: unwanted
-- text: If the working tree has uncommitted changes or the Project was already started, then Process kit shall refuse to start the Project.
-- source: D-22
+- text: If tracked files have uncommitted changes or the Project was already started, then Process kit shall refuse to start the Project.
+- source: D-22, D-58
 - quality: reliability
 - status: initiated
 
 ### INI-02
 - pattern: event
-- text: When a Project starts, Process kit shall archive the template history and create a Decision Register with one start Decision.
+- text: When a Project starts, Process kit shall create the Project documents from the Document Templates without overwriting existing files and create a Decision Register with one start Decision.
 - source: D-22, D-58
 - quality: functional
 - status: initiated

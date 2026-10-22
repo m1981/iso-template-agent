@@ -3,7 +3,7 @@
 Dzięki temu każda zmiana ma przyczynę w modelu śladu (decyzja, wymaganie, przypadek…).
 Pomija commity scalające (Merge …) oraz fixup!/squash!. Diff wklejany przez `git commit -v`
 (pod linią nożyczek) i linie komentarza nie liczą się do opisu.
-Użycie: python3 tools/check_commit.py <plik_z_opisem_commita>
+Użycie: python3 process/tools/check_commit.py <plik_z_opisem_commita>
 """
 import os
 import re

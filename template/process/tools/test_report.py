@@ -1,4 +1,4 @@
-"""Raport testów (ISO/IEC 29110 WP.20, D-60): testy akceptacyjne z polem runner: i ich wyniki.
+"""Raport testów (ISO/IEC 29110 WP.20, szablon D-60): testy akceptacyjne z polem runner: i ich wyniki.
 
 Zbiera testy AT z polem `runner: plik::przypadek[, plik::przypadek…]`, uruchamia każdy wskazany plik
 raz i czyta z jego wyjścia wiersze `CASE <przypadek>: pass|fail`. Test AT przechodzi tylko wtedy,
@@ -6,7 +6,7 @@ gdy przeszły wszystkie jego przypadki. Przypadek, którego plik nie wypisał, j
 („brak przypadku”); plik zakończony kodem 2 to „nie uruchomiono” (np. brak copiera), nie sukces.
 Testy AT bez runner: są ręczne: raport je wypisuje, ale ich nie ocenia.
 
-Użycie: python3 tools/test_report.py [plik_wyjściowy=test-report.md] [--root KATALOG] [--scripts-root KATALOG]
+Użycie: python3 process/tools/test_report.py [plik_wyjściowy=reports/test-report.md] [--root KATALOG] [--scripts-root KATALOG]
         --root: skąd czytać artefakty; --scripts-root: gdzie uruchamiać testy (domyślnie to samo)
 Kod wyjścia: 0 wszystkie testy automatyczne przeszły, 1 nie.
 """
@@ -36,7 +36,7 @@ def main(argv):
             argv = argv[:i] + argv[i + 2:]
     root = opts.get("--root", M.ROOT)
     scripts_root = opts.get("--scripts-root", root)
-    output = argv[0] if argv else "test-report.md"
+    output = argv[0] if argv else os.path.join("reports", "test-report.md")
     m = M.Model(root)
     tests = [e for e in m.elements if e.type == "AT"]
     scripts = {}
@@ -78,7 +78,7 @@ def main(argv):
     head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=scripts_root, capture_output=True, text=True).stdout.strip()
     dirty = subprocess.run(["git", "status", "--porcelain"], cwd=scripts_root, capture_output=True, text=True).stdout.strip()
     lines = ["# Raport testów", "",
-             "Plik generowany przez tools/test_report.py (ISO/IEC 29110 WP.20, D-60); nie edytuj ręcznie.", "",
+             "Plik generowany przez tools/test_report.py (ISO/IEC 29110 WP.20, szablon D-60); nie edytuj ręcznie.", "",
              f"Data: {datetime.date.today().isoformat()} · commit: {head or '—'}{' (z niezacommitowanymi zmianami)' if dirty else ''}"
              f" · Python {sys.version.split()[0]}", "",
              f"Testy automatyczne: {len(tests) - manual} · przeszły: {len(tests) - manual - failed} · nie przeszły: {failed} · ręczne: {manual}", "",
@@ -88,7 +88,7 @@ def main(argv):
     for path, (rc, cases, _) in sorted(scripts.items()):
         lines.append(f"| {path} | {'—' if rc is None else rc} | {sum(1 for v in cases.values() if v == 'pass')} | "
                      f"{sum(1 for v in cases.values() if v != 'pass')} |")
-    with open(os.path.join(root, output) if not os.path.isabs(output) else output, "w", encoding="utf-8") as f:
+    with open(M.output_path(root, output), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print(f"test_report: {len(tests)} testów AT, automatycznych {len(tests) - manual}, nie przeszło {failed}, ręcznych {manual} → {output}")
     return 1 if failed else 0

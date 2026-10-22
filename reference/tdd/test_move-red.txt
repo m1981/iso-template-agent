@@ -1,0 +1,306 @@
+  BŁĄD [k-2]: .githooks/commit-msg → template/process/hooks/commit-msg: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: .githooks/pre-commit → template/process/hooks/pre-commit: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: AGENTS.md → template/process/AGENTS.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: Makefile → template/process/process.mk: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: README.md → template/process/templates/root/README.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: acceptance.md → records/acceptance.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: checklist.md → template/process/checklist.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: corrections.md → records/corrections.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: decisions.md → project/decisions.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: doc/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md → reference/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: doc/layout-map.md → reference/layout-map.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: doc/sessions/REF-GTD_system_modeling_with_EARS.md → reference/sessions/REF-GTD_system_modeling_with_EARS.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: glossary.md → template/process/templates/spec/glossary.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: iso-map.html → reports/iso-map.html: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: kontrakt-decyzji.md → template/process/kontrakt-decyzji.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/navigation/README.md → template/process/modules/navigation/README.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/navigation/build.py → template/process/modules/navigation/build.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/navigation/check.py → template/process/modules/navigation/check.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/navigation/navigation-map.html → template/process/templates/spec/navigation/navigation-map.html: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/navigation/screens.mmd → template/process/templates/spec/navigation/screens.mmd: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/navigation/template.html → template/process/modules/navigation/template.html: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/risks/risks.md → template/process/templates/spec/risks.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: modules/state-model/README.md → template/process/modules/state-model/README.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: plan.md → template/process/templates/project/plan.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: principles.md → template/process/templates/spec/principles.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: progress.md → archive/flat-layout/progress.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: requirements.md → template/process/templates/spec/requirements.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: roles/README.md → template/process/roles/README.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: roles/verifier.md → template/process/roles/verifier.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: scenarios.md → template/process/templates/spec/scenarios.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: scope.md → template/process/templates/spec/scope.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tests/README.md → template/process/templates/spec/tests/README.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/check_commit.py → template/process/tools/check_commit.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/check_leak.allow → project/check_leak.allow: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/check_leak.py → template/process/tools/check_leak.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/check_refs.allow → project/check_refs.allow: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/check_refs.py → template/process/tools/check_refs.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/check_separation.py → template/process/tools/check_separation.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/golden_master.py → tests/golden_master.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/id.toml → template/process/tools/id.toml: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/iso29110.toml → template/process/tools/iso29110.toml: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/iso_map.py → template/process/tools/iso_map.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/model.py → template/process/tools/model.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/new_project.py → template/process/tools/init.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/process_kit_view.py → archive/tools/process_kit_view.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/process_update.py → template/process/tools/process_update.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/progress.py → template/process/tools/progress.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/restore_check.py → template/process/tools/restore_check.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/test_distribution.py → tests/test_distribution.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/test_report.py → template/process/tools/test_report.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/test_tools.py → template/process/tools/test_tools.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: tools/trace.py → template/process/tools/trace.py: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: trace.md → archive/flat-layout/trace.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: use-cases.md → template/process/templates/spec/use-cases.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: validation.md → records/validation.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-2]: verification.md → records/verification.md: nie ma pliku po przeniesieniu
+  BŁĄD [k-1]: .githooks/commit-msg: plik spoza mapy
+  BŁĄD [k-1]: .githooks/pre-commit: plik spoza mapy
+  BŁĄD [k-1]: acceptance.md: plik spoza mapy
+  BŁĄD [k-1]: checklist.md: plik spoza mapy
+  BŁĄD [k-1]: corrections.md: plik spoza mapy
+  BŁĄD [k-1]: decisions.md: plik spoza mapy
+  BŁĄD [k-1]: doc/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md: plik spoza mapy
+  BŁĄD [k-1]: doc/layout-map.md: plik spoza mapy
+  BŁĄD [k-1]: doc/sessions/REF-GTD_system_modeling_with_EARS.md: plik spoza mapy
+  BŁĄD [k-1]: glossary.md: plik spoza mapy
+  BŁĄD [k-1]: iso-map.html: plik spoza mapy
+  BŁĄD [k-1]: kontrakt-decyzji.md: plik spoza mapy
+  BŁĄD [k-1]: modules/navigation/README.md: plik spoza mapy
+  BŁĄD [k-1]: modules/navigation/build.py: plik spoza mapy
+  BŁĄD [k-1]: modules/navigation/check.py: plik spoza mapy
+  BŁĄD [k-1]: modules/navigation/navigation-map.html: plik spoza mapy
+  BŁĄD [k-1]: modules/navigation/screens.mmd: plik spoza mapy
+  BŁĄD [k-1]: modules/navigation/template.html: plik spoza mapy
+  BŁĄD [k-1]: modules/risks/risks.md: plik spoza mapy
+  BŁĄD [k-1]: modules/state-model/README.md: plik spoza mapy
+  BŁĄD [k-1]: plan.md: plik spoza mapy
+  BŁĄD [k-1]: principles.md: plik spoza mapy
+  BŁĄD [k-1]: progress.md: plik spoza mapy
+  BŁĄD [k-1]: requirements.md: plik spoza mapy
+  BŁĄD [k-1]: roles/README.md: plik spoza mapy
+  BŁĄD [k-1]: roles/verifier.md: plik spoza mapy
+  BŁĄD [k-1]: scenarios.md: plik spoza mapy
+  BŁĄD [k-1]: scope.md: plik spoza mapy
+  BŁĄD [k-1]: tests/README.md: plik spoza mapy
+  BŁĄD [k-1]: tools/check_commit.py: plik spoza mapy
+  BŁĄD [k-1]: tools/check_leak.allow: plik spoza mapy
+  BŁĄD [k-1]: tools/check_leak.py: plik spoza mapy
+  BŁĄD [k-1]: tools/check_refs.allow: plik spoza mapy
+  BŁĄD [k-1]: tools/check_refs.py: plik spoza mapy
+  BŁĄD [k-1]: tools/check_separation.py: plik spoza mapy
+  BŁĄD [k-1]: tools/golden_master.py: plik spoza mapy
+  BŁĄD [k-1]: tools/id.toml: plik spoza mapy
+  BŁĄD [k-1]: tools/iso29110.toml: plik spoza mapy
+  BŁĄD [k-1]: tools/iso_map.py: plik spoza mapy
+  BŁĄD [k-1]: tools/model.py: plik spoza mapy
+  BŁĄD [k-1]: tools/new_project.py: plik spoza mapy
+  BŁĄD [k-1]: tools/process_kit_view.py: plik spoza mapy
+  BŁĄD [k-1]: tools/process_update.py: plik spoza mapy
+  BŁĄD [k-1]: tools/progress.py: plik spoza mapy
+  BŁĄD [k-1]: tools/restore_check.py: plik spoza mapy
+  BŁĄD [k-1]: tools/test_distribution.py: plik spoza mapy
+  BŁĄD [k-1]: tools/test_report.py: plik spoza mapy
+  BŁĄD [k-1]: tools/test_tools.py: plik spoza mapy
+  BŁĄD [k-1]: tools/trace.py: plik spoza mapy
+  BŁĄD [k-1]: trace.md: plik spoza mapy
+  BŁĄD [k-1]: use-cases.md: plik spoza mapy
+  BŁĄD [k-1]: validation.md: plik spoza mapy
+  BŁĄD [k-1]: verification.md: plik spoza mapy
+  BŁĄD [k-1]: CHANGELOG.md: brak pliku z mapy
+  BŁĄD [k-1]: archive/flat-layout/progress.md: brak pliku z mapy
+  BŁĄD [k-1]: archive/flat-layout/trace.md: brak pliku z mapy
+  BŁĄD [k-1]: archive/tools/process_kit_view.py: brak pliku z mapy
+  BŁĄD [k-1]: copier.yml: brak pliku z mapy
+  BŁĄD [k-1]: project/check_leak.allow: brak pliku z mapy
+  BŁĄD [k-1]: project/check_refs.allow: brak pliku z mapy
+  BŁĄD [k-1]: project/decisions.md: brak pliku z mapy
+  BŁĄD [k-1]: project/settings.toml: brak pliku z mapy
+  BŁĄD [k-1]: records/acceptance.md: brak pliku z mapy
+  BŁĄD [k-1]: records/corrections.md: brak pliku z mapy
+  BŁĄD [k-1]: records/validation.md: brak pliku z mapy
+  BŁĄD [k-1]: records/verification.md: brak pliku z mapy
+  BŁĄD [k-1]: reference/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md: brak pliku z mapy
+  BŁĄD [k-1]: reference/layout-map.md: brak pliku z mapy
+  BŁĄD [k-1]: reference/sessions/REF-GTD_system_modeling_with_EARS.md: brak pliku z mapy
+  BŁĄD [k-1]: reference/tdd/test_move-red.txt: brak pliku z mapy
+  BŁĄD [k-1]: reports/iso-map.html: brak pliku z mapy
+  BŁĄD [k-1]: template/.copier-answers.process.yml.jinja: brak pliku z mapy
+  BŁĄD [k-1]: template/process/AGENTS.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/MIGRATIONS.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/checklist.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/hooks/commit-msg: brak pliku z mapy
+  BŁĄD [k-1]: template/process/hooks/pre-commit: brak pliku z mapy
+  BŁĄD [k-1]: template/process/kontrakt-decyzji.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/modules/navigation/README.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/modules/navigation/build.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/modules/navigation/check.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/modules/navigation/template.html: brak pliku z mapy
+  BŁĄD [k-1]: template/process/modules/state-model/README.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/process.mk: brak pliku z mapy
+  BŁĄD [k-1]: template/process/roles/README.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/roles/verifier.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/project/agreement.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/project/check_leak.allow: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/project/check_refs.allow: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/project/decisions.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/project/plan.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/project/settings.toml: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/records/acceptance.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/records/corrections.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/records/validation.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/records/verification.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/root/.gitignore: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/root/AGENTS.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/root/CLAUDE.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/root/Makefile: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/root/README.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/glossary.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/navigation/navigation-map.html: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/navigation/screens.mmd: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/principles.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/requirements.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/risks.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/scenarios.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/scope.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/tests/README.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/templates/spec/use-cases.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/terms.md: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/check_commit.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/check_leak.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/check_refs.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/check_separation.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/id.toml: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/init.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/iso29110.toml: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/iso_map.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/model.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/process_update.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/progress.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/restore_check.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/test_report.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/test_tools.py: brak pliku z mapy
+  BŁĄD [k-1]: template/process/tools/trace.py: brak pliku z mapy
+  BŁĄD [k-1]: tests/golden_master.py: brak pliku z mapy
+  BŁĄD [k-1]: tests/test_distribution.py: brak pliku z mapy
+  BŁĄD [k-1]: tests/test_move.py: brak pliku z mapy
+  BŁĄD [k-1]: archive/tools/process_kit_view.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: project/check_leak.allow: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: project/check_refs.allow: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: project/decisions.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: reference/layout-map.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: reports/iso-map.html: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/AGENTS.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/checklist.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/hooks/commit-msg: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/hooks/pre-commit: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/kontrakt-decyzji.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/modules/navigation/README.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/modules/navigation/build.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/modules/navigation/check.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/modules/state-model/README.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/process.mk: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/roles/README.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/roles/verifier.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/project/plan.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/root/README.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/glossary.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/navigation/navigation-map.html: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/navigation/screens.mmd: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/principles.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/requirements.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/risks.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/scenarios.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/scope.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/tests/README.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/templates/spec/use-cases.md: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/check_commit.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/check_leak.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/check_refs.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/check_separation.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/id.toml: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/init.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/iso_map.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/model.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/process_update.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/progress.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/restore_check.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/test_report.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/test_tools.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: template/process/tools/trace.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: tests/golden_master.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-1]: tests/test_distribution.py: na liście zmienionych, ale nie istnieje
+  BŁĄD [k-3]: porównano 32 plików, a niezmienionych ma być 42
+  BŁĄD [k-4]: template/process/hooks/commit-msg: brak pliku, historii nie da się sprawdzić (.githooks/commit-msg)
+  BŁĄD [k-4]: template/process/hooks/pre-commit: brak pliku, historii nie da się sprawdzić (.githooks/pre-commit)
+  BŁĄD [k-4]: template/process/AGENTS.md: brak pliku, historii nie da się sprawdzić (AGENTS.md)
+  BŁĄD [k-4]: template/process/process.mk: brak pliku, historii nie da się sprawdzić (Makefile)
+  BŁĄD [k-4]: template/process/templates/root/README.md: brak pliku, historii nie da się sprawdzić (README.md)
+  BŁĄD [k-4]: records/acceptance.md: brak pliku, historii nie da się sprawdzić (acceptance.md)
+  BŁĄD [k-4]: template/process/checklist.md: brak pliku, historii nie da się sprawdzić (checklist.md)
+  BŁĄD [k-4]: records/corrections.md: brak pliku, historii nie da się sprawdzić (corrections.md)
+  BŁĄD [k-4]: project/decisions.md: brak pliku, historii nie da się sprawdzić (decisions.md)
+  BŁĄD [k-4]: reference/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md: brak pliku, historii nie da się sprawdzić (doc/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md)
+  BŁĄD [k-4]: reference/layout-map.md: brak pliku, historii nie da się sprawdzić (doc/layout-map.md)
+  BŁĄD [k-4]: reference/sessions/REF-GTD_system_modeling_with_EARS.md: brak pliku, historii nie da się sprawdzić (doc/sessions/REF-GTD_system_modeling_with_EARS.md)
+  BŁĄD [k-4]: template/process/templates/spec/glossary.md: brak pliku, historii nie da się sprawdzić (glossary.md)
+  BŁĄD [k-4]: reports/iso-map.html: brak pliku, historii nie da się sprawdzić (iso-map.html)
+  BŁĄD [k-4]: template/process/kontrakt-decyzji.md: brak pliku, historii nie da się sprawdzić (kontrakt-decyzji.md)
+  BŁĄD [k-4]: template/process/modules/navigation/README.md: brak pliku, historii nie da się sprawdzić (modules/navigation/README.md)
+  BŁĄD [k-4]: template/process/modules/navigation/build.py: brak pliku, historii nie da się sprawdzić (modules/navigation/build.py)
+  BŁĄD [k-4]: template/process/modules/navigation/check.py: brak pliku, historii nie da się sprawdzić (modules/navigation/check.py)
+  BŁĄD [k-4]: template/process/templates/spec/navigation/navigation-map.html: brak pliku, historii nie da się sprawdzić (modules/navigation/navigation-map.html)
+  BŁĄD [k-4]: template/process/templates/spec/navigation/screens.mmd: brak pliku, historii nie da się sprawdzić (modules/navigation/screens.mmd)
+  BŁĄD [k-4]: template/process/modules/navigation/template.html: brak pliku, historii nie da się sprawdzić (modules/navigation/template.html)
+  BŁĄD [k-4]: template/process/templates/spec/risks.md: brak pliku, historii nie da się sprawdzić (modules/risks/risks.md)
+  BŁĄD [k-4]: template/process/modules/state-model/README.md: brak pliku, historii nie da się sprawdzić (modules/state-model/README.md)
+  BŁĄD [k-4]: template/process/templates/project/plan.md: brak pliku, historii nie da się sprawdzić (plan.md)
+  BŁĄD [k-4]: template/process/templates/spec/principles.md: brak pliku, historii nie da się sprawdzić (principles.md)
+  BŁĄD [k-4]: archive/flat-layout/progress.md: brak pliku, historii nie da się sprawdzić (progress.md)
+  BŁĄD [k-4]: template/process/templates/spec/requirements.md: brak pliku, historii nie da się sprawdzić (requirements.md)
+  BŁĄD [k-4]: template/process/roles/README.md: brak pliku, historii nie da się sprawdzić (roles/README.md)
+  BŁĄD [k-4]: template/process/roles/verifier.md: brak pliku, historii nie da się sprawdzić (roles/verifier.md)
+  BŁĄD [k-4]: template/process/templates/spec/scenarios.md: brak pliku, historii nie da się sprawdzić (scenarios.md)
+  BŁĄD [k-4]: template/process/templates/spec/scope.md: brak pliku, historii nie da się sprawdzić (scope.md)
+  BŁĄD [k-4]: template/process/templates/spec/tests/README.md: brak pliku, historii nie da się sprawdzić (tests/README.md)
+  BŁĄD [k-4]: template/process/tools/check_commit.py: brak pliku, historii nie da się sprawdzić (tools/check_commit.py)
+  BŁĄD [k-4]: project/check_leak.allow: brak pliku, historii nie da się sprawdzić (tools/check_leak.allow)
+  BŁĄD [k-4]: template/process/tools/check_leak.py: brak pliku, historii nie da się sprawdzić (tools/check_leak.py)
+  BŁĄD [k-4]: project/check_refs.allow: brak pliku, historii nie da się sprawdzić (tools/check_refs.allow)
+  BŁĄD [k-4]: template/process/tools/check_refs.py: brak pliku, historii nie da się sprawdzić (tools/check_refs.py)
+  BŁĄD [k-4]: template/process/tools/check_separation.py: brak pliku, historii nie da się sprawdzić (tools/check_separation.py)
+  BŁĄD [k-4]: tests/golden_master.py: brak pliku, historii nie da się sprawdzić (tools/golden_master.py)
+  BŁĄD [k-4]: template/process/tools/id.toml: brak pliku, historii nie da się sprawdzić (tools/id.toml)
+  BŁĄD [k-4]: template/process/tools/iso29110.toml: brak pliku, historii nie da się sprawdzić (tools/iso29110.toml)
+  BŁĄD [k-4]: template/process/tools/iso_map.py: brak pliku, historii nie da się sprawdzić (tools/iso_map.py)
+  BŁĄD [k-4]: template/process/tools/model.py: brak pliku, historii nie da się sprawdzić (tools/model.py)
+  BŁĄD [k-4]: template/process/tools/init.py: brak pliku, historii nie da się sprawdzić (tools/new_project.py)
+  BŁĄD [k-4]: archive/tools/process_kit_view.py: brak pliku, historii nie da się sprawdzić (tools/process_kit_view.py)
+  BŁĄD [k-4]: template/process/tools/process_update.py: brak pliku, historii nie da się sprawdzić (tools/process_update.py)
+  BŁĄD [k-4]: template/process/tools/progress.py: brak pliku, historii nie da się sprawdzić (tools/progress.py)
+  BŁĄD [k-4]: template/process/tools/restore_check.py: brak pliku, historii nie da się sprawdzić (tools/restore_check.py)
+  BŁĄD [k-4]: tests/test_distribution.py: brak pliku, historii nie da się sprawdzić (tools/test_distribution.py)
+  BŁĄD [k-4]: template/process/tools/test_report.py: brak pliku, historii nie da się sprawdzić (tools/test_report.py)
+  BŁĄD [k-4]: template/process/tools/test_tools.py: brak pliku, historii nie da się sprawdzić (tools/test_tools.py)
+  BŁĄD [k-4]: template/process/tools/trace.py: brak pliku, historii nie da się sprawdzić (tools/trace.py)
+  BŁĄD [k-4]: archive/flat-layout/trace.md: brak pliku, historii nie da się sprawdzić (trace.md)
+  BŁĄD [k-4]: template/process/templates/spec/use-cases.md: brak pliku, historii nie da się sprawdzić (use-cases.md)
+  BŁĄD [k-4]: records/validation.md: brak pliku, historii nie da się sprawdzić (validation.md)
+  BŁĄD [k-4]: records/verification.md: brak pliku, historii nie da się sprawdzić (verification.md)
+  BŁĄD [k-5]: brak tests/golden_master.py
+  BŁĄD [k-6]: brak template/process/tools/trace.py
+  BŁĄD [k-6]: process_kit_view.py nie jest w archive/tools/
+  BŁĄD [k-8]: LAY-01: brak testu z runner:
+  BŁĄD [k-8]: LAY-02: brak testu z runner:
+  BŁĄD [k-9]: brak katalogu template/
+  BŁĄD [k-10]: brak project/check_refs.allow
+CASE k-2: fail
+CASE k-1: fail
+CASE k-3: fail
+CASE k-4: fail
+CASE k-5: fail
+CASE k-6: fail
+CASE k-8: fail
+CASE k-9: fail
+CASE k-10: fail
+test_move: 9 kryteriów, nie przeszło 9 (k-2, k-1, k-3, k-4, k-5, k-6, k-8, k-9, k-10)

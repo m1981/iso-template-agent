@@ -1,0 +1,29 @@
+# Ustawienia projektu (szablon D-55). Należą do projektu: copier ich nie aktualizuje, a narzędzia z process/tools/
+# łączą je z regułami z process/tools/id.toml. Treść po polsku, klucze po angielsku (szablon D-17).
+
+# Podmiot wymagań EARS; zmień na nazwę swojego systemu.
+system = "System"
+
+# Wersja procesu, do której projekt dostosował dokumenty (szablon D-51); uzupełnia decyzja zamykająca migrację.
+migrated_to = ""
+
+# Produkty normy bez własnego typu elementów (szablon D-12); pokazuje je trace.md.
+iso_other = ["WP.05 process/AGENTS.md", "WP.09 reports/progress.md", "WP.11 repozytorium git", "WP.12 drugi remote (kopia zapasowa)", "WP.21 reports/trace.md"]
+# Ocena pokrycia dla strony reports/iso-map.html (szablon D-25): "WP.nn powód". Produkt bez typu i bez wpisu w iso_other
+# ani w poniższych listach jest brakiem. Dane normy (nazwy, zależności): process/tools/iso29110.toml.
+iso_partial = [
+  "WP.05 narzędzia opisane w process/AGENTS.md i project/plan.md; środowisko implementacji przyjdzie z etapem kodu",
+  "WP.07 rejestr decyzji bez listy uczestników i ustaleń, które nie są decyzjami",
+  "WP.09 bez zasobów i kosztów, bo plan ich nie śledzi",
+  "WP.10 bez szacunku pracochłonności i kosztów",
+  "WP.16 tylko ekrany (moduł nawigacji); architektura i projekt szczegółowy z etapem kodu",
+]
+iso_out_of_scope = [
+  "WP.06 etap utrzymania",
+  "WP.08 etap eksploatacji",
+  "WP.14 etap kodu",
+  "WP.15 etap kodu",
+  "WP.17 etap kodu",
+  "WP.18 etap kodu",
+  "WP.20 etap kodu",
+]

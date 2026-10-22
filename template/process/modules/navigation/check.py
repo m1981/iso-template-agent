@@ -8,11 +8,14 @@ Reguły:
   R5 Postęp: wycieki  - ekrany, z których wychodzi się tylko wyjściem/powrotem,
                         bez żadnego kroku naprzód; świadome wyjątki deklaruje
                         komentarz `%% exception-dp01: ID (decyzja)`.
-  R6 Elastyczność     - najkrótsze ścieżki (liczba kliknięć) dla par z KEY_PAIRS.
+  R6 Elastyczność     - najkrótsze ścieżki (liczba kliknięć) dla par z komentarzy
+                        `%% key-pair: E01 E03 opis` w mapie (bez nich: KEY_PAIRS poniżej).
   R7 Ślad ekranów     - każdy ekran ma komentarz `%% E-nn realizes: UC-nn`
-                        (powiązanie z modelem śladu, tools/id.toml).
+                        (powiązanie z modelem śladu, process/tools/id.toml).
 Ekrany klasy `screen` mają pasek nawigacji, więc dostają niejawną krawędź do NAV.
-Użycie: python3 check.py screens.mmd
+Plik należy do pakietu procesu (szablon D-47): projekt go nie edytuje, a pary do pomiaru kliknięć
+zapisuje w swojej mapie (spec/navigation/screens.mmd).
+Użycie: python3 process/modules/navigation/check.py spec/navigation/screens.mmd
 """
 import re
 import sys
@@ -24,7 +27,9 @@ REALIZES_RE = re.compile(r'^\s*%%\s*E-(\d{2})\s+realizes:\s*\S')
 EXCEPTION_RE = re.compile(r'^\s*%%\s*exception-dp01:\s*(\w+)\s*(.*)$')
 NODE = re.compile(r'^\s*(\w+)\s*[\[\(\/]+"?([^"\]\)]*)')
 
-# Pary (skąd, dokąd, opis) do pomiaru liczby kliknięć; uzupełnij dla swojej mapy.
+KEY_PAIR_RE = re.compile(r'^\s*%%\s*key-pair:\s*(\w+)\s+(\w+)\s*(.*)$')
+
+# Pary (skąd, dokąd, opis) do pomiaru liczby kliknięć, gdy mapa nie ma komentarzy key-pair.
 KEY_PAIRS = [
     ("E01", "E03", "Start → szczegóły"),
 ]
@@ -92,6 +97,15 @@ def clicks(g, a, b):
     return bfs(g2, a).get(b)
 
 
+def key_pairs(path):
+    pairs = []
+    for line in open(path, encoding="utf-8"):
+        m = KEY_PAIR_RE.match(line)
+        if m:
+            pairs.append((m.group(1), m.group(2), m.group(3).strip() or f"{m.group(1)} → {m.group(2)}"))
+    return pairs or KEY_PAIRS
+
+
 def main(path):
     edge_list, node_class, labels, exceptions, realized = parse_map(path)
     g = graph(edge_list, node_class)
@@ -144,7 +158,7 @@ def main(path):
     print()
     print("| R6 Para | Kliknięcia |")
     print("| --- | --- |")
-    for a, b, desc in KEY_PAIRS:
+    for a, b, desc in key_pairs(path):
         k = clicks(g, a, b)
         print(f"| {desc} | {k if k is not None else 'brak ścieżki'} |")
     return 1 if any(l for _, l in results) else 0

@@ -1,13 +1,52 @@
-"""Wczytuje model śledzalności (tools/id.toml) i elementy z artefaktów.
+"""Wczytuje model śledzalności (process/tools/id.toml) i elementy z artefaktów projektu.
+
+Reguły są w katalogu narzędzi (pakiet procesu), ustawienia w project/settings.toml projektu (szablon D-55),
+listy kontrolne w process/checklist.md. Korzeń projektu: zmienna PROCESS_ROOT, a bez niej katalog
+główny repozytorium gita, w którym leżą narzędzia, a bez gita katalog dwa poziomy nad tools/
+(process/tools → katalog główny projektu). W repozytorium szablonu narzędzia leżą w template/process/
+tools, więc tam korzeń wyznacza git albo PROCESS_ROOT (szablon D-54).
 
 Bez zależności zewnętrznych; działa na Pythonie 3.8+ (tomllib nie jest wymagany).
 """
 import glob
 import os
 import re
+import subprocess
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(TOOLS_DIR)
+PROCESS_DIR = os.path.dirname(TOOLS_DIR)
+RULES = os.path.join(TOOLS_DIR, "id.toml")
+SETTINGS = os.path.join("project", "settings.toml")
+CHECKLIST = os.path.join(PROCESS_DIR, "checklist.md")
+
+
+def project_root():
+    env = os.environ.get("PROCESS_ROOT")
+    if env:
+        return os.path.abspath(env)
+    try:
+        top = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=TOOLS_DIR,
+                             capture_output=True, text=True).stdout.strip()
+    except OSError:
+        top = ""
+    if top and os.path.realpath(TOOLS_DIR).startswith(os.path.realpath(top) + os.sep):
+        return top
+    return os.path.dirname(PROCESS_DIR)
+
+
+ROOT = project_root()
+
+
+def output_path(root, output):
+    """Ścieżka pliku generowanego: bezwzględna bez zmian, względna od korzenia projektu; tworzy katalog."""
+    fpath = output if os.path.isabs(output) else os.path.join(root, output)
+    os.makedirs(os.path.dirname(fpath) or ".", exist_ok=True)
+    return fpath
+
+
+def relative_to_root(path, root=None):
+    """Ścieżka narzędzia albo pliku procesu względem korzenia projektu (do komunikatów i poleceń)."""
+    return os.path.relpath(path, root or ROOT)
 
 
 # ---------- id.toml (podzbiór TOML: [tabela], [[tablica]], napisy, true/false, listy napisów)
@@ -118,7 +157,7 @@ class Element:
 
 
 def fingerprint(e):
-    """Treść elementu bez pola status (zmiana stanu nie jest zmianą treści; D-32, D-38)."""
+    """Treść elementu bez pola status (zmiana stanu nie jest zmianą treści; szablon D-32, szablon D-38)."""
     return (e.title, tuple(sorted((k, v) for k, v in e.fields.items() if k != "status")))
 
 
@@ -198,10 +237,14 @@ PARSERS = {"markdown": _markdown, "feature": _feature, "mermaid": _mermaid}
 
 
 class Model:
-    def __init__(self, root=ROOT):
-        self.root = root
-        cfg = load_toml(os.path.join(root, "tools", "id.toml"))
-        project = cfg.get("project", {})
+    def __init__(self, root=None):
+        self.root = root = root or ROOT
+        cfg = load_toml(RULES)
+        project = dict(cfg.get("project", {}))
+        settings_path = os.path.join(root, SETTINGS)
+        if os.path.exists(settings_path):
+            project.update(load_toml(settings_path))  # ustawienia projektu nadpisują domyślne (szablon D-55)
+        self.project = project
         self.system = project.get("system", "System")
         self.states = project.get("product_states", [])
         self.iso_other = project.get("iso_other", [])
@@ -211,17 +254,17 @@ class Model:
         for t in cfg.get("type", []):
             if t.get("product"):
                 t["statuses"] = self.states
-                t["required"] = list(t.get("required", [])) + [self.field_names.get("status", "status")]  # D-14
+                t["required"] = list(t.get("required", [])) + [self.field_names.get("status", "status")]  # szablon D-14
             t["known"] = set(t.get("fields", []) + t.get("required", []) + t.get("optional", []) + self.common_fields)
             if t.get("statuses"):
                 t["known"].add(self.field_names.get("status", "status"))
             if t.get("produces"):
                 t["known"].add(self.field_names.get("produces", "produces"))
             t["rules"] = {}
-            for rule in t.get("parent_rules", []):  # "pole: KOD|KOD [pole=wartość]" (D-28)
+            for rule in t.get("parent_rules", []):  # "pole: KOD|KOD [pole=wartość]" (szablon D-28)
                 m = re.fullmatch(r"\s*(\w+)\s*:\s*([\w|]+)(?:\s+(\w+)=(\S+))?\s*", rule)
                 if not m:
-                    raise ValueError(f"tools/id.toml, typ {t['code']}: niepoprawna reguła parent_rules: {rule}")
+                    raise ValueError(f"id.toml, typ {t['code']}: niepoprawna reguła parent_rules: {rule}")
                 t["rules"][m.group(1)] = (m.group(2).split("|"), (m.group(3), m.group(4)) if m.group(3) else None)
             t["re"] = re.compile(t["pattern"])
             t["paths"] = sorted(glob.glob(os.path.join(root, t["file"])))
@@ -246,8 +289,8 @@ class Model:
         self.checklist = self._checklist()
 
     def _checklist(self):
-        """checklist.md (D-31): {kod sekcji: {punkty}} z nagłówków „## KOD …” i linii „- KOD.n …”."""
-        fpath = os.path.join(self.root, "checklist.md")
+        """process/checklist.md (szablon D-31): {kod sekcji: {punkty}} z nagłówków „## KOD …” i linii „- KOD.n …”."""
+        fpath = CHECKLIST
         lists, current = {}, None
         if not os.path.exists(fpath):
             return lists
@@ -288,7 +331,7 @@ class Model:
         return self.value(e, "status")
 
     def products(self, e):
-        """Pole produces: (D-09) → (elementy, nieznane kody). Wpis to kod typu albo ID."""
+        """Pole produces: (szablon D-09) → (elementy, nieznane kody). Wpis to kod typu albo ID."""
         result, unknown = [], []
         for x in [w.strip() for w in self.value(e, "produces").split(",") if w.strip()]:
             if x in self.types:

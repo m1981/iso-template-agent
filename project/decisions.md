@@ -18,10 +18,17 @@ Format:
 
 ## Otwarte
 
-### D-73 Kryteria odbioru w rekordzie postępu
+### D-74 Ustalenia z wykonania przeniesienia
 - status: open
-- options: A) progress.md dostaje sekcję „Kryteria odbioru” z kamieniami i zadaniami, które je mają; sekcja tylko wtedy, gdy są (bez zmiany złotego wzorca) · B) bez zmian: kryteria czyta się w planie
+- options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
 - proposal: A
+- notes: lista w reference/layout-map.md, część 8: stare trace.md i progress.md w archive/flat-layout/ (w reports/ są raporty warstwy procesu); korzeń projektu z PROCESS_ROOT albo z gita; check_refs.py w projekcie pomija process/, a w repozytorium szablonu rozwiązuje ścieżki układu projektu względem template/ i wzorców; wyjątek dla przykładowej mapy nawigacji wbudowany w check_leak.py; pary ekranów w mapie projektu (%% key-pair:); init.py dopuszcza nieśledzone pliki; wzorce dokumentów bez odwołań do decyzji szablonu; nowa reguła P-11 w template/process/AGENTS.md (pakiet zmienia się tylko przez make process-update)
+
+### D-75 Kontrola pojęć słownika projektu w plikach procesu
+- status: open
+- options: A) check_leak.py porównuje tylko angielskie nazwy pojęć (z nawiasu w tytule) i tylko pisane wielką literą, jak E6 w wymaganiach · B) pojęcia wyłączone z kontroli wpisuje projekt w project/check_leak.allow · C) bez zmian
+- proposal: A
+- notes: test na danych testowych pokazał, że słownik z ogólnymi pojęciami (Element, User) daje zgłoszenia w tekstach procesu, które używają tych słów potocznie; w gtd2 (słownik GTD) make check wyłożyłby się od razu. Do rozstrzygnięcia przed pilotem
 
 ## W kolejce
 
@@ -62,6 +69,13 @@ Format:
 - notes: plik Użytkownika PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md (D-66). Tematy poza D-68 i D-69: krótszy AGENTS.md i ładowanie kontekstu według zadania (K0–K6); minimalny start z profilem ryzyka i definicją ukończenia; zakres szablonu: sama specyfikacja czy cały cykl z kodem i TDD; rejestr aktywacji pakietów praktyk (available, proposed, pilot, active…); pomiar wartości praktyk (słuszna uwaga: kryterium 1 pilota Q-03 jest nierozstrzygające); strona ISO rozdzielająca wsparcie przez szablon, zastosowanie w projekcie, wykonanie i ocenę zgodności; zmiana kontraktu (co agent rozstrzyga sam, commit na spójną zmianę zamiast na odpowiedź). Wróć po wydaniu v1.0.0 albo wcześniej, gdy któryś temat zablokuje pilota
 
 ## Rozstrzygnięte
+
+### D-73 Kryteria odbioru w rekordzie postępu
+- status: resolved
+- options: A) progress.md dostaje sekcję „Kryteria odbioru” z kamieniami i zadaniami, które je mają; sekcja tylko wtedy, gdy są (bez zmiany złotego wzorca) · B) bez zmian: kryteria czyta się w planie
+- proposal: A
+- choice: A — sekcja „Kryteria odbioru” w reports/progress.md, tylko gdy kamień albo zadanie ma acceptance_criteria; dane złotego wzorca bez kryteriów, a sprawdza je osobny przypadek testu (acceptance-criteria)
+- date: 2026-10-22
 
 ### D-72 Commity przeniesienia
 - status: resolved

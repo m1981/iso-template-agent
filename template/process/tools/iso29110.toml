@@ -1,4 +1,4 @@
-# Dane normy ISO/IEC 29110-5-1-2 (profil Basic) dla tools/iso_map.py (D-25).
+# Dane normy ISO/IEC 29110-5-1-2 (profil Basic) dla tools/iso_map.py (szablon D-25).
 # Źródło: rozdział 09 (produkty pracy) oraz wejścia i wyjścia 72 zadań procesów PM i SI
 # (rozdziały 06 i 07), repozytorium m1981/iso-29110-5-1. To fakty z normy, bez naszej oceny;
 # ocena pokrycia jest w tools/id.toml ([project] iso_partial, iso_out_of_scope).

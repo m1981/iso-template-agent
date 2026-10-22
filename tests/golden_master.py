@@ -1,6 +1,6 @@
 """Złoty wzorzec wyjść narzędzi (D-61): zapis przed przeniesieniem, porównanie po nim.
 
-Buduje fixture z tools/test_tools.py (łańcuch wszystkich typów, moduły nawigacji i ryzyk) ze stałym
+Buduje fixture z template/process/tools/test_tools.py (łańcuch wszystkich typów, moduły nawigacji i ryzyk) ze stałym
 rejestrem z jedną decyzją D-01 (wzorzec nie zależy od rejestru szablonu) i zapisuje:
   reference/golden/chain/trace.md, reference/golden/chain/progress.md, reference/golden/chain/iso-map.html
       pliki generowane z łańcucha wzorcowego,
@@ -10,8 +10,11 @@ Porównanie buduje to samo i zgłasza każdą różnicę. Po przeniesieniu ście
 zmieniają (np. spec/requirements.md zamiast requirements.md), więc --strip PREFIKS usuwa podane
 katalogi z obu stron przed porównaniem; reszta musi być identyczna.
 
-Użycie: python3 tools/golden_master.py snapshot reference/golden
-        python3 tools/golden_master.py compare reference/golden [--strip spec/ --strip project/ ...]
+Wzorzec zapisano przed przeniesieniem na trzy warstwy (D-54, D-61); od tego czasu porównanie usuwa
+katalogi nowego układu (make golden robi to samo).
+
+Użycie: python3 tests/golden_master.py snapshot reference/golden
+        python3 tests/golden_master.py compare reference/golden [--strip spec/ --strip project/ ...]
 Kod wyjścia: 0 zgodne (albo zapisane), 1 różnice.
 """
 import difflib
@@ -21,8 +24,8 @@ import shutil
 import sys
 import tempfile
 
-TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, TOOLS_DIR)
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "template", "process", "tools"))
 import test_tools as T  # noqa: E402
 
 GENERATED = ["trace.md", "progress.md", "iso-map.html"]
@@ -36,13 +39,13 @@ def produce():
     with tempfile.TemporaryDirectory() as tmpdir:
         T.prepare(tmpdir)
         # stały rejestr: wzorzec nie może zależeć od tego, ile decyzji ma rejestr szablonu
-        open(os.path.join(tmpdir, "decisions.md"), "w", encoding="utf-8").write(REGISTER)
-        r = T.run_py(tmpdir, "tools/trace.py")
+        open(os.path.join(tmpdir, "project", "decisions.md"), "w", encoding="utf-8").write(REGISTER)
+        r = T.run_py(tmpdir, "process/tools/trace.py")
         out["chain/trace.out"] = r.stdout + f"[kod {r.returncode}]\n"
-        T.run_py(tmpdir, "tools/progress.py")
-        T.run_py(tmpdir, "tools/iso_map.py")
+        T.run_py(tmpdir, "process/tools/progress.py")
+        T.run_py(tmpdir, "process/tools/iso_map.py")
         for name in GENERATED:
-            out["chain/" + name] = open(os.path.join(tmpdir, name), encoding="utf-8").read()
+            out["chain/" + name] = open(os.path.join(tmpdir, "reports", name), encoding="utf-8").read()
         for kind, items in (("breakage", [(f, a, b) for _, f, a, b in T.BREAKAGES]),
                             ("warning", [(f, a, b) for _, f, a, b, _ in T.WARNINGS])):
             for i, (fname, a, b) in enumerate(items, 1):
@@ -51,7 +54,7 @@ def produce():
                 if a not in original:
                     raise SystemExit(f"golden_master: zasiew nieudany ({kind}-{i:02d}: brak tekstu w {fname})")
                 open(fpath, "w", encoding="utf-8").write(original.replace(a, b, 1))
-                r = T.run_py(tmpdir, "tools/trace.py", os.devnull)
+                r = T.run_py(tmpdir, "process/tools/trace.py", os.devnull)
                 open(fpath, "w", encoding="utf-8").write(original)
                 out[f"{kind}-{i:02d}.out"] = r.stdout + f"[kod {r.returncode}]\n"
     return out

@@ -2,7 +2,7 @@
 
 Według Cockburna: najpierw szerokość, potem głębokość. Dla wszystkich celów powstają krótkie opisy (brief), dopiero potem pełne przypadki, jeden po drugim: interesariusze i interesy, warunki wstępne, gwarancje, scenariusz główny (3–9 kroków), warunki rozszerzeń, obsługa rozszerzeń. Teksty używają terminów ze słownika (z ID w nawiasie kwadratowym przy pierwszym użyciu).
 
-Każdy przypadek wskazuje rodzica: scenkę (`scenarios:`) albo pozycję zakresu In (`scope:`). Wymagania pochodne i ekrany pokazuje trace.md; nie wypisuje się ich ręcznie. Pole `form` mówi, jak szczegółowy jest opis (brief albo full); `status` to stan produktu pracy (initiated, verified, approved).
+Każdy przypadek wskazuje rodzica: scenkę (`scenarios:`) albo pozycję zakresu In (`scope:`). Wymagania pochodne i ekrany pokazuje reports/trace.md; nie wypisuje się ich ręcznie. Pole `form` mówi, jak szczegółowy jest opis (brief albo full); `status` to stan produktu pracy (initiated, verified, approved).
 
 Format:
 

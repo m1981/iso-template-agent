@@ -1,3 +1,2 @@
-# Wyjątki dla tools/check_leak.py (D-62): ścieżka pliku # powód. Zbędny wpis to błąd.
-modules/navigation/screens.mmd # przykładowa mapa modułu do zastąpienia przy wdrożeniu; test_tools.py używa jej jako danych (E-01…E-05 realizują UC-01)
-modules/navigation/navigation-map.html # strona wygenerowana z przykładowej mapy powyżej
+# Wyjątki warstwy procesu dla template/process/tools/check_leak.py (D-62): ścieżka pliku # powód. Zbędny wpis to błąd.
+# Przykładowa mapa modułu nawigacji jest wyjątkiem wbudowanym w narzędzie (SAMPLES), bo dotyczy też projektów.

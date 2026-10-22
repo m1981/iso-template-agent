@@ -17,11 +17,15 @@ bramka tools/process_update.py) z wydaniami v1.0.0…v1.3.0 i projekty z niego, 
   scope       wydanie zmieniające plik poza process/: bramka kod 1
   validation  stary dokument łamie nową regułę: bramka kod 1, nic nie zacommitowano
   hooks       make hooks nie nadpisuje core.hooksPath ustawionego przez inny menedżer
+  real-copy   prawdziwy szablon (copier.yml, template/): copier copy, init.py, make hooks, make check,
+              pierwszy commit przez hooki (K-7 przeniesienia)
+  real-layout process/ projektu to dokładnie pakiet; dokumenty projektu poza nim (LAY-01)
+  real-update wydanie zmienia wzorzec wymagań: bramka przechodzi, wzorzec nowy, dokument projektu bez zmian (LAY-02)
   isolation   każde polecenie git działa we własnym repozytorium fixture; repozytorium,
               z którego uruchomiono test, nie zmienia się
 Każda mutacja jest sprawdzana, zanim test oceni kontrolę (zasiew musi się udać).
 
-Użycie: python3 tools/test_distribution.py   (albo: make test-distribution)
+Użycie: python3 tests/test_distribution.py   (albo: make test-distribution)
 Kod wyjścia: 0 wszystko przeszło, 1 błąd, 2 NIE URUCHOMIONO (brak copiera w przypiętej wersji).
 """
 import hashlib
@@ -31,8 +35,8 @@ import subprocess
 import sys
 import tempfile
 
-TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(TOOLS_DIR)
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TOOLS_DIR = os.path.join(ROOT, "template", "process", "tools")
 sys.path.insert(0, TOOLS_DIR)
 import process_update as PU  # noqa: E402
 
@@ -172,6 +176,75 @@ def gate(cdir, version):
 def copier_rc_from_log(cdir):
     text = open(os.path.join(cdir, ".git", "process-update.log"), encoding="utf-8").read()
     return text.rsplit("[kod wyjścia copiera: ", 1)[-1].split("]")[0]
+
+
+def env_without_root(extra=None):
+    env = {k: v for k, v in os.environ.items() if k != "PROCESS_ROOT"}
+    env.update(extra or {})
+    return env
+
+
+def files_in(base):
+    out = set()
+    for b, dirs, names in os.walk(base):
+        dirs[:] = [d for d in dirs if d not in (".git", "__pycache__")]
+        out |= {os.path.relpath(os.path.join(b, n), base) for n in names}
+    return out
+
+
+def real_template_cases(tmp):
+    """Prawdziwy szablon z tego repozytorium (copier.yml i template/): droga projektu (K-7), LAY-01, LAY-02."""
+    tdir = os.path.join(tmp, "prawdziwy-szablon")
+    init_repo(tdir)
+    shutil.copy(os.path.join(ROOT, "copier.yml"), tdir)
+    shutil.copytree(os.path.join(ROOT, "template"), os.path.join(tdir, "template"),
+                    ignore=shutil.ignore_patterns("__pycache__"))
+    commit_all(tdir, "v1.0.0")
+    git(tdir, "tag", "v1.0.0")
+
+    case("real-copy")
+    proj = os.path.join(tmp, "projekt-z-szablonu")
+    r = subprocess.run(["copier", "copy", "--defaults", "--vcs-ref", "v1.0.0", tdir, proj],
+                       capture_output=True, text=True, env=env_without_root())
+    check(r.returncode == 0, f"real-copy: copier copy: {r.stderr[-500:]}")
+    check(sorted(os.listdir(proj)) == [ANSWERS, "process"], f"real-copy: copier dostarczył {sorted(os.listdir(proj))}")
+    init_repo(proj)
+    env = env_without_root()
+    steps = [([sys.executable, "-B", "process/tools/init.py"], "init.py"), (["make", "hooks"], "make hooks"),
+             (["make", "check"], "make check")]
+    for cmd, label in steps:
+        r = subprocess.run(cmd, cwd=proj, capture_output=True, text=True, env=env)
+        check(r.returncode == 0, f"real-copy: {label} kod {r.returncode}\n{(r.stdout + r.stderr)[-1200:]}")
+    git(proj, "add", "-A")
+    r = git(proj, "commit", "-q", "-m", "Start projektu (D-01)", expect_ok=False)
+    check(r.returncode == 0, f"real-copy: pierwszy commit odrzucony przez hooki\n{r.stdout}{r.stderr}")
+    check(git(proj, "config", "--get", "core.hooksPath").stdout.strip() == "process/hooks", "real-copy: hooki nie z process/hooks")
+
+    case("real-layout")   # LAY-01: dokumenty projektu poza pakietem
+    payload = files_in(os.path.join(tdir, "template", "process"))
+    got = files_in(os.path.join(proj, "process"))
+    check(got == payload, f"real-layout: process/ różni się od pakietu: nadmiarowe {sorted(got - payload)[:5]}, brakujące {sorted(payload - got)[:5]}")
+    for doc in ("project/decisions.md", "project/plan.md", "spec/requirements.md", "records/verification.md"):
+        check(os.path.isfile(os.path.join(proj, doc)), f"real-layout: brak {doc}")
+
+    case("real-update")   # LAY-02: nowa wersja wzorca nie zmienia dokumentu utworzonego ze wzorca
+    tpl_req = os.path.join(tdir, "template", "process", "templates", "spec", "requirements.md")
+    with open(tpl_req, "a", encoding="utf-8") as f:
+        f.write("\nNowy akapit wzorca w v1.0.1.\n")
+    with open(os.path.join(tdir, "template", "process", "AGENTS.md"), "a", encoding="utf-8") as f:
+        f.write("\nZmiana procesu w v1.0.1.\n")
+    commit_all(tdir, "v1.0.1")
+    git(tdir, "tag", "v1.0.1")
+    req = os.path.join(proj, "spec", "requirements.md")
+    before = hashlib.sha256(open(req, "rb").read()).hexdigest()
+    r = subprocess.run([sys.executable, "-B", "process/tools/process_update.py", "v1.0.1", "--defaults"],
+                       cwd=proj, capture_output=True, text=True, env=env)
+    check(r.returncode == 0, f"real-update: bramka kod {r.returncode}\n{(r.stdout + r.stderr)[-1500:]}")
+    check(hashlib.sha256(open(req, "rb").read()).hexdigest() == before, "real-update: spec/requirements.md projektu się zmienił")
+    check("Nowy akapit wzorca w v1.0.1." in open(os.path.join(proj, "process", "templates", "spec", "requirements.md"), encoding="utf-8").read(),
+          "real-update: wzorzec w process/templates/ nie jest nowy")
+    check("Zmiana procesu w v1.0.1." in open(os.path.join(proj, "process", "AGENTS.md"), encoding="utf-8").read(),
+          "real-update: process/AGENTS.md bez zmiany z wydania")
 
 
 def root_state():
@@ -331,15 +404,19 @@ def main():
         case("hooks")
         h = os.path.join(tmp, "hooks")
         init_repo(h)
-        shutil.copy(os.path.join(ROOT, "Makefile"), h)
+        os.makedirs(os.path.join(h, "process"))
+        shutil.copy(os.path.join(ROOT, "template", "process", "process.mk"), os.path.join(h, "process"))
+        shutil.copy(os.path.join(ROOT, "template", "process", "templates", "root", "Makefile"), h)
         git(h, "config", "core.hooksPath", ".husky")
         r = subprocess.run(["make", "hooks"], cwd=h, capture_output=True, text=True)
         check(r.returncode != 0 and git(h, "config", "--get", "core.hooksPath").stdout.strip() == ".husky",
               f"hooks: make hooks nadpisał inny menedżer hooków (kod {r.returncode})")
         git(h, "config", "--unset", "core.hooksPath")
         r = subprocess.run(["make", "hooks"], cwd=h, capture_output=True, text=True)
-        check(r.returncode == 0 and git(h, "config", "--get", "core.hooksPath").stdout.strip() == ".githooks",
-              f"hooks: make hooks nie ustawił .githooks (kod {r.returncode}) {r.stdout}{r.stderr}")
+        check(r.returncode == 0 and git(h, "config", "--get", "core.hooksPath").stdout.strip() == "process/hooks",
+              f"hooks: make hooks nie ustawił process/hooks (kod {r.returncode}) {r.stdout}{r.stderr}")
+
+        real_template_cases(tmp)
 
     case("isolation")
     check(root_state() == before_root, "isolation: test zmienił repozytorium, z którego go uruchomiono")
@@ -349,7 +426,7 @@ def main():
     if failures:
         print(f"test_distribution: {len(failures)} błędów")
         return 1
-    print("test_distribution: copy, update, repeat, version, markers, binary, missing, conflict, dirty, tags, jump, scope, validation, hooks, isolation — OK")
+    print("test_distribution: " + ", ".join(CASES) + " — OK")
     return 0
 
 

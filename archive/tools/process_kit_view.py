@@ -1,4 +1,6 @@
-"""Widok warstwy procesu do czasu przeniesienia (D-54, D-59, D-60, D-63). Narzędzie przejściowe.
+"""ARCHIWUM (od przeniesienia 2026-10-22, D-54): nie działa w obecnym układzie, zostaje do wglądu.
+
+Widok warstwy procesu do czasu przeniesienia (D-54, D-59, D-60, D-63). Narzędzie przejściowe.
 
 Pliki warstwy procesu leżą już w docelowych miejscach (spec/requirements.md, spec/glossary.md,
 spec/tests/*.feature, project/plan.md), a narzędzia czytają jeszcze płaski układ szablonu. Skrypt

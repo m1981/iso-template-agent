@@ -1,6 +1,7 @@
-# Model śledzalności (D-06) i jedyne źródło schematów ID (D-05).
-# Warstwa maszynowa po angielsku (D-17, D-18): kody, pola, stany, klucze; komentarze i treść po polsku.
-# Czytają go tools/model.py, trace.py, progress.py, iso_map.py i check_commit.py; AGENTS.md tylko tu odsyła.
+# Model śledzalności (szablon D-06) i jedyne źródło schematów ID (szablon D-05).
+# Warstwa maszynowa po angielsku (szablon D-17, szablon D-18): kody, pola, stany, klucze; komentarze i treść po polsku.
+# Czytają go narzędzia z process/tools/ (model.py, trace.py, progress.py, iso_map.py, check_commit.py);
+# ścieżki plików są względem katalogu głównego projektu. AGENTS.md procesu tylko tu odsyła.
 #
 # Klucze typu:
 #   code, name       krótki kod i nazwa rodzaju elementu (nazwa po polsku, dla ludzi)
@@ -11,58 +12,38 @@
 #                    feature (tag "@ID" + komentarze "# pole: wartość"),
 #                    mermaid (komentarze "%% ID pole: wartość")
 #   root             true = element nie musi mieć rodzica
-#   root_if          "pole=wartość": element nie musi mieć rodzica tylko wtedy (np. VER z subject=repository, D-35)
+#   root_if          "pole=wartość": element nie musi mieć rodzica tylko wtedy (np. VER z subject=repository, szablon D-35)
 #   fields           pola, w których element wskazuje rodziców (P-03: dziecko podaje rodzica)
 #   parents          dozwolone kody typów rodziców
 #   parent_rules     opcjonalnie, gdy typ ma kilka pól rodzica: "pole: KOD|KOD [pole_rodzica=wartość]";
-#                    pole może wskazywać tylko te typy, a rodzic musi spełniać warunek (D-28)
+#                    pole może wskazywać tylko te typy, a rodzic musi spełniać warunek (szablon D-28)
 #   required         pola, które muszą być niepuste
 #   optional         pozostałe dozwolone pola; pole spoza fields, required, optional i
-#                    [project] common_fields daje ostrzeżenie W4 (D-21)
+#                    [project] common_fields daje ostrzeżenie W4 (szablon D-21)
 #   statuses         dozwolone wartości pola status
 #   coverage         "KOD:poziom,..." oczekiwane dzieci danego typu; poziom: error | warning;
 #                    KOD "*" = dowolne dziecko albo wzmianka w commicie
 #   coverage_if      "pole=wartość": pokrycie sprawdzane tylko dla takich elementów
 #   ears             true = sprawdzaj składnię EARS (wzorzec, jedno "shall") i pojęcia ze słownika
 #   terms            true = nawias na końcu tytułu podaje angielską nazwę pojęcia ("Element (Item)")
-#   product          true = produkt pracy: status obowiązkowy (D-14), wartości z [project] product_states (D-11)
-#   produces         true = pole produces: wskazuje w dół kody typów lub ID (D-09, jawny wyjątek od P-03)
+#   product          true = produkt pracy: status obowiązkowy (szablon D-14), wartości z [project] product_states (szablon D-11)
+#   produces         true = pole produces: wskazuje w dół kody typów lub ID (szablon D-09, jawny wyjątek od P-03)
 #   results          dozwolone wartości pola result (rekordy)
-#   iso              produkt pracy ISO/IEC 29110-5-1-2, któremu odpowiada typ (D-12)
-#   qualities        dozwolone wartości pola quality (charakterystyki jakości z WP.13, D-33); trace.md
+#   iso              produkt pracy ISO/IEC 29110-5-1-2, któremu odpowiada typ (szablon D-12)
+#   qualities        dozwolone wartości pola quality (charakterystyki jakości z WP.13, szablon D-33); trace.md
 #                    pokazuje, które charakterystyki nie mają jeszcze żadnego wymagania
 #   area_prefix      true = przedrostek ID to obszar (np. CAP); w tekście ciągłym nieznane ID tego typu
 #                    jest błędem E2 tylko wtedy, gdy jego obszar już występuje (np. „UTF-16” nie jest błędem)
 
 [project]
-system = "System"      # podmiot wymagań EARS; zmień na nazwę swojego systemu
-# D-11: stany produktów pracy wprost z ISO/IEC 29110-5-1-2, tabela 12 (initiated, verified, approved).
+# Ustawienia projektu (system, ocena zgodności, migrated_to) są w project/settings.toml projektu (szablon D-55);
+# narzędzia łączą je z tymi regułami. Tu zostają reguły wspólne dla wszystkich projektów.
+# szablon D-11: stany produktów pracy wprost z ISO/IEC 29110-5-1-2, tabela 12 (initiated, verified, approved).
 # Baseline nie jest stanem: wynika z tagów baseline-nn.
 product_states = ["initiated", "verified", "approved"]
-# Pola dozwolone w każdym typie (D-21).
+# Pola dozwolone w każdym typie (szablon D-21).
 common_fields = ["notes"]
-# Produkty normy bez własnego typu elementów (D-12); pokazuje je trace.md.
-iso_other = ["WP.05 AGENTS.md", "WP.09 progress.md", "WP.11 repozytorium git", "WP.12 drugi remote (kopia zapasowa)", "WP.21 trace.md"]
-# Ocena pokrycia dla strony iso-map.html (D-25): "WP.nn powód". Produkt bez typu i bez wpisu w iso_other
-# ani w poniższych listach jest brakiem. Dane normy (nazwy, zależności): tools/iso29110.toml.
-iso_partial = [
-  "WP.05 narzędzia opisane w AGENTS.md i plan.md; środowisko implementacji przyjdzie z etapem kodu",
-  "WP.07 rejestr decyzji bez listy uczestników i ustaleń, które nie są decyzjami",
-  "WP.09 bez zasobów i kosztów, bo plan ich nie śledzi",
-  "WP.10 bez szacunku pracochłonności i kosztów",
-  "WP.16 tylko ekrany (moduł nawigacji); architektura i projekt szczegółowy z etapem kodu",
-]
-iso_out_of_scope = [
-  "WP.06 etap utrzymania",
-  "WP.08 etap eksploatacji",
-  "WP.14 etap kodu",
-  "WP.15 etap kodu",
-  "WP.17 etap kodu",
-  "WP.18 etap kodu",
-  "WP.20 etap kodu",
-]
 
-# Nazwy pól, które skrypty czytają wprost (poza fields i required typów). Zmiana nazwy pola = zmiana tutaj.
 [fields]
 status = "status"
 result = "result"
@@ -87,7 +68,7 @@ runner = "runner"
 code = "SC"
 name = "Scenka użytkownika"
 pattern = "SC-\\d{2}"
-file = "scenarios.md"
+file = "spec/scenarios.md"
 root = true
 coverage = "UC:warning"
 product = true
@@ -98,7 +79,7 @@ optional = ["person", "interests", "content"]
 code = "IO"
 name = "Pozycja zakresu In/Out"
 pattern = "IO-\\d{2}"
-file = "scope.md"
+file = "spec/scope.md"
 root = true
 required = ["kind"]
 coverage = "UC:warning"
@@ -111,7 +92,7 @@ optional = ["rationale", "release"]
 code = "D"
 name = "Decyzja"
 pattern = "D-\\d{2}"
-file = "decisions.md"
+file = "project/decisions.md"
 root = true
 required = ["status"]
 statuses = ["open", "resolved", "deferred"]
@@ -124,14 +105,14 @@ optional = ["options", "proposal", "choice", "date"]
 code = "Q"
 name = "Temat w kolejce"
 pattern = "Q-\\d{2}"
-file = "decisions.md"
+file = "project/decisions.md"
 root = true
 
 [[type]]
 code = "DP"
 name = "Zasada projektowa"
 pattern = "DP-\\d{2}"
-file = "principles.md"
+file = "spec/principles.md"
 fields = ["established_by"]
 parents = ["D"]
 coverage = "REQ:warning"
@@ -142,7 +123,7 @@ optional = ["content", "exceptions"]
 code = "G"
 name = "Pojęcie słownika"
 pattern = "G-[A-Z]{3}-\\d{2}"
-file = "glossary.md"
+file = "spec/glossary.md"
 root = true
 fields = ["changed_by"]
 parents = ["D"]
@@ -155,7 +136,7 @@ optional = ["definition", "distinct_from"]
 code = "UC"
 name = "Przypadek użycia"
 pattern = "UC-\\d{2}"
-file = "use-cases.md"
+file = "spec/use-cases.md"
 fields = ["scenarios", "scope"]
 parents = ["SC", "IO"]
 parent_rules = ["scenarios: SC", "scope: IO kind=In"]
@@ -168,7 +149,7 @@ optional = ["level", "primary_actor", "form", "minimal_guarantee", "success_guar
 code = "RSK"
 name = "Ryzyko produktu"
 pattern = "RSK-\\d{2}"
-file = "risks.md"
+file = "spec/risks.md"
 fields = ["source"]
 parents = ["UC"]
 coverage = "REQ:error"
@@ -179,7 +160,7 @@ optional = ["impact", "likelihood", "severity"]
 code = "REQ"
 name = "Wymaganie EARS"
 pattern = "(?<![A-Z-])(?!(?:RSK|PRK|OBJ|TSK|COR|VER|VAL|ACC)-)[A-Z]{3}-\\d{2}"
-file = "requirements.md"
+file = "spec/requirements.md"
 fields = ["source"]
 parents = ["UC", "D", "DP", "RSK", "IO"]
 required = ["pattern", "text"]
@@ -195,7 +176,7 @@ qualities = ["functional", "performance", "compatibility", "usability", "reliabi
 code = "E"
 name = "Ekran"
 pattern = "E-\\d{2}"
-file = "navigation/screens.mmd"
+file = "spec/navigation/screens.mmd"
 format = "mermaid"
 fields = ["realizes"]
 parents = ["UC"]
@@ -206,21 +187,21 @@ iso = "WP.16"
 code = "AT"
 name = "Test akceptacyjny"
 pattern = "AT-\\d{2}"
-file = "tests/*.feature"
+file = "spec/tests/*.feature"
 format = "feature"
 fields = ["verifies"]
 parents = ["REQ"]
 product = true
 iso = "WP.19"
-optional = ["runner"]    # D-60: plik::przypadek testu automatycznego, np. tools/test_tools.py::chain
+optional = ["runner"]    # szablon D-60: plik::przypadek testu automatycznego, np. tools/test_tools.py::chain
 
-# ---------- Plan (D-08, D-09): plan.md, ISO/IEC 29110 WP.10
+# ---------- Plan (szablon D-08, szablon D-09): plan.md, ISO/IEC 29110 WP.10
 
 [[type]]
 code = "OBJ"
 name = "Cel projektu"
 pattern = "OBJ-\\d{2}"
-file = "plan.md"
+file = "project/plan.md"
 root = true
 coverage = "MS:warning"
 iso = "WP.10"
@@ -230,7 +211,7 @@ optional = ["measure"]
 code = "MS"
 name = "Kamień milowy"
 pattern = "MS-\\d{2}"
-file = "plan.md"
+file = "project/plan.md"
 fields = ["objective"]
 parents = ["OBJ"]
 required = ["due"]
@@ -242,20 +223,20 @@ optional = ["tag", "acceptance_criteria"]
 code = "TSK"
 name = "Zadanie"
 pattern = "TSK-\\d{2}"
-file = "plan.md"
+file = "project/plan.md"
 fields = ["milestone"]
 parents = ["MS"]
 required = ["status", "produces"]
 statuses = ["planned", "in_progress", "completed"]
 produces = true
 iso = "WP.10"
-optional = ["due", "completed", "deviation", "acceptance_criteria"]   # D-71: kryteria odbioru zadania
+optional = ["due", "completed", "deviation", "acceptance_criteria"]   # szablon D-71: kryteria odbioru zadania
 
 [[type]]
 code = "PRK"
 name = "Ryzyko projektu"
 pattern = "PRK-\\d{2}"
-file = "plan.md"
+file = "project/plan.md"
 root = true
 fields = ["concerns"]
 parents = ["OBJ", "MS", "TSK"]
@@ -263,13 +244,13 @@ required = ["status", "mitigation"]
 statuses = ["open", "closed"]
 iso = "WP.10"
 
-# ---------- Rekordy (D-12, D-16): po jednym pliku na produkt normy
+# ---------- Rekordy (szablon D-12, szablon D-16): po jednym pliku na produkt normy
 
 [[type]]
 code = "COR"
 name = "Korekta"
 pattern = "COR-\\d{2}"
-file = "corrections.md"
+file = "records/corrections.md"
 fields = ["cause"]
 parents = ["TSK", "MS", "PRK", "VER", "VAL", "ACC"]
 required = ["status", "action"]
@@ -281,7 +262,7 @@ optional = ["by", "opened", "due"]
 code = "VER"
 name = "Weryfikacja"
 pattern = "VER-\\d{2}"
-file = "verification.md"
+file = "records/verification.md"
 fields = ["items"]
 parents = ["SC", "IO", "DP", "G", "UC", "RSK", "REQ", "E", "AT", "OBJ", "MS", "TSK"]
 required = ["date", "result"]
@@ -296,7 +277,7 @@ root_if = "subject=repository"
 code = "VAL"
 name = "Walidacja"
 pattern = "VAL-\\d{2}"
-file = "validation.md"
+file = "records/validation.md"
 fields = ["items"]
 parents = ["SC", "UC", "REQ", "E", "AT"]
 required = ["date", "result"]
@@ -310,7 +291,7 @@ optional = ["by", "checklist", "failed"]
 code = "ACC"
 name = "Akceptacja"
 pattern = "ACC-\\d{2}"
-file = "acceptance.md"
+file = "records/acceptance.md"
 fields = ["milestone"]
 parents = ["MS"]
 required = ["date", "result"]

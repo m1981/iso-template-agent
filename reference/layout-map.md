@@ -1,6 +1,6 @@
 # Mapa ścieżek: przejście na trzy warstwy (D-50, krok 2)
 
-Propozycja do zatwierdzenia (D-54). Nic jeszcze nie jest przeniesione. Podstawa: D-41 (umowa), D-42 (katalogi według rodzaju dokumentu), D-43 (trzy warstwy, copier), D-44 (kolejność startu), D-47 (copier dostarcza tylko `process/`), D-48 (warstwa procesu sama używa procesu), D-49 (wersje), D-51 (migracje), D-52 i D-53 (bramka).
+Zatwierdzona (D-54) i wykonana 2026-10-22 (część 8). Plik przeniesiony z doc/ do reference/. Podstawa: D-41 (umowa), D-42 (katalogi według rodzaju dokumentu), D-43 (trzy warstwy, copier), D-44 (kolejność startu), D-47 (copier dostarcza tylko `process/`), D-48 (warstwa procesu sama używa procesu), D-49 (wersje), D-51 (migracje), D-52 i D-53 (bramka).
 
 Stan wyjściowy: commit 01f5c30, 49 śledzonych plików, plus ta mapa (50). Uzupełnienie 2026-10-19 (D-59…D-64): wymagania, testy, plan i raporty warstwy procesu oraz nowe narzędzia; wiersz zakończony „/” obejmuje cały katalog. Tabela w części 3 obejmuje każdy z nich dokładnie raz; sprawdza to polecenie z części 6.
 
@@ -167,7 +167,7 @@ Pokrycie tabeli z części 3 (każdy śledzony plik dokładnie raz):
 
     python3 - <<'EOF'
     import re, subprocess
-    rows = re.findall(r"^\| `([^`]*)`", open("doc/layout-map.md", encoding="utf-8").read(), re.M)
+    rows = re.findall(r"^\| `([^`]*)`", open("reference/layout-map.md", encoding="utf-8").read(), re.M)
     files = subprocess.run(["git", "ls-files"], capture_output=True, text=True).stdout.split()
     covered = {f: [r for r in rows if f == r or (r.endswith("/") and f.startswith(r))] for f in files}
     print("bez wiersza:", [f for f, r in covered.items() if not r])
@@ -184,3 +184,18 @@ Po przeniesieniu (osobny commit, `git mv`, bez usuwania):
 ## 7. Założenia do potwierdzenia
 
 Są w decyzjach D-54…D-58 w project/decisions.md (dziś decisions.md).
+
+## 8. Wykonanie (2026-10-22)
+
+Dwa commity według D-72: najpierw sam `git mv` (56 przeniesień, treść bez zmian), potem zmiany. Kryteria odbioru K-1…K-10 sprawdza `make test-move` (tests/test_move.py: dokładna lista przeniesień, dozwolonych zmian i nowych plików); test napisano przed przeniesieniem, a jego wynik na starym układzie jest w reference/tdd/test_move-red.txt. Tabela w części 3 opisuje stan wejściowy, więc pokrycie z części 6 dotyczy commita sprzed przeniesienia.
+
+Odstępstwa od tabeli i ustalenia z wykonania (do potwierdzenia w rejestrze, D-74):
+- `trace.md` i `progress.md` szablonu trafiły do archive/flat-layout/, a nie do reports/, bo tam są już raporty warstwy procesu;
+- korzeń projektu narzędzia biorą z PROCESS_ROOT, a bez niej z gita; hooki i process.mk ustawiają PROCESS_ROOT same;
+- check_refs.py w projekcie nie sprawdza process/ (pakiet sprawdza repozytorium szablonu); ścieżki z układu projektu w dokumentach warstwy procesu rozwiązuje względem template/ i wzorców;
+- wyjątek dla przykładowej mapy nawigacji przeszedł z listy wyjątków do check_leak.py, bo dotyczy każdego projektu;
+- pary ekranów do pomiaru kliknięć są w mapie projektu (`%% key-pair:`), nie w check.py pakietu;
+- init.py odmawia przy zmianach w śledzonych plikach, a nieśledzone (process/ po copier copy) dopuszcza;
+- wzorce dokumentów projektu nie powołują się na decyzje szablonu (wcześniej D-22); pliki pakietu robią to jako „szablon D-nn” (D-56);
+- nowa reguła P-11 w process/AGENTS.md: pakiet zmienia się tylko przez make process-update.
+

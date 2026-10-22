@@ -1,13 +1,13 @@
-"""Sprawdzenie odtworzenia repozytorium z kopii zapasowej (D-35; ISO/IEC 29110 PM.02.07).
+"""Sprawdzenie odtworzenia repozytorium z kopii zapasowej (szablon D-35; ISO/IEC 29110 PM.02.07).
 
-Klonuje remote „origin” do katalogu tymczasowego i sprawdza punkty listy REPO z checklist.md:
+Klonuje remote „origin” do katalogu tymczasowego i sprawdza punkty listy REPO z process/checklist.md:
   REPO.1 klon bieżącej gałęzi ma ten sam ostatni commit co repozytorium lokalne (HEAD),
   REPO.2 klon ma te same tagi,
-  REPO.3 w klonie tools/trace.py przechodzi bez błędów.
-Niczego nie zmienia w repozytorium, chyba że podano --record: wtedy dopisuje do verification.md
+  REPO.3 w klonie process/tools/trace.py przechodzi bez błędów.
+Niczego nie zmienia w repozytorium, chyba że podano --record: wtedy dopisuje do records/verification.md
 rekord VER z subject: repository (zacommituj go jak każdą zmianę).
 
-Użycie: python3 tools/restore_check.py [--record] [--remote origin]
+Użycie: python3 process/tools/restore_check.py [--record] [--remote origin]
         make restore-check            make restore-check RECORD=1
 Kod wyjścia: 0 gdy wszystkie punkty spełnione, 1 gdy nie, 2 gdy nie da się sklonować.
 """
@@ -19,7 +19,11 @@ import sys
 import tempfile
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(TOOLS_DIR)
+sys.path.insert(0, TOOLS_DIR)
+import model as M  # noqa: E402
+
+ROOT = M.ROOT
+VERIFICATION = os.path.join("records", "verification.md")
 
 
 def git(*args, cwd=ROOT):
@@ -61,8 +65,8 @@ def main(argv):
             notes.append("tagi " + "; ".join(x for x in (
                 f"brak w kopii: {', '.join(missing)}" if missing else "",
                 f"tylko w kopii: {', '.join(extra)}" if extra else "") if x))
-        r = subprocess.run([sys.executable, "-B", os.path.join("tools", "trace.py"), os.devnull],
-                           cwd=clone, capture_output=True, text=True)
+        r = subprocess.run([sys.executable, "-B", os.path.join(os.path.relpath(TOOLS_DIR, ROOT), "trace.py"), os.devnull],
+                           cwd=clone, capture_output=True, text=True, env=dict(os.environ, PROCESS_ROOT=clone))
         if r.returncode != 0:
             failed.append("REPO.3")
             notes.append("ślad w klonie ma błędy: " + "; ".join(l for l in r.stdout.splitlines() if l.startswith("E"))[:300])
@@ -74,7 +78,7 @@ def main(argv):
     for n in notes:
         print("  " + n)
     if record:
-        fpath = os.path.join(ROOT, "verification.md")
+        fpath = os.path.join(ROOT, VERIFICATION)
         ident = next_ver_id(fpath)
         block = (f"\n### {ident} Odtworzenie repozytorium z kopii zapasowej\n"
                  f"- subject: repository\n- date: {datetime.date.today().isoformat()}\n"
@@ -85,7 +89,7 @@ def main(argv):
         text = text.replace("\nBrak weryfikacji.\n", "\n") if "\nBrak weryfikacji.\n" in text else text
         with open(fpath, "w", encoding="utf-8") as f:
             f.write(text.rstrip("\n") + "\n" + block)
-        print(f"restore_check: dopisano {ident} do verification.md; odśwież ślad (make check) i zacommituj.")
+        print(f"restore_check: dopisano {ident} do {VERIFICATION}; odśwież ślad (make check) i zacommituj.")
     return 1 if failed else 0
 
 

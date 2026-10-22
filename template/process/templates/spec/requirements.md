@@ -1,6 +1,6 @@
 # Wymagania (EARS)
 
-Wymagania systemowe w składni EARS, po angielsku, z podmiotem ustawionym w tools/id.toml (`system`). Wymaganie podaje tylko swoje źródło (P-03); pochodne i pokrycie testami pokazuje trace.md. Status to jeden ze stanów produktów pracy: `initiated`, `verified` (jest rekord VER z wynikiem `pass`), `approved` (wymaga decyzji D-nn, P-08). ID: trzy litery obszaru i numer, np. CAP-nn dla przechwytywania; prefiksy RSK, PRK, OBJ, TSK, COR, VER, VAL i ACC są zarezerwowane dla innych typów (tools/id.toml).
+Wymagania systemowe w składni EARS, po angielsku, z podmiotem ustawionym w project/settings.toml (`system`). Wymaganie podaje tylko swoje źródło (P-03); pochodne i pokrycie testami pokazuje reports/trace.md. Status to jeden ze stanów produktów pracy: `initiated`, `verified` (jest rekord VER z wynikiem `pass`), `approved` (wymaga decyzji D-nn, P-08). ID: trzy litery obszaru i numer, np. CAP-nn dla przechwytywania; prefiksy RSK, PRK, OBJ, TSK, COR, VER, VAL i ACC są zarezerwowane dla innych typów (process/tools/id.toml).
 
 Wzorce EARS i to, co sprawdza trace.py:
 
@@ -27,6 +27,6 @@ Format:
 - notes: opcjonalnie
 ```
 
-Pole `quality` przypisuje wymaganie do charakterystyki jakości z ISO/IEC 29110 WP.13 (za ISO/IEC 25010): funkcjonalność, wydajność, zgodność, użyteczność (w tym dostępność), niezawodność, bezpieczeństwo, utrzymywalność, przenośność oraz ograniczenia projektowe i wymogi prawne. Pole jest opcjonalne; trace.md pokazuje, które charakterystyki nie mają jeszcze żadnego wymagania, żeby żadnej nie pominąć przez przeoczenie.
+Pole `quality` przypisuje wymaganie do charakterystyki jakości z ISO/IEC 29110 WP.13 (za ISO/IEC 25010): funkcjonalność, wydajność, zgodność, użyteczność (w tym dostępność), niezawodność, bezpieczeństwo, utrzymywalność, przenośność oraz ograniczenia projektowe i wymogi prawne. Pole jest opcjonalne; reports/trace.md pokazuje, które charakterystyki nie mają jeszcze żadnego wymagania, żeby żadnej nie pominąć przez przeoczenie.
 
 Brak wymagań.

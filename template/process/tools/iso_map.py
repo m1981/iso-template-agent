@@ -1,8 +1,8 @@
-"""Strona „ISO 29110 a nasz model śladu” (D-25), generowana do iso-map.html.
+"""Strona „ISO 29110 a nasz model śladu” (szablon D-25), generowana do reports/iso-map.html.
 
-Dane normy: tools/iso29110.toml (23 produkty pracy, 84 zależności z zadań PM i SI).
-Nasz model i ocena pokrycia: tools/id.toml (pole iso typów, [project] iso_other,
-iso_partial, iso_out_of_scope). Strona zależy tylko od tych dwóch plików, więc jest
+Dane normy: process/tools/iso29110.toml (23 produkty pracy, 84 zależności z zadań PM i SI).
+Nasz model: process/tools/id.toml (pole iso typów); ocena pokrycia: project/settings.toml projektu
+(iso_other, iso_partial, iso_out_of_scope; szablon D-55). Strona zależy tylko od tych plików, więc jest
 deterministyczna, a pre-commit sprawdza jej aktualność jak trace.md.
 
 Pokrycie produktu normy:
@@ -12,7 +12,7 @@ Pokrycie produktu normy:
   missing       żadne z powyższych
 
 Diagramy są w Mermaid (<pre class="mermaid">); opublikowana strona renderuje je sama.
-Użycie: python3 tools/iso_map.py [plik_wyjściowy=iso-map.html]
+Użycie: python3 process/tools/iso_map.py [plik_wyjściowy=reports/iso-map.html]
 """
 import html
 import os
@@ -53,7 +53,7 @@ def coverage(m, wps):
             ours.setdefault(wp, []).append(f"{code} · {t['file']}")
     for wp, where in entries(m.iso_other).items():
         ours.setdefault(wp, []).append(where)
-    project = M.load_toml(os.path.join(m.root, "tools", "id.toml")).get("project", {})
+    project = m.project  # reguły z id.toml i ustawienia projektu (szablon D-55)
     partial = entries(project.get("iso_partial", []))
     out_of_scope = entries(project.get("iso_out_of_scope", []))
     result = {}
@@ -169,7 +169,7 @@ td:first-child { font-family: var(--f-mono); font-size: 0.82rem; white-space: no
 <div class="wrap">
   <header>
     <h1>ISO 29110 a nasz model śladu</h1>
-    <p class="lead">Produkty pracy profilu Basic (ISO/IEC 29110-5-1-2) i zależności między nimi, wyprowadzone z wejść i wyjść 72 zadań procesów PM i SI, oraz to, jak pokrywa je model z <code>tools/id.toml</code>. Strona jest generowana przez <code>tools/iso_map.py</code>; pre-commit pilnuje, żeby nie odbiegała od modelu.</p>
+    <p class="lead">Produkty pracy profilu Basic (ISO/IEC 29110-5-1-2) i zależności między nimi, wyprowadzone z wejść i wyjść 72 zadań procesów PM i SI, oraz to, jak pokrywa je model z <code>process/tools/id.toml</code>. Strona jest generowana przez <code>process/tools/iso_map.py</code>; pre-commit pilnuje, żeby nie odbiegała od modelu.</p>
     <div class="summary">{SUMMARY}</div>
   </header>
 
@@ -208,7 +208,7 @@ td:first-child { font-family: var(--f-mono); font-size: 0.82rem; white-space: no
 
 def main(output):
     m = M.Model()
-    iso = M.load_toml(os.path.join(m.root, "tools", "iso29110.toml"))
+    iso = M.load_toml(os.path.join(M.TOOLS_DIR, "iso29110.toml"))
     wps, edges = iso["wp"], iso["edge"]
     cov = coverage(m, wps)
     counts = {s: sum(1 for c in cov.values() if c[0] == s) for s in ORDER}
@@ -227,12 +227,11 @@ def main(output):
             .replace("{MODEL}", html.escape(trace_model(m), quote=False))
             .replace("{EDGES}", str(len(edges)))
             .replace("{FULL}", html.escape(flowchart(wps, edges, cov), quote=False)))
-    fpath = output if os.path.isabs(output) else os.path.join(m.root, output)
-    with open(fpath, "w", encoding="utf-8") as f:
+    with open(M.output_path(m.root, output), "w", encoding="utf-8") as f:
         f.write(page)
     print("iso_map.py: " + " · ".join(f"{LABEL[s]} {counts[s]}" for s in ORDER))
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else "iso-map.html"))
+    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else os.path.join("reports", "iso-map.html")))

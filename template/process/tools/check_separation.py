@@ -1,4 +1,4 @@
-"""Autor nie weryfikuje sam siebie w jednym commicie (D-38; ISO/IEC 29110 SI.O7, uwaga 2).
+"""Autor nie weryfikuje sam siebie w jednym commicie (szablon D-38; ISO/IEC 29110 SI.O7, uwaga 2).
 
 Pre-commit porównuje to, co idzie do commita (indeks gita), z ostatnim commitem (HEAD):
   E9  commit dodaje rekord VER albo VAL z wynikiem „pass” i w tym samym commicie zmienia
@@ -7,7 +7,9 @@ Zmiana samego pola status nie liczy się jako zmiana elementu (status zmienia si
 Tablica decyzyjna: E9 tylko gdy rekord jest nowy, wynik to pass i element zmienił się w tym commicie.
 Pierwszy commit repozytorium (brak HEAD) jest importem i nie jest sprawdzany.
 
-Użycie: python3 tools/check_separation.py   (kod wyjścia 1 = E9)
+Reguły śladu są z bieżących narzędzi (process/tools/id.toml), ustawienia z każdej migawki.
+
+Użycie: python3 process/tools/check_separation.py   (kod wyjścia 1 = E9)
 """
 import io
 import os
@@ -18,9 +20,10 @@ import tarfile
 import tempfile
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(TOOLS_DIR)
 sys.path.insert(0, TOOLS_DIR)
 import model as M  # noqa: E402
+
+ROOT = M.ROOT
 
 RECORD_TYPES = ("VER", "VAL")
 
@@ -69,17 +72,15 @@ def main():
         head_dir, staged_dir = os.path.join(tmp, "head"), os.path.join(tmp, "staged")
         snapshot_head(head_dir)
         snapshot_index(staged_dir)
-        # ten sam model śladu dla obu stron: id.toml z indeksu
-        os.makedirs(os.path.join(head_dir, "tools"), exist_ok=True)
-        shutil.copy(os.path.join(staged_dir, "tools", "id.toml"), os.path.join(head_dir, "tools", "id.toml"))
+        # ten sam model śladu dla obu stron: reguły bieżących narzędzi
         found = violations(M.Model(head_dir), M.Model(staged_dir))
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     for x in found:
         print(x)
     if found:
-        print("\npre-commit: autor nie weryfikuje sam siebie (D-38). Zacommituj zmianę elementu osobno, "
-              "a rekord weryfikacji w kolejnym commicie, najlepiej z osobnej sesji weryfikatora (roles/verifier.md).")
+        print("\npre-commit: autor nie weryfikuje sam siebie (szablon D-38). Zacommituj zmianę elementu osobno, "
+              "a rekord weryfikacji w kolejnym commicie, najlepiej z osobnej sesji weryfikatora (process/roles/verifier.md).")
     return 1 if found else 0
 
 

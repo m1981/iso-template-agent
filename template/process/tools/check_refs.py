@@ -1,20 +1,23 @@
-"""Integralność odwołań do ścieżek (D-61): każda ścieżka wspomniana w dokumentach i kodzie istnieje.
+"""Integralność odwołań do ścieżek (szablon D-61): każda ścieżka wspomniana w dokumentach i kodzie istnieje.
 
 Szuka w plikach słów wyglądających jak ścieżka: nazwa pliku ze znanym rozszerzeniem (np. roles/verifier.md,
-trace.py) albo katalog zakończony ukośnikiem (np. tools/, archive/template/). Ścieżkę szuka względem
+trace.py) albo katalog zakończony ukośnikiem (np. tools/, process/roles/). Ścieżkę szuka względem
 katalogu głównego i względem katalogu pliku, który o niej wspomina. Pomija: wzorce i miejsca do
 uzupełnienia (*, nn, <…>, {…}, …), adresy URL, ścieżki bezwzględne i ścieżki z listy wyjątków.
 
-Lista wyjątków (tools/check_refs.allow): jedna ścieżka na wiersz, po niej „ # ” i powód, np. pliki,
+Lista wyjątków (project/check_refs.allow, należy do projektu): jedna ścieżka na wiersz, po niej „ # ” i powód, np. pliki,
 które powstają dopiero w projekcie albo po wdrożeniu modułu. Wpis, który już nie jest potrzebny
 (ścieżka istnieje albo nikt o niej nie wspomina), też jest błędem, żeby lista nie rosła bez kontroli.
 
+W projekcie (pakiet w process/) pakiet jest pomijany: sprawdza go repozytorium szablonu.
 Sama nazwa pliku bez katalogu (np. „trace.py”) wystarcza, gdy jakiś śledzony plik ma taką nazwę.
 Pomijane pliki: rejestr decyzji, doc/ i materiały wejściowe (zapis historii i planów, w tym ścieżek
 dawnych i przyszłych), pliki generowane, .gitignore (wzorce), kod testów i scenariusze .feature (ścieżki danych testowych
 w katalogu tymczasowym; sprawdza je uruchomienie testów).
 
-Użycie: python3 tools/check_refs.py [--root KATALOG] [plik_lub_katalog ...]
+Względem korzenia, katalogu pliku, pakietu procesu, katalogu nad pakietem (układ projektu) i wzorców.
+
+Użycie: python3 process/tools/check_refs.py [--root KATALOG] [plik_lub_katalog ...]
         (bez argumentów: wszystkie śledzone przez git pliki tekstowe)
 Kod wyjścia: 0 brak błędów, 1 błędy.
 """
@@ -24,14 +27,17 @@ import subprocess
 import sys
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(TOOLS_DIR)
-ALLOW = os.path.join(TOOLS_DIR, "check_refs.allow")
+sys.path.insert(0, TOOLS_DIR)
+import model as M  # noqa: E402
+
+ROOT = M.ROOT
+ALLOW = os.path.join("project", "check_refs.allow")
 
 EXT = r"(?:md|py|toml|html|feature|mmd|yml|yaml|json|jinja|txt|log|mk|sh)"
 PATH_RE = re.compile(r"(?<![\w/.@$\\-])((?:\.{0,2}[\w-]+/)*\.?[\w-]+(?:\.[\w-]+)*\." + EXT + r")(?![\w/-])"
                      r"|(?<![\w/.@$\\-])((?:\.?[\w-]+/)+)(?![\w.*-])")
 SKIP_FILES = {"decisions.md", "trace.md", "progress.md", "iso-map.html", "test-report.md", ".gitignore"}
-SKIP_DIRS = ("doc/", "reference/", "archive/")
+SKIP_DIRS = ("reference/", "archive/")
 PLACEHOLDER = re.compile(r"nn|\*|<|>|\{|\}|…|\$|%")
 
 
@@ -68,8 +74,16 @@ def refs_in(text):
             yield lineno, ref
 
 
+def bases(root, rel_file):
+    """Katalogi, względem których szukamy ścieżki: korzeń, katalog pliku, katalog pakietu procesu (odwołania
+    typu roles/…), katalog nad nim (układ projektu: process/…; w repozytorium szablonu to template/) i wzorce
+    w pakiecie (dokumenty projektu po init.py: spec/…, project/…, records/…)."""
+    proc = M.PROCESS_DIR
+    return [root, os.path.join(root, os.path.dirname(rel_file)), proc, os.path.dirname(proc), os.path.join(proc, "templates")]
+
+
 def exists(root, rel_file, ref, basenames):
-    for base in (root, os.path.join(root, os.path.dirname(rel_file))):
+    for base in bases(root, rel_file):
         if os.path.exists(os.path.normpath(os.path.join(base, ref))):
             return True
     # sama nazwa pliku (np. „trace.py”) wskazuje śledzony plik o tej nazwie w dowolnym katalogu
@@ -82,15 +96,19 @@ def main(argv):
         i = argv.index("--root")
         root = os.path.abspath(argv[i + 1])
         argv = argv[:i] + argv[i + 2:]
-    allow_path = os.path.join(root, "tools", "check_refs.allow") if os.path.isdir(os.path.join(root, "tools")) else ALLOW
+    allow_path = os.path.join(root, ALLOW)
     allow = load_allow(allow_path)
     files = tracked(root)
     if argv:
         files = [f for f in files if any(f == a or f.startswith(a.rstrip("/") + "/") for a in argv)]
     basenames = {os.path.basename(f) for f in files}
+    proc = os.path.relpath(M.PROCESS_DIR, root).replace(os.sep, "/")
+    # w projekcie (pakiet w process/) pakietu nie sprawdzamy: jego odwołania sprawdza repozytorium szablonu,
+    # gdzie pakiet leży w template/process/ i każde odwołanie jest rozwiązane albo ma wyjątek z powodem
+    skip_payload = proc == "process"
     errors, used = [], set()
     for rel in files:
-        if not scanned(rel):
+        if not scanned(rel) or (skip_payload and rel.startswith(proc + "/")):
             continue
         try:
             text = open(os.path.join(root, rel), encoding="utf-8").read()

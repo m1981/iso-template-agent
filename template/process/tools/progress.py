@@ -1,12 +1,14 @@
-"""Rekord postępu (D-10; ISO/IEC 29110-5-1-2 WP.09, zadanie PM.03.01).
+"""Rekord postępu (szablon D-10; ISO/IEC 29110-5-1-2 WP.09, zadanie PM.03.01).
 
-Generuje progress.md z plan.md (OBJ, MS, TSK, PRK), rekordów (COR, ACC), stanów
+Generuje reports/progress.md z project/plan.md (OBJ, MS, TSK, PRK), rekordów (COR, ACC), stanów
 produktów pracy i tagów git. Plik jest deterministyczny: nie zależy od dzisiejszej
 daty, tylko od repozytorium, więc pre-commit może sprawdzać jego aktualność.
 Planowane i rzeczywiste: pole due a pole completed zadania, due kamienia
 a data jego tagu baseline.
 
-Użycie: python3 tools/progress.py [plik_wyjściowy=progress.md]
+Kryteria odbioru kamieni i zadań (pole acceptance_criteria) pokazuje osobna sekcja, tylko gdy są (szablon D-73).
+
+Użycie: python3 process/tools/progress.py [plik_wyjściowy=reports/progress.md]
 """
 import os
 import subprocess
@@ -29,7 +31,7 @@ def tags(root):
 def main(output):
     m = M.Model()
     if not m.types.get("TSK", {}).get("active"):
-        print("progress.py: brak plan.md, pomijam")
+        print("progress.py: brak project/plan.md, pomijam")
         return 0
     of_type = lambda code: [e for e in m.elements if e.type == code]  # noqa: E731
     v = lambda e, *role: [m.value(e, r) or "—" for r in role]  # noqa: E731
@@ -40,7 +42,7 @@ def main(output):
             acceptances.setdefault(k, []).append(f"{a.id} {m.value(a, 'result')}")
 
     out = ["# Rekord postępu", "",
-           "Plik generowany przez tools/progress.py z plan.md, rekordów, stanów produktów i tagów git; "
+           "Plik generowany przez process/tools/progress.py z project/plan.md, rekordów, stanów produktów i tagów git; "
            "nie edytuj ręcznie (ISO/IEC 29110 WP.09).", ""]
 
     tasks = of_type("TSK")
@@ -82,7 +84,12 @@ def main(output):
             state_counts = Counter(m.state(e) for e in of_type(k))
             out.append(f"| {k} {type_def['name']} | {type_def.get('iso', '—')} | " + " | ".join(str(state_counts.get(s, 0)) for s in m.states) + " |")
 
-    fpath = output if os.path.isabs(output) else os.path.join(m.root, output)
+    criteria = [e for e in of_type("MS") + tasks if m.value(e, "acceptance_criteria")]
+    if criteria:  # szablon D-73: sekcja tylko wtedy, gdy kryteria są
+        out += ["", "## Kryteria odbioru", "", "| Element | Kryteria |", "| --- | --- |"]
+        for e in criteria:
+            out.append(f"| {e.id} {e.title} | {m.value(e, 'acceptance_criteria')} |")
+    fpath = M.output_path(m.root, output)
     with open(fpath, "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
     print(f"progress.py: {len(tasks)} zadań, {len(of_type('MS'))} kamieni, {len(open_corrections)} korekt niezakończonych")
@@ -90,4 +97,4 @@ def main(output):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else "progress.md"))
+    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else os.path.join("reports", "progress.md")))

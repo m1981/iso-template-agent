@@ -1,14 +1,14 @@
 # Plan projektu
 
-Część zarządcza planu, wzorowana na ISO/IEC 29110-5-1-2 WP.10: co powstaje, po co i kiedy. Jak pracujemy (ślad, zmiany, rola agenta) opisuje AGENTS.md. Cele, kamienie milowe, zadania i ryzyka projektu mają ID, więc ślad i rekord postępu (progress.md, generowany) widzą plan tak samo jak specyfikację.
+Część zarządcza planu, wzorowana na ISO/IEC 29110-5-1-2 WP.10: co powstaje, po co i kiedy. Jak pracujemy (ślad, zmiany, rola agenta) opisuje process/AGENTS.md. Cele, kamienie milowe, zadania i ryzyka projektu mają ID, więc ślad i rekord postępu (reports/progress.md, generowany) widzą plan tak samo jak specyfikację.
 
 Plan zmienia się jak każdy artefakt: edycja, przegląd diffu, commit z ID. Zmiana celu albo terminu kamienia wymaga decyzji D-nn.
 
 ## Produkt i zakres
-Uzupełnij: jaki system, dla kogo, po co (cel produktu i najważniejsze potrzeby Użytkownika). Zakres szczegółowo: scope.md (In/Out). Szablon zakłada etap specyfikacji, bez kodu i bez certyfikacji; plan kolejnego etapu pisze się, gdy do niego dojdziemy.
+Produkt, cel, odbiorcy, zakres i to, co dostarczamy, opisuje umowa: project/agreement.md (WP.02); plan z niej wynika i jej nie powtarza. Zakres szczegółowo: spec/scope.md (In/Out). Szablon zakłada etap specyfikacji, bez kodu i bez certyfikacji; plan kolejnego etapu pisze się, gdy do niego dojdziemy.
 
 ## Cykl wytwarzania
-Uzupełnij, np.: przyrostowo, fala po fali według AGENTS.md („Kolejność wdrażania praktyk”); każdy kamień milowy kończy się baseline'em.
+Uzupełnij, np.: przyrostowo, fala po fali według process/AGENTS.md („Kolejność wdrażania praktyk”); każdy kamień milowy kończy się baseline'em.
 
 ## Zespół i zasoby
 Uzupełnij: kto (Użytkownik, agent), ile czasu tygodniowo, narzędzia (git, python3, agent LLM).
@@ -28,7 +28,7 @@ Mierzalne cele projektu. Kamień milowy wskazuje cel (`objective:`).
 ```
 
 ## Kamienie milowe
-Kamień milowy kończy się baseline'em: gdy w repozytorium jest tag z pola `tag:`, progress.md pokazuje kamień jako osiągnięty z datą tagu. Akceptację odbiorcy zapisuje rekord ACC w acceptance.md.
+Kamień milowy kończy się baseline'em: gdy w repozytorium jest tag z pola `tag:`, reports/progress.md pokazuje kamień jako osiągnięty z datą tagu. Akceptację odbiorcy zapisuje rekord ACC w records/acceptance.md.
 
 ```
 ### MS-nn Tytuł kamienia

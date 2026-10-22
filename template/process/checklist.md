@@ -100,7 +100,7 @@ Punkty mówią, czego szukać; skrypty i tak sprawdzają format (EARS, słownik,
 
 ## TPL Rejestr i dokumenty szablonu
 
-Źródło: D-57, D-62 (proces oddzielony od produktu klienta). Lista dla przeglądu rejestru i dokumentów w repozytorium szablonu, nie w projekcie.
+Źródło: szablon D-57, szablon D-62 (proces oddzielony od produktu klienta). Lista dla przeglądu rejestru i dokumentów w repozytorium szablonu, nie w projekcie.
 
 - TPL.1 Decyzja dotyczy procesu albo szablonu, a nie produktu, który powstaje w projekcie.
 - TPL.2 Treść nie zawiera pojęć, ID, zadań ani danych projektu klienta; przykłady używają ID zastępczych z „nn”.

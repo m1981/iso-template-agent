@@ -1,6 +1,6 @@
-"""Ślad dwukierunkowy według modelu tools/id.toml (AGENTS.md, P-03…P-06).
+"""Ślad dwukierunkowy według modelu process/tools/id.toml (process/AGENTS.md, P-03…P-06).
 
-Generuje trace.md (macierz w obie strony) i sprawdza model. Kod wyjścia 1 = błędy.
+Generuje reports/trace.md (macierz w obie strony) i sprawdza model. Kod wyjścia 1 = błędy.
 
 Błędy (error):
   E1 brak wymaganego pola albo rodzica       E5 tekst niezgodny ze wzorcem EARS / nie jedno „shall”
@@ -11,12 +11,12 @@ Błędy (error):
 Ostrzeżenia (warning):
   W1 brak oczekiwanego pokrycia (poziom „warning”)
   W2 rozstrzygnięta decyzja bez dzieci i bez wzmianki w commitach (tylko na ekranie)
-  W3 produkt w stanie verified/approved bez weryfikacji VER z wynikiem „pass” (D-11, D-15)
-  W4 pole spoza znanych pól typu, np. dawna polska nazwa (D-21)
-  W5 element albo jego rodzic zmienił się po ostatniej weryfikacji VER z wynikiem „pass” (D-32;
+  W3 produkt w stanie verified/approved bez weryfikacji VER z wynikiem „pass” (szablon D-11, szablon D-15)
+  W4 pole spoza znanych pól typu, np. dawna polska nazwa (szablon D-21)
+  W5 element albo jego rodzic zmienił się po ostatniej weryfikacji VER z wynikiem „pass” (szablon D-32;
      tylko na ekranie, bo zależy od historii gita)
 
-Użycie: python3 tools/trace.py [plik_wyjściowy=trace.md]
+Użycie: python3 process/tools/trace.py [plik_wyjściowy=reports/trace.md]
 """
 import io
 import os
@@ -94,7 +94,7 @@ def ids_in_commits(m):
 
 
 def impact(m, parents_of):
-    """D-32: dla każdego elementu z rekordem VER „pass” porównuje jego treść i treść jego rodziców
+    """szablon D-32: dla każdego elementu z rekordem VER „pass” porównuje jego treść i treść jego rodziców
     z wersją z commita, który dodał rekord. Zwraca ostrzeżenia W5. Bez gita: brak ostrzeżeń."""
     def git(*args):
         return subprocess.run(["git", *args], cwd=m.root, capture_output=True)
@@ -127,9 +127,7 @@ def impact(m, parents_of):
                         t.extractall(d, filter="data")  # Python 3.8.17+, 3.10.12+, 3.11.4+
                     except TypeError:
                         t.extractall(d)
-                os.makedirs(os.path.join(d, "tools"), exist_ok=True)
-                shutil.copy(os.path.join(m.root, "tools", "id.toml"), os.path.join(d, "tools", "id.toml"))
-                old_models[commit] = M.Model(d).by_id
+                old_models[commit] = M.Model(d).by_id  # reguły z bieżących narzędzi, treść z commita
             old = old_models[commit]
             for ident in [item] + parents_of.get(item, []):
                 if ident in old and M.fingerprint(old[ident]) != M.fingerprint(m.by_id[ident]):
@@ -184,7 +182,7 @@ def main(output):
         if t.get("produces"):
             for x in m.products(e)[1]:
                 errors.append(f"E4 {e.id}: „{x}” w produces: nie jest kodem typu ani ID")
-        for x in [w.strip() for w in m.value(e, "runner").split(",") if w.strip()]:  # D-60
+        for x in [w.strip() for w in m.value(e, "runner").split(",") if w.strip()]:  # szablon D-60
             path, sep, case_name = x.partition("::")
             if not sep or not case_name.strip() or not os.path.isfile(os.path.join(m.root, path)):
                 errors.append(f"E4 {e.id}: runner „{x}” nie wskazuje istniejącego pliku z przypadkiem (plik::przypadek)")
@@ -275,7 +273,7 @@ def main(output):
     active_types = [k for k, t in types.items() if t["active"]]
     counts_line = " · ".join(f"{k} {sum(1 for e in m.elements if e.type == k)}" for k in active_types)
     out = ["# Macierz śladu", "",
-           "Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).", "",
+           "Plik generowany przez process/tools/trace.py według process/tools/id.toml; nie edytuj ręcznie (P-04).", "",
            f"Elementy: {counts_line or 'brak'}", "",
            f"Błędy: {len(errors)} · ostrzeżenia: {len(warnings)}", "",
            "## W górę: element → rodzice", "",
@@ -312,7 +310,7 @@ def main(output):
         out.append(f"| {wp} | {where} | — |")
     if errors or warnings:
         out += ["", "## Błędy i ostrzeżenia", ""] + [f"- {x}" for x in errors + warnings]
-    with open(os.path.join(m.root, output) if not os.path.isabs(output) else output, "w", encoding="utf-8") as f:
+    with open(M.output_path(m.root, output), "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
 
     screen_only += impact(m, parents_of)
@@ -323,4 +321,4 @@ def main(output):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else "trace.md"))
+    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else os.path.join("reports", "trace.md")))
