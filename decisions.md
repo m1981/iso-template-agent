@@ -24,6 +24,29 @@ Format:
 - proposal: A
 - notes: (1) katalog testów jako plik Gherkin spec/tests/process-kit.feature zamiast catalog.md: typ AT zostaje jednym formatem; (2) pliki warstwy procesu (spec/, project/plan.md, reports/, reference/golden/) od razu w docelowych miejscach; do przeniesienia ślad liczy przejściowy tools/process_kit_view.py (make process-kit), a reports/ nie sprawdza pre-commit; (3) check_refs.py pomija rejestr decyzji, doc/, reference/, archive/, pliki generowane, .gitignore i kod testów; sama nazwa pliku wystarcza, gdy taki plik istnieje; 16 wyjątków z powodem w tools/check_refs.allow; (4) check_leak.py pomija D-nn i Q-nn (decyzje szablonu, D-56) i kod testów; ID wymagań liczy tylko w obszarach, które projekt ma; wyjątek dla przykładowej mapy modułu nawigacji (2 pliki, test używa jej jako danych); lista plików procesu w Makefile do przeniesienia; (5) termin kamienia „Wydanie v1.0.0”: 2026-11-30; (6) poprawione przykłady z konkretnymi ID na „nn” w roles/verifier.md i komentarzu tools/model.py; (7) złoty wzorzec ze stałym rejestrem z jedną decyzją, żeby nie zależał od rejestru szablonu; (8) bez testu zostają LAY-01, LAY-02, MIG-01, MIG-02 (powstaną z przeniesieniem i migracjami) oraz ręczne TRC-01 i LNG-01 do przeglądu
 
+### D-67 Gdzie trzymać dwa pliki Użytkownika
+- status: open
+- options: A) propozycja do doc/ (po przeniesieniu reference/) jako materiał wejściowy, z tematem w kolejce (Q-12); eksport strony ISO zostaje poza gitem, bo źródłem jest iso-map.html · B) oba pliki do doc/ · C) oba poza gitem
+- proposal: A
+- notes: na laptopie propozycja jest dodana do indeksu w katalogu głównym; check_refs.py zgłasza w niej przyszłe katalogi (practices/, evidence/, src/), a w doc/ ich nie sprawdza
+
+### D-68 Miejsce pakietów praktyk w układzie po przeniesieniu
+- status: open
+- options: A) zarezerwować w mapie (doc/layout-map.md) process/practices/ na pakiety praktyk (wzorowane na załączniku E) i evidence/ w projekcie na dowody; bez treści, tylko miejsce, żeby nie przenosić drugi raz · B) nie rezerwować; wrócić po przeniesieniu
+- proposal: A
+- notes: z propozycji Użytkownika (D-66), sekcje 7 i 9; propozycja zakłada płaski układ, bo nie zna D-42 i D-54
+
+### D-69 Na czym działa pre-commit: katalog roboczy czy indeks
+- status: open
+- options: A) kontrole śladu i aktualności w pre-commit czytają zawartość indeksu (to, co wchodzi do commita), jak już robi check_separation.py; test z częściowo dodanymi zmianami · B) zostaje katalog roboczy, a ograniczenie zapisane w AGENTS.md
+- proposal: A
+- notes: z propozycji Użytkownika (D-66), sekcja 10: dziś trace.py, progress.py i iso_map.py w pre-commit czytają katalog roboczy, więc commit z częściowo dodanymi zmianami może przejść kontrolę na plikach, których nie zawiera
+
+### D-70 Commit 7779435 bez ID w opisie
+- status: open
+- options: A) zostawić i zapisać tutaj jako znany wyjątek: przepisanie wymagałoby zmiany 8 opublikowanych commitów (7779435 i 7 kolejnych) i wymuszonego pushu, a jedyne naruszenie to brak ID w opisie (ślad i pliki generowane były aktualne) · B) przepisać historię i wymusić push (wszystkie klony trzeba potem wyrównać)
+- proposal: A
+
 ## W kolejce
 
 ### Q-01 Strona „ISO 29110 a nasz model śladu” po rozszerzeniu
@@ -59,7 +82,26 @@ Format:
 ### Q-11 Stan projektu wobec aktualizacji (active, frozen, retired)
 - notes: z dokumentu Użytkownika o copierze (2026-10-19); bramka aktualizacji odmawia dla frozen i retired. Wróć, gdy z szablonu korzysta więcej niż jeden projekt albo gdy któryś projekt ma przestać przyjmować aktualizacje
 
+### Q-12 Propozycja: warstwy kontekstu i pakiety praktyk
+- notes: plik Użytkownika PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md (D-66). Tematy poza D-68 i D-69: krótszy AGENTS.md i ładowanie kontekstu według zadania (K0–K6); minimalny start z profilem ryzyka i definicją ukończenia; zakres szablonu: sama specyfikacja czy cały cykl z kodem i TDD; rejestr aktywacji pakietów praktyk (available, proposed, pilot, active…); pomiar wartości praktyk (słuszna uwaga: kryterium 1 pilota Q-03 jest nierozstrzygające); strona ISO rozdzielająca wsparcie przez szablon, zastosowanie w projekcie, wykonanie i ocenę zgodności; zmiana kontraktu (co agent rozstrzyga sam, commit na spójną zmianę zamiast na odpowiedź). Wróć po wydaniu v1.0.0 albo wcześniej, gdy któryś temat zablokuje pilota
+
 ## Rozstrzygnięte
+
+### D-66 Dwa nowe pliki Użytkownika na laptopie
+- status: resolved
+- options: A) do repozytorium jako materiały wejściowe · B) zostają poza gitem · C) najpierw przeczytać i ocenić wpływ na szablon, miejsce później
+- proposal: C
+- choice: C — przeczytane 2026-10-22; miejsce przechowania: D-67
+- date: 2026-10-22
+- notes: PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md (propozycja z 2026-10-22, napisana na stanie 7779435, bez wiedzy o D-41…D-64): warstwy kontekstu K0–K6, minimalny start (Day 1), pakiety praktyk wzorowane na załączniku E z rejestrem aktywacji, pomiar wartości praktyk, podział odpowiedzialności człowiek–agent, kontrole wiązane z wersją wejść. „ISO 29110 a nasz model śladu.md”: eksport opublikowanej strony z 2026-10-19, kopia tego, co generuje iso-map.html
+
+### D-65 Który folder na laptopie jest roboczy
+- status: resolved
+- options: A) iso-template-agent: aktualizacja do GitHuba przez fast-forward, hooki, tagi; ai-sldc-template zostaje jako archiwum · B) ai-sldc-template · C) nic nie ruszać
+- proposal: A
+- choice: A — iso-template-agent zaktualizowany do 11ddded (drzewo zgodne z GitHubem, git fsck bez błędów), make hooks, tagi pobrane; pliki Użytkownika nietknięte; make check, make test (60 przypadków) i make golden przechodzą na Pythonie 3.10; test dystrybucji: nie uruchomiono (brak copiera na laptopie)
+- date: 2026-10-22
+- notes: pierwsza próba aktualizacji się nie udała, bo folder nie pozwalał usuwać plików (git podmienia pliki przez usunięcie): zostały index.lock i 49 nieśledzonych kopii plików z GitHuba. Po zgodzie Użytkownika na usuwanie usunięte tylko pliki sprawdzone jako identyczne z GitHubem i pliki tymczasowe tej próby. Commit 7779435 (zapis sesji GTD) nie ma ID w opisie, bo powstał bez hooków: D-70
 
 ### D-63 Kryteria odbioru wydania v1.0.0
 - status: resolved

@@ -2,7 +2,7 @@
 
 Plik generowany przez tools/trace.py według tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: SC 0 · IO 0 · D 64 · Q 11 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 1 · VAL 0 · ACC 0
+Elementy: SC 0 · IO 0 · D 70 · Q 12 · DP 0 · G 0 · UC 0 · REQ 0 · OBJ 0 · MS 0 · TSK 0 · PRK 0 · COR 0 · VER 1 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 0
 
@@ -17,6 +17,12 @@ Błędy: 0 · ostrzeżenia: 0
 | Element | Typ | Dzieci |
 | --- | --- | --- |
 | D-64 | D | — |
+| D-67 | D | — |
+| D-68 | D | — |
+| D-69 | D | — |
+| D-70 | D | — |
+| D-66 | D | — |
+| D-65 | D | — |
 | D-63 | D | — |
 | D-62 | D | — |
 | D-61 | D | — |
@@ -105,7 +111,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | --- | --- | --- |
 | WP.02 | SC Scenka użytkownika | 0 |
 | WP.02 | IO Pozycja zakresu In/Out | 0 |
-| WP.03, WP.07 | D Decyzja | 64 |
+| WP.03, WP.07 | D Decyzja | 70 |
 | WP.13 | G Pojęcie słownika | 0 |
 | WP.13 | UC Przypadek użycia | 0 |
 | WP.13 | REQ Wymaganie EARS | 0 |
