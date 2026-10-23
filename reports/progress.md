@@ -2,7 +2,7 @@
 
 Plik generowany przez process/tools/progress.py z project/plan.md, rekordów, stanów produktów i tagów git; nie edytuj ręcznie (ISO/IEC 29110 WP.09).
 
-Zadania: 10 · planned 5 · in_progress 1 · completed 4
+Zadania: 11 · planned 5 · in_progress 1 · completed 5
 
 ## Kamienie milowe
 
@@ -24,6 +24,7 @@ Zadania: 10 · planned 5 · in_progress 1 · completed 4
 | TSK-08 Pilot: gtd2 z szablonu przez copier i migracja nazw z D-17 | MS-01 | planned | — | — | VAL | brak elementów |
 | TSK-09 Próbne wydanie v1.0.1 i aktualizacja gtd2 przez bramkę | MS-01 | planned | — | — | VER | brak elementów |
 | TSK-10 Niezależny przegląd plików procesu w sesji weryfikatora | MS-01 | planned | — | — | VER | brak elementów |
+| TSK-11 Naprawa interpretacji wyniku runnera i widoczności W5 | MS-01 | completed | — | 2026-10-23 | TST-02, TRC-13 | initiated 2 |
 
 ## Ryzyka projektu
 
@@ -51,3 +52,4 @@ Zadania: 10 · planned 5 · in_progress 1 · completed 4
 | --- | --- |
 | MS-01 Wydanie v1.0.0 | AC-1 każde wymaganie szablonu ma co najmniej jeden test, który przechodzi (raport testów i trace.md bez wymagań bez testu) · AC-2 make test i make test-distribution przechodzą na Linuksie (Python 3.13) i na Macu (Python 3.10) · AC-3 każdą kontrolę bramek łapie test po jej wyłączeniu (lista mutantów w rekordzie VER) · AC-4 przeniesienie: złoty wzorzec identyczny, niezmienniki spełnione, check_refs.py bez błędów (rekord VER) · AC-5 gtd2 założony przez copier, migracja nazw z D-17 zakończona, make check czyste, migrated_to ustawione (rekord VAL Użytkownika) · AC-6 próbne wydanie v1.0.1 dochodzi do gtd2 przez bramkę bez zmiany plików projektu (rekord VER) · AC-7 nowy projekt od pustego katalogu do pierwszego baseline'u według README bez pytań o kontekst spoza repozytorium (rekord VAL Użytkownika) · AC-8 brak przecieku domeny: check_leak.py przechodzi w gtd2, przegląd rejestru szablonu według listy TPL (rekord VER) · AC-9 restore-check przechodzi, a tag v1.0.0 stoi na przetestowanym commicie (rekord VER) |
 | TSK-05 Przeniesienie na trzy warstwy według mapy (D-54) | K-1 każdy śledzony plik jest tam, gdzie wskazuje reference/layout-map.md, i nic nie leży poza mapą (skrypt pokrycia przed i po) · K-2 nic nie zginęło: liczba plików po równa liczbie przed powiększonej o nowe pliki z części 4 mapy, wycofane narzędzia w archive/ · K-3 treść przeniesionych dokumentów bajt w bajt taka sama poza zmianami ścieżek wypisanymi w mapie · K-4 git log --follow każdego pliku sięga sprzed przeniesienia · K-5 make golden bez różnic po usunięciu prefiksów katalogów · K-6 ślad warstwy procesu liczony wprost: 0 błędów i tyle samo elementów co w widoku przed przeniesieniem, process_kit_view.py w archive/ · K-7 na prawdziwym template/: copier copy, init.py, make check i pierwszy commit przez hooki; aktualizacja do próbnej wersji nie zmienia plików projektu · K-8 LAY-01 i LAY-02 mają testy automatyczne, które przechodzą · K-9 w template/ nie ma plików warstwy procesu, a check_leak.py przechodzi na template/process/ · K-10 zbędne wyjątki check_refs usunięte, check_refs bez błędów · K-11 K-1…K-10 na Linuksie (Python 3.13) i na Macu (Python 3.10) |
+| TSK-11 Naprawa interpretacji wyniku runnera i widoczności W5 | testy odtwarzają oba defekty przed poprawką; runner kończący się niezerowym kodem nie daje pass; W5 z indeksu jest widoczne i nie blokuje hooka; wyniki regresji i odtworzenie zapisane w repozytorium |

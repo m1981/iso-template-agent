@@ -29,6 +29,8 @@ if ! in_snap "$tools/trace.py" "$snap/.trace.out" > "$snap/.trace.log"; then
   echo "pre-commit: ślad ma błędy (powyżej, w zawartości przygotowanej do commita). Popraw artefakty albo id.toml."
   exit 1
 fi
+# W5 jest informacją o możliwej nieaktualności weryfikacji, nie blokadą commita.
+grep '^W5 ' "$snap/.trace.log" || :
 if ! cmp -s "$snap/.trace.out" "$snap/reports/trace.md"; then
   echo "pre-commit: reports/trace.md w commicie jest nieaktualny. Uruchom: make trace i dodaj plik do commita."
   exit 1

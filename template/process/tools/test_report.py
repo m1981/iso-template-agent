@@ -2,8 +2,9 @@
 
 Zbiera testy AT z polem `runner: plik::przypadek[, plik::przypadek…]`, uruchamia każdy wskazany plik
 raz i czyta z jego wyjścia wiersze `CASE <przypadek>: pass|fail`. Test AT przechodzi tylko wtedy,
-gdy przeszły wszystkie jego przypadki. Przypadek, którego plik nie wypisał, jest porażką
-(„brak przypadku”); plik zakończony kodem 2 to „nie uruchomiono” (np. brak copiera), nie sukces.
+gdy przeszły wszystkie jego przypadki i każdy ich runner zakończył się kodem 0.
+Przypadek, którego plik nie wypisał, jest porażką („brak przypadku”); przy kodzie 2
+brak przypadku oznacza „nie uruchomiono” (np. brak copiera), nie sukces.
 Testy AT bez runner: są ręczne: raport je wypisuje, ale ich nie ocenia.
 
 Użycie: python3 process/tools/test_report.py [plik_wyjściowy=reports/test-report.md] [--root KATALOG] [--scripts-root KATALOG]
@@ -66,6 +67,8 @@ def main(argv):
                 problems.append(f"{x}: brak pliku")
             elif rc == 2 and case not in cases:
                 problems.append(f"{x}: nie uruchomiono")
+            elif rc != 0:
+                problems.append(f"{x}: kod wyjścia {rc}")
             elif case not in cases:
                 problems.append(f"{x}: brak przypadku")
             elif cases[case] != "pass":

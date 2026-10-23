@@ -105,12 +105,14 @@ Feature: Szablon procesu (Process kit)
 
   @AT-12
   # verifies: TRC-13
-  # runner: template/process/tools/test_tools.py::w5
+  # runner: template/process/tools/test_tools.py::w5, template/process/tools/test_tools.py::precommit-w5
   # status: initiated
   Scenario: Zmiana rodzica po weryfikacji
     Given przypadek użycia zweryfikowany rekordem VER pass i późniejsza zmiana treści jego scenki
     When trace.py sprawdza ślad
     Then wynik ma ostrzeżenie W5 dla przypadku użycia, a sama zmiana stanu scenki go nie daje
+    And pre-commit pokazuje W5 dla zmiany w indeksie i kończy się kodem 0
+    And zmiana tylko w katalogu roboczym nie powoduje W5 w pre-commit
 
   @AT-13
   # verifies: TRC-14
@@ -438,12 +440,14 @@ Feature: Szablon procesu (Process kit)
 
   @AT-49
   # verifies: TST-02
-  # runner: template/process/tools/test_tools.py::test-report
+  # runner: template/process/tools/test_tools.py::test-report, template/process/tools/test_tools.py::test-report-exit-0, template/process/tools/test_tools.py::test-report-exit-1, template/process/tools/test_tools.py::test-report-exit-2, template/process/tools/test_tools.py::test-report-exit-7
   # status: initiated
   Scenario: Raport testów
     Given testy z przypadkiem pass, fail, brakującym, z kodem 2 i test ręczny
     When test_report.py tworzy raport
     Then tylko test z samymi przypadkami pass ma wynik pass, a raport kończy się kodem 1
+    And osobny runner wypisujący CASE pass daje pass tylko przy kodzie wyjścia 0
+    And przy kodzie wyjścia 1, 2 lub 7 jego AT ma fail z przyczyną, a raport kończy się kodem 1
 
   @AT-52
   # verifies: TRC-18

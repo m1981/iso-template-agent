@@ -94,8 +94,8 @@ Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN pl
 
 ### TRC-13
 - pattern: event
-- text: When an Element or its Parent changed after the Commit that added its last passing Verification Record, Process kit shall report a warning.
-- source: D-32, D-39
+- text: When an Element or its Parent changed after the Commit that added its last passing Verification Record, Process kit shall report a nonblocking warning in the trace check and pre-commit output.
+- source: D-32, D-39, D-76
 - quality: functional
 - status: initiated
 
@@ -421,8 +421,8 @@ Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN pl
 
 ### TST-02
 - pattern: event
-- text: When the test report runs, Process kit shall mark an Acceptance Test as passed only if every case it names passed.
-- source: D-60
+- text: When the test report runs, Process kit shall mark an Acceptance Test as passed only if every case it names passed and every runner it uses exited with code 0.
+- source: D-60, D-76
 - quality: reliability
 - status: initiated
 

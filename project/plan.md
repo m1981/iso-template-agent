@@ -89,6 +89,14 @@ Użytkownik (klient, decyzje kierownika projektu, walidacja i odbiór); sesja au
 - produces: VER
 - status: planned
 
+### TSK-11 Naprawa interpretacji wyniku runnera i widoczności W5
+- milestone: MS-01
+- produces: TST-02, TRC-13
+- status: completed
+- completed: 2026-10-23
+- acceptance_criteria: testy odtwarzają oba defekty przed poprawką; runner kończący się niezerowym kodem nie daje pass; W5 z indeksu jest widoczne i nie blokuje hooka; wyniki regresji i odtworzenie zapisane w repozytorium
+- notes: D-76; RED przed implementacją, GREEN 67/67, dystrybucja 18/18, złoty wzorzec bez różnic; historyczny test przeniesienia nadal nie przechodzi k-1 i k-3 (także na czystym HEAD). Dowody i odtworzenie: reference/tdd/control-results/report.txt. Bez commita, manifestów wejść i mechanizmu zgód.
+
 ## Ryzyka projektu
 
 ### PRK-01 Przeniesienie gubi zależność, której nie widać w testach

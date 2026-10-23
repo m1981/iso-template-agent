@@ -1,0 +1,125 @@
+Naprawa dwóch defektów kontroli — D-76, 2026-10-23
+
+Zakres: interpretacja kodu zakończenia runnera oraz widoczność W5 w pre-commit.
+Bez commita, manifestów wejść, mechanizmu zgód i zmian w Kitchen CAD/CAM.
+Punkt wyjścia: HEAD f24d5ed; katalog roboczy zawierał wcześniejsze zmiany
+Użytkownika w materiałach reference/repository-evolution/ i osobny dokument ISO.
+Środowisko wykonania: macOS arm64, Python 3.14.6, git 2.47.1.
+Test dystrybucji: Copier 9.19.1 w izolowanym środowisku uv (systemowy: 9.17.1).
+
+1. Defekty i poprawki
+
+A. Runner wypisuje CASE a: pass, po czym kończy się kodem 1, 2 albo 7.
+Przed poprawką test_report.py wpisywał AT-01 = pass i zwracał 0; tabela przebiegów
+jednocześnie pokazywała niezerowy kod runnera. Po poprawce AT-01 = fail,
+przyczyna zawiera kod wyjścia, a raport zwraca 1. Kod 0 nadal daje pass.
+Zachowano dotychczasową informację „nie uruchomiono” dla kodu 2 bez przypadku.
+Zmiana: template/process/tools/test_report.py, warunek oceny runnera.
+Testy: test-report-exit-0, test-report-exit-1, test-report-exit-2,
+test-report-exit-7; powiązanie: TST-02 / AT-49.
+
+B. trace.py wykrywa zmianę rodzica po weryfikacji, ale pre-commit ukrywa W5
+w przechwyconym logu. Po poprawce hook wypisuje W5 i nadal zwraca 0.
+Test precommit-w5 sprawdza zarówno zmianę wyłącznie poza indeksem (bez W5),
+jak i zmianę wyłącznie w indeksie (W5 widoczne, hook nie blokuje).
+Zmiana: template/process/hooks/pre-commit, wypisanie W5 po udanej kontroli śladu.
+Powiązanie: TRC-13 / AT-12. W5 nie dowodzi nieaktualności całego wyniku ani
+nie unieważnia automatycznie weryfikacji; nadal jest wskazówką do przeglądu.
+
+Oba przypadki dołączono do istniejącego test_tools.py. Nie zmieniono formatu
+dokumentów ani wymaganych pól, dlatego nie ma migracji istniejących dokumentów.
+Nie utworzono rekordu niezależnej weryfikacji, walidacji ani odbioru Użytkownika.
+
+2. Rzeczywiście wykonane RED/GREEN
+
+Najpierw dodano testy, uruchomiono je na niezmienionym kodzie produkcyjnym,
+dopiero potem poprawiono test_report.py i pre-commit.
+
+red.log: make test, kod make 2 (test_tools.py: 1).
+  63 CASE pass, 4 CASE fail: precommit-w5 oraz test-report-exit-1, -2, -7.
+  7 komunikatów asercji: jedna dla W5 i po dwie dla każdego błędnego runnera.
+  test-report-exit-0 przechodził już w RED.
+green.log: make test, kod 0; 67 CASE pass, 0 fail.
+
+Logi są surowym wyjściem poleceń, a nie przykładami dydaktycznymi.
+fix.patch zawiera wyłącznie poprawkę kodu produkcyjnego i jego opisu;
+umożliwia cofnięcie poprawki w kopii bez usuwania testów regresyjnych.
+
+3. Odtworzenie bez dawnych katalogów tymczasowych
+
+Z katalogu głównego repozytorium uruchom poniższy Python. Wymaga tylko Python 3,
+git i make. Tworzy własną kopię pakietu w nowym katalogu tymczasowym; źródłowego
+repozytorium nie modyfikuje. Nie potrzebuje żadnego zachowanego pliku spoza repo.
+Oczekiwane wyniki: RED — cztery wskazane CASE fail, kod make 2;
+GREEN — wszystkie 67 CASE pass, kod 0. Kod drukuje pełne logi obu przebiegów.
+Instrukcję poniżej rzeczywiście wykonano po zapisaniu: reproduction.log
+potwierdza ponownie RED (te same cztery przypadki, kod 2) i GREEN (67/67, kod 0).
+
+python3 - <<'PY'
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+
+source = Path.cwd()
+temp_base = os.path.realpath(tempfile.gettempdir())
+with tempfile.TemporaryDirectory(dir=temp_base) as directory:
+    copy = Path(directory)
+    shutil.copytree(source / 'template/process', copy / 'template/process')
+    shutil.copy2(source / 'Makefile', copy / 'Makefile')
+    patch = source / 'reference/tdd/control-results/fix.patch'
+    env = dict(os.environ, TMPDIR=temp_base)
+    for phase, flags, expected in [('RED', ['--reverse'], 2), ('GREEN', [], 0)]:
+        subprocess.run(['git', 'apply', *flags, str(patch)], cwd=copy, check=True)
+        result = subprocess.run(['make', 'test'], cwd=copy, env=env,
+                                capture_output=True, text=True)
+        print(phase, 'exit:', result.returncode, flush=True)
+        print(result.stdout + result.stderr, flush=True)
+        assert result.returncode == expected
+PY
+
+Kanoniczna ścieżka katalogu tymczasowego omija istniejącą zależność testu
+restore-check od różnicy między ścieżką z dowiązaniem a rzeczywistą na macOS.
+To ustawienie środowiska, nie naprawa trzeciego defektu. Pierwotny RED używał
+TMPDIR=/private/tmp; dowód jest w red.log, a odtworzenie nie wymaga tej ścieżki.
+
+4. Regresja
+
+Wyniki i polecenia (uruchamiane z katalogu głównego repozytorium):
+- green.log: make test — 67/67 CASE pass, kod 0.
+- golden.log: make golden — 31 plików wzorca, 0 różnic, kod 0.
+- distribution.log: uv run --offline --no-project --with copier==9.19.1
+  make test-distribution — 18/18 CASE pass, kod 0.
+  Przed przebiegiem pobrano tę wersję przez uv run --no-project
+  --with copier==9.19.1 copier --version. Nie zmieniano systemowego Copiera.
+  Sandbox odmówił dostępu do cache uv; test powtórzono z przyznanym dostępem.
+- move.log: make test-move — 7/9 CASE pass, k-1 i k-3 fail, kod make 2.
+  k-1: istniejące materiały reference nie występują w historycznej mapie.
+  k-3: wcześniejsza zmiana dokumentu propozycji względem bazy przeniesienia
+  oraz niezacommitowane zmiany, których ten historyczny test nie dopuszcza.
+  move-baseline.log: ten sam test na czystym lokalnym klonie HEAD sprzed
+  poprawek: również 7/9, k-1 i k-3 fail, kod make 2. W tym przebiegu nie ma
+  komunikatów o niezacommitowanych zmianach; pozostałe błędy są takie same.
+- check.log: make check — kod 0, ślad 242 elementy / 0 błędów;
+  dwa istniejące ostrzeżenia W1 (MIG-01 i MIG-02 bez testów AT).
+  Kontrole odwołań i przecieku domeny: 0 błędów.
+- git diff --check — kod 0.
+
+Dla make test i test-distribution ustawiono TMPDIR na realpath domyślnego
+katalogu tymczasowego (jak w instrukcji powyżej). Testy tworzyły własne lokalne
+repozytoria; nie commitowano, nie tagowano i nie wysyłano zmian tego repozytorium.
+Nie deklarujemy pełnego zielonego test-all przy niepowodzeniu test-move.
+
+5. Przygotowanie commita na późniejsze polecenie Użytkownika
+
+D-80 zezwala na commit wcześniej przygotowanych zmian. Przed commitem
+powtórzono make test (67/67) i test-distribution z Copierem 9.19.1 (18/18).
+Pierwsza próba dystrybucji zgłosiła isolation fail, ponieważ agent zmienił
+indeks przez git add w trakcie jej działania. Powtórzenie bez równoległych
+zmian repozytorium zakończyło się kodem 0, włącznie z isolation.
+
+Kontrola git diff --cached --check po dodaniu plików wskazuje białe znaki
+w surowym check.log, kontekście fix.patch i końcowy pusty wiersz reproduction.log.
+Zachowano format oryginalnych logów i odtwarzalnej łatki. Wcześniejszy wynik
+git diff --check dotyczył śledzonych zmian przed dodaniem tych nowych plików.

@@ -1,0 +1,38 @@
+diff --git a/template/process/hooks/pre-commit b/template/process/hooks/pre-commit
+index 13ee214..40a1c46 100755
+--- a/template/process/hooks/pre-commit
++++ b/template/process/hooks/pre-commit
+@@ -29,6 +29,8 @@ if ! in_snap "$tools/trace.py" "$snap/.trace.out" > "$snap/.trace.log"; then
+   echo "pre-commit: ślad ma błędy (powyżej, w zawartości przygotowanej do commita). Popraw artefakty albo id.toml."
+   exit 1
+ fi
++# W5 jest informacją o możliwej nieaktualności weryfikacji, nie blokadą commita.
++grep '^W5 ' "$snap/.trace.log" || :
+ if ! cmp -s "$snap/.trace.out" "$snap/reports/trace.md"; then
+   echo "pre-commit: reports/trace.md w commicie jest nieaktualny. Uruchom: make trace i dodaj plik do commita."
+   exit 1
+diff --git a/template/process/tools/test_report.py b/template/process/tools/test_report.py
+index cb4718a..13e2eae 100644
+--- a/template/process/tools/test_report.py
++++ b/template/process/tools/test_report.py
+@@ -2,8 +2,9 @@
+ 
+ Zbiera testy AT z polem `runner: plik::przypadek[, plik::przypadek…]`, uruchamia każdy wskazany plik
+ raz i czyta z jego wyjścia wiersze `CASE <przypadek>: pass|fail`. Test AT przechodzi tylko wtedy,
+-gdy przeszły wszystkie jego przypadki. Przypadek, którego plik nie wypisał, jest porażką
+-(„brak przypadku”); plik zakończony kodem 2 to „nie uruchomiono” (np. brak copiera), nie sukces.
++gdy przeszły wszystkie jego przypadki i każdy ich runner zakończył się kodem 0.
++Przypadek, którego plik nie wypisał, jest porażką („brak przypadku”); przy kodzie 2
++brak przypadku oznacza „nie uruchomiono” (np. brak copiera), nie sukces.
+ Testy AT bez runner: są ręczne: raport je wypisuje, ale ich nie ocenia.
+ 
+ Użycie: python3 process/tools/test_report.py [plik_wyjściowy=reports/test-report.md] [--root KATALOG] [--scripts-root KATALOG]
+@@ -66,6 +67,8 @@ def main(argv):
+                 problems.append(f"{x}: brak pliku")
+             elif rc == 2 and case not in cases:
+                 problems.append(f"{x}: nie uruchomiono")
++            elif rc != 0:
++                problems.append(f"{x}: kod wyjścia {rc}")
+             elif case not in cases:
+                 problems.append(f"{x}: brak przypadku")
+             elif cases[case] != "pass":

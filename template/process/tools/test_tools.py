@@ -324,6 +324,21 @@ def main():
         r = run_py(tmpdir, "process/tools/trace.py", "/dev/null")
         if "W5 UC-01: rodzic SC-01 zmienił się po weryfikacji VER-01" not in r.stdout:
             failures.append("zmiana rodzica po weryfikacji nie dała W5:\n" + r.stdout)
+        failures.case("precommit-w5")
+        # Ostrzeżenie musi być widoczne i nieblokujące; źródłem jest indeks, nie katalog roboczy.
+        def precommit():
+            return subprocess.run(["sh", "process/hooks/pre-commit"], cwd=tmpdir,
+                                  capture_output=True, text=True, env=env_for(tmpdir))
+        r = precommit()  # zmiana rodzica tylko w katalogu roboczym
+        if r.returncode != 0 or "W5 UC-01" in r.stdout + r.stderr:
+            failures.append("hook przypisał zmianę spoza indeksu do commita:\n" + r.stdout + r.stderr)
+        git("add", "spec/scenarios.md")
+        open(scen, "w", encoding="utf-8").write(original)  # zmiana tylko w indeksie
+        r = precommit()
+        expected = "W5 UC-01: rodzic SC-01 zmienił się po weryfikacji VER-01"
+        if r.returncode != 0 or expected not in r.stdout + r.stderr:
+            failures.append(f"hook ukrywa W5 albo blokuje nim commit (kod {r.returncode}):\n" + r.stdout + r.stderr)
+        git("reset", "-q", "HEAD", "--", "spec/scenarios.md")
         open(scen, "w", encoding="utf-8").write(original)
         failures.case("restore-check")
         # D-35: odtworzenie z kopii (lokalny bare jako origin)
@@ -448,6 +463,26 @@ def main():
                 failures.append(f"raport testów nie zawiera: {expected}\n{report}")
         if r.returncode != 1:
             failures.append(f"raport testów z porażkami zakończył się kodem {r.returncode}")
+
+    # Nawet wypisane CASE pass nie zastępuje poprawnego zakończenia całego runnera.
+    for exit_code in (0, 1, 2, 7):
+        failures.case(f"test-report-exit-{exit_code}")
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prepare(tmpdir)
+            runner = os.path.join(tmpdir, "runner.py")
+            with open(runner, "w", encoding="utf-8") as f:
+                f.write(f'print("CASE a: pass")\nraise SystemExit({exit_code})\n')
+            capture = os.path.join(tmpdir, "spec", "tests", "capture.feature")
+            text = open(capture, encoding="utf-8").read()
+            open(capture, "w", encoding="utf-8").write(text.replace("process/tools/test_tools.py::chain", "runner.py::a"))
+            r = run_py(tmpdir, "process/tools/test_report.py", "report.md")
+            report = open(os.path.join(tmpdir, "report.md"), encoding="utf-8").read()
+            expected_rc, expected_result = (0, "pass") if exit_code == 0 else (1, "fail")
+            if r.returncode != expected_rc or f"| AT-01 | CAP-01 | {expected_result} |" not in report:
+                failures.append(f"runner z CASE pass i kodem {exit_code}: oczekiwano {expected_result}, "
+                                f"kod {expected_rc}; raport zwrócił {r.returncode}\n{report}")
+            if exit_code and f"kod wyjścia {exit_code}" not in report:
+                failures.append(f"raport nie wyjaśnia błędu runnera: kod wyjścia {exit_code}")
 
     # D-61: odwołania do ścieżek; brak pliku, sama nazwa pliku, wzorzec, wyjątek z powodem i zbędny wyjątek
     failures.case("refs")

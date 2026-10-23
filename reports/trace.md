@@ -2,7 +2,7 @@
 
 Plik generowany przez process/tools/trace.py według process/tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: D 75 · Q 12 · G 26 · REQ 57 · AT 55 · OBJ 1 · MS 1 · TSK 10 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
+Elementy: D 80 · Q 12 · G 26 · REQ 57 · AT 55 · OBJ 1 · MS 1 · TSK 11 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 2
 
@@ -48,7 +48,7 @@ Błędy: 0 · ostrzeżenia: 2
 | TRC-10 | REQ | D-06, D-09 |
 | TRC-11 | REQ | D-21 |
 | TRC-12 | REQ | D-15 |
-| TRC-13 | REQ | D-32, D-39 |
+| TRC-13 | REQ | D-32, D-39, D-76 |
 | TRC-14 | REQ | D-26 |
 | TRC-15 | REQ | D-26 |
 | TRC-16 | REQ | D-26 |
@@ -91,7 +91,7 @@ Błędy: 0 · ostrzeżenia: 2
 | LEK-01 | REQ | D-57, D-62 |
 | LEK-02 | REQ | D-57, D-62 |
 | TST-01 | REQ | D-60 |
-| TST-02 | REQ | D-60 |
+| TST-02 | REQ | D-60, D-76 |
 | LNG-01 | REQ | D-17, D-18, D-20 |
 | AT-01 | AT | TRC-02 |
 | AT-02 | AT | TRC-03 |
@@ -159,6 +159,7 @@ Błędy: 0 · ostrzeżenia: 2
 | TSK-08 | TSK | MS-01 |
 | TSK-09 | TSK | MS-01 |
 | TSK-10 | TSK | MS-01 |
+| TSK-11 | TSK | MS-01 |
 | PRK-01 | PRK | TSK-05 |
 | PRK-02 | PRK | TSK-08 |
 | VER-01 | VER | — |
@@ -167,8 +168,13 @@ Błędy: 0 · ostrzeżenia: 2
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
+| D-79 | D | — |
 | D-74 | D | — |
 | D-75 | D | — |
+| D-80 | D | — |
+| D-78 | D | — |
+| D-77 | D | — |
+| D-76 | D | TRC-13, TST-02 |
 | D-73 | D | — |
 | D-72 | D | — |
 | D-71 | D | — |
@@ -300,7 +306,7 @@ Błędy: 0 · ostrzeżenia: 2
 | TST-02 | REQ | AT-49 |
 | LNG-01 | REQ | AT-51 |
 | OBJ-01 | OBJ | MS-01 |
-| MS-01 | MS | TSK-01, TSK-02, TSK-03, TSK-04, TSK-05, TSK-06, TSK-07, TSK-08, TSK-09, TSK-10 |
+| MS-01 | MS | TSK-01, TSK-02, TSK-03, TSK-04, TSK-05, TSK-06, TSK-07, TSK-08, TSK-09, TSK-10, TSK-11 |
 | TSK-05 | TSK | PRK-01 |
 | TSK-08 | TSK | PRK-02 |
 | VER-01 | VER | — |
@@ -319,6 +325,7 @@ Błędy: 0 · ostrzeżenia: 2
 | TSK-08 | VAL | — |
 | TSK-09 | VER | VER-01 |
 | TSK-10 | VER | VER-01 |
+| TSK-11 | TST-02, TRC-13 | TST-02, TRC-13 |
 
 ## Charakterystyki jakości (REQ, WP.13)
 
@@ -343,7 +350,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | --- | --- | --- |
 | WP.02 | SC Scenka użytkownika | nieaktywny |
 | WP.02 | IO Pozycja zakresu In/Out | nieaktywny |
-| WP.03, WP.07 | D Decyzja | 75 |
+| WP.03, WP.07 | D Decyzja | 80 |
 | WP.13 | G Pojęcie słownika | 26 |
 | WP.13 | UC Przypadek użycia | nieaktywny |
 | WP.13 | REQ Wymaganie EARS | 57 |
@@ -351,7 +358,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | WP.19 | AT Test akceptacyjny | 55 |
 | WP.10 | OBJ Cel projektu | 1 |
 | WP.10 | MS Kamień milowy | 1 |
-| WP.10 | TSK Zadanie | 10 |
+| WP.10 | TSK Zadanie | 11 |
 | WP.10 | PRK Ryzyko projektu | 2 |
 | WP.04 | COR Korekta | 0 |
 | WP.23 | VER Weryfikacja | 1 |

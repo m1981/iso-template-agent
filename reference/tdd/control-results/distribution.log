@@ -1,0 +1,41 @@
+python3 -B tests/test_distribution.py
+copy
+update
+missing
+repeat
+version
+markers
+binary
+conflict
+  copier zakończył się kodem 0 mimo konfliktu
+dirty
+tags
+  answers zapisał baseline-02-proces; bramka kod 1
+jump
+scope
+  README projektu zmieniony przez wydanie, bramka zgłosiła
+validation
+hooks
+real-copy
+real-layout
+real-update
+isolation
+CASE copy: pass
+CASE update: pass
+CASE missing: pass
+CASE repeat: pass
+CASE version: pass
+CASE markers: pass
+CASE binary: pass
+CASE conflict: pass
+CASE dirty: pass
+CASE tags: pass
+CASE jump: pass
+CASE scope: pass
+CASE validation: pass
+CASE hooks: pass
+CASE real-copy: pass
+CASE real-layout: pass
+CASE real-update: pass
+CASE isolation: pass
+test_distribution: copy, update, missing, repeat, version, markers, binary, conflict, dirty, tags, jump, scope, validation, hooks, real-copy, real-layout, real-update, isolation — OK

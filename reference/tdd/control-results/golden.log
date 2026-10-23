@@ -1,0 +1,2 @@
+python3 -B tests/golden_master.py compare reference/golden --strip spec/ --strip project/ --strip records/ --strip reports/ --strip process/
+golden_master: 31 plików wzorca, różnic 0

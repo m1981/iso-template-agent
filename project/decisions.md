@@ -18,6 +18,12 @@ Format:
 
 ## Otwarte
 
+### D-79 Pierwszy działający przyrost symulatora
+- status: open
+- options: A) zrealizować I1 według reference/process-simulator/increment-01.md · B) skorygować propozycję przed implementacją
+- proposal: A
+- notes: w bieżącej wiadomości D1; właściciel Użytkownik, następny krok: rozstrzygnięcie. I1 obejmuje pełną lekcję TextStats, nieudany test i korektę, trzy widoki oraz zapis i wznowienie; zmianę wymagania po GREEN i alternatywne gałęzie proponujemy na następny przyrost. Wymaga odpowiedzi, ponieważ określa zakres rozpoczęcia implementacji i kolejność realizacji; do tej pory zlecono dokumentację.
+
 ### D-74 Ustalenia z wykonania przeniesienia
 - status: open
 - options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
@@ -69,6 +75,30 @@ Format:
 - notes: plik Użytkownika PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md (D-66). Tematy poza D-68 i D-69: krótszy AGENTS.md i ładowanie kontekstu według zadania (K0–K6); minimalny start z profilem ryzyka i definicją ukończenia; zakres szablonu: sama specyfikacja czy cały cykl z kodem i TDD; rejestr aktywacji pakietów praktyk (available, proposed, pilot, active…); pomiar wartości praktyk (słuszna uwaga: kryterium 1 pilota Q-03 jest nierozstrzygające); strona ISO rozdzielająca wsparcie przez szablon, zastosowanie w projekcie, wykonanie i ocenę zgodności; zmiana kontraktu (co agent rozstrzyga sam, commit na spójną zmianę zamiast na odpowiedź). Wróć po wydaniu v1.0.0 albo wcześniej, gdy któryś temat zablokuje pilota
 
 ## Rozstrzygnięte
+
+### D-80 Commit zmian przygotowanych przez agenta
+- status: resolved
+- choice: Użytkownik polecił zacommitować zmiany agenta: naprawy kontroli z dowodami TDD oraz dokumentację symulatora i powiązane zapisy procesu.
+- date: 2026-10-23
+- notes: to późniejsze polecenie uchyla wcześniejsze ograniczenie „bez commita” dla tych zmian. Nie obejmuje cudzych zmian, pushu ani rozpoczęcia implementacji symulatora. D-79 pozostaje otwarte.
+
+### D-78 Kontrakt współpracy przekazany przez Użytkownika
+- status: resolved
+- choice: Użytkownik przekazał obowiązujący kontrakt: agent dobiera środki w granicach zamiaru, zapisuje nieoczywiste decyzje, eskaluje tylko wskazane kategorie, utrzymuje sprawy z właścicielami i punktem wznowienia oraz przedstawia domyślnie jedną gotową decyzję na końcu wiadomości.
+- date: 2026-10-23
+- notes: operacyjny zapis i parametry symulatora w reference/process-simulator/collaboration.md. Kontrakt zastępuje sprzeczne wcześniejsze zasady komunikacji w tej współpracy; nie zmienia pakietu template/process/. Nie oznacza zgody na realizację I1 ani rozstrzygnięcia D-74 i D-75.
+
+### D-77 Dokumentacja symulatora edukacyjnego
+- status: resolved
+- choice: Użytkownik zlecił utworzenie folderu, zapisanie propozycji planu, rejestru postępów i sposobu wykonania technicznego symulatora procesu.
+- date: 2026-10-23
+- notes: dokumenty w reference/process-simulator/plan.md, reference/process-simulator/technical-plan.md i reference/process-simulator/progress.md. Zakres tego polecenia to przygotowanie dokumentacji; proponowana implementacja, wybór lekcji i technologie nie są przez ten wpis uznane za zatwierdzony plan realizacji. Bez commita i zmian pakietu procesu. D-74 i D-75 pozostają otwarte.
+
+### D-76 Naprawa wyników kontroli w TDD
+- status: resolved
+- choice: A — Użytkownik zlecił naprawę obu defektów w TDD, bez commita: niezerowy kod runnera wyklucza pass w raporcie testów; pre-commit pokazuje W5, zachowując jego nieblokujący charakter. Opis odtworzenia i wyniki pozostają w repozytorium. Bez manifestów wejść i mechanizmu zgód.
+- date: 2026-10-23
+- notes: źródło: polecenie Użytkownika w rozmowie; wykonanie i logi: reference/tdd/control-results/report.txt. Decyzja nie rozstrzyga D-74 ani D-75.
 
 ### D-73 Kryteria odbioru w rekordzie postępu
 - status: resolved

@@ -1,0 +1,29 @@
+python3 -B tests/test_move.py
+  BŁĄD [k-1]: reference/FORMAL-FEASIBILITY-CONVERSATION.md: plik spoza mapy
+  BŁĄD [k-1]: reference/FORMAL-MODELS-REQUIREMENTS-AND-PROCESS.md: plik spoza mapy
+  BŁĄD [k-1]: reference/OPERATIONAL-CONTEXT-AND-PRACTICE-ROLLOUT.md: plik spoza mapy
+  BŁĄD [k-1]: reference/planning-examples/README.md: plik spoza mapy
+  BŁĄD [k-1]: reference/planning-examples/delivery-migration-operations.md: plik spoza mapy
+  BŁĄD [k-1]: reference/planning-examples/increment-plan.md: plik spoza mapy
+  BŁĄD [k-1]: reference/planning-examples/practice-pilot-plan.md: plik spoza mapy
+  BŁĄD [k-1]: reference/planning-examples/project-plan.md: plik spoza mapy
+  BŁĄD [k-1]: reference/planning-examples/verification-validation-plan.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/00_day1.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/01_increment_words_red.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/02_increment_words_green.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/03_increment_input_errors.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/04_increment_lines.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/05_local_deployment.md: plik spoza mapy
+  BŁĄD [k-1]: reference/repository-evolution/README.md: plik spoza mapy
+  BŁĄD [k-3]: doc/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md → reference/PROPOSAL-CONTEXT-AND-PRACTICE-PACKAGES.md: treść zmieniona, a plik nie jest na liście EDITED
+CASE k-2: pass
+CASE k-1: fail
+CASE k-3: fail
+CASE k-4: pass
+CASE k-5: pass
+CASE k-6: pass
+CASE k-8: pass
+CASE k-9: pass
+CASE k-10: pass
+test_move: 9 kryteriów, nie przeszło 2 (k-1, k-3)
+make: *** [test-move] Error 1
