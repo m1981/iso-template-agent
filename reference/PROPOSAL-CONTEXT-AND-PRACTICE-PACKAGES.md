@@ -1,6 +1,6 @@
 # Propozycja: szablon projektu z warstwami kontekstu i pakietami praktyk
 
-Data: 2026-10-22. Status: **PROPOZYCJA DO PÓŹNIEJSZEGO ROZPATRZENIA**.
+Data: 2026-10-22. Aktualizacja: 2026-10-23, rewizja dokumentacyjna 2. Status: **PROPOZYCJA DO PÓŹNIEJSZEGO ROZPATRZENIA**.
 
 Odbiorca: agent i właściciel projektu, którzy będą rozwijali `iso-template-agent` jako boilerplate dla kolejnych, większych projektów ćwiczeniowych.
 
@@ -8,9 +8,17 @@ Odbiorca: agent i właściciel projektu, którzy będą rozwijali `iso-template-
 
 Użytkownik zlecił zapis koncepcji wraz z kontekstem i motywacją. Nie zlecił jej wdrożenia w tej sesji. Zapis dokumentu nie zatwierdza nowych reguł, nie zmienia obecnych decyzji ani nie ustanawia zgodności z ISO/IEC 29110.
 
-Obowiązujące zasady nadal określają [kontrakt decyzji](kontrakt-decyzji.md), [AGENTS.md](AGENTS.md) i [decisions.md](decisions.md). Przed wdrożeniem propozycji trzeba rozstrzygnąć wskazane różnice. W szczególności nie wolno na podstawie tego dokumentu samodzielnie zmienić uprawnień agenta, schematów ID, zasad zatwierdzania, hooków ani istniejących stanów produktów.
+Obowiązujące zasady nadal określają [kontrakt decyzji](../template/process/kontrakt-decyzji.md), [AGENTS.md](../AGENTS.md) i [decisions.md](../project/decisions.md). Przed wdrożeniem propozycji trzeba rozstrzygnąć wskazane różnice. W szczególności nie wolno na podstawie tego dokumentu samodzielnie zmienić uprawnień agenta, schematów ID, zasad zatwierdzania, hooków ani istniejących stanów produktów.
 
 Dokument ma być samowystarczalnym przekazaniem kontekstu. Przyszły agent nie powinien potrzebować pierwotnej rozmowy. Opisy katalogów, stanów, poleceń i kontraktów oznaczone jako proponowane są projektem przyszłego zachowania, a nie listą funkcji już dostępnych.
+
+Uzupełnienia po pierwszym zapisie: [przewodnik i wypełnione przykłady planów](planning-examples/README.md), [zapis odpowiedzi o wykonalności](FORMAL-FEASIBILITY-CONVERSATION.md) i [primer: wymagania, Alloy, TLA+ oraz przejście do kodu](FORMAL-MODELS-REQUIREMENTS-AND-PROCESS.md). Sekcje 16–18 wyjaśniają ich rolę i rejestrują zmianę. Są to materiały referencyjne K6, ładowane jako K2/K4 dopiero dla właściwego zadania.
+
+### Stan po reorganizacji repozytorium, 2026-10-23
+
+Sekcje 1–15 zachowują kontekst pierwotnej propozycji z 2026-10-22 i miejscami używają dawnego płaskiego układu. Nie są aktualnym inwentarzem repozytorium. Od tego czasu pakiet znajduje się w `template/process/`, dokumenty projektu w `project/`, specyfikacja w `spec/`, rekordy w `records/`, raporty w `reports/`, a materiały wejściowe w `reference/`. Bieżące zasady wskazuje [AGENTS.md](../AGENTS.md), a mapę przeniesienia [layout-map.md](layout-map.md).
+
+Z rejestru wynika, że D-67 umieszcza tę propozycję w materiałach wejściowych, D-68 rezerwuje miejsce na praktyki i dowody, a D-69 wdraża kontrolę indeksu Git w pre-commit. Nie przedstawiać tych elementów jako nadal niewdrożonych. Pozostałe tematy propozycji są w Q-12; ten dokument nie rozstrzyga otwartych D-74/D-75 ani nie zmienia planu wydania szablonu. Nowe przykłady są w `reference/planning-examples/`; nie powstaje ponownie katalog `doc/` ani kopia propozycji w korzeniu.
 
 ## 1. Kontekst, który doprowadził do propozycji
 
@@ -40,12 +48,12 @@ Podstawą jest lokalna kopia rozdziałów normy w sąsiednim repozytorium `iso-2
 
 | Źródło | Wniosek | Granica interpretacji |
 |---|---|---|
-| [Rozdział 5, §5.1 i §5.3](../iso-29110-5-1/chapters/05-overview.md) | Można stosować rozwój przyrostowy, agile i TDD. PM i SI współpracują w cyklu rozwoju. | Norma nie wymusza ukończenia całej specyfikacji przed pierwszym kodem. |
-| [Rozdział 5, §5.2](../iso-29110-5-1/chapters/05-overview.md) | Basic ma warunki wejścia: m.in. uzgodnienie projektu, wykonalność, zespół, cykl i zasoby. | Nasz lekki start nie jest automatycznie wykazaniem spełnienia tych warunków. |
-| [Rozdział 4, role](../iso-29110-5-1/chapters/04-naming-diagramming-and-definitions-conventions.md) | Jedna osoba może pełnić wiele ról. | Kompetencje, odpowiedzialność i obiektywność oceny nadal trzeba zapewnić. |
-| [Rozdział 9, wprowadzenie](../iso-29110-5-1/chapters/09-description-of-work-products.md) | Informacje można łączyć i dzielić zgodnie z potrzebami projektu; mogą być elementem narzędzia. | Mniej plików nie zwalnia z zachowania potrzebnej treści i dowodów. |
-| [Rozdział 7, SI.O4–SI.O7](../iso-29110-5-1/chapters/07-software-implementation-si-process.md) | Konstrukcja, testy jednostkowe, integracja, weryfikacja i walidacja są częściami procesu. | Sam poprawny graf dokumentów nie zastępuje wykonania tych działań. |
-| [Załącznik E](../iso-29110-5-1/chapters/annex-e-deployment-packages.md) | Pakiety wdrożeniowe pomagają wdrażać zestawy praktyk stopniowo. | Załącznik jest informacyjny, a pakiet nie stanowi kompletnego modelu procesu. |
+| [Rozdział 5, §5.1 i §5.3](../../iso-29110-5-1/chapters/05-overview.md) | Można stosować rozwój przyrostowy, agile i TDD. PM i SI współpracują w cyklu rozwoju. | Norma nie wymusza ukończenia całej specyfikacji przed pierwszym kodem. |
+| [Rozdział 5, §5.2](../../iso-29110-5-1/chapters/05-overview.md) | Basic ma warunki wejścia: m.in. uzgodnienie projektu, wykonalność, zespół, cykl i zasoby. | Nasz lekki start nie jest automatycznie wykazaniem spełnienia tych warunków. |
+| [Rozdział 4, role](../../iso-29110-5-1/chapters/04-naming-diagramming-and-definitions-conventions.md) | Jedna osoba może pełnić wiele ról. | Kompetencje, odpowiedzialność i obiektywność oceny nadal trzeba zapewnić. |
+| [Rozdział 9, wprowadzenie](../../iso-29110-5-1/chapters/09-description-of-work-products.md) | Informacje można łączyć i dzielić zgodnie z potrzebami projektu; mogą być elementem narzędzia. | Mniej plików nie zwalnia z zachowania potrzebnej treści i dowodów. |
+| [Rozdział 7, SI.O4–SI.O7](../../iso-29110-5-1/chapters/07-software-implementation-si-process.md) | Konstrukcja, testy jednostkowe, integracja, weryfikacja i walidacja są częściami procesu. | Sam poprawny graf dokumentów nie zastępuje wykonania tych działań. |
+| [Załącznik E](../../iso-29110-5-1/chapters/annex-e-deployment-packages.md) | Pakiety wdrożeniowe pomagają wdrażać zestawy praktyk stopniowo. | Załącznik jest informacyjny, a pakiet nie stanowi kompletnego modelu procesu. |
 
 ### Jak wykorzystać załącznik E
 
@@ -143,6 +151,8 @@ Od pierwszego kodu obowiązują odpowiednie testy zachowania. Od pierwszego rzec
 
 W TDD zapisujemy rzeczywisty RED → GREEN dla nowego zachowania i napraw. Gdy nowy test od razu przechodzi na istniejącym kodzie, opisujemy go jako test istniejącego zachowania. Ewentualna mutacja sprawdza czułość testu, nie tworzy historycznego defektu produkcji.
 
+Ten opis Day 1 jest lekką podstawą pracy, a nie pełnym wzorcem WP.10. Plan oparty na WP.10 obejmuje również nakład, koszt, czas trwania i zależności, dostępność zasobów, instrukcje dostawy oraz zatwierdzenie. Szczegółowe rozróżnienie zakresu, źródeł i naszej adaptacji znajduje się w sekcji 16 i przykładach.
+
 ## 6. Co uruchamia kolejne praktyki
 
 W `plan.md` proponuję utrzymywać krótki profil projektu i rejestr aktywnych pakietów. Podstawowe wymiary: liczba uczestników i granice odpowiedzialności, złożoność domeny, skutki błędu, rodzaj danych, interfejsy i dostawcy, sposób wdrożenia, zobowiązania odbiorcze, zakładane utrzymanie oraz powtarzające się usterki procesu.
@@ -165,6 +175,7 @@ Przegląd profilu wykonujemy przy nowym przyroście, zmianie architektury lub zo
 | Pokrycie strukturalne i mutacje | Gdy trzeba znaleźć niewykonane ścieżki lub sprawdzić wrażliwość testów. | Jawny zakres pomiaru, podprocesy, analiza luk, wybrane mutacje. | Zamknięte istotne luki, wykryte naruszenia, koszt pomiaru. |
 | MC/DC | Wybrana istotna decyzja złożona, ćwiczenie lub wymagane kryterium właściwego reżimu. | Warunki, pary dowodowe, wykonanie z uwzględnieniem zwarć i wyniki. | Ujawnione brakujące kombinacje i adekwatność dowodu; same gałęzie nie wystarczają. |
 | Wydajność, niezawodność i obserwowalność | Przed przekroczeniem uzgodnionej skali lub użyciem w wymagającym środowisku. | Budżety, reprezentatywne pomiary, diagnostyka i testy degradacji. | Czas, pamięć, awarie i diagnozowalność względem potrzeb odbiorcy. |
+| Modele ograniczeń i modele formalne | Sprzeczne ograniczenia planu, złożone relacje lub trudne kolejności zdarzeń; także jawny eksperyment edukacyjny. | Mały model, założenia, pozytywny przypadek, kontrprzykład kontrolny, wynik w znanym zakresie i odwzorowanie na kod. | Dodatkowe wykryte luki względem zwykłych testów, koszt modelowania, rozbieżności model–kod i czas aktualizacji. |
 
 Pierwszych dziewięć pozycji odpowiada obszarom pakietów z załącznika E. Pozostałe to proponowane rozszerzenia przekrojowe; nie są twierdzeniem o dodatkowych obowiązkowych pakietach ISO. Pakiet może początkowo mieć postać jednej sekcji i polecenia, a nie osobnego podsystemu.
 
@@ -365,4 +376,67 @@ Gdy użytkownik zleci dalszą pracę nad tą koncepcją:
 5. Dla każdej kontroli podaj: co sprawdza, w jakiej granicy, na jakich wejściach, jakie ma ograniczenia i koszt.
 6. Odróżniaj wsparcie praktyki przez szablon od jej wykonania i odbioru w projekcie. Nie deklaruj zgodności na podstawie liczby plików, kolorów diagramu ani samego zielonego CI.
 
-W tej sesji wykonano wyłącznie zapis propozycji. Ćwiczenie MC/DC w projekcie archiwizatora jest osobnym zadaniem; nie należy go uruchamiać ani przenosić do szablonu na podstawie tego dokumentu.
+W ramach tej propozycji zapisano koncepcję oraz materiały dydaktyczne; nie wdrożono nowych reguł procesu. Ćwiczenie MC/DC w projekcie archiwizatora jest osobnym zadaniem; nie należy go uruchamiać ani przenosić do szablonu na podstawie tego dokumentu.
+
+## 16. Plany: zawartość, forma i stopniowe doprecyzowanie
+
+Po pierwszym zapisie użytkownik zapytał, kiedy tworzyć poszczególne plany oraz czy podana forma wynika z przeczytanych materiałów. Doprecyzowanie: przeczytano opis produktu pracy WP.10, informacje o planowaniu PM.01, opis planu testów B.11 i istniejący pusty `plan.md`. Nie przejrzano w tej rozmowie wypełnionego planu rzeczywistego projektu wraz z potwierdzeniem odbioru. Wcześniejszy krótki zarys był propozycją uproszczenia, nie pełnym odwzorowaniem WP.10.
+
+### 16.1 Podstawa i swoboda formy
+
+[WP.10](../../iso-29110-5-1/chapters/09-description-of-work-products.md) opisuje m.in. produkt, cel, zakres, cykl, dostawy, zadania, czas, zasoby i zespół, harmonogram i zależności, nakład i koszt, ryzyka, wersjonowanie oraz instrukcje dostarczenia. Wskazuje podpisanie planu przez klienta i kierownika projektu. Rozdział 9 dopuszcza łączenie i dzielenie informacji oraz różne nośniki; nie ustanawia naszego układu Markdown.
+
+[B.11](../../iso-29110-5-1/chapters/annex-b-additional-testing-tasks.md) daje informacyjny opis planu testów: kontekst, zakres, strategię, techniki, kryteria zakończenia, miary, dane, środowisko, zadania, zasoby i harmonogram. Nie jest pełnym opisem całego V&V. Załącznik E wskazuje rolę szablonów i przykładów, ale sam nie zawiera wypełnionego planu projektu.
+
+Praktyczny wzorzec powinien obejmować **szablon z objaśnieniami + wypełniony przykład + checklistę przeglądu**. Przy sekcjach wskazujemy źródło lub własną decyzję, stosowalność i kryterium oceny. Kompletne rubryki nie dowodzą wykonalności.
+
+### 16.2 Jakie plany kiedy
+
+| Plan | Kiedy i jak szczegółowo |
+|---|---|
+| Projektu | Od początku: cel, zakres, zasoby, mapa przyrostów, ryzyka, koszt, odbiór. Daleki horyzont może być estymacją z jawną niepewnością. |
+| Przyrostu | Przed realizacją najbliższego wyniku: wymagania, konkretne zadania, zależności, testy, dowody, kryteria zakończenia. Początkowo może być sekcją planu projektu. |
+| V&V | Strategia od początku; szczegóły przed wykonaniem dotkniętego zakresu. Rozdzielić przegląd wymagań, testy kodu, integrację i walidację użycia. |
+| Wydania | Przed dostawą: kandydat, skład, warunki dopuszczenia, kolejność, instalacja, odbiór. |
+| Migracji | Przed zmianą istniejących danych: kopia, próba, kompletność, przełączenie, wycofanie, wznowienie. |
+| Utrzymania i odtworzenia | Przed użyciem na wartościowych danych: odpowiedzialność, reakcja, kopie, cele i pomiary odtworzenia. |
+| Pilota praktyki | Przed eksperymentem: hipoteza, próbka, koszt, kryteria, ograniczenia i decyzja po pomiarze. |
+
+Oddzielny plik zależy od wielkości, odbiorców i cyklu zmian; nie każdy plan wymaga osobnego dokumentu. Plan opisuje zamiar, rejestr postępu opisuje wykonanie, a dowód identyfikuje rzeczywiste sprawdzenie. Aktualizacja planu nie usuwa historii odchylenia.
+
+Wypełnione przykłady dla fikcyjnego projektu Release Ledger: [indeks i mapa WP.10](planning-examples/README.md). Przykładowe daty, obsada, budżet i progi są jawnie demonstracyjne. Nie kopiować ich do aktywnego `plan.md` jako uzgodnień użytkownika. Przykłady nie rozszerzają obecnego schematu `tools/id.toml`.
+
+## 17. Wykonalność i formalne sprawdzanie reguł
+
+Motywacja: użytkownik chce nauczyć się mechanicznego sprawdzania wykonalności oraz reguł, które wykraczają poza obecność plików i linków.
+
+| Pytanie | Proponowana technika | Granica |
+|---|---|---|
+| Czy zadania mieszczą się przy danych zasobach i terminie? | MiniZinc / CP-SAT: ograniczenia czasu, zależności, dostępności i kosztu | Wynik zależy od trafności szacunków; timeout nie oznacza niewykonalności |
+| Czy wybrane wymagania mają właściwe powiązania w planie? | Alloy: relacje, kwantyfikatory, przykłady i kontrprzykłady | Badany zakres obiektów; sam link nie dowodzi wartości testu |
+| Czy kolejność zdarzeń nie dopuszcza starego dowodu lub zgody? | TLA+ / TLC: stany, przejścia, safety i osobno liveness | Założenia środowiska, skończony model; nie jest to automatyczny dowód kodu |
+| Czy system dotrzymuje ograniczeń czasowych procesu? | UPPAAL, gdy potrzebny model automatów z zegarami | To osobna potrzeba, nie domyślny pakiet dla tego szablonu |
+
+Źródła narzędzi i rozwinięcie: [zapis odpowiedzi](FORMAL-FEASIBILITY-CONVERSATION.md) oraz [primer](FORMAL-MODELS-REQUIREMENTS-AND-PROCESS.md). Wybór tych technik jest propozycją ćwiczenia, nie obowiązkiem wynikającym z ISO 29110.
+
+### 17.1 Zasady pilota
+
+- Najpierw potrzeba, wymaganie, granica i ręczne przypadki o znanym wyniku. Potem model i implementacja.
+- Sprawdzić zarówno naruszenie reguły, jak i istnienie poprawnej instancji/przebiegu. Model, który zabrania wszystkiego, może pozornie spełniać wszystkie własności bezpieczeństwa.
+- Zachować własność oczekiwaną i celowo osłabić model; oczekiwać kontrprzykładu, przywrócić regułę i ponowić analizę. Raportować tylko wykonane RED/GREEN.
+- Oddzielić regułę struktury, wynik wykonania testu, aktualność dowodu, zgodę i publikację. Stare wydanie odnosi się do własnego snapshotu; nowe wydanie potrzebuje właściwych dla siebie dowodów.
+- Powiązać wymaganie ↔ własność modelu ↔ kontrakt kodu ↔ test ↔ wynik. Wyjaśnić, jak abstrakcyjna zmiana stanu odpowiada rzeczywistym krokom i awariom.
+- Nie zakładać atomowości implementacji tylko dlatego, że operacja jest atomowa w modelu. Sprawdzić wyścig między kontrolą a publikacją.
+- Nie dodawać fairness dla ludzkiej zgody i nie przedstawiać jej potem jako gwarancji, że człowiek odpowie.
+- Raportować narzędzie, wersje, wejścia, zakres, założenia, wynik, ograniczenia i koszt. Błąd narzędzia i brak wyniku nie są pass.
+
+Najmniejsza ścieżka nauki: zwykła kontrola grafu → mały Alloy → mały model aktualności w TLA+ → testy kodu z kontrprzykładów → ocena wartości. Solver harmonogramu może być niezależnym pilotem. [Przykładowy plan pilota](planning-examples/practice-pilot-plan.md) nie stanowi jego aktywacji.
+
+## 18. Rejestr zmian dokumentacyjnych
+
+| Rewizja | Data | Zmiana | Rzeczywisty stan |
+|---|---|---|---|
+| 1 | 2026-10-22 | Koncepcja K0–K6, Day 1, pakiety praktyk, koszty, kolejność przyszłego wdrażania | Zapis propozycji; brak zmiany aktywnego procesu |
+| 2 | 2026-10-23 | Doprecyzowanie podstaw planu, siedem rodzajów planów w pięciu przykładach, zachowanie odpowiedzi o wykonalności, primer Alloy/TLA+ i przejścia do kodu | Dokumentacja dydaktyczna dopasowana do reference/ po przeniesieniu repozytorium; modele nieuruchomione, narzędzia formalne i ich nowe bramki niewdrożone |
+
+Przyszły agent ma odróżniać materiał referencyjny od aktywowanego pakietu. Aktywacja wymaga konkretnego zlecenia i rozwiązania rzeczywistych decyzji w obowiązującym kontrakcie; zapisanie przykładów nie zatwierdza ich założeń.
