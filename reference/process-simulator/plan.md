@@ -1,14 +1,15 @@
 # Plan symulatora edukacyjnego procesu
 
-Data: 2026-10-23. Rewizja: 1. Status: propozycja realizacji.
+Utworzono: 2026-10-23. Rewizja: 2, 2026-10-24. Zakres I1 zatwierdzony w D-79; szersza mapa rozwoju pozostaje propozycją.
 
-Użytkownik zlecił utworzenie folderu, zapisanie planu, sposobu wykonania technicznego i rejestru postępów (D-77). Ten zapis nie oznacza jeszcze zamówienia implementacji ani odbioru symulatora.
+Użytkownik najpierw zlecił zapisanie dokumentacji (D-77), następnie zatwierdził realizację I1 (D-79), polecając przed kodowaniem opisać wiedzę techniczną i dobór stosu. Nie jest to odbiór symulatora ani zlecenie całej dalszej mapy rozwoju.
 
 Symulator ma pomóc operatorowi zrozumieć, jak powstaje przyrost: jakie czynności tworzą produkty pracy, jak wiążą je identyfikatory i na jakiej podstawie można kontynuować pracę. Użytkownik wykonuje kroki i obserwuje konsekwencje, także po błędzie lub zmianie wymagania.
 
+- [Uruchomienie aplikacji](README.md) i [konkretny scenariusz I1](scenario.md).
 - [Plan techniczny](technical-plan.md) opisuje model, silnik, widoki i sprawdzanie implementacji.
 - [Rejestr postępu](progress.md) zawiera bieżący stan, dowody, historię i punkt wznowienia.
-- [Pierwszy przyrost](increment-01.md) konkretyzuje proponowany zakres pierwszej działającej lekcji; propozycja do decyzji D-79.
+- [Pierwszy przyrost](increment-01.md) określa zatwierdzony w D-79 zakres pierwszej działającej lekcji.
 - [Kontrakt współpracy](collaboration.md) utrwala instrukcje Użytkownika przekazane przy omawianiu przyrostu.
 
 ## Zakres pierwszej wersji

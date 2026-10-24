@@ -1,0 +1,19 @@
+Case: mutation-review-red
+Command: python3 -B -m unittest -v test_engine.FirstSlice.test_cannot_test_without_review
+Exit: 1
+
+test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review) ... FAIL
+
+======================================================================
+FAIL: test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<disposable-copy>/tests/test_engine.py", line 33, in test_cannot_test_without_review
+    with self.assertRaisesRegex(Refused, "przegląd"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Refused not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

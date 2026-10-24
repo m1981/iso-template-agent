@@ -1,0 +1,10 @@
+Case: mutation-review-green
+Command: python3 -B -m unittest -v test_engine.FirstSlice.test_cannot_test_without_review
+Exit: 0
+
+test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

@@ -1,0 +1,25 @@
+test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review) ... ok
+test_duplicate_scope_is_an_atomic_refusal (test_engine.FirstSlice.test_duplicate_scope_is_an_atomic_refusal) ... ok
+test_plan_and_design_can_be_created_in_either_order (test_engine.FirstSlice.test_plan_and_design_can_be_created_in_either_order) ... ok
+test_test_cases_are_not_test_executions (test_engine.FirstSlice.test_test_cases_are_not_test_executions) ... ok
+test_accept_requires_demonstration_and_explicit_reason (test_engine.FullLesson.test_accept_requires_demonstration_and_explicit_reason) ... ok
+test_all_links_resolve_and_history_remains_immutable (test_engine.FullLesson.test_all_links_resolve_and_history_remains_immutable) ... ok
+test_green_unit_tests_are_not_integration_or_acceptance (test_engine.FullLesson.test_green_unit_tests_are_not_integration_or_acceptance) ... ok
+test_integration_binds_test_requirements_and_both_components (test_engine.FullLesson.test_integration_binds_test_requirements_and_both_components) ... ok
+test_red_and_green_reference_different_code_revisions (test_engine.FullLesson.test_red_and_green_reference_different_code_revisions) ... ok
+test_rejection_requires_correction_then_new_demonstration (test_engine.FullLesson.test_rejection_requires_correction_then_new_demonstration) ... ok
+test_every_allowed_session_fits_the_replay_limit (test_engine.SessionLimits.test_every_allowed_session_fits_the_replay_limit) ... FAIL
+
+======================================================================
+FAIL: test_every_allowed_session_fits_the_replay_limit (test_engine.SessionLimits.test_every_allowed_session_fits_the_replay_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 130, in test_every_allowed_session_fits_the_replay_limit
+    with self.assertRaisesRegex(Refused, 'limit'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: Refused not raised
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.017s
+
+FAILED (failures=1)

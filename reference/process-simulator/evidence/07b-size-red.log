@@ -1,0 +1,22 @@
+test_bad_json_unknown_fields_and_paths_do_not_change_session (test_views_http.HTTPContract.test_bad_json_unknown_fields_and_paths_do_not_change_session) ... ok
+test_command_and_duplicate_are_atomic (test_views_http.HTTPContract.test_command_and_duplicate_are_atomic) ... ok
+test_import_replays_and_history_cannot_be_edited (test_views_http.HTTPContract.test_import_replays_and_history_cannot_be_edited) ... ok
+test_local_static_assets_and_cross_origin_rejection (test_views_http.HTTPContract.test_local_static_assets_and_cross_origin_rejection) ... ok
+test_long_but_valid_export_can_be_imported (test_views_http.HTTPContract.test_long_but_valid_export_can_be_imported) ... FAIL
+test_two_competing_commands_do_not_overwrite_state (test_views_http.HTTPContract.test_two_competing_commands_do_not_overwrite_state) ... ok
+test_history_is_read_only_and_projection_contains_no_future_results (test_views_http.ViewContract.test_history_is_read_only_and_projection_contains_no_future_results) ... ok
+test_reverse_links_include_the_exact_historical_revision (test_views_http.ViewContract.test_reverse_links_include_the_exact_historical_revision) ... ok
+
+======================================================================
+FAIL: test_long_but_valid_export_can_be_imported (test_views_http.HTTPContract.test_long_but_valid_export_can_be_imported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 108, in test_long_but_valid_export_can_be_imported
+    self.assertEqual(status, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+AssertionError: 400 != 200
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.083s
+
+FAILED (failures=1)

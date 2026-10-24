@@ -1,0 +1,438 @@
+{
+  "id": "textstats-i1",
+  "version": 1,
+  "contents": [
+    {
+      "key": "N1",
+      "id": "N1",
+      "kind": "context",
+      "title": "Potrzeba redaktora",
+      "body": "Chcę szybko policzyć słowa w poprawnym pliku tekstowym, bez zmiany jego zawartości. Przykład edukacyjny TextStats.",
+      "wp": "—",
+      "path": "project/purpose.md",
+      "container": "Potrzeba",
+      "why": "Wyjaśnia, po co powstaje przyrost.",
+      "links": [],
+      "outcome": ""
+    },
+    {
+      "key": "SCOPE",
+      "id": "SCOPE",
+      "kind": "context",
+      "title": "Zakres I1",
+      "body": "W fabule wybieramy liczenie słów z poprawnego pliku UTF-8 do JSON. Nie dodajemy liczenia wierszy ani obsługi błędów odczytu. To fikcyjny wybór, nie decyzja właściciela rzeczywistego projektu.",
+      "wp": "—",
+      "path": "spec/scope.md",
+      "container": "Zakres",
+      "why": "Ogranicza pracę do jednego sprawdzalnego wyniku.",
+      "links": [
+        "N1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "G1",
+      "id": "G1",
+      "kind": "context",
+      "title": "Co znaczy słowo?",
+      "body": "Słowo to niepusty fragment rozdzielony białymi znakami (jak Python str.split()). „Ala, kot” to 2 słowa; „Ala,kot” to 1. To reguła uzgodniona w fabule, nie językoznawcza definicja.",
+      "wp": "—",
+      "path": "spec/glossary.md",
+      "container": "Słownik",
+      "why": "Usuwa niejednoznaczność przed kodem.",
+      "links": [
+        "SCOPE"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "R1",
+      "id": "R1",
+      "kind": "requirement",
+      "title": "Wynik liczenia",
+      "body": "Dla poprawnego pliku UTF-8 program wypisuje JSON z polem words równym liczbie słów według G1; kończy się kodem 0.",
+      "wp": "WP.13",
+      "path": "spec/requirements.md",
+      "container": "Specyfikacja wymagań",
+      "why": "Wymaganie ma obserwowalny wynik.",
+      "links": [
+        "N1",
+        "G1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "R1a",
+      "id": "R1a",
+      "kind": "requirement",
+      "title": "Puste wejście",
+      "body": "Pusty tekst i tekst zawierający wyłącznie białe znaki dają words=0.",
+      "wp": "WP.13",
+      "path": "spec/requirements.md",
+      "container": "Specyfikacja wymagań",
+      "why": "Uściśla przypadek brzegowy.",
+      "links": [
+        "R1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "R2",
+      "id": "R2",
+      "kind": "requirement",
+      "title": "Zachowanie pliku",
+      "body": "Bajty pliku wejściowego po wykonaniu są identyczne jak przed wykonaniem.",
+      "wp": "WP.13",
+      "path": "spec/requirements.md",
+      "container": "Specyfikacja wymagań",
+      "why": "Wynik liczbowy nie wystarcza, gdy program niszczy wejście.",
+      "links": [
+        "N1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "Q1",
+      "id": "Q1",
+      "kind": "context",
+      "title": "Otwarte: błąd odczytu",
+      "body": "Nie ustalono zachowania przy braku pliku, braku uprawnień lub niepoprawnym UTF-8. Właściciel w fabule musi ustalić kontrakt przed wydaniem. Nie blokuje implementacji poprawnego wejścia.",
+      "wp": "—",
+      "path": "project/decisions.md",
+      "container": "Otwarte pytania",
+      "why": "Brak odpowiedzi pozostaje widoczny; GREEN go nie rozstrzyga.",
+      "links": [
+        "SCOPE"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "P1",
+      "id": "P1",
+      "kind": "plan",
+      "title": "Plan przyrostu",
+      "body": "Cel: poprawny plik → words. Kolejność: projekt i przegląd → T1–T4 → RED → obliczenie → jednostkowe GREEN → adapter C2 i T5 → integracja → instrukcja i demonstracja → jawny odbiór I1. Q1 pozostaje poza zakresem. Testy: normalny tekst, pusty, białe znaki, Unicode; integracja: JSON, kod 0, puste stderr, niezmienne bajty. Zakończenie: wynik zrozumiały dla redaktora i decyzja o przyroście. To zamiar, nie raport wykonania.",
+      "wp": "WP.10",
+      "path": "plans/increment-01.md",
+      "container": "Plan I1 (fragment WP.10)",
+      "why": "Przed kodem ustala kroki i warunek zakończenia.",
+      "links": [
+        "R1",
+        "R1a",
+        "R2",
+        "Q1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "C1",
+      "id": "C1",
+      "kind": "design",
+      "title": "Kontrakt obliczenia",
+      "body": "count_words(text: str) → int. Czysta funkcja, bez plików i I/O. Rozdziela po białych znakach. Pusty tekst daje 0.",
+      "wp": "WP.16",
+      "path": "spec/design.md",
+      "container": "Projekt rozwiązania",
+      "why": "Oddziela regułę liczenia od wejścia/wyjścia.",
+      "links": [
+        "R1",
+        "R1a"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "C2",
+      "id": "C2",
+      "kind": "design",
+      "title": "Kontrakt adaptera",
+      "body": "CLI: ścieżka pliku UTF-8 → odczyt → C1 → JSON na stdout. Kod 0, stderr puste; plik tylko odczytywany. Błędy wejścia: Q1 nadal otwarte.",
+      "wp": "WP.16",
+      "path": "spec/design.md",
+      "container": "Projekt rozwiązania",
+      "why": "Wskazuje granicę modułów i potrzebę testu integracji.",
+      "links": [
+        "C1",
+        "R1",
+        "R2",
+        "Q1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "V1",
+      "id": "V1",
+      "kind": "review",
+      "title": "Przegląd przed kodem",
+      "body": "SYMULACJA: sprawdzono jednoznaczność słowa, granice I1, przypadki brzegowe, obserwowalność wyniku i kontrakty C1/C2. Poprawny przepływ może być implementowany. Q1 blokuje wydanie. Ten rekord nie jest rzeczywistym ani niezależnym przeglądem.",
+      "wp": "WP.23",
+      "path": "records/reviews/requirements.md",
+      "container": "Zapis weryfikacji",
+      "why": "Zapisuje co i według czego przejrzano, oddzielnie od testów.",
+      "links": [
+        "P1",
+        "C1",
+        "C2",
+        "R1",
+        "R1a",
+        "R2"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "T1",
+      "id": "T1",
+      "kind": "test",
+      "title": "Zwykłe słowa",
+      "body": "count_words(\"Ala ma kota\") == 3. Zaplanowany przypadek nie jest wykonaniem.",
+      "wp": "WP.19",
+      "path": "tests/test_stats.py",
+      "container": "Przypadki testowe",
+      "why": "Określa wejście i oczekiwany wynik przed wykonaniem.",
+      "links": [
+        "C1",
+        "R1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "T2",
+      "id": "T2",
+      "kind": "test",
+      "title": "Pusty tekst",
+      "body": "count_words(\"\") == 0. Zaplanowany przypadek nie jest wykonaniem.",
+      "wp": "WP.19",
+      "path": "tests/test_stats.py",
+      "container": "Przypadki testowe",
+      "why": "Określa wejście i oczekiwany wynik przed wykonaniem.",
+      "links": [
+        "C1",
+        "R1a"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "T3",
+      "id": "T3",
+      "kind": "test",
+      "title": "Same białe znaki",
+      "body": "count_words(\" \\t\\n \") == 0. Zaplanowany przypadek nie jest wykonaniem.",
+      "wp": "WP.19",
+      "path": "tests/test_stats.py",
+      "container": "Przypadki testowe",
+      "why": "Określa wejście i oczekiwany wynik przed wykonaniem.",
+      "links": [
+        "C1",
+        "R1a"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "T4",
+      "id": "T4",
+      "kind": "test",
+      "title": "Odstęp Unicode",
+      "body": "count_words(\"zażółć\\u00a0gęślą\") == 2. Zaplanowany przypadek nie jest wykonaniem.",
+      "wp": "WP.19",
+      "path": "tests/test_stats.py",
+      "container": "Przypadki testowe",
+      "why": "Określa wejście i oczekiwany wynik przed wykonaniem.",
+      "links": [
+        "C1",
+        "R1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "T5",
+      "id": "T5",
+      "kind": "test",
+      "title": "Plik → CLI → JSON",
+      "body": "Plik UTF-8 „Ala ma kota”: stdout jako JSON {\"words\": 3}, kod 0, stderr puste; bajty pliku bez zmian. Zaplanowany przypadek nie jest wykonaniem.",
+      "wp": "WP.19",
+      "path": "tests/test_cli.py",
+      "container": "Przypadki testowe",
+      "why": "Określa wejście i oczekiwany wynik przed wykonaniem.",
+      "links": [
+        "C2",
+        "R1",
+        "R2"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "CODE1-stub",
+      "id": "CODE1",
+      "kind": "code",
+      "title": "Obliczenie: szkielet",
+      "body": "def count_words(text: str) -> int:\n    raise NotImplementedError\n\nKod w lekcji jest treścią, nie jest tu wykonywany.",
+      "wp": "WP.15",
+      "path": "src/stats.py",
+      "container": "Komponent obliczenia",
+      "why": "Szkielet pozwala zobaczyć, co test wykrywa.",
+      "links": [
+        "C1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "RUN1",
+      "id": "RUN1",
+      "kind": "run",
+      "title": "RED · T1–T4",
+      "body": "SYMULACJA: T1, T2, T3, T4 → FAIL: NotImplementedError. Próba na szkielecie CODE1 r1. T5 jeszcze niewykonany. To wynik fabuły, nie log uruchomienia kodu.",
+      "wp": "WP.20",
+      "path": "reports/tests.md",
+      "container": "Raport testów — wykonanie RUN1",
+      "why": "Utrwala niepowodzenie z dokładną podstawą.",
+      "links": [
+        "CODE1",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "R1",
+        "R1a"
+      ],
+      "outcome": "FAIL"
+    },
+    {
+      "key": "CODE1-done",
+      "id": "CODE1",
+      "kind": "code",
+      "title": "Obliczenie: implementacja",
+      "body": "def count_words(text: str) -> int:\n    return len(text.split())\n\nNowa rewizja nie zmienia raportu ze starej próby.",
+      "wp": "WP.15",
+      "path": "src/stats.py",
+      "container": "Komponent obliczenia",
+      "why": "Poprawia implementację po znanym niepowodzeniu.",
+      "links": [
+        "C1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "RUN2",
+      "id": "RUN2",
+      "kind": "run",
+      "title": "GREEN · T1–T4",
+      "body": "SYMULACJA: T1 → 3, T2 → 0, T3 → 0, T4 → 2; PASS. Podstawa: CODE1 r2 i przypadki T1–T4 r1. Nie sprawdzono jeszcze przepływu przez CLI.",
+      "wp": "WP.20",
+      "path": "reports/tests.md",
+      "container": "Raport testów — wykonanie RUN2",
+      "why": "Wynik jednostkowy dotyczy obliczenia, nie integracji.",
+      "links": [
+        "CODE1",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "R1",
+        "R1a"
+      ],
+      "outcome": "PASS"
+    },
+    {
+      "key": "CODE2",
+      "id": "CODE2",
+      "kind": "code",
+      "title": "Adapter: plik → JSON",
+      "body": "from pathlib import Path\nimport json\nfrom stats import count_words\n\ndef run(path):\n    text = Path(path).read_text(encoding=\"utf-8\")\n    print(json.dumps({\"words\": count_words(text)}))\n\nIlustracyjny fragment adaptera CLI; obsługa argumentów i Q1 poza tym fragmentem.",
+      "wp": "WP.15",
+      "path": "src/cli.py",
+      "container": "Komponent adaptera",
+      "why": "Łączy obliczenie z wejściem i wyjściem.",
+      "links": [
+        "C2",
+        "CODE1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "RUN3",
+      "id": "RUN3",
+      "kind": "run",
+      "title": "GREEN · integracja T5",
+      "body": "SYMULACJA: plik „Ala ma kota” → stdout {\"words\": 3}; kod 0; stderr pusty; bajty pliku niezmienione. PASS. Wynik dotyczy poprawnego wejścia, nie rozstrzyga Q1.",
+      "wp": "WP.20",
+      "path": "reports/tests.md",
+      "container": "Raport testów — wykonanie RUN3",
+      "why": "Sprawdza granicę między komponentami i cały poprawny przepływ.",
+      "links": [
+        "T5",
+        "CODE1",
+        "CODE2",
+        "R1",
+        "R2"
+      ],
+      "outcome": "PASS"
+    },
+    {
+      "key": "U1",
+      "id": "U1",
+      "kind": "usage",
+      "title": "Instrukcja użycia",
+      "body": "Uruchom w fabule: python src/cli.py tekst.txt. Plik musi być poprawnym UTF-8. Wynik JSON zawiera words. Przykład: „Ala ma kota” → {\"words\": 3}. Program nie modyfikuje pliku. Słowa są rozdzielane białymi znakami. Błędy odczytu czekają na ustalenie Q1.",
+      "wp": "WP.18",
+      "path": "docs/usage.md",
+      "container": "Instrukcja użytkownika",
+      "why": "Umożliwia użycie wyniku i ocenę zrozumiałości.",
+      "links": [
+        "R1",
+        "G1",
+        "CODE2",
+        "Q1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "DEMO1",
+      "id": "DEMO1",
+      "kind": "demo",
+      "title": "Demonstracja przyrostu",
+      "body": "SYMULACJA: redaktor stosuje wskazaną rewizję instrukcji do pliku „Ala ma kota”; otrzymuje {\"words\": 3}. Oceniasz w fabule: czy wynik i jego ograniczenia są zrozumiałe? Przyjmij przyrost z uzasadnieniem albo zgłoś korektę objaśnienia. Sam wynik nie oznacza odbioru.",
+      "wp": "WP.22",
+      "path": "records/validation-increment.md",
+      "container": "Zapis demonstracji i oceny przydatności",
+      "why": "Daje podstawę do oceny użytkowej, której same testy nie zapewniają.",
+      "links": [
+        "U1",
+        "RUN2",
+        "RUN3",
+        "R1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "DEC1",
+      "id": "DEC1",
+      "kind": "decision",
+      "title": "Korekta potrzebna",
+      "body": "SYMULACJA: odmowa odbioru przyrostu. W tej lekcji korekta dotyczy instrukcji, bez zmiany kodu lub zakresu. Powód operatora w fabule:",
+      "wp": "—",
+      "path": "records/increment-decision.md",
+      "container": "Decyzja w lekcji",
+      "why": "Zachowuje powód odmowy i wskazaną demonstrację.",
+      "links": [
+        "DEMO1",
+        "U1"
+      ],
+      "outcome": ""
+    },
+    {
+      "key": "ACC1",
+      "id": "ACC1",
+      "kind": "decision",
+      "title": "Odbiór I1 w fabule",
+      "body": "SYMULACJA: odbiór poprawnego przepływu I1. Q1 pozostaje otwarte; nie jest to zgoda na wydanie produktu ani odbiór symulatora przez jego właściciela. Uzasadnienie operatora w fabule:",
+      "wp": "WP.01",
+      "path": "records/increment-acceptance.md",
+      "container": "Zapis odbioru przyrostu (adaptacja)",
+      "why": "Zapisuje świadomą decyzję, której GREEN nie podejmuje.",
+      "links": [
+        "DEMO1",
+        "Q1"
+      ],
+      "outcome": ""
+    }
+  ]
+}

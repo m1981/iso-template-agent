@@ -1,0 +1,69 @@
+{
+  "format_version": 1,
+  "lesson_id": "textstats-i1",
+  "lesson_version": 1,
+  "simulated": true,
+  "commands": [
+    {
+      "action": "scope",
+      "note": ""
+    },
+    {
+      "action": "plan",
+      "note": ""
+    },
+    {
+      "action": "design",
+      "note": ""
+    },
+    {
+      "action": "review",
+      "note": ""
+    },
+    {
+      "action": "tests",
+      "note": ""
+    },
+    {
+      "action": "red",
+      "note": ""
+    },
+    {
+      "action": "implement",
+      "note": ""
+    },
+    {
+      "action": "unit",
+      "note": ""
+    },
+    {
+      "action": "integrate",
+      "note": ""
+    },
+    {
+      "action": "integration",
+      "note": ""
+    },
+    {
+      "action": "demo",
+      "note": ""
+    },
+    {
+      "action": "reject",
+      "note": "Próba techniczna: wyjaśnij rolę interpunkcji."
+    },
+    {
+      "action": "clarify",
+      "note": "Ala,kot to jedno słowo; Ala, kot to dwa. Próba techniczna."
+    },
+    {
+      "action": "demo",
+      "note": ""
+    },
+    {
+      "action": "accept",
+      "note": "W fikcyjnej lekcji rozumiem wynik i ograniczenie Q1. To test symulatora."
+    }
+  ],
+  "cursor": 15
+}

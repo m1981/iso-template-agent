@@ -18,12 +18,6 @@ Format:
 
 ## Otwarte
 
-### D-79 Pierwszy działający przyrost symulatora
-- status: open
-- options: A) zrealizować I1 według reference/process-simulator/increment-01.md · B) skorygować propozycję przed implementacją
-- proposal: A
-- notes: w bieżącej wiadomości D1; właściciel Użytkownik, następny krok: rozstrzygnięcie. I1 obejmuje pełną lekcję TextStats, nieudany test i korektę, trzy widoki oraz zapis i wznowienie; zmianę wymagania po GREEN i alternatywne gałęzie proponujemy na następny przyrost. Wymaga odpowiedzi, ponieważ określa zakres rozpoczęcia implementacji i kolejność realizacji; do tej pory zlecono dokumentację.
-
 ### D-74 Ustalenia z wykonania przeniesienia
 - status: open
 - options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
@@ -76,11 +70,19 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-79 Pierwszy działający przyrost symulatora
+- status: resolved
+- options: A) zrealizować I1 według reference/process-simulator/increment-01.md · B) skorygować propozycję przed implementacją
+- proposal: A
+- choice: A — Użytkownik odpowiedział „d1 tak” i zlecił najpierw rozpisanie podstaw wiedzy technicznej oraz doboru stosu. Zakres I1 obejmuje pełną lekcję TextStats, nieudany test i korektę, trzy widoki oraz zapis i wznowienie; zmiana wymagania po GREEN i alternatywne gałęzie pozostają na następny przyrost.
+- date: 2026-10-24
+- notes: D1 z rozmowy mapuje się na ten wpis. Właściciel wykonania: agent; najpierw opis wyborów w reference/process-simulator/technical-plan.md, następnie realizacja I1. Zgoda na wykonanie nie jest odbiorem produktu ani poleceniem kolejnego commita lub pushu. Użytkownik następnie polecił wykonać I1 w TDD według stosu; wykonanie i dowody: reference/process-simulator/progress.md oraz reference/process-simulator/evidence/README.md.
+
 ### D-80 Commit zmian przygotowanych przez agenta
 - status: resolved
 - choice: Użytkownik polecił zacommitować zmiany agenta: naprawy kontroli z dowodami TDD oraz dokumentację symulatora i powiązane zapisy procesu.
 - date: 2026-10-23
-- notes: to późniejsze polecenie uchyla wcześniejsze ograniczenie „bez commita” dla tych zmian. Nie obejmuje cudzych zmian, pushu ani rozpoczęcia implementacji symulatora. D-79 pozostaje otwarte.
+- notes: to późniejsze polecenie uchyla wcześniejsze ograniczenie „bez commita” dla tych zmian. Nie obejmuje cudzych zmian, pushu ani rozpoczęcia implementacji symulatora. D-79 pozostawało w chwili tego polecenia otwarte; późniejszą zgodę zapisano w D-79.
 
 ### D-78 Kontrakt współpracy przekazany przez Użytkownika
 - status: resolved

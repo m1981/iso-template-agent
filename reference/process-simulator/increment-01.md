@@ -1,6 +1,6 @@
 # Pierwszy przyrost symulatora
 
-Data: 2026-10-23. Status: propozycja do decyzji D-79; w rozmowie D1. Wynik ma być używalną lekcją w przeglądarce, przechodzącą przez scenariusz, silnik i widoki. Nie kończymy przyrostu na samym modelu Python ani zestawie dokumentów.
+Utworzono: 2026-10-23. Zakres zatwierdzony 2026-10-24 decyzją D-79 (D1 w rozmowie). Użytkownik polecił najpierw opisać podstawy wiedzy technicznej i dobór stosu. Wynik ma być używalną lekcją w przeglądarce, przechodzącą przez scenariusz, silnik i widoki. Nie kończymy przyrostu na samym modelu Python ani zestawie dokumentów.
 
 ## Wynik dla operatora
 
@@ -32,7 +32,7 @@ Graf i historia powstają z tego samego stanu. Każdy wynik fabuły ma oznaczeni
 
 I1 obejmuje jedną pełną lekcję, ścieżkę nieudanego testu i korekty, trzy widoki, inspekcję historii oraz zapis i wznowienie sesji. Odnosi się do etapów S1–S4 planu głównego, lecz nie oznacza zakończenia wszystkich ich szerszych kryteriów.
 
-Proponuję następnym przyrostem objąć zmianę wymagania po GREEN i tworzenie alternatywnej gałęzi historii. Są zapisane w planie całej pierwszej wersji, ale odłożenie ich poza I1 wymaga decyzji D-79. Nie oznaczamy ich jako wykonanych ani usuniętych z celu. Alloy/TLC pozostają opcjonalnym S5. Kuchnia, rzeczywiste wydania, manifesty i mechanizm zgód projektu pozostają poza zakresem tej lekcji.
+Zmiana wymagania po GREEN i tworzenie alternatywnej gałęzi historii pozostają zakresem następnego przyrostu, zgodnie z D-79. Są zapisane w planie całej pierwszej wersji; nie oznaczamy ich jako wykonanych ani usuniętych z celu. Alloy/TLC pozostają opcjonalnym S5. Kuchnia, rzeczywiste wydania, manifesty i mechanizm zgód projektu pozostają poza zakresem tej lekcji.
 
 ## Wykonanie w Pythonie
 

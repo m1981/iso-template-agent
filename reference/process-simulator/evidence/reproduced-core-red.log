@@ -1,0 +1,61 @@
+Case: reproduced-core-red
+Command: python3 -B -m unittest -v test_engine.FirstSlice
+Exit: 1
+
+test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review) ... ERROR
+test_duplicate_scope_is_an_atomic_refusal (test_engine.FirstSlice.test_duplicate_scope_is_an_atomic_refusal) ... ERROR
+test_plan_and_design_can_be_created_in_either_order (test_engine.FirstSlice.test_plan_and_design_can_be_created_in_either_order) ... ERROR
+test_test_cases_are_not_test_executions (test_engine.FirstSlice.test_test_cases_are_not_test_executions) ... ERROR
+
+======================================================================
+ERROR: test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<disposable-copy>/tests/test_engine.py", line 31, in test_cannot_test_without_review
+    state = walk("scope", "plan", "design")
+  File "<disposable-copy>/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/private<disposable-copy>/app/engine.py", line 8, in transition
+    raise NotImplementedError("First RED: transitions do not exist yet")
+NotImplementedError: First RED: transitions do not exist yet
+
+======================================================================
+ERROR: test_duplicate_scope_is_an_atomic_refusal (test_engine.FirstSlice.test_duplicate_scope_is_an_atomic_refusal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<disposable-copy>/tests/test_engine.py", line 38, in test_duplicate_scope_is_an_atomic_refusal
+    state = walk("scope")
+  File "<disposable-copy>/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/private<disposable-copy>/app/engine.py", line 8, in transition
+    raise NotImplementedError("First RED: transitions do not exist yet")
+NotImplementedError: First RED: transitions do not exist yet
+
+======================================================================
+ERROR: test_plan_and_design_can_be_created_in_either_order (test_engine.FirstSlice.test_plan_and_design_can_be_created_in_either_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<disposable-copy>/tests/test_engine.py", line 26, in test_plan_and_design_can_be_created_in_either_order
+    state = walk("scope", "design", "plan", "review", "tests")
+  File "<disposable-copy>/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/private<disposable-copy>/app/engine.py", line 8, in transition
+    raise NotImplementedError("First RED: transitions do not exist yet")
+NotImplementedError: First RED: transitions do not exist yet
+
+======================================================================
+ERROR: test_test_cases_are_not_test_executions (test_engine.FirstSlice.test_test_cases_are_not_test_executions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<disposable-copy>/tests/test_engine.py", line 19, in test_test_cases_are_not_test_executions
+    state = walk(*PREPARE)
+  File "<disposable-copy>/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/private<disposable-copy>/app/engine.py", line 8, in transition
+    raise NotImplementedError("First RED: transitions do not exist yet")
+NotImplementedError: First RED: transitions do not exist yet
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (errors=4)

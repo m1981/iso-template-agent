@@ -1,0 +1,141 @@
+test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review) ... ok
+test_duplicate_scope_is_an_atomic_refusal (test_engine.FirstSlice.test_duplicate_scope_is_an_atomic_refusal) ... ok
+test_plan_and_design_can_be_created_in_either_order (test_engine.FirstSlice.test_plan_and_design_can_be_created_in_either_order) ... ok
+test_test_cases_are_not_test_executions (test_engine.FirstSlice.test_test_cases_are_not_test_executions) ... ok
+test_accept_requires_demonstration_and_explicit_reason (test_engine.FullLesson.test_accept_requires_demonstration_and_explicit_reason) ... ERROR
+test_all_links_resolve_and_history_remains_immutable (test_engine.FullLesson.test_all_links_resolve_and_history_remains_immutable) ... ERROR
+test_green_unit_tests_are_not_integration_or_acceptance (test_engine.FullLesson.test_green_unit_tests_are_not_integration_or_acceptance) ... ERROR
+test_integration_binds_test_requirements_and_both_components (test_engine.FullLesson.test_integration_binds_test_requirements_and_both_components) ... ERROR
+test_red_and_green_reference_different_code_revisions (test_engine.FullLesson.test_red_and_green_reference_different_code_revisions) ... ERROR
+test_rejection_requires_correction_then_new_demonstration (test_engine.FullLesson.test_rejection_requires_correction_then_new_demonstration) ... ERROR
+test_all_prefixes_replay_deterministically (test_session.SessionContract.test_all_prefixes_replay_deterministically) ... ERROR
+test_historical_view_has_no_future_products (test_session.SessionContract.test_historical_view_has_no_future_products) ... ERROR
+test_invalid_version_fields_commands_cursor_and_payload_are_rejected (test_session.SessionContract.test_invalid_version_fields_commands_cursor_and_payload_are_rejected) ... ERROR
+test_roundtrip_including_note_cursor_and_relations (test_session.SessionContract.test_roundtrip_including_note_cursor_and_relations) ... ERROR
+
+======================================================================
+ERROR: test_accept_requires_demonstration_and_explicit_reason (test_engine.FullLesson.test_accept_requires_demonstration_and_explicit_reason)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 72, in test_accept_requires_demonstration_and_explicit_reason
+    state = walk(*TO_DEMO[:-1])
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_all_links_resolve_and_history_remains_immutable (test_engine.FullLesson.test_all_links_resolve_and_history_remains_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 105, in test_all_links_resolve_and_history_remains_immutable
+    state = walk(*TO_DEMO)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_green_unit_tests_are_not_integration_or_acceptance (test_engine.FullLesson.test_green_unit_tests_are_not_integration_or_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 65, in test_green_unit_tests_are_not_integration_or_acceptance
+    state = walk(*PREPARE, "red", "implement", "unit")
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_integration_binds_test_requirements_and_both_components (test_engine.FullLesson.test_integration_binds_test_requirements_and_both_components)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 115, in test_integration_binds_test_requirements_and_both_components
+    state = walk(*TO_DEMO)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_red_and_green_reference_different_code_revisions (test_engine.FullLesson.test_red_and_green_reference_different_code_revisions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 53, in test_red_and_green_reference_different_code_revisions
+    red = walk(*PREPARE, "red")
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_rejection_requires_correction_then_new_demonstration (test_engine.FullLesson.test_rejection_requires_correction_then_new_demonstration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 86, in test_rejection_requires_correction_then_new_demonstration
+    demo = walk(*TO_DEMO)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_all_prefixes_replay_deterministically (test_session.SessionContract.test_all_prefixes_replay_deterministically)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_session.py", line 46, in test_all_prefixes_replay_deterministically
+    state = walk(*TO_DEMO)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_historical_view_has_no_future_products (test_session.SessionContract.test_historical_view_has_no_future_products)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_session.py", line 21, in test_historical_view_has_no_future_products
+    state = walk(*TO_DEMO)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_invalid_version_fields_commands_cursor_and_payload_are_rejected (test_session.SessionContract.test_invalid_version_fields_commands_cursor_and_payload_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_session.py", line 29, in test_invalid_version_fields_commands_cursor_and_payload_are_rejected
+    good = export_session(walk(*TO_DEMO))
+                          ~~~~^^^^^^^^^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+======================================================================
+ERROR: test_roundtrip_including_note_cursor_and_relations (test_session.SessionContract.test_roundtrip_including_note_cursor_and_relations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_session.py", line 12, in test_roundtrip_including_note_cursor_and_relations
+    state = transition(walk(*TO_DEMO), "accept", "Rozumiem wynik.")
+                       ~~~~^^^^^^^^^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_engine.py", line 10, in walk
+    state = transition(state, action)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/engine.py", line 68, in transition
+    raise Refused(refusal)
+app.engine.Refused: Nieznane działanie.
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.006s
+
+FAILED (errors=10)

@@ -168,9 +168,9 @@ Błędy: 0 · ostrzeżenia: 2
 
 | Element | Typ | Dzieci |
 | --- | --- | --- |
-| D-79 | D | — |
 | D-74 | D | — |
 | D-75 | D | — |
+| D-79 | D | — |
 | D-80 | D | — |
 | D-78 | D | — |
 | D-77 | D | — |

@@ -1,0 +1,25 @@
+Browser trial 2026-10-24T16:25:33.405Z; Node v25.2.1. Own server, synthetic lesson only.
+Browser: Chrome/156.0.8078.48
+PASS step 1: Uzgodnij zakres w fabule
+PASS step 2: Przygotuj plan I1
+PASS step 3: Zaprojektuj kontrakty C1/C2
+PASS step 4: Przejrzyj wymagania i projekt
+PASS step 5: Przygotuj przypadki T1–T5
+PASS: five test cases exist, zero test executions.
+PASS step 6: Uruchom próbę na szkielecie
+PASS step 7: Zaimplementuj obliczenie
+PASS step 8: Ponów testy jednostkowe
+PASS step 9: Dołącz adapter CLI
+PASS step 10: Sprawdź integrację T5
+PASS step 11: Przeprowadź demonstrację
+PASS: historical step read-only, future results absent, cursor exported.
+PASS: invalid import did not replace state.
+PASS step 12: Zgłoś korektę instrukcji
+PASS step 13: Popraw objaśnienie użycia
+PASS step 14: Przeprowadź demonstrację
+PASS step 15: Odbierz I1 w fabule
+PASS: graph keyboard selection opens requirement card with WP/ID/revision and reverse links.
+PASS: actual server restart and UI import/export roundtrip retained exact commands, notes, cursor.
+PASS: reaching the session limit is not displayed as acceptance.
+PASS: narrow viewport has no page-level horizontal overflow.
+RESULT: PASS. Real browser checks of simulator; all TextStats outcomes remain simulated.

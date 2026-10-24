@@ -1,0 +1,146 @@
+test_cannot_test_without_review (test_engine.FirstSlice.test_cannot_test_without_review) ... ok
+test_duplicate_scope_is_an_atomic_refusal (test_engine.FirstSlice.test_duplicate_scope_is_an_atomic_refusal) ... ok
+test_plan_and_design_can_be_created_in_either_order (test_engine.FirstSlice.test_plan_and_design_can_be_created_in_either_order) ... ok
+test_test_cases_are_not_test_executions (test_engine.FirstSlice.test_test_cases_are_not_test_executions) ... ok
+test_accept_requires_demonstration_and_explicit_reason (test_engine.FullLesson.test_accept_requires_demonstration_and_explicit_reason) ... ok
+test_all_links_resolve_and_history_remains_immutable (test_engine.FullLesson.test_all_links_resolve_and_history_remains_immutable) ... ok
+test_green_unit_tests_are_not_integration_or_acceptance (test_engine.FullLesson.test_green_unit_tests_are_not_integration_or_acceptance) ... ok
+test_integration_binds_test_requirements_and_both_components (test_engine.FullLesson.test_integration_binds_test_requirements_and_both_components) ... ok
+test_red_and_green_reference_different_code_revisions (test_engine.FullLesson.test_red_and_green_reference_different_code_revisions) ... ok
+test_rejection_requires_correction_then_new_demonstration (test_engine.FullLesson.test_rejection_requires_correction_then_new_demonstration) ... ok
+test_all_prefixes_replay_deterministically (test_session.SessionContract.test_all_prefixes_replay_deterministically) ... ok
+test_historical_view_has_no_future_products (test_session.SessionContract.test_historical_view_has_no_future_products) ... ok
+test_invalid_version_fields_commands_cursor_and_payload_are_rejected (test_session.SessionContract.test_invalid_version_fields_commands_cursor_and_payload_are_rejected) ... ok
+test_roundtrip_including_note_cursor_and_relations (test_session.SessionContract.test_roundtrip_including_note_cursor_and_relations) ... ok
+test_bad_json_unknown_fields_and_paths_do_not_change_session (test_views_http.HTTPContract.test_bad_json_unknown_fields_and_paths_do_not_change_session) ... ERROR
+test_command_and_duplicate_are_atomic (test_views_http.HTTPContract.test_command_and_duplicate_are_atomic) ... ERROR
+test_import_replays_and_history_cannot_be_edited (test_views_http.HTTPContract.test_import_replays_and_history_cannot_be_edited) ... ERROR
+test_local_static_assets_and_cross_origin_rejection (test_views_http.HTTPContract.test_local_static_assets_and_cross_origin_rejection) ... ERROR
+test_two_competing_commands_do_not_overwrite_state (test_views_http.HTTPContract.test_two_competing_commands_do_not_overwrite_state) ... ERROR
+test_history_is_read_only_and_projection_contains_no_future_results (test_views_http.ViewContract.test_history_is_read_only_and_projection_contains_no_future_results) ... ERROR
+test_reverse_links_include_the_exact_historical_revision (test_views_http.ViewContract.test_reverse_links_include_the_exact_historical_revision) ... ERROR
+
+======================================================================
+ERROR: test_bad_json_unknown_fields_and_paths_do_not_change_session (test_views_http.HTTPContract.test_bad_json_unknown_fields_and_paths_do_not_change_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 34, in setUp
+    self.server = make_server()
+                  ~~~~~~~~~~~^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/server.py", line 6, in make_server
+    return ThreadingHTTPServer(("127.0.0.1", port), BaseHTTPRequestHandler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_command_and_duplicate_are_atomic (test_views_http.HTTPContract.test_command_and_duplicate_are_atomic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 34, in setUp
+    self.server = make_server()
+                  ~~~~~~~~~~~^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/server.py", line 6, in make_server
+    return ThreadingHTTPServer(("127.0.0.1", port), BaseHTTPRequestHandler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_import_replays_and_history_cannot_be_edited (test_views_http.HTTPContract.test_import_replays_and_history_cannot_be_edited)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 34, in setUp
+    self.server = make_server()
+                  ~~~~~~~~~~~^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/server.py", line 6, in make_server
+    return ThreadingHTTPServer(("127.0.0.1", port), BaseHTTPRequestHandler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_local_static_assets_and_cross_origin_rejection (test_views_http.HTTPContract.test_local_static_assets_and_cross_origin_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 34, in setUp
+    self.server = make_server()
+                  ~~~~~~~~~~~^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/server.py", line 6, in make_server
+    return ThreadingHTTPServer(("127.0.0.1", port), BaseHTTPRequestHandler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_two_competing_commands_do_not_overwrite_state (test_views_http.HTTPContract.test_two_competing_commands_do_not_overwrite_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 34, in setUp
+    self.server = make_server()
+                  ~~~~~~~~~~~^^
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/server.py", line 6, in make_server
+    return ThreadingHTTPServer(("127.0.0.1", port), BaseHTTPRequestHandler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_history_is_read_only_and_projection_contains_no_future_results (test_views_http.ViewContract.test_history_is_read_only_and_projection_contains_no_future_results)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 25, in test_history_is_read_only_and_projection_contains_no_future_results
+    view = project(walk(*TO_DEMO), cursor=5)
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/projections.py", line 3, in project
+    raise NotImplementedError("Third RED: projections are missing")
+NotImplementedError: Third RED: projections are missing
+
+======================================================================
+ERROR: test_reverse_links_include_the_exact_historical_revision (test_views_http.ViewContract.test_reverse_links_include_the_exact_historical_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/tests/test_views_http.py", line 15, in test_reverse_links_include_the_exact_historical_revision
+    view = project(walk(*TO_DEMO))
+  File "/Users/michal/PycharmProjects/iso-template-agent/reference/process-simulator/app/projections.py", line 3, in project
+    raise NotImplementedError("Third RED: projections are missing")
+NotImplementedError: Third RED: projections are missing
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.017s
+
+FAILED (errors=7)

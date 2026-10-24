@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laboratorium procesu · TextStats I1</title><link rel="stylesheet" href="/style.css"><script type="module" src="/main.js"></script></head>
+<body>
+<header><div><p class="eyebrow">LABORATORIUM PROCESU / LEKCJA 01</p><h1>Jak powstaje przyrost?</h1><p>TextStats · od potrzeby do świadomego odbioru</p></div><nav aria-label="Sesja"><button id="refresh">Odśwież stan</button><button id="export">Zapisz sesję</button><button id="import">Wznów sesję</button></nav></header>
+<div class="notice"><strong>SYMULACJA EDUKACYJNA</strong> Wyniki testów i decyzje dotyczą fikcyjnej lekcji. Nie są dowodami wykonania rzeczywistego projektu.</div>
+<main>
+<section class="overview" aria-label="Stan lekcji"><div><span class="eyebrow">TERAZ</span><h2 id="now">Łączenie z lekcją…</h2><p id="hint"></p></div><div id="counters"></div></section>
+<p id="message" role="status" aria-live="polite"></p>
+<div class="workspace">
+<section class="panel process" aria-labelledby="actions-title"><div class="panel-heading"><span class="number">01</span><h2 id="actions-title">Przebieg</h2></div><p class="muted">Działanie tworzy informację. Warunki wynikają z faktów w lekcji.</p><div id="actions"></div><details><summary>Pozostałe działania i warunki</summary><div id="other-actions"></div></details></section>
+<section class="panel graph-panel" aria-labelledby="graph-title"><div class="panel-heading"><span class="number">02</span><h2 id="graph-title">Produkty i powiązania</h2></div><p class="muted">Węzeł grupuje informacje z przykładowego pliku. Strzałka: podstawa → produkt. Wybierz węzeł, by zobaczyć jego elementy.</p><div id="graph"></div><p id="graph-count" class="muted"></p></section>
+<aside class="panel card-panel" aria-labelledby="card-title"><div class="panel-heading"><span class="number">↗</span><h2 id="card-title">Karta informacji</h2></div><label for="element">Element i rewizja</label><select id="element"></select><article id="card"></article></aside>
+</div>
+<section class="panel history-panel" aria-labelledby="history-title"><div class="history-heading"><div class="panel-heading"><span class="number">03</span><h2 id="history-title">Historia przyrostu</h2></div><button id="current">Wróć do bieżącego kroku</button></div><p class="muted">Wybierz moment, aby zobaczyć ówczesne produkty. Przeszłość jest tylko do odczytu.</p><div id="history"></div><p id="event-detail"></p></section>
+<section class="open"><strong>Granica przyrostu</strong><p id="questions">Najpierw uzgodnij zakres w fabule.</p></section>
+</main>
+<footer>Sesja działa w pamięci jednego lokalnego serwera. Wiele kart dzieli tę samą sesję. Przed zamknięciem serwera wybierz „Zapisz sesję”. Brak automatycznego zapisu.</footer>
+<dialog id="action-dialog"><form id="action-form"><p class="eyebrow">DECYZJA LUB KOREKTA W FABULE</p><h2 id="action-title"></h2><p id="action-help"></p><label for="note">Uzasadnienie lub treść korekty</label><textarea id="note" rows="5" maxlength="2000" required></textarea><p class="muted">W I1 korekta dotyczy objaśnienia użycia. Zmiany kodu, wymagań i zakresu są poza tym ćwiczeniem.</p><div class="dialog-actions"><button type="button" id="cancel-action">Anuluj</button><button class="primary" type="submit">Zapisz w fabule</button></div></form></dialog>
+<dialog id="save-dialog"><h2>Zapis sesji</h2><p>Zachowaj plik JSON albo skopiuj poniższy zapis. Zawiera historię i aktualnie oglądany krok.</p><label for="saved-json">JSON sesji do zachowania</label><textarea id="saved-json" rows="10" readonly></textarea><div class="dialog-actions"><button id="close-save">Zamknij zapis</button><button id="download" class="primary">Pobierz plik JSON</button></div></dialog>
+<dialog id="load-dialog"><form id="load-form"><h2>Wznów sesję</h2><p>Wklej zapis lub odczytaj plik JSON. Poprawny zapis zastąpi sesję w pamięci. Błędny zapis nie zmieni stanu. Przed zastąpieniem zachowaj bieżącą sesję.</p><label for="session-file">Plik sesji JSON (opcjonalnie)</label><input id="session-file" type="file" accept=".json,application/json"><label for="loaded-json">JSON sesji do wznowienia</label><textarea id="loaded-json" rows="10" required></textarea><p id="import-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-load">Anuluj import</button><button class="primary" type="submit">Odtwórz sesję</button></div></form></dialog>
+</body></html>

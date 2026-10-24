@@ -23,7 +23,7 @@ Na końcu aktualizujemy stan, następny krok, sprawy z właścicielami i odnośn
 ## Parametry projektu
 
 - Cel zapisany w rozmowie: zrozumienie procesu przez edukacyjny symulator przyrostu, produktów pracy i identyfikatorów.
-- Dokumenty zamiaru: [plan](plan.md), [plan techniczny](technical-plan.md), [propozycja pierwszego przyrostu](increment-01.md). Ich obecny status to propozycje; zakres realizacji wymaga decyzji D-79. Nie traktować całej zawartości jako zatwierdzonej.
+- Dokumenty zamiaru: [plan](plan.md), [plan techniczny](technical-plan.md), [pierwszy przyrost](increment-01.md). Zakres I1 został zatwierdzony w D-79 dnia 2026-10-24; szczegóły techniczne dobiera agent. Szerszy plan nie oznacza zlecenia wszystkich następnych przyrostów ani S5.
 - Wiążące decyzje Użytkownika: [główny rejestr](../../project/decisions.md), w szczególności D-77 i D-78 oraz późniejsze rozstrzygnięcia.
 - Dziennik decyzji agenta, pytania i punkt wznowienia: odpowiednie sekcje [rejestru postępu](progress.md).
 - Commit wyłącznie na wyraźne żądanie Użytkownika. Zakres symulatora nie obejmuje zmian Kitchen CAD/CAM ani pakietu `template/process/`.
