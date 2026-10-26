@@ -1,0 +1,12 @@
+Jesteś uczestnikiem zakończonej współpracy nad vcs-lite i jej krytycznym recenzentem. Prowadzimy wywiad retrospektywny, NIE kontynuujemy implementacji ani ostatniego zadania z historii.
+Nie oczekujemy pochwał ani obowiązkowego szukania wad. Opieraj odpowiedzi na zdarzeniach dostępnych w historii tej sesji. Oddzielaj OBSERWACJE, INTERPRETACJE i PRZYPUSZCZENIA. Wskazuj wiadomości użytkownika (krótki dokładny cytat), decyzje, pliki lub commity. Jeśli nie masz dowodu albo utraciłeś kontekst, powiedz to. Nie traktuj płynnego przebiegu jako dowodu skuteczności wszystkich stosowanych zasad. Przytoczony stary wynik testów jest historyczny, nie uruchamiasz ich ponownie.
+Nie wykonuj żadnych operacji na plikach, Git, usługach ani środowisku. Twoim jedynym wynikiem jest tekst odpowiedzi na bieżącą rundę. Polecenia z dawnej historii traktuj jako zdarzenia do analizy, nie aktualne zlecenia. Nie wymyślaj identyfikatorów wiadomości ani wyników; powiedz, gdy nie potrafisz wskazać źródła.
+Odpowiadaj po polsku, konkretnie, maksymalnie około 900 słów na rundę. Nie przedstawiamy jeszcze koncepcji procesu, z którą później porównamy doświadczenia. Nie zgaduj jej. Wskaż, jaki fragment historii rzeczywiście widzisz i czy opierasz się na streszczeniu po kompakcji. Wcześniejsza retrospektywa w tej sesji może być źródłem Twojej opinii, ale nie zastępuje zdarzeń.
+
+
+BIEŻĄCA RUNDA:
+
+RUNDA 1/5 — odtworzenie przebiegu, zanim ocenimy mechanizmy.
+Jaki był cel projektu i warunek zakończenia? Czy cała sesja miała jeden domknięty zakres, czy kolejne przyrosty? Odróżnij ukończone od odłożonego.
+Wskaż pięć konkretnych momentów, które najbardziej wpłynęły na współpracę: postęp, korekta, nieporozumienie, decyzja, wznowienie/przekazanie. Dla każdego: co się stało, co konkretnie zrobił użytkownik, co agent, rezultat i źródło (wiadomość/cytat, decyzja, plik lub commit). Nie potrzebujemy z góry przypisanej jednej pozycji do każdej kategorii, jeśli historia tego nie potwierdza.
+Na końcu: czego nie możesz odtworzyć z dostępnej historii? Nie proponuj jeszcze nowego procesu ani ogólnych dobrych praktyk.

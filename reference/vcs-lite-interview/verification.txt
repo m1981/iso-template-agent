@@ -1,0 +1,8 @@
+Local documentation links: 40, missing: 0
+5 successful responses match saved CLI results
+Tools and MCP disabled in all 5 rounds
+Responses 1–3 unchanged since before model disclosure
+Protocol outputs omit internal reasoning blocks
+Saved source prefix unchanged; extra metadata types: ['cost-state']
+Runner syntax and JSON parse
+make check and git diff --check: exit 0 (separate execution)

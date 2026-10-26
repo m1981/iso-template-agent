@@ -1,0 +1,21 @@
+{
+  "format_version": 1,
+  "lesson_id": "textstats-i1",
+  "lesson_version": 1,
+  "simulated": true,
+  "commands": [
+    {
+      "action": "scope",
+      "note": ""
+    },
+    {
+      "action": "plan",
+      "note": ""
+    },
+    {
+      "action": "design",
+      "note": ""
+    }
+  ],
+  "cursor": 3
+}

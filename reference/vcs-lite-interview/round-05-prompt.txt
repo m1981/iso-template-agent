@@ -1,0 +1,19 @@
+RUNDA 5/5 — najwyżej trzy rekomendacje do sprawdzenia.
+
+Najpierw doprecyzowania prowadzącego po Twoim mapowaniu (nie są oceną rekomendacji):
+- Zwykły commit nie jest automatycznie baseline'em produktu ani odbiorem. Zdarzenie „zrób logiczne commity” może być operacją konfiguracyjną, której model nie reprezentuje wprost. Przypisanie go do T04 było hipotezą, nie ustalonym odwzorowaniem.
+- Dokładny T04 w modelu v0.7: actor U, from [approved, verified], to baselined, guard „not suspect and (state = approved or not type(e).requires_approval)”, evidence „commit lub tag na polecenie użytkownika”. Nie ma wprost tests_ok. Jego związek z realną serią commitów wymaga adaptacji.
+- Limit jednego pytania w stanie asked kontroluje kolejkę rekordów. Nie sprawdza liczby tematów ani decyzji w tekście odpowiedzi agenta. Nie można uznać, że już egzekwuje „jeden temat na wiadomość”.
+- Jedna wypowiedź człowieka może wyrażać zgodę na kilka jasno wskazanych działań. Potrzeba rozróżnienia odniesień nie przesądza o ponawianiu pytania. Obecny model wiąże rekord z konkretną operacją, ale nie interpretuje zdań ani nie ma gotowego adaptera zgód grupowych.
+- Propagacja suspect dotyczy zdefiniowanych zależności. Dopiero odwzorowanie rzeczywistych modułów/wzorców na elementy pokaże zakres alarmów. Koszt wymienionych sześciu modułów jest hipotezą, nie wykonanym przebiegiem tego modelu.
+- DEC i cytaty występują jako dane dowodowe operacji/pytania; nie są osobnym typem produktu z cyklem stanów. Przypisanie UI-REFERENCE i listy ręcznej do istniejących produktów albo do innej reprezentacji nie zostało jeszcze rozstrzygnięte.
+
+Wybierz teraz najwyżej TRZY rekomendacje (może być mniej). Dla każdej podaj:
+1. konkretne zdarzenie i źródło;
+2. problem oraz dlaczego istniejący mechanizm nie wystarcza;
+3. najmniejszą zmianę — w pierwszej kolejności wykorzystaj istniejące zapisy;
+4. oczekiwaną korzyść jako hipotezę, koszt utrzymania i warunek stosowania;
+5. najmniejszy eksperyment z wynikiem, który może ją potwierdzić albo obalić; jak zebrać dane bazowe, bez zmyślonych progów i czasów;
+6. co można zrobić samodzielnie w zatwierdzonym zakresie, a co wymaga decyzji człowieka przed zmianą polityki.
+
+Na końcu zaznacz, które wnioski korygujesz po powyższych doprecyzowaniach. Nie proponuj automatyzacji oceny jakości rozumowania ani obowiązkowego nowego rejestru bez wskazania brakującej informacji. Nie uznawaj samej liczby testów, dokumentów lub referencji za wynik jakościowy.

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mapa pracy — operator i agenci</title>
+  <style>
+    :root{color-scheme:light;--ink:#183c4a;--text:#263e45;--muted:#5d7075;--line:#d8e3e3;--paper:#fff;--bg:#f2f5f3;--green:#35775a;--amber:#ad7830;--red:#b94749;--purple:#6265a8}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1440px;margin:auto;padding:38px 32px 64px}h1,h2,h3{color:var(--ink);line-height:1.2}h1{font-size:clamp(32px,4vw,52px);margin:12px 0 18px;letter-spacing:-1.4px}h2{font-size:28px;margin:8px 0 16px}h3{font-size:21px;margin:4px 0 14px}p{margin:8px 0 16px}a{color:#175b73;text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #6a68ba;outline-offset:5px}.eyebrow{font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:2px;color:var(--green)}.lead{font-size:21px;max-width:860px}.meta{font-size:14px;color:var(--muted)}nav{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0}nav a{border:1px solid var(--line);padding:10px 16px;border-radius:8px;background:white;text-decoration:none;font-size:15px;font-weight:650}.notice{padding:16px 20px;border-left:4px solid var(--amber);background:#fff5df;border-radius:0 8px 8px 0;margin:22px 0}.legend{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.pill{padding:6px 12px;border-radius:6px;font-size:14px;border:1px solid}.m{background:#e8f3ee;border-color:var(--green)}.i{background:#fff5df;border-color:var(--amber)}.l{background:#fff0f0;border-color:var(--red)}.p{background:#edf0ff;border-color:var(--purple)}section,details.view{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:28px;margin:22px 0}section{scroll-margin-top:20px}summary{cursor:pointer;font-size:24px;font-weight:700;color:var(--ink);padding:4px 0}summary small{display:block;font-size:15px;font-weight:400;color:var(--muted);margin:8px 0 0 20px}.detail-content{padding-top:22px}figure{margin:22px 0}.diagram{display:block;width:100%;height:auto;border:1px solid #e5ebeb;border-radius:8px;background:white}.context-diagram{max-width:1000px;margin:auto}figcaption{font-size:14px;color:var(--muted);margin-top:10px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}.card{border:1px solid var(--line);border-radius:10px;padding:18px;background:#f8faf9}.card p{font-size:15px;margin-bottom:0}.gap{border-top:4px solid var(--red)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0;list-style:none;counter-reset:steps}.steps li{counter-increment:steps;background:#f2f5f3;padding:16px;border-radius:8px;font-size:15px}.steps li:before{content:counter(steps);display:inline-grid;place-items:center;width:25px;height:25px;background:var(--ink);color:white;border-radius:50%;margin-right:8px;font-weight:700}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;vertical-align:top;padding:14px 12px;border-bottom:1px solid var(--line)}th{background:#f2f5f3;color:var(--ink)}td:first-child{font-weight:650;width:20%}ul{padding-left:23px}li{margin:7px 0}.small{font-size:14px;color:var(--muted)}.source-list{columns:2;column-gap:30px;font-size:15px}.source-list li{break-inside:avoid}.footer{margin-top:28px;font-size:14px;color:var(--muted)}@media(max-width:780px){main{padding:22px 14px}section,details.view{padding:18px}.cards,.steps{grid-template-columns:1fr}.source-list{columns:1}.diagram{min-width:850px}.image-scroll{overflow-x:auto}.lead{font-size:18px}summary{font-size:21px}}@media print{body{background:white;font-size:11pt}main{max-width:none;padding:0}nav{display:none}section,details.view{break-inside:avoid;padding:12px}.cards{gap:8px}h1{font-size:30pt}.diagram{max-height:650px;object-fit:contain}.notice{font-size:10pt}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Mapa orientacyjna · operator + agenci · 25.10.2026</div>
+    <h1>Od potrzeby do odebranego wyniku</h1>
+    <p class="lead">Kto wykonuje pracę, skąd bierze kontekst i co zauważy pominięty krok. Zacznij od mapy 1. Pozostałe widoki otwieraj, kiedy potrzebujesz szczegółu.</p>
+    <p class="meta">Materiał do zrozumienia procesu · D-82 · nie jest raportem wykonania projektu</p>
+  </header>
+  <nav aria-label="Widoki mapy"><a href="#flow">1 · Przebieg</a><a href="#context">2 · Produkty i kontekst</a><a href="#controls">3 · Kontrole i luki</a><a href="#stories">Dwie historie</a><a href="#sources">Źródła</a></nav>
+  <div class="notice"><strong>Jak czytać status:</strong> reguły współpracy i istniejące narzędzia pokazujemy razem, ale ich nie utożsamiamy. Pełny obieg nie jest jeszcze egzekwowany mechanicznie w Kitchen. Oznaczenie M dotyczy wyłącznie opisanej funkcji narzędzia.</div>
+  <div class="legend" aria-label="Legenda statusów">
+    <span class="pill m"><b>M</b> · mechanizm w narzędziu</span><span class="pill i"><b>I</b> · instrukcja do zastosowania</span><span class="pill l"><b>L</b> · luka obecnego wsparcia</span><span class="pill p"><b>P</b> · propozycja, niewdrożona</span>
+  </div>
+
+  <section id="flow">
+    <div class="eyebrow">Widok 1 / kto i kiedy</div>
+    <h2>Jeden przyrost, cztery tory odpowiedzialności</h2>
+    <p>Czytaj z góry w dół. Linie ciągłe pokazują przekazanie pracy; przerywane — wsparcie przez narzędzie. Narzędzia mają różne momenty uruchomienia: E9 działa przy commicie, a raport testów jest osobnym poleceniem.</p>
+    <figure>
+      <div class="image-scroll"><a href="flow.svg" aria-label="Otwórz pełny diagram przebiegu do powiększenia"><img class="diagram" src="flow.svg" alt="Cztery tory: operator określa granice, agent planuje i implementuje, recenzent ocenia wynik, narzędzia wykonują wybrane kontrole. Usterka wraca do wykonania. Operator odbiera przyrost i osobno zatwierdza wydanie. L1 oznacza brak przypisania przeglądu, L2 brak pełnej kontroli aktualności, L3 zależność wznowienia od pamięci agenta."></a></div>
+      <figcaption><a href="flow.svg">Powiększ SVG</a> · <a href="flow.png">Wersja PNG</a> · podstawa: S1–S6. To opis organizacji pracy, nie automatyczny harmonogram.</figcaption>
+    </figure>
+    <ol class="steps">
+      <li><strong>Ty wyznaczasz wynik.</strong> Agent korzysta z już przyjętych ustaleń; pyta tylko o rzeczywiste braki.</li>
+      <li><strong>Agent przygotowuje i wykonuje.</strong> Plan, kod, testy oraz integracja prowadzą do wyniku do oceny.</li>
+      <li><strong>Narzędzia dostarczają sprawdzenia.</strong> Każdy wynik ma ograniczony zakres; kontrola zapisów nie zastępuje testów produktu.</li>
+      <li><strong>Recenzent ocenia.</strong> Osobny przebieg dostaje kryteria i materiał, zgłasza ustalenia; autor poprawia i ponawia potrzebne sprawdzenia.</li>
+      <li><strong>Ty odbierasz przyrost.</strong> Niespełniona potrzeba wraca do poprawki lub decyzji o zakresie. Wydanie to odrębna decyzja.</li>
+      <li><strong>Agent pozostawia stan do wznowienia.</strong> Następna sesja ma znaleźć aktualny zakres, blokady i krok do wykonania.</li>
+    </ol>
+    <p class="small">Punkt wznowienia aktualizuje się przy końcu każdej sesji, także przed odbiorem. Analiza wpływu uruchamia się przy zmianach na dowolnym etapie. Wydanie może łączyć kilka przyrostów; rysunek nie wymaga wydania po każdym odbiorze. Role nie oznaczają obowiązku tworzenia osobnego agenta dla każdej czynności.</p>
+    <div class="cards">
+      <article class="card gap"><h3>L1 · Przed pracą</h3><p>Istnieje instrukcja recenzenta, ale brak ogólnej kontroli, czy dany przyrost ma określony zakres i odpowiedzialność za przegląd.</p></article>
+      <article class="card gap"><h3>L2 · Przed odbiorem</h3><p>Brak pełnej kontroli, czy potrzebny przegląd wykonano i czy obejmuje aktualny materiał. Sam brak błędu E9 tego nie potwierdza.</p></article>
+      <article class="card gap"><h3>L3 · Przy wznowieniu</h3><p>Dokumenty są trwałe, lecz ich aktualizacja, odczyt i powrót do odłożonych praktyk zależą od zastosowania instrukcji przez agenta.</p></article>
+    </div>
+  </section>
+
+  <details id="context" class="view">
+    <summary>2 · Skąd bierze się kontekst?<small>Otwórz, aby zobaczyć powiązania między decyzją, wymaganiem, kodem i dowodem.</small></summary>
+    <div class="detail-content">
+      <p><strong>Dokument to nośnik informacji; produkt pracy to jej znaczący wynik</strong> — np. wymaganie, plan albo raport testów. Mogą być sekcjami istniejących plików. Strzałki poniżej oznaczają podstawę lub potrzebne wejście, a nie nakaz pisania całej dokumentacji przed kodem.</p>
+      <figure><div class="image-scroll"><a href="context.svg"><img class="diagram context-diagram" src="context.svg" alt="Decyzje wyznaczają wymagania i plan. Zlecenie, zasady i kontrakty ograniczają zadanie sesji. Wymagania i wzorce uzasadniają testy; kod i testy prowadzą do wyniku wykonania. Przegląd, odbiór i punkt wznowienia korzystają z tych źródeł."></a></div><figcaption><a href="context.svg">Powiększ SVG</a> · <a href="context.png">PNG</a> · podstawa: S5–S7. Linie przerywane wskazują kontekst lub informację do zapisu. Dokładny format karty zadania pozostaje propozycją.</figcaption></figure>
+      <div class="table-wrap"><table><thead><tr><th>Perspektywa</th><th>Co trzeba wiedzieć?</th><th>Gdzie jest granica?</th></tr></thead><tbody>
+        <tr><td>PM / PO</td><td>Cel, zakres, wartość, zależności, otwarte decyzje, ryzyka i stan dowodów.</td><td>Plan nie udziela samodzielnie zgody na nowe zobowiązania.</td></tr>
+        <tr><td>Developer</td><td>Wymaganie, jednostki, reguły, kontrakty, moduły i odbiorcy zmiany.</td><td>Nie zmienia oczekiwań, żeby dopasować je do kodu.</td></tr>
+        <tr><td>Recenzent</td><td>Kryteria, źródła wymagań, oceniana wersja i dowody. Kod, jeżeli jest przedmiotem oceny.</td><td>Nie odbiera produktu w imieniu operatora; osobna sesja nie gwarantuje innego błędu rozumowania.</td></tr>
+      </tbody></table></div>
+      <p><strong>Przykład identyfikatorów — wyłącznie dydaktyczny:</strong> <code>DEC-demo → REQ-demo → TEST-demo → RUN-demo</code>. Test wskazuje wymaganie; wynik wskazuje wykonany test i badaną wersję. ID pozwala odnaleźć informację, nie potwierdza jej prawdziwości. Nie są to nowe wymagania Kitchen.</p>
+      <p class="small">RKD pozostaje źródłem decyzji produktu. iso-model-state bada reguły modelu. Szablon dostarcza wybrane kontrole. Lekcja TextStats służy nauce. Nie łączymy ich wyników w jeden status „projekt sprawdzony”.</p>
+    </div>
+  </details>
+
+  <details id="controls" class="view">
+    <summary>3 · Co zauważy pominięty krok?<small>Otwórz, aby oddzielić działające kontrole, instrukcje i proponowane uzupełnienia.</small></summary>
+    <div class="detail-content">
+      <figure><div class="image-scroll"><a href="controls.svg"><img class="diagram" src="controls.svg" alt="Cztery momenty: przed wykonaniem, podczas sprawdzania, po zmianie i przy nowej sesji. Obok każdej obecnej kontroli wskazano jej granicę i niewdrożoną minimalną propozycję."></a></div><figcaption><a href="controls.svg">Powiększ SVG</a> · <a href="controls.png">PNG</a> · podstawa: S3, S4, S6. Etykieta P nie oznacza przyjętej lub działającej bramki.</figcaption></figure>
+      <div class="table-wrap"><table><thead><tr><th>Kontrola</th><th>Kiedy / co sprawdza</th><th>Wynik i granica</th></tr></thead><tbody>
+        <tr><td>M · Ślad i schemat</td><td><code>make check</code>; hook sprawdza wybrane warunki na indeksie. ID, relacje, pola i aktualność raportów.</td><td>Błędy lub ostrzeżenia i raport. <code>reference/</code> nie jest objęte tym samym śladem. Nie dowodzi sensu wymagań ani wykonania recenzji.</td></tr>
+        <tr><td>M · Test report</td><td><code>make test-report</code>; uruchamia skonfigurowane runnery AT i interpretuje ich wyniki oraz kod wyjścia.</td><td>Raport pass/fail; przypadki bez runnera są ręczne. Nie stanowi automatycznie testu całej aplikacji. Nie jest uruchamiany przez pokazany pre-commit.</td></tr>
+        <tr><td>M · E9</td><td>Przy commicie: nowy VER/VAL pass nie może współwystępować ze zmianą ocenianego elementu.</td><td>Może odrzucić commit. Nie sprawdza tożsamości, osobnej sesji ani obowiązkowej obecności przeglądu; brak HEAD jest wyjątkiem.</td></tr>
+        <tr><td>M · W5</td><td>Porównuje zweryfikowany element i bezpośrednich rodziców z historią Git dla zapisanego VER.</td><td>Ostrzega, nie blokuje. Bez odpowiedniej historii lub dla niezacommitowanego VER nie ma tej podstawy porównania. Nie śledzi wszystkich zmian kodu i danych.</td></tr>
+        <tr><td>M · Postęp</td><td>Generuje widok z planu, rekordów i tagów.</td><td>Porządkuje zapisane fakty i deklaracje; nie zamienia statusu zadania w dowód wykonania.</td></tr>
+      </tbody></table></div>
+      <p class="small">Lokalny hook jest pomocą przeciw pomyłkom; nie jest granicą bezpieczeństwa ani uwierzytelnieniem zgody. Sprawdzenie struktury nie zastępuje ludzkiego osądu jakości, przydatności i ryzyka.</p>
+    </div>
+  </details>
+
+  <section id="stories">
+    <div class="eyebrow">Przejście przez mapę</div>
+    <h2>Ta sama praca. Jeden pominięty krok.</h2>
+    <p>To dwa scenariusze dydaktyczne dla przyrostu, dla którego uzgodniono przegląd. Porównanie wynika z odczytu reguł i kodu kontroli; nie jest logiem nowego wykonania testów ani zapisem odbioru.</p>
+    <div class="table-wrap"><table><thead><tr><th>Moment</th><th>A · Przegląd wykonany</th><th>B · Przegląd pominięty</th></tr></thead><tbody>
+      <tr><td>Plan</td><td>Wskazuje zakres oceny, odpowiedzialność i potrzebne wejścia.</td><td>Zawiera zadanie kodowania, lecz agent przeoczył przypisanie przeglądu. <strong>L1.</strong></td></tr>
+      <tr><td>Wykonanie</td><td>Powstaje kod; wykonane testy dają wyniki.</td><td>Powstaje ten sam kod i te same wyniki testów. Nie informują, czy był recenzent.</td></tr>
+      <tr><td>Ocena</td><td>Recenzent zapisuje ustalenia. Autor je rozstrzyga, poprawia i ponawia potrzebne sprawdzenia.</td><td>Agent przechodzi bezpośrednio do demonstracji. Brak nowego VER/VAL nie jest sam w sobie błędem E9.</td></tr>
+      <tr><td>Kontrole repo</td><td>Mogą przejść, jeśli ich własne warunki są spełnione.</td><td>Też mogą przejść. Nie ma ogólnej bramki „uzgodniony przegląd tego przyrostu istnieje”. Status verified bez VER może dać W3, które nie blokuje.</td></tr>
+      <tr><td>Odbiór</td><td>Operator dostaje wynik, ograniczenia oraz rezultat przeglądu.</td><td>Pominięcie musi zauważyć człowiek lub agent. Zielona kontrola repo nie stanowi zgody operatora. <strong>L2.</strong></td></tr>
+    </tbody></table></div>
+    <div class="notice"><strong>Gdzie jest brakująca ochrona?</strong> Pomiędzy deklaracją „ten przyrost wymaga przeglądu” a sprawdzeniem „istnieje wynik przeglądu właściwego materiału i obsłużono ustalenia”. Karta recenzenta opisuje pracę, lecz sama nie pilnuje tego połączenia.</div>
+    <h3>Jeszcze jeden przypadek: zmiana po przeglądzie</h3>
+    <p>Recenzent ocenił wersję A. Autor zmienił kod do wersji B. Raport A pozostaje dowodem historycznym. W5 może ostrzec o zmianie śledzonego elementu lub rodzica, ale nie daje ogólnej gwarancji wykrycia tej zmiany kodu. Uznanie B za sprawdzone na podstawie A wymaga oceny wpływu i odpowiednich nowych dowodów. <strong>Nie wdrożyliśmy tu nowego mechanizmu aktualności.</strong></p>
+    <p><span class="pill p">P · minimalne uzupełnienie</span> Powiązać wymagany przegląd z istniejącym zadaniem i sprawdzać jego wynik przed zgłoszeniem gotowości. Próbą skuteczności byłoby celowe usunięcie tego wyniku i sprawdzenie reakcji narzędzia. To propozycja przyszłej kontroli, nie wykonany test.</p>
+  </section>
+
+  <section id="sources">
+    <div class="eyebrow">Podstawa mapy</div>
+    <h2>Źródła i sposób utrzymania</h2>
+    <p>To migawka analizy z 25.10.2026. Rysunki są ręcznie opracowanymi projekcjami źródeł, a nie automatycznie wyliczonym stanem projektu. Po zmianie reguł trzeba je przejrzeć.</p>
+    <ul class="source-list">
+      <li><b>S1:</b> <a href="../../template/process/AGENTS.md">zasady procesu</a>, P-03–P-08.</li>
+      <li><b>S2:</b> <a href="../../template/process/roles/README.md">role i sesje</a> oraz <a href="../../template/process/roles/verifier.md">karta recenzenta</a>.</li>
+      <li><b>S3:</b> <a href="../../template/process/tools/id.toml">schemat</a>, <a href="../../template/process/tools/trace.py">ślad i W5</a>, <a href="../../template/process/hooks/pre-commit">hook</a>.</li>
+      <li><b>S4:</b> <a href="../../template/process/tools/check_separation.py">E9</a>, <a href="../../template/process/tools/test_report.py">raport testów</a>, <a href="../../template/process/tools/progress.py">raport postępu</a>.</li>
+      <li><b>S5:</b> <a href="../KITCHEN-MINIMAL-PROCESS.md">minimalny proces do pilota</a>, kierunek D-81.</li>
+      <li><b>S6:</b> <a href="../OPERATOR-AGENT-ROLES-AND-CONTEXT.md">synteza ról i kontekstu</a>; §10 rozdziela treść normy od naszej polityki przeglądu.</li>
+      <li><b>S7:</b> <a href="../../../rkd/AGENTS.md">RKD — źródła i mandat</a>.</li>
+      <li><b>S8:</b> <a href="../../../iso-model-state/docs/STAN.md">stan modelu procesu</a>; nie jest wdrożeniem tych kontroli w Kitchen.</li>
+      <li><b>S9:</b> <a href="../process-simulator/progress.md">lekcja edukacyjna i jej ograniczenia</a>.</li>
+    </ul>
+    <p><a href="README.md">Plan, źródła diagramów, decyzje wykonawcze i odtworzenie</a>. Przy przeglądaniu w zwykłej przeglądarce pliki Markdown mogą otworzyć się jako tekst.</p>
+  </section>
+  <p class="footer">Zacznij od widoku 1. Prześledź drogę od „Potrzeba, granice, ryzyko” do „Odbiór przyrostu”, a potem wróć do czerwonego pola L1. Tam leży pominięcie, o którym rozmawialiśmy.</p>
+</main>
+</body>
+</html>

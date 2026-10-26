@@ -2,7 +2,7 @@
 
 Plik generowany przez process/tools/trace.py według process/tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: D 80 · Q 12 · G 26 · REQ 57 · AT 55 · OBJ 1 · MS 1 · TSK 11 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
+Elementy: D 82 · Q 12 · G 26 · REQ 57 · AT 55 · OBJ 1 · MS 1 · TSK 11 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 2
 
@@ -170,6 +170,8 @@ Błędy: 0 · ostrzeżenia: 2
 | --- | --- | --- |
 | D-74 | D | — |
 | D-75 | D | — |
+| D-82 | D | — |
+| D-81 | D | — |
 | D-79 | D | — |
 | D-80 | D | — |
 | D-78 | D | — |
@@ -350,7 +352,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | --- | --- | --- |
 | WP.02 | SC Scenka użytkownika | nieaktywny |
 | WP.02 | IO Pozycja zakresu In/Out | nieaktywny |
-| WP.03, WP.07 | D Decyzja | 80 |
+| WP.03, WP.07 | D Decyzja | 82 |
 | WP.13 | G Pojęcie słownika | 26 |
 | WP.13 | UC Przypadek użycia | nieaktywny |
 | WP.13 | REQ Wymaganie EARS | 57 |

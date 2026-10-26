@@ -1,0 +1,25 @@
+digraph controls {
+ graph [rankdir=TB, bgcolor=white, pad="0.3", nodesep="0.42", ranksep="0.55", outputorder=edgesfirst, fontname="Arial"];
+ node [shape=box, style="rounded,filled", fillcolor="#eef3f6", color="#64808c", fontname="Arial", fontsize=15, margin="0.18,0.14", width=3.0];
+ edge [color="#60717a", arrowsize=0.7];
+ h0 [label="MOMENT PRACY", fillcolor="#183c4a", fontcolor=white];
+ h1 [label="OBECNA OCHRONA", fillcolor="#183c4a", fontcolor=white];
+ h2 [label="LUKA / MINIMALNA PROPOZYCJA", fillcolor="#183c4a", fontcolor=white];
+ p0 [label="1 · Przed wykonaniem\nPlan i podział odpowiedzialności"];
+ c0 [label="I · Przeczytaj zasady i plan\nM · Kontrola struktury zapisów", fillcolor="#fff5df", color="#ad7830"];
+ g0 [label="L1 · Brak kontroli przypisania przeglądu\nP · Wskazać zakres i odpowiedzialność\nw istniejącym zadaniu", fillcolor="#fff0f0", color="#b94749"];
+ p1 [label="2 · Podczas sprawdzania\nTesty i przegląd"];
+ c1 [label="M · Kod runnera i wyniki przypadków\nM · E9 rozdziela zmiany w commitach\nI · Recenzent raportuje ustalenia", fillcolor="#e8f3ee", color="#35775a"];
+ g1 [label="L · E9 nie dowodzi wykonania recenzji\nP · Sprawdzić obecność wyniku\ni rozstrzygnięcie ustaleń", fillcolor="#fff0f0", color="#b94749"];
+ p2 [label="3 · Po zmianie\nCzy poprzedni dowód nadal pasuje?"];
+ c2 [label="M · W5: element + bezpośredni rodzic\nOSTRZEŻENIE, nie blokada\nI · Analiza wpływu zmiany", fillcolor="#e8f3ee", color="#35775a"];
+ g2 [label="L2 · Niepełna kontrola aktualności\nP · Przed odbiorem sprawdzić podstawę\nprzeglądu i ponowić potrzebne kontrole", fillcolor="#fff0f0", color="#b94749"];
+ p3 [label="4 · Przy nowej sesji\nCo obowiązuje i co dalej?"];
+ c3 [label="M · Raport postępu z zapisanych pól\nI · Agent aktualizuje punkt wznowienia\nI · Agent czyta go na starcie", fillcolor="#fff5df", color="#ad7830"];
+ g3 [label="L3 · Brak nadzoru nad wznowieniem\nP · Jeden widok z istniejących źródeł\ni próba przekazania nowej sesji", fillcolor="#fff0f0", color="#b94749"];
+ {rank=same;h0;h1;h2;} {rank=same;p0;c0;g0;} {rank=same;p1;c1;g1;} {rank=same;p2;c2;g2;} {rank=same;p3;c3;g3;}
+ edge [style=invis, weight=60];
+ h0->h1->h2; h0->p0->p1->p2->p3; h1->c0->c1->c2->c3; h2->g0->g1->g2->g3;
+ edge [style=solid, weight=1];
+ p0->c0->g0; p1->c1->g1; p2->c2->g2; p3->c3->g3;
+}

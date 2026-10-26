@@ -1,0 +1,22 @@
+{
+  "source_sha256": "6be7394359ea96e6c3fcebae9231bcb7f9ad866b39e205ace63839dc79e849f9",
+  "resume_leaf_line": 1985,
+  "resume_leaf_uuid": "38c390cf-78a1-47af-9e7f-db42d5f0ae45",
+  "ancestry_length": 1306,
+  "ancestry_tail_newest_first": [
+    1985,
+    1984,
+    1983,
+    1303,
+    1302,
+    1301,
+    1300,
+    1299,
+    1298,
+    1297,
+    1296,
+    1295
+  ],
+  "contains_1927": false,
+  "contains_1961": false
+}

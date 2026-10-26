@@ -1,0 +1,34 @@
+digraph context {
+ graph [rankdir=TB, bgcolor=white, pad="0.35", nodesep="0.4", ranksep="0.65", fontname="Arial", outputorder=edgesfirst];
+ node [shape=box, style="rounded,filled", fillcolor="#eef3f6", color="#64808c", fontname="Arial", fontsize=15, margin="0.18,0.14"];
+ edge [color="#60717a", fontname="Arial", fontsize=11, arrowsize=0.7];
+ rules [label="GRANICE DZIAŁANIA\nZlecenie + zasady współpracy\n+ ograniczenia narzędzi", fillcolor="#fff5df", color="#ad7830"];
+ intent [label="PO / OPERATOR\nPotrzeba → zakres → decyzje"];
+ req [label="WYMAGANIE\nOczekiwane zachowanie\nŹródło: przyjęta decyzja"];
+ plan [label="PM / PLAN PRZYROSTU\nWynik, zależności, niewiadome\nKolejność i kryteria"];
+ task [label="ZADANIE SESJI\nCo zlecono i jaki wynik zostawić\nP: krótka karta z odnośnikami", fillcolor="#edf0ff", color="#6265a8"];
+ contract [label="KONTEKST OBSZARU\nPojęcia, jednostki, kontrakty\nModuły i odbiorcy zmiany"];
+ oracle [label="PODSTAWA OCZEKIWAŃ\nWzorce i przykłady domenowe\nW RKD: źródła właściciela"];
+ code [label="IMPLEMENTACJA\nKod i konfiguracja\nTo, co rzeczywiście powstało"];
+ tests [label="PRZYPADKI TESTOWE\nWejście + oczekiwany wynik\nPrzypadek ≠ wykonanie"];
+ run [label="WYKONANIE TESTÓW\nWynik, polecenie, wersja\nZakres i ograniczenia dowodu"];
+ review [label="PRZEGLĄD\nKryteria, oceniany materiał\nUstalenia oraz poprawki"];
+ accept [label="ODBIÓR PRZYROSTU\nOcena przydatności przez operatora\nNie wynika z samego GREEN", fillcolor="#fff5df", color="#ad7830"];
+ state [label="PUNKT WZNOWIENIA\nStan + blokady + następny krok\nOdnośniki do źródeł", fillcolor="#fff5df", color="#ad7830"];
+ intent->req [label="określa"];
+ intent->plan;
+ rules->task [label="ogranicza", style=dashed];
+ plan->task; req->task [label="potrzebny kontekst", style=dashed];
+ contract->task [style=dashed];
+ task->code [label="zleca wykonanie"];
+ req->tests; oracle->tests [label="uzasadnia oczekiwania"];
+ contract->code;
+ tests->run; code->run;
+ req->review [style=dashed]; code->review; run->review;
+ review->accept; run->accept [style=dashed];
+ review->state [style=dashed]; accept->state [style=dashed];
+ {rank=same; rules; intent;}
+ {rank=same; req; plan; contract;}
+ {rank=same; oracle; task;}
+ {rank=same; tests; code;}
+}

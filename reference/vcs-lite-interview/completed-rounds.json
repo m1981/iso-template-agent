@@ -1,0 +1,47 @@
+[
+  {
+    "round": 1,
+    "session_id": "6d93e107-1482-4d63-879e-4e864c23b3ed",
+    "duration_ms": 66954,
+    "num_turns": 1,
+    "is_error": false,
+    "tools": [],
+    "mcp_servers": []
+  },
+  {
+    "round": 2,
+    "session_id": "b61e97df-6d18-468a-95a7-e37a210d020f",
+    "duration_ms": 72505,
+    "num_turns": 1,
+    "is_error": false,
+    "tools": [],
+    "mcp_servers": []
+  },
+  {
+    "round": 3,
+    "session_id": "fef3fb2c-f192-4c79-82b5-4e9e6b09b423",
+    "duration_ms": 59479,
+    "num_turns": 1,
+    "is_error": false,
+    "tools": [],
+    "mcp_servers": []
+  },
+  {
+    "round": 4,
+    "session_id": "c53d4353-d5b9-49bb-9f9e-5c4fb3dea7f1",
+    "duration_ms": 64470,
+    "num_turns": 1,
+    "is_error": false,
+    "tools": [],
+    "mcp_servers": []
+  },
+  {
+    "round": 5,
+    "session_id": "873a75d4-6404-4c1d-b354-5ff81b459225",
+    "duration_ms": 49332,
+    "num_turns": 1,
+    "is_error": false,
+    "tools": [],
+    "mcp_servers": []
+  }
+]

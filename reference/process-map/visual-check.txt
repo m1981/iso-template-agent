@@ -1,0 +1,7 @@
+PASS local file opens; all 3 SVG images load: [{"src":"flow.svg","width":1644,"height":1004},{"src":"context.svg","width":1420,"height":1365},{"src":"controls.svg","width":1259,"height":717}]
+PASS desktop 1440px: no page overflow
+PASS native detail sections open
+PASS mobile 390px: diagrams scroll inside container: {"page":390,"viewport":390,"diagram":850,"container":324}
+No process transitions, user approvals, agent evaluations or product tests executed. Static visual guide only.
+PASS local HTML refs: 32; README refs: 19; SVG XML: 3
+XML parser in Homebrew Python 3.14 failed because of system libexpat symbol mismatch; repeated successfully with /usr/bin/python3. No environment changes.

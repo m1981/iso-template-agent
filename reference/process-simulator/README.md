@@ -2,7 +2,7 @@
 
 Działająca lokalna lekcja TextStats: potrzeba → wymagania → plan i projekt → przegląd → przypadki testowe → symulowany RED → poprawka → jednostkowy GREEN → integracja → demonstracja → jawny odbiór w fabule lub korekta instrukcji.
 
-**Status:** I1 zaimplementowany i sprawdzony technicznie. Próba edukacyjna oraz odbiór przez Użytkownika jeszcze niewykonane. Testy TextStats na ekranie są symulowane; rzeczywiste testy aplikacji znajdują się w `tests/` i [dowodach](evidence/README.md).
+**Status:** I1 zaimplementowany i sprawdzony technicznie. Użytkownik potwierdził przejście lekcji do odbioru w fabule; ocena edukacyjna pozostaje otwarta, odbioru rzeczywistego symulatora nie zadeklarowano. Dalszy kierunek D-81: [minimalny proces Kitchen CAD/CAM](../KITCHEN-MINIMAL-PROCESS.md). Testy TextStats na ekranie są symulowane; rzeczywiste testy aplikacji znajdują się w `tests/` i [dowodach](evidence/README.md).
 
 ## Uruchomienie
 

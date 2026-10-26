@@ -70,6 +70,20 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-82 Wizualizacja obecnego procesu i jego luk
+- status: resolved
+- choice: Użytkownik 2026-10-25 polecił „wykonaj wedlug twojej rekomendacji” po propozycji mapy procesu z torami odpowiedzialności oraz widoków produktów/kontekstu i kontroli/luk.
+- date: 2026-10-25
+- notes: Zakres: statyczne diagramy i przewodnik w reference/process-map/, z rozróżnieniem działających narzędzi, instrukcji, braków i propozycji; przejście dydaktyczne z przeglądem i jego pominięciem. Nie aktywuje nowych reguł, nie wdraża mechanizmu zgód ani manifestów, nie zmienia Kitchen lub iso-model-state. Bez commita i pushu. Źródła i wynik: reference/process-map/README.md.
+
+### D-81 Minimalny proces do sprawdzenia w Kitchen CAD/CAM
+- status: resolved
+- options: A) skupić kolejny etap na minimalnym procesie dla Kitchen CAD/CAM, zaczynając od jednostronicowego opisu · B) najpierw kontynuować scenariusze edukacyjne symulatora
+- proposal: A
+- choice: A — Użytkownik odpowiedział „D1 tak” na propozycję skupienia następnego etapu na minimalnym procesie prowadzenia Kitchen CAD/CAM, zaczynając od jego jednostronicowego opisu.
+- date: 2026-10-24
+- notes: D1 z ostatniej rozmowy mapuje się na ten wpis. Wynik dokumentacyjny: reference/KITCHEN-MINIMAL-PROCESS.md. Kierunek: opis codziennej pracy, rozpoznanie istniejących modułów, następnie wybór małego przyrostu do pilota. To decyzja o kierunku pilota procesu, nie zatwierdzenie funkcji lub architektury Kitchen CAD/CAM. Nie zmienia pakietu procesu ani planu wydania szablonu. Rozbudowa symulatora, WIT5/WIT3 i narzędzia formalne czekają na wykazaną potrzebę. Bez zgody na produkcję CNC, nowy commit lub push.
+
 ### D-79 Pierwszy działający przyrost symulatora
 - status: resolved
 - options: A) zrealizować I1 według reference/process-simulator/increment-01.md · B) skorygować propozycję przed implementacją

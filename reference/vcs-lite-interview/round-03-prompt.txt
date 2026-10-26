@@ -1,0 +1,10 @@
+RUNDA 3/5 — próba podważenia sukcesu, nadal bez przedstawiania naszego modelu.
+
+W rundzie 2 rozdzieliłeś kontrole automatyczne od instrukcji i sprostowałeś zarzut utraty cudzej pracy przy git reset. To sprostowanie zachowujemy. Proszę nie zamieniać braku dowodu wykonania w dowód niewykonania.
+
+1. Co mimo tych mechanizmów przeszkadzało, powodowało zbędne pytania lub poprawki? Kiedy powodzenie zależało od interwencji użytkownika? Uwzględnij „jeden temat”, a potem „kroki 5–9, zgubiłem się”. Czy odwołanie do dokumentu wystarczało operatorowi do wyboru następnego działania?
+2. Konkretny materiał do podważenia: historyczna odpowiedź w linii 671 zaczyna się od „każdy commit przechodzi samodzielnie”, ale dalej mówi, że w pierwszych trzech oblewa test_req_vcs_205. Odpowiedź 1236 wymienia nieudane wyniki pośrednich commitów. Czy istniał obowiązek wszystkich zielonych commitów, czy tylko sprawdzania i ujawniania wyników? Oddziel zapisane wymaganie, własną obietnicę i świadomie zaakceptowany wyjątek. Nie zakładaj, że sam brak sprzeciwu użytkownika zatwierdzał wyjątek.
+3. Wybierz TRZY zdarzenia z sesji. Dla każdego rozważ przebieg bez wskazanego mechanizmu: co wiemy z dowodu, co jedynie przypuszczasz, czy inny istniejący mechanizm mógłby pełnić tę samą funkcję? Jeden z przypadków niech dotyczy fałszywie uspokajającego testu, który przeszedł przed poprawką.
+4. Którą regułę można usunąć lub uprościć bez utraty potrzebnej kontroli? Wskaż warunki, przy których ta teza przestałaby być prawdziwa. Jeżeli nie masz podstaw, odpowiedz „nie ustaliłem”.
+
+Nie proponuj kompletnego nowego procesu. Podsumuj, czego nadal nie wiemy o przyczynach sukcesu i koszcie obsługi. Około 700–900 słów, konkretne zdarzenia i ograniczenia.

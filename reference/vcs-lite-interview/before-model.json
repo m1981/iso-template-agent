@@ -1,0 +1,12 @@
+{
+  "status": "captured_before_round_04",
+  "response_hashes_and_source_hashes": {
+    "reference/vcs-lite-interview/round-01-response.md": "414a4a821d81d563953d945b6fd3c6d965f8784be2bd3e8f08286e296e3ac668",
+    "reference/vcs-lite-interview/round-02-response.md": "d9e1ea7408c02d95c25b38a35da16b147e4df80a325da55d8be08abcb157db4a",
+    "reference/vcs-lite-interview/round-03-response.md": "2f71a81cc570750c0c845c555a781a33422672a71b2d073198b396b9b8caef3b",
+    "/Users/michal/PycharmProjects/iso-model-state/model/process.yaml": "2d329822e239555c1642d0a5a20aae0eb28fee17a6f2ff13968e48d7f428fc07",
+    "/Users/michal/PycharmProjects/iso-model-state/docs/STAN.md": "5b0ca13add7269cd611b70defcc3fbe09f52918774c50a5f20be601b6f722ecc",
+    "/Users/michal/PycharmProjects/iso-model-state/docs/KARTA-CELU-I-ZAKRESU.md": "f6879ef9231e3e3aef0a1a8a0cb469f87f117536af384a1f7a6282f352d8e369",
+    "/Users/michal/PycharmProjects/iso-model-state/PLAN.md": "d4f954092576c9fb13c69479fa8558d11e83ed50b215a446569376c1f23364b4"
+  }
+}

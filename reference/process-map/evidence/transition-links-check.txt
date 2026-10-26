@@ -1,0 +1,4 @@
+Local documentation links: 66, missing: 0
+Review input SHA-256: matches preserved snapshot
+Diagnostic: 7 cases, input unchanged in all cases
+Source fingerprints: match diagnostic copy
