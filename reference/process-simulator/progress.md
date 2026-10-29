@@ -4,6 +4,8 @@ Aktualizacja: 2026-10-24. Ten plik opisuje rzeczywistą pracę nad symulatorem. 
 
 ## Stan i punkt wznowienia
 
+**Ostatnia analiza 2026-10-26:** [porównanie kontraktów API](../process-map/api-contract-comparison.md) zakończone. Wspólny kierunek architektury, lecz odbiór przyrostu i W04 wydania wymagają mapowania; obsługa nowego negatywnego wyniku przed W04 wymaga doprecyzowania. Właściciel dalszej propozycji: agent. Nie zmieniono obu kontraktów ani iso-model-state i nie wdrażano API.
+
 **Bieżące zlecenie 2026-10-26 zakończone:** opracowano kontrakt jednego odbioru przyrostu przez API i wykonano osobną recenzję. [Kontrakt](../process-map/acceptance-contract.md), [wynik recenzji](../process-map/acceptance-contract-review.md). To analiza granicy operator–agent–system, nie wdrożenie API ani zmiana zakresu Kitchen. Właściciel dalszego objaśnienia: agent; przejść S01/S03, przed propozycją implementacji przygotować Q1–Q4. D-81 pozostaje kierunkiem późniejszego pilota.
 
 Zakres [I1](increment-01.md) zatwierdzono w D-79. Użytkownik następnie zlecił implementację w TDD według opisanych ustaleń technicznych. **I1 jest zaimplementowany i gotowy do próby edukacyjnej:** Python/stdlib, lokalny HTTP, HTML/CSS/JS/SVG, jedna pełna lekcja, karty i ślad rewizji, historia tylko do odczytu, eksport/import. [Uruchomienie](README.md), [dowody](evidence/README.md).
@@ -189,3 +191,7 @@ Trzy kandydatury do małych prób: raport zgodny z logami, ocena skuteczności t
 Osobny subagent w kontekście bez historii autora znalazł dwie usterki propozycji: niejednoznaczny poprzednik przy aktywnym zgłoszeniu oraz sprzeczne reguły równoczesnego ponowienia. Poprawiono obie, dodano scenariusze i doprecyzowano odrzucenie przy niedostępnym źródle. Recenzent potwierdził zamknięcie tych uwag; [raport i zachowane odpowiedzi](../process-map/acceptance-contract-review.md). To analiza dokumentu, nie wykonanie testów API ani akceptacja reguł przez operatora.
 
 Decyzje autora A1–A5, źródła, koszt kontroli i pytania Q1–Q4 są przy kontrakcie i recenzji. Nie zmieniono template/, Kitchen, iso-model-state ani kodu symulatora. Nie wdrożono API, manifestów lub mechanizmu zgód. Brak nowego commita i pushu. Właściciel następnego kroku: agent; objaśnić S01/S03, a przed implementacją rozpoznać źródła i przygotować warianty Q1–Q4. Kontrole dotyczą dokumentacji; Mermaid nie był renderowany z powodu braku lokalnego mmdc.
+
+### Porównanie z kontraktem innego agenta
+
+2026-10-26: na prośbę użytkownika odczytano informative/architecture-2026-10-26/process-api-contract.md w iso-model-state wraz z recenzją i zapisanym wynikiem projekcji. [Porównanie](../process-map/api-contract-comparison.md) zachowuje hashe źródeł, wspólne założenia, różnice zakresu oraz kontrprzykład nowego nieprzyjętego wyniku negatywnego przed W04. Nie utożsamiono luki opisu adaptera z defektem nieistniejącego API. Nie powtarzano cudzych prób ani nie uruchamiano kolejnego recenzenta. Właściciel dalszego przygotowania: agent; mapa semantyczna odbioru przyrostu i wydania oraz doprecyzowanie aktualności wyników. Bez zmian porównywanych kontraktów, zewnętrznych repozytoriów, commita i pushu.
