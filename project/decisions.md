@@ -70,6 +70,12 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-83 Karta pracy, brief i kryteria wykonywalnego modelu procesu
+- status: resolved
+- choice: przygotować kartę pracy architekta wykonywalnego modelu procesu SDLC, następnie brief oraz kryteria odbioru/DoD całej pracy; uwzględnić istniejący iso-model-state
+- date: 2026-10-29
+- notes: zlecenie Użytkownika „wejdz w role i Zapisz ta karte pracy a nastepnie napisz brief a potem kryteria odbioru/DoD calej pracy”. Upoważnia do dokumentacji; nie jest odbiorem proponowanych kryteriów ani zgodą na nowy silnik, API, zmianę planu drugiego repozytorium lub implementację w Kitchen. Materiały: reference/process-modeling/.
+
 ### D-82 Wizualizacja obecnego procesu i jego luk
 - status: resolved
 - choice: Użytkownik 2026-10-25 polecił „wykonaj wedlug twojej rekomendacji” po propozycji mapy procesu z torami odpowiedzialności oraz widoków produktów/kontekstu i kontroli/luk.

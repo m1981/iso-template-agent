@@ -1,8 +1,10 @@
 # Rejestr postępu symulatora
 
-Aktualizacja: 2026-10-24. Ten plik opisuje rzeczywistą pracę nad symulatorem. Nie jest historią fikcyjnego projektu z lekcji ani generowanym `reports/progress.md` szablonu.
+Aktualizacja: 2026-10-29. Ten plik opisuje rzeczywistą pracę nad symulatorem i późniejsze analizy procesu. Nie jest historią fikcyjnego projektu z lekcji ani generowanym `reports/progress.md` szablonu.
 
 ## Stan i punkt wznowienia
+
+**Bieżące zlecenie 2026-10-29 — D-83:** zapisano [kartę pracy](../process-modeling/work-card.md), [brief](../process-modeling/brief.md) i [propozycję DoD](../process-modeling/acceptance.md) wykonywalnego modelu procesu. Odczytano aktualny model i plan `iso-model-state`: istnieją wykonawca v0.7, WIT1–WIT5, wycinki badań TLC oraz zamknięta z ograniczeniami próba vcs-lite (DEC-PRO-016). Nie powtarzano tam testów ani nie zmieniano plików. Następny krok agenta przed implementacją: mapa istniejącego DoD, zachowań i braków; otwarte sprawy oraz decyzje agenta są w briefie. Dokumentacja nie zatwierdza zmian zakresu, nowego API ani kolejnego pilota. Poprzednie analizy poniżej pozostają historią; lekcja L1 nie otrzymała nowych funkcji.
 
 **Ostatnia próba 2026-10-27:** [sprawdzenie karty zmiany wymagania](../process-map/change-card-check.md) na rzeczywistej naprawie TST-02 zakończone. Ponowione na kopii RED: cztery nieudane przypadki; GREEN: 67/67. Karta ujawniła nieustaloną chronologię planu i granicę między wykonaniem, sprawdzeniem a odbiorem. Trzy doprecyzowania pozostają propozycją, bez aktywacji reguł. Użytkownik wyłączył pomiar czasu, wydajności oraz prognozowanie harmonogramu z potrzeb tego procesu. Następny krok agenta: wykorzystać kartę przy najbliższej zatwierdzonej zmianie i ocenić możliwość wznowienia z plików; szczegóły oraz niewiadome w raporcie. Bez commita, zmian produktu lub wdrożenia API.
 

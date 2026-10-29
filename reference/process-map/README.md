@@ -32,6 +32,7 @@ Zobaczyć odpowiedzialności, produkty pracy, kontekst oraz granice istniejącyc
 - [7. Kontrakt odbioru przyrostu przez API](acceptance-contract.md) — propozycja granicy operator–wykonawca–system, operacje, niezmienniki i scenariusze; bez implementacji. [Przebieg recenzji](acceptance-contract-review.md).
 - [8. Porównanie z kontraktem iso-model-state](api-contract-comparison.md) — wspólne założenia, różne przedmioty odbioru i przypadek nowego negatywnego wyniku przed decyzją.
 - [9. Sprawdzenie karty zmiany wymagania](change-card-check.md) — rzeczywisty przypadek TST-02, powtórzenie RED/GREEN, ograniczenia dowodów i minimalne doprecyzowania karty.
+- [10. Karta pracy nad wykonywalnym modelem procesu](../process-modeling/work-card.md) — mandat multieksperta, [brief](../process-modeling/brief.md) i [kryteria odbioru](../process-modeling/acceptance.md); propozycja oparta na istniejącym `iso-model-state`, bez rozpoczęcia implementacji.
 
 Źródła diagramów: `flow.dot`, `context.dot`, `controls.dot`. Odtworzenie wszystkich obrazów: `python3 reference/process-map/render.py` z korzenia repozytorium (wymaga istniejącego polecenia `dot`). Skrypt nadpisuje wyłącznie odpowiadające im SVG/PNG w tym folderze. Nie odczytuje stanu projektu ani nie wykonuje pokazanych bramek.
 
