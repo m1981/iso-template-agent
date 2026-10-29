@@ -4,6 +4,8 @@ Aktualizacja: 2026-10-24. Ten plik opisuje rzeczywistą pracę nad symulatorem. 
 
 ## Stan i punkt wznowienia
 
+**Bieżące zlecenie 2026-10-26 zakończone:** opracowano kontrakt jednego odbioru przyrostu przez API i wykonano osobną recenzję. [Kontrakt](../process-map/acceptance-contract.md), [wynik recenzji](../process-map/acceptance-contract-review.md). To analiza granicy operator–agent–system, nie wdrożenie API ani zmiana zakresu Kitchen. Właściciel dalszego objaśnienia: agent; przejść S01/S03, przed propozycją implementacji przygotować Q1–Q4. D-81 pozostaje kierunkiem późniejszego pilota.
+
 Zakres [I1](increment-01.md) zatwierdzono w D-79. Użytkownik następnie zlecił implementację w TDD według opisanych ustaleń technicznych. **I1 jest zaimplementowany i gotowy do próby edukacyjnej:** Python/stdlib, lokalny HTTP, HTML/CSS/JS/SVG, jedna pełna lekcja, karty i ślad rewizji, historia tylko do odczytu, eksport/import. [Uruchomienie](README.md), [dowody](evidence/README.md).
 
 Rzeczywiste wyniki techniczne: 23/23 testy symulatora, próba Chrome i wykryta mutacja reguły; 67/67 testów narzędzi szablonu po użyciu kanonicznego TMPDIR. Użytkownik w rozmowie potwierdził przejście lekcji do odbioru w fabule. To relacja operatora, nie pobrany końcowy zapis sesji ani odbiór rzeczywistego symulatora. Zgłosił potrzebę przetrawienia pojęć, a następnie rozmywanie celu dalszej pracy.
@@ -179,3 +181,11 @@ Trzy kandydatury do małych prób: raport zgodny z logami, ocena skuteczności t
 ### Zapis materiałów przeglądu w Git
 
 2026-10-26: użytkownik polecił „zrob commit(y)”. Zakres jednego spójnego zapisu: D-81/D-82, minimalny proces Kitchen, analiza mechanizacji i ról, mapa procesu z recenzją W02 i dowodami, pięć rund wywiadu vcs-lite, aktualny rejestr postępu i zapis odtworzenia lekcji. Powód wspólnego commita: materiały i rejestr mają wzajemne odnośniki. Poza zakresem pozostają zastane zmiany repository-evolution/ i osobny dokument użytkownika o modelu śladu. Kontrole przed zapisem: make check, składnia Python/JSON i diff --check; pakiet procesu oraz kod symulatora bez zmian, więc nie ponawiamy ich regresji. Polecenie nie obejmuje pushu ani odbioru procesu. Dalszy krok merytoryczny pozostaje jak wyżej.
+
+### Kontrakt odbioru przyrostu przez API
+
+2026-10-26: po omówieniu rozdziału operator–agent–system użytkownik zlecił wejście w rolę architekta protokołów/workflow i wykonanie metody opartej na przykładach, niezmiennikach i osobnym recenzencie. [Rezultat](../process-map/acceptance-contract.md): granica jednego odbioru, źródła, uprawnienia, cztery stany zgłoszenia, oddzielna gotowość, operacje inspect/submit/decide, 7 niezmienników i 23 scenariusze do przyszłych testów.
+
+Osobny subagent w kontekście bez historii autora znalazł dwie usterki propozycji: niejednoznaczny poprzednik przy aktywnym zgłoszeniu oraz sprzeczne reguły równoczesnego ponowienia. Poprawiono obie, dodano scenariusze i doprecyzowano odrzucenie przy niedostępnym źródle. Recenzent potwierdził zamknięcie tych uwag; [raport i zachowane odpowiedzi](../process-map/acceptance-contract-review.md). To analiza dokumentu, nie wykonanie testów API ani akceptacja reguł przez operatora.
+
+Decyzje autora A1–A5, źródła, koszt kontroli i pytania Q1–Q4 są przy kontrakcie i recenzji. Nie zmieniono template/, Kitchen, iso-model-state ani kodu symulatora. Nie wdrożono API, manifestów lub mechanizmu zgód. Brak nowego commita i pushu. Właściciel następnego kroku: agent; objaśnić S01/S03, a przed implementacją rozpoznać źródła i przygotować warianty Q1–Q4. Kontrole dotyczą dokumentacji; Mermaid nie był renderowany z powodu braku lokalnego mmdc.

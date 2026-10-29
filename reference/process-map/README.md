@@ -29,6 +29,7 @@ Zobaczyć odpowiedzialności, produkty pracy, kontekst oraz granice istniejącyc
 - [4. Statyczny model encji — Mermaid](static-model.md) — trzy widoki pojęciowe; wymaga podglądu Markdown z Mermaid, nie jest schematem wdrożonych narzędzi.
 - [5. Jeden przykład: ISO → model → wykonywalna reguła](worked-transition.md) — przegląd przygotowanego wydania, istniejące W02 i proponowane połączenie z rzeczywistym raportem.
 - [6. Prześledzenie i osobna recenzja przykładu](transition-review.md) — warunki, kontrprzykłady, siedem wykonanych prób modelu i rozliczenie uwag recenzenta.
+- [7. Kontrakt odbioru przyrostu przez API](acceptance-contract.md) — propozycja granicy operator–wykonawca–system, operacje, niezmienniki i scenariusze; bez implementacji. [Przebieg recenzji](acceptance-contract-review.md).
 
 Źródła diagramów: `flow.dot`, `context.dot`, `controls.dot`. Odtworzenie wszystkich obrazów: `python3 reference/process-map/render.py` z korzenia repozytorium (wymaga istniejącego polecenia `dot`). Skrypt nadpisuje wyłącznie odpowiadające im SVG/PNG w tym folderze. Nie odczytuje stanu projektu ani nie wykonuje pokazanych bramek.
 
