@@ -4,6 +4,8 @@ Aktualizacja: 2026-10-24. Ten plik opisuje rzeczywistą pracę nad symulatorem. 
 
 ## Stan i punkt wznowienia
 
+**Ostatnia próba 2026-10-27:** [sprawdzenie karty zmiany wymagania](../process-map/change-card-check.md) na rzeczywistej naprawie TST-02 zakończone. Ponowione na kopii RED: cztery nieudane przypadki; GREEN: 67/67. Karta ujawniła nieustaloną chronologię planu i granicę między wykonaniem, sprawdzeniem a odbiorem. Trzy doprecyzowania pozostają propozycją, bez aktywacji reguł. Użytkownik wyłączył pomiar czasu, wydajności oraz prognozowanie harmonogramu z potrzeb tego procesu. Następny krok agenta: wykorzystać kartę przy najbliższej zatwierdzonej zmianie i ocenić możliwość wznowienia z plików; szczegóły oraz niewiadome w raporcie. Bez commita, zmian produktu lub wdrożenia API.
+
 **Ostatnia analiza 2026-10-26:** [porównanie kontraktów API](../process-map/api-contract-comparison.md) zakończone. Wspólny kierunek architektury, lecz odbiór przyrostu i W04 wydania wymagają mapowania; obsługa nowego negatywnego wyniku przed W04 wymaga doprecyzowania. Właściciel dalszej propozycji: agent. Nie zmieniono obu kontraktów ani iso-model-state i nie wdrażano API.
 
 **Bieżące zlecenie 2026-10-26 zakończone:** opracowano kontrakt jednego odbioru przyrostu przez API i wykonano osobną recenzję. [Kontrakt](../process-map/acceptance-contract.md), [wynik recenzji](../process-map/acceptance-contract-review.md). To analiza granicy operator–agent–system, nie wdrożenie API ani zmiana zakresu Kitchen. Właściciel dalszego objaśnienia: agent; przejść S01/S03, przed propozycją implementacji przygotować Q1–Q4. D-81 pozostaje kierunkiem późniejszego pilota.
