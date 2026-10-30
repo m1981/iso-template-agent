@@ -1,0 +1,33 @@
+2026-10-29 — pierwsza próba autora, kod wyjścia 1.
+Polecenie:
+/Users/michal/PycharmProjects/iso-model-state/.venv/bin/python -B reference/process-modeling/release_cycle_probe.py --source ../iso-model-state --output reference/process-modeling/evidence/release-cycle-author.json.gz
+
+Etap błędu: zapis json.dumps(report), po wykonaniu prób, przed zapisaniem raportu.
+Wyjątek z rzeczywistego wyjścia narzędzia:
+TypeError: Object of type set is not JSON serializable
+when serializing dict item 'scope'
+when serializing dict item 2
+when serializing dict item 'releases'
+when serializing dict item 'after'
+when serializing list item 33
+when serializing dict item 'steps'
+when serializing dict item 'result'
+when serializing list item 33
+when serializing dict item 'results'
+
+Próba nie została zaliczona jako przejście kryteriów ani wykrycie mutanta.
+M03 pierwotnie dopisywał do W06: release.scope := {}.
+Korekta autora: release.state := in_preparation; sprawdzamy tę samą
+niezmienność całego starego rekordu z wartością poprawnego typu.
+Nie zmieniono modelu źródłowego ani wykonawcy iso-model-state.
+
+Późniejsza próba po uwadze R o wyroczni W04:
+M05 używał wyrażenia release.acceptance := {number: 99, quote: none}.
+DSL nie obsługuje quote jako pola literału rekordu (tworzy je specjalny
+skutek record acceptance). Pierwsza próba raportu zakładała wykonanie
+mutanta i wywołała TypeError: 'NoneType' object is not subscriptable.
+Autor zmienił uprząż tak, aby porównywać szczegółowe następniki tylko
+przy oczekiwanym outcome. Zachowany raport author-v3: 35/36,
+M05 to błąd wejścia, nie wykryte naruszenie.
+Docelowy M05 zachowuje specjalny skutek odbioru, a potem legalnym
+przypisaniem release.acceptance := {number: 99} psuje numer i usuwa cytat.

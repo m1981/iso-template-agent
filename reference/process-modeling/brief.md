@@ -76,4 +76,8 @@ Technicznie: model YAML i wykonawca Python pozostają punktem wyjścia; TLA+/TLC
 
 **Sprawdzenie dokumentacji, 2026-10-29:** `make check` — kod 0, 249 elementów, 0 błędów; ostrzeżenia W1 dla MIG-01/MIG-02 oraz W2 dla D-83 bez powiązanego commita. Osobno sprawdzono istnienie 88 lokalnych odnośników i domknięcie bloków kodu w trzech nowych dokumentach, indeksie mapy i rejestrze postępu: 0 błędów. `git diff --check` bez błędów. Kontrola odnośników sprawdza pliki, nie kotwice ani prawdziwość treści. Nie uruchamiano testów niezmienionego kodu, TLC ani symulatora. Nie wykonano recenzji przez subagenta, commita lub zmian w drugim repozytorium.
 
-**Następny krok — agent:** przed propozycją implementacji przygotować mapę istniejącego DoD i luk według kroku 1, na aktualnej wersji drugiego repozytorium. Nie rozpoczynać od nowego silnika ani od wyboru funkcji Kitchen. Sprawy otwarte i właściciele są w tabeli wyżej.
+**Aktualizacja po poleceniu „commit(y), a następnie Dalej”, 2026-10-29:** pakiet zapisany w `d6f932d`. Wykonano [mapowanie kryteriów i luk](coverage-map.md), odtworzono pięć WIT i trzy próby diagnostyczne na kopii. Wyniki i ich ograniczenia są w mapie; nie ponawiano całego E2/E3. To wykonanie analizy, nie odbiór AC ani zmiana reguł drugiego repozytorium.
+
+**Kontynuacja D-84:** zapisano przed wykonaniem [plan i kryteria cyklu wydań](release-cycle-plan.md), następnie opracowano [kontrakt W01–W07](release-cycle.md), wykonano próby i osobną recenzję. [Raport](release-cycle-report.md): RC-01–07 spełnione technicznie, 36/36 oczekiwań odtworzonych przez R i sześć dodatkowych przebiegów R. Model v0.7 bez zmian; cały E3 nadal otwarty.
+
+**Następny krok:** U — odbiór ograniczonego pakietu (D-85); agent po odbiorze — mapowanie kontraktów do dalszego generatora E3, z jawnymi granicami i oczekiwaniami przed kodem. Bieżący punkt wznowienia w raporcie; pozostałe sprawy i właściciele w mapie §6 oraz tabeli wyżej.

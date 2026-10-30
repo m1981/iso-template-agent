@@ -18,6 +18,12 @@ Format:
 
 ## Otwarte
 
+### D-85 Odbiór mapowania pełnego cyklu wydań
+- status: open
+- options: A) przyjąć ograniczony pakiet mapowania jako podstawę dalszego E3 · B) wskazać korektę pakietu przed przyjęciem
+- proposal: A
+- notes: raport reference/process-modeling/release-cycle-report.md: RC-01–07 spełnione technicznie, 36/36 prób odtworzonych przez R, 6 dodatkowych prób R, brak otwartych blokerów recenzji. Odbiór nie zamyka całego E3, nie zmienia modelu v0.7 i nie upoważnia do nowego API/CLI. Właściciel: Użytkownik; następny krok: odbiór lub wskazanie poprawki.
+
 ### D-74 Ustalenia z wykonania przeniesienia
 - status: open
 - options: A) przyjąć jak wdrożono · B) przyjąć z poprawkami (wskaż które)
@@ -70,11 +76,17 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-84 Plan i wykonanie mapowania pełnego cyklu wydań
+- status: resolved
+- choice: zapisać plan oraz kryteria odbioru najbliższego mapowania „odbiór v1 → zmiana → ponowna ocena → odbiór v2”, następnie wykonać je na istniejącym modelu, z próbami i osobną recenzją według karty pracy
+- date: 2026-10-29
+- notes: polecenie Użytkownika „zapisz plan oraz kryteria odbioru a nastpenie przejdz do realizacji” po wskazaniu tego następnego kroku. Zakres: reference/process-modeling/release-cycle-plan.md; nie zmienia modelu v0.7, nie zatwierdza wyniku z góry i nie zamyka całego E3. Następnie 2026-10-30 Użytkownik polecił „zrob commit i wyjasnij mi prostym jezykiem i logicznie jak bedzie wygladac to mapowanie i po co to robimy”: zgoda na zapis pakietu i jego dowodów w Git, bez pushu; D-85 pozostaje otwarte.
+
 ### D-83 Karta pracy, brief i kryteria wykonywalnego modelu procesu
 - status: resolved
 - choice: przygotować kartę pracy architekta wykonywalnego modelu procesu SDLC, następnie brief oraz kryteria odbioru/DoD całej pracy; uwzględnić istniejący iso-model-state
 - date: 2026-10-29
-- notes: zlecenie Użytkownika „wejdz w role i Zapisz ta karte pracy a nastepnie napisz brief a potem kryteria odbioru/DoD calej pracy”. Upoważnia do dokumentacji; nie jest odbiorem proponowanych kryteriów ani zgodą na nowy silnik, API, zmianę planu drugiego repozytorium lub implementację w Kitchen. Materiały: reference/process-modeling/.
+- notes: zlecenie Użytkownika „wejdz w role i Zapisz ta karte pracy a nastepnie napisz brief a potem kryteria odbioru/DoD calej pracy”. Upoważnia do dokumentacji; nie jest odbiorem proponowanych kryteriów ani zgodą na nowy silnik, API, zmianę planu drugiego repozytorium lub implementację w Kitchen. Materiały: reference/process-modeling/. Kontynuacja 2026-10-29 „zrob commit(y) a nastepnie Dalej” — zapis przygotowanego pakietu i mapowanie kryteriów na istniejący model/DoD oraz konkretne braki; bez zatwierdzenia wszystkich proponowanych AC lub zmiany modelu v0.7.
 
 ### D-82 Wizualizacja obecnego procesu i jego luk
 - status: resolved
