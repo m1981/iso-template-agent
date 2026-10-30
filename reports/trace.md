@@ -2,7 +2,7 @@
 
 Plik generowany przez process/tools/trace.py według process/tools/id.toml; nie edytuj ręcznie (P-04).
 
-Elementy: D 85 · Q 12 · G 26 · REQ 57 · AT 55 · OBJ 1 · MS 1 · TSK 11 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
+Elementy: D 89 · Q 12 · G 26 · REQ 57 · AT 55 · OBJ 1 · MS 1 · TSK 11 · PRK 2 · COR 0 · VER 1 · VAL 0 · ACC 0
 
 Błędy: 0 · ostrzeżenia: 2
 
@@ -78,7 +78,7 @@ Błędy: 0 · ostrzeżenia: 2
 | UPD-01 | REQ | D-52, D-53 |
 | UPD-02 | REQ | D-52 |
 | UPD-03 | REQ | D-47, D-52 |
-| UPD-04 | REQ | D-47 |
+| UPD-04 | REQ | D-47, D-53, D-88 |
 | UPD-05 | REQ | D-52 |
 | UPD-06 | REQ | D-51, D-52 |
 | UPD-07 | REQ | D-52 |
@@ -87,7 +87,7 @@ Błędy: 0 · ostrzeżenia: 2
 | MIG-02 | REQ | D-51 |
 | LAY-01 | REQ | D-47, D-54 |
 | LAY-02 | REQ | D-47 |
-| LAY-03 | REQ | D-61 |
+| LAY-03 | REQ | D-61, D-64, D-88 |
 | LEK-01 | REQ | D-57, D-62 |
 | LEK-02 | REQ | D-57, D-62 |
 | TST-01 | REQ | D-60 |
@@ -171,6 +171,10 @@ Błędy: 0 · ostrzeżenia: 2
 | D-85 | D | — |
 | D-74 | D | — |
 | D-75 | D | — |
+| D-89 | D | — |
+| D-88 | D | UPD-04, LAY-03 |
+| D-87 | D | — |
+| D-86 | D | — |
 | D-84 | D | — |
 | D-83 | D | — |
 | D-82 | D | — |
@@ -187,7 +191,7 @@ Błędy: 0 · ostrzeżenia: 2
 | D-69 | D | HKS-05 |
 | D-68 | D | — |
 | D-67 | D | — |
-| D-64 | D | — |
+| D-64 | D | LAY-03 |
 | D-66 | D | — |
 | D-65 | D | — |
 | D-63 | D | — |
@@ -200,7 +204,7 @@ Błędy: 0 · ostrzeżenia: 2
 | D-56 | D | — |
 | D-55 | D | — |
 | D-54 | D | LAY-01 |
-| D-53 | D | G-DST-03, HKS-04, UPD-01 |
+| D-53 | D | G-DST-03, HKS-04, UPD-01, UPD-04 |
 | D-52 | D | UPD-01, UPD-02, UPD-03, UPD-05, UPD-06, UPD-07 |
 | D-51 | D | G-DST-06, UPD-06, MIG-01, MIG-02 |
 | D-50 | D | — |
@@ -355,7 +359,7 @@ Wymagania niefunkcjonalne według charakterystyk; 0 to pytanie, czy czegoś nie 
 | --- | --- | --- |
 | WP.02 | SC Scenka użytkownika | nieaktywny |
 | WP.02 | IO Pozycja zakresu In/Out | nieaktywny |
-| WP.03, WP.07 | D Decyzja | 85 |
+| WP.03, WP.07 | D Decyzja | 89 |
 | WP.13 | G Pojęcie słownika | 26 |
 | WP.13 | UC Przypadek użycia | nieaktywny |
 | WP.13 | REQ Wymaganie EARS | 57 |

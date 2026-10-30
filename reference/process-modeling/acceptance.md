@@ -2,6 +2,8 @@
 
 2026-10-29 · D-83 · propozycja kryteriów całej pracy, nie raport ich spełnienia. Zakres opisuje [brief](brief.md), odpowiedzialność — [karta](work-card.md).
 
+**Odczyt po audycie 2026-10-30:** [mapowanie każdego AC](coverage-map.md#85-rozliczenie-naszych-ac-bez-tworzenia-drugiej-specyfikacji) rozdziela odsyłacze do przyjętego DoD od konkretyzacji i proponowanych rozszerzeń. Ten dokument nie jest samodzielną bramką E3. Sformułowania o wymaganym dowodzie i zmianie kryterium niżej opisują proponowany kontrakt odbioru; nie czynią nieprzyjętych AC obowiązkowymi.
+
 ## Zasada odbioru
 
 Techniczny DoD oznacza **gotowość do odbioru**. Odbiór wymaga osobnej, rzeczywistej decyzji operatora odnoszącej się do określonej wersji i zakresu. Recenzent może rekomendować odbiór; agent ani zielona bramka nie mogą podjąć go za człowieka.

@@ -2,6 +2,8 @@
 
 2026-10-29 · D-84 · **mapowanie wykonane i sprawdzone; gotowe do odbioru U, nie odebrane**. [Plan i kryteria](release-cycle-plan.md), [kontrakt](release-cycle.md).
 
+**Aktualność 2026-10-30, po D-86:** wynik poniżej dotyczy wskazanych źródeł i pozostaje zachowany. Pakiet zapisano w `dd8f353`; D-85 jest otwarte. Drugi projekt wykonał później E3.5 i przyjął nowe L/F przez DEC-PRO-017, dlatego sekcja „Stan i następny krok” niżej jest historyczna. Bieżącą kontynuację wskazują [audyt §8.7](coverage-map.md#87-zalecenia-i-punkt-wznowienia) i źródłowe PLAN/STAN drugiego projektu; nie powtarzamy ukończonej translacji.
+
 ## Wynik dla operatora
 
 Opisano wszystkie W01–W07 i ich związki ze zmianami, pytaniami i ponownym przeglądem. Przebieg dwóch wydań zachowuje cały wcześniejszy odbiór, a nowy odbiór dotyczy nowej migawki. Pokazano także odmowy oraz powroty po uwagach R i odmowie U.

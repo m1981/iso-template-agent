@@ -2,6 +2,8 @@
 
 2026-10-29 · D-84 · realizacja [planu i kryteriów RC-01–07](release-cycle-plan.md). Kontrakt opisuje istniejący model. Oczekiwania poniżej zapisano przed wykonaniem nowych prób; późniejsze korekty oznaczono. Wyniki są w osobnym raporcie.
 
+**Uwaga po audycie 2026-10-30:** §6 zachowuje mapowanie sprzed DEC-PRO-017. Jego skrót „trwały odbiór po ustaniu zmian” nie jest bieżącą definicją L5. Przy dalszej formalizacji obowiązują [aktualne L/F](../../../iso-model-state/docs/WLASCIWOSCI.md): warunkowa gotowość, bez wymuszania pozytywnej decyzji U. E3.5 wykonało już translację krokową; dalszy zakres wskazuje [PLAN](../../../iso-model-state/PLAN.md). [Ustalenie AUD-05 i zakres audytu](coverage-map.md#83-pięć-najważniejszych-ustaleń). Ta adnotacja nie zmienia wyników dawnych prób ani YAML v0.7.
+
 ## 1. Co jest przedmiotem procesu
 
 **Produkt roboczy** ma ID, wersję, stan i zależności. **Wydanie** ma własny numer, zakres ID, stan, migawkę i zapis odbioru. Zmiana produktu po odbiorze nie zmienia zapisanej migawki. Wskaźnik `current_release` wskazuje najnowsze wydanie; globalne `next_release_required` wymusza jego otwarcie po zmianie objętej regułą.

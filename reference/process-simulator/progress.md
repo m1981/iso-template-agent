@@ -1,8 +1,10 @@
 # Rejestr postępu symulatora
 
-Aktualizacja: 2026-10-29. Ten plik opisuje rzeczywistą pracę nad symulatorem i późniejsze analizy procesu. Nie jest historią fikcyjnego projektu z lekcji ani generowanym `reports/progress.md` szablonu.
+Aktualizacja: 2026-10-30. Ten plik opisuje rzeczywistą pracę nad symulatorem i późniejsze analizy procesu. Nie jest historią fikcyjnego projektu z lekcji ani generowanym `reports/progress.md` szablonu.
 
 ## Stan i punkt wznowienia
+
+**Bieżące zlecenie — D-86:** wykonano [audyt precyzji i duplikacji wymagań](../process-modeling/coverage-map.md#8-audyt-wymagań-i-kryteriów-2026-10-30). Wynik, granice i kolejne działania są w §8; aktualny [punkt wznowienia](../process-modeling/brief.md) wskazuje właścicieli. E3.5 zostało już wykonane w drugim repozytorium. Dalsze akapity tej sekcji zachowują historię kolejnych dostaw i kierunków; ich instrukcje mapowania generatora nie są bieżącym poleceniem. Nie zmieniono REQ/DoD, kodu ani Kitchen, nie wykonano commita.
 
 **Bieżąca dostawa 2026-10-29 — D-84:** [plan](../process-modeling/release-cycle-plan.md) zapisano przed wykonaniem; [kontrakt pełnego cyklu wydań](../process-modeling/release-cycle.md) i [raport](../process-modeling/release-cycle-report.md) gotowe. 36/36 oczekiwań odtworzył osobny R; sześć dodatkowych własnych przebiegów R zgodnych; błąd wyroczni W04 poprawiony, wcześniejsze niepowodzenia zachowane. RC-01–07 spełnione technicznie, odbiór ograniczonego pakietu czeka na U (D-85). Nie zmieniono modelu v0.7 ani generatora, nie zamknięto E3. Następny krok A po odbiorze: mapowanie do generatora istniejącego E3, nie nowe API. Szczegóły i trwałe dowody w raporcie.
 

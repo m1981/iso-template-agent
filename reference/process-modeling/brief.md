@@ -2,6 +2,17 @@
 
 2026-10-29 · D-83 · propozycja do uzgodnienia z istniejącym zakresem `iso-model-state`; nie nowa obowiązująca instrukcja procesu.
 
+## Punkt wznowienia
+
+Aktualizacja 2026-10-30, D-88. Po odczytaniu instrukcji repozytorium zacznij tutaj; pozostałe części briefu opisują zamiar i historię wcześniejszych dostaw.
+
+- **Plan i statusy:** [jedyny plan działań po audycie, §8.7](coverage-map.md#87-zalecenia-i-punkt-wznowienia). **Wykonanie i dowody:** [rejestr §8.8](coverage-map.md#88-rejestr-zmian-i-wykonania). **Zgody:** [decyzje projektu](../../project/decisions.md), D-86–D-88; D-85 pozostaje otwartym odbiorem mapowania.
+- **Bieżące zlecenie:** A-01 wykonane według D-88 („Dalej”); korekta dwóch REQ i tekstów AT sprawdzona, wynik Z-05. Audyt i utrwalenie planu również zakończone. Kod i DoD bez zmian.
+- **Najbliższa pozycja:** A-02 w planie — przygotowanie rozstrzygnięcia G5 po sprawdzeniu aktualnego źródła. Właściciel opracowania: agent; zmiana przyjętego DoD należy do U. Nie traktować D-88 jako zgody na taką zmianę ani na rozpoczęcie A-03. Brak otwartej blokady A-01.
+- **Git:** audyt D-86, utrwalenie D-87 i korekty D-88 pozostają niezacommitowane; ostatni commit przy aktualizacji to `dd8f353`. Przy wznowieniu sprawdź `git status --short` oraz `git diff`, zachowaj istniejące zmiany. Nieśledzony eksport użytkownika `ISO 29110 a nasz model śladu.md` pozostaje poza zakresem. Commit wyłącznie na wyraźne polecenie.
+- **Przed pracą nad modelem:** odczytaj jego aktualne [PLAN](../../../iso-model-state/PLAN.md) i [STAN](../../../iso-model-state/docs/STAN.md). Ostatnio rozpoznano E3.5 (`79cab4d`) i DEC-PRO-017; nie powtarzaj translacji na podstawie dawnych wskazówek poniżej. Właściciele i następne kroki spraw odłożonych: mapa §6 i plan §8.7.
+- **Decyzje agenta:** A4 przy audycie, A5 o pamięci pracy i A6 o doprecyzowaniu AT-45/kontroli dokumentacji — mapa §8.8. Aktualizuj ten wskaźnik po etapie; listę zadań i ich statusy zmieniaj wyłącznie w planie.
+
 ## Cel i efekt dla operatora
 
 Operator ma móc ustalić z utrzymywanego stanu: **co wykonano, na jakiej podstawie, co jest nieaktualne, co blokuje następny krok i jaka decyzja należy do niego**. Agent ma podejmować pracę z tych zapisów, a narzędzie odmawiać działań naruszających jawne reguły.
@@ -80,4 +91,4 @@ Technicznie: model YAML i wykonawca Python pozostają punktem wyjścia; TLA+/TLC
 
 **Kontynuacja D-84:** zapisano przed wykonaniem [plan i kryteria cyklu wydań](release-cycle-plan.md), następnie opracowano [kontrakt W01–W07](release-cycle.md), wykonano próby i osobną recenzję. [Raport](release-cycle-report.md): RC-01–07 spełnione technicznie, 36/36 oczekiwań odtworzonych przez R i sześć dodatkowych przebiegów R. Model v0.7 bez zmian; cały E3 nadal otwarty.
 
-**Następny krok:** U — odbiór ograniczonego pakietu (D-85); agent po odbiorze — mapowanie kontraktów do dalszego generatora E3, z jawnymi granicami i oczekiwaniami przed kodem. Bieżący punkt wznowienia w raporcie; pozostałe sprawy i właściciele w mapie §6 oraz tabeli wyżej.
+**Wykonanie D-86, 2026-10-30:** [audyt wymagań i kryteriów](coverage-map.md#8-audyt-wymagań-i-kryteriów-2026-10-30) zapisany. D-87 porządkuje dalszą pamięć pracy; bieżący punkt wznowienia jest na początku tego briefu, a plan i rejestr wykonania tylko w mapie §8.7–8.8.

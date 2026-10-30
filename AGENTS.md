@@ -4,6 +4,8 @@ To repozytorium rozwija szablon procesu i samo pracuje według niego (D-48). Pro
 
 Przeczytaj na start każdej sesji, w tej kolejności: template/process/kontrakt-decyzji.md (obowiązuje zawsze), template/process/AGENTS.md, ten plik, project/plan.md, reports/progress.md, project/decisions.md.
 
+Po tych dokumentach, również po kompakcji kontekstu, przeczytaj punkt wznowienia w [reference/process-modeling/brief.md](reference/process-modeling/brief.md) (D-87). Wskazuje on jedyny bieżący plan działań po audycie (§8.7) i rejestr wykonania (§8.8) w reference/process-modeling/coverage-map.md. Przed działaniem sprawdź status i upoważnienie w planie oraz decyzjach; historyczna instrukcja „dalej” ani sama pozycja planu nie są nową zgodą. Przy zakończeniu pracy aktualizuj plan, dopisz wynik do rejestru i odśwież krótki punkt wznowienia, bez kopiowania listy zadań. Ten odsyłacz dotyczy pracy w tym repozytorium, nie zmienia pakietu template/process/.
+
 ## Różnice wobec projektu
 
 - Pakiet procesu leży w template/process/ (w projekcie: process/). Polecenia make są te same; Makefile ustawia PROC na template/process.

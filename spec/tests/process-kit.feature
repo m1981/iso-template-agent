@@ -364,7 +364,7 @@ Feature: Szablon procesu (Process kit)
   Scenario: Pliki projektu bez zmian
     Given projekt z planem, README i ignorowanymi danymi
     When bramka aktualizuje projekt z v1.0.0 do v1.1.0
-    Then skróty wszystkich plików poza process/ są takie same, a nowa funkcja działa
+    Then skróty wszystkich plików poza process/, plikiem copiera i .git/ są takie same, a nowa funkcja działa
 
   @AT-41
   # verifies: UPD-05
@@ -407,7 +407,7 @@ Feature: Szablon procesu (Process kit)
   # runner: template/process/tools/test_tools.py::refs
   # status: initiated
   Scenario: Odwołania do ścieżek
-    Given dokument z brak/plik.md, wzorcem spec/*.md i wyjątkiem, o którym nikt już nie wspomina
+    Given objęty kontrolą śledzony dokument z brak/plik.md, wzorcem spec/*.md i wyjątkiem, o którym nikt już nie wspomina
     When check_refs.py sprawdza repozytorium
     Then błąd dla brak/plik.md i dla zbędnego wyjątku, bez błędu dla wzorca
 

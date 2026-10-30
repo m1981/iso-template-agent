@@ -322,10 +322,11 @@ Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN pl
 
 ### UPD-04
 - pattern: event
-- text: When an update succeeds, Process kit shall leave every Project file outside the Process Package byte-identical.
-- source: D-47
+- text: When an update succeeds, Process kit shall leave every Project file outside the Process Package, excluding the Answers File and git metadata, byte-identical.
+- source: D-47, D-53, D-88
 - quality: reliability
 - status: initiated
+- notes: Wyjątki to plik copiera oraz metadane .git/ (w tym log aktualizacji z D-53). Pliki projektu objęte ochroną obejmują także pliki ignorowane przez git. Zmianę niedozwolonego pliku poza pakietem rozlicza UPD-03.
 
 ### UPD-05
 - pattern: event
@@ -389,10 +390,11 @@ Obszary: TRC ślad · HKS hooki · SEP rozdział autora i weryfikatora · PLN pl
 
 ### LAY-03
 - pattern: event
-- text: When a document or a script mentions a path that does not exist and is not listed as an exception with a reason, Process kit shall report an error.
-- source: D-61
+- text: When a document or a script included in the path-checking scope mentions a recognized local path that does not exist and is not listed as an exception with a reason, Process kit shall report an error.
+- source: D-61, D-64, D-88
 - quality: maintainability
 - status: initiated
+- notes: Zakres plików, rozpoznawanych odwołań i sposobu rozwiązywania ścieżek opisuje template/process/tools/check_refs.py (opis modułu; D-64 punkt 3). Kontrola czyta pliki śledzone przez git i pomija m.in. reference/, archive/, rejestr decyzji, pliki generowane i kod testów; nie obejmuje dowolnego tekstu lub każdej ścieżki w repozytorium. Wyłączenie pliku z kontroli jest odrębne od uzasadnionego wyjątku dla pojedynczej ścieżki w project/check_refs.allow.
 
 ## LEK Przeciek domeny
 

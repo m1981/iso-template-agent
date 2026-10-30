@@ -76,6 +76,30 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-89 Commit audytu i kontynuacja rozstrzygnięcia G5
+- status: resolved
+- choice: zapisać wykonane zmiany audytu, planu i A-01 w Git, następnie wykonać analizę A-02 i przygotować konkretne rozstrzygnięcie G5 do decyzji U
+- date: 2026-10-30
+- notes: polecenie Użytkownika „commit i Dalej” po zakończeniu A-01 i wskazaniu A-02 jako następnego kroku. Commit dotyczy zmian agenta D-86–D-88 i niniejszego zapisu zlecenia; nie obejmuje eksportu użytkownika poza Git ani pushu. Kontynuacja upoważnia do odczytu aktualnego źródła i przygotowania propozycji, nie do samodzielnej zmiany przyjętego DoD lub odbioru D-85.
+
+### D-88 Doprecyzowanie zakresu wymagań po audycie
+- status: resolved
+- choice: wykonać A-01 z planu działań po audycie: doprecyzować UPD-04/AT-40 i LAY-03 zgodnie z przyjętymi wyjątkami oraz sprawdzić i zapisać wynik
+- date: 2026-10-30
+- notes: Użytkownik polecił „Dalej” po wskazaniu A-01 jako najbliższego kroku. Zakres: dokumentacja szablonu, zgodność z D-53/D-64, bez zmiany działania narzędzi. Nie jest to zgoda na zmianę DoD G5 w drugim projekcie, odbiór D-85, commit ani push. Plan i rejestr wykonania: reference/process-modeling/coverage-map.md §8.7–8.8.
+
+### D-87 Trwały plan i rejestr działań po audycie
+- status: resolved
+- choice: utrwalić zaproponowany układ w istniejących dokumentach: jeden plan działań w coverage-map.md §8.7, dopisywany rejestr zmian i wykonania w §8.8, krótki punkt wznowienia w brief.md oraz odsyłacz startowy w głównym AGENTS.md
+- date: 2026-10-30
+- notes: polecenie Użytkownika „utrwal zgodnie z twoimi sugestiami”. Decyzje U pozostają w tym rejestrze; plan tylko do nich odsyła. Zlecenie dotyczy utrwalenia organizacji pracy, nie zastosowania proponowanych korekt REQ/DoD, odbioru D-85, commita, pushu ani zmian w drugim repozytorium. Źródło wykonania i kontroli: reference/process-modeling/coverage-map.md §8.8.
+
+### D-86 Audyt precyzji wymagań i kryteriów
+- status: resolved
+- choice: wykonać zaproponowany ograniczony audyt źródeł, jednoznaczności, duplikacji i kryteriów zakończenia; wykorzystać historię Git do ograniczenia pracy bez obniżania jakości przeglądu
+- date: 2026-10-30
+- notes: polecenie Użytkownika „wykonaj” po propozycji audytu; wynik w reference/process-modeling/coverage-map.md, §8. Audyt nie zatwierdza nowych AC, nie zmienia wymagań lub DoD ani nie odbiera D-85. Zapisano pięć głównych ustaleń, rozdział źródeł i minimalne poprawki do rozstrzygnięcia; odświeżono lokalne punkty wznowienia po zastanej dostawie E3.5 w drugim repozytorium. Bez commita i zmian w Kitchen lub iso-model-state.
+
 ### D-84 Plan i wykonanie mapowania pełnego cyklu wydań
 - status: resolved
 - choice: zapisać plan oraz kryteria odbioru najbliższego mapowania „odbiór v1 → zmiana → ponowna ocena → odbiór v2”, następnie wykonać je na istniejącym modelu, z próbami i osobną recenzją według karty pracy
