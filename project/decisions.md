@@ -76,6 +76,20 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-91 Commit korekty G5 i przedstawienie dalszego kierunku
+- status: resolved
+- choice: zapisać własne zmiany A-02 w obu repozytoriach; przedstawić propozycję dalszych prac i diagram Mermaid historii oraz obecnego problemu
+- date: 2026-10-30
+- notes: Użytkownik „zrob commit i powiedz jak bys widzial dalsze prace? Czy jestes w stanie narysowac hitorie i obecny problem za pomoca diagramu mermaid?”. Commit modelu obejmuje tylko cztery przejrzane dokumenty G5, także gdy w tych samych plikach są cudze zmiany S10. Bez pushu, odbioru E3 i automatycznego rozpoczęcia kolejnego przyrostu. Kierunek w briefie jest widokiem istniejącego planu, nie drugim planem ani zmianą kolejności. Wynik commita modelu i zakres zapisu tutaj: Z-10 w coverage-map.md §8.8.
+
+### D-90 Jednoznaczne rozliczenie kompletności G5 w modelu procesu
+- status: resolved
+- options: A) zastosować doprecyzowanie DoD z zachowaniem testów i przeglądu raportu G5 oraz obowiązków mutacyjnych pozostałych właściwości · B) pozostawić źródła bez zmian i przygotować inne rozstrzygnięcie AUD-03 przed zamknięciem kryterium
+- choice: A — użytkownik „D1 tak”: zastosować doprecyzowanie G5 i DoD 2/6 z zachowaniem testów oraz obowiązków pozostałych właściwości.
+- date: 2026-10-30
+- notes: zgoda na konkretną propozycję z reference/process-modeling/coverage-map.md §8.7. Wdrożenie w iso-model-state: DEC-PRO-018 w docs/STAN.md; WLASCIWOSCI, PLAN i E3-AC06. Bez zgody na commit/push lub odbiór E3. Właściciel wykonania: agent; wynik i przegląd w rejestrze mapy §8.8. Nie zmienia S/L/F ani historycznego odbioru E2.
+
+
 ### D-89 Commit audytu i kontynuacja rozstrzygnięcia G5
 - status: resolved
 - choice: zapisać wykonane zmiany audytu, planu i A-01 w Git, następnie wykonać analizę A-02 i przygotować konkretne rozstrzygnięcie G5 do decyzji U

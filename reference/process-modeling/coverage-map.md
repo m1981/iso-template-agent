@@ -224,16 +224,33 @@ Statusy: `proposed` — przygotowana propozycja, bez zlecenia wykonania; `planne
 | Działanie / przedmiot | Właściciel / status | Zależności i upoważnienie | Rezultat i warunek zakończenia | Następny krok |
 | --- | --- | --- | --- | --- |
 | **A-01 — szablon:** doprecyzowanie UPD-04/AT-40 i LAY-03 (AUD-01/02) | Agent / `completed` | D-88: „Dalej” po wskazaniu A-01. Korekta zgodna z wyjątkami D-53/D-64, bez zmiany narzędzi | UPD-04/AT-40 mają jawne wyjątki; LAY-03 i wejście AT-45 wskazują zakres kontroli. Przypadki zgodne z przyjętymi wyjątkami, kontrola dokumentów bez błędów; dowód Z-05 | Brak dalszej pracy w A-01; nie zmieniać statusu REQ na verified/approved na podstawie samej korekty |
-| **A-02 — model:** jednoznaczne rozliczenie G5 (AUD-03) | Agent przygotowuje rozstrzygnięcie, U decyduje / `proposed` | Aktualny DoD i decyzje drugiego projektu; uzgodnienie przed zamknięciem tego kryterium. Nie zależy technicznie od A-01 i nie blokuje całego E3. Zmiana w drugim repozytorium wymaga właściwego upoważnienia | Jeden pełny DoD i pochodny skrót. Koniec: jawny zbiór właściwości wymagających mutantów oraz osobny dowód przeglądu G5; zachowany odbiór historycznego E2 | Przy zamykaniu DoD przedstawić U rekomendację poniżej, sprawdziwszy, czy sprawy nie rozstrzygnięto już w źródle |
+| **A-02 — model:** jednoznaczne rozliczenie G5 (AUD-03) | Agent / `completed` | D-89 zleca analizę i propozycję; D-90: U „D1 tak” zatwierdza korektę przyjętego DoD; zapis w modelu DEC-PRO-018. Uzgodnienie przed zamknięciem tego kryterium. Nie zależy technicznie od A-01 i nie blokuje całego E3. Zmiana w drugim repozytorium wymaga właściwego upoważnienia | Jeden pełny DoD i pochodny skrót. Koniec: jawny zbiór właściwości wymagających mutantów oraz osobny dowód przeglądu G5; zachowany odbiór historycznego E2 | Zamknięte wynikiem Z-09: korekta, pełna macierz i niezależny przegląd. Kontynuację E3 prowadzi aktualny plan modelu; brak zgody na commit/push |
 | **A-03 — model:** dalsza realizacja według aktualnego źródła (AUD-04/05) | Agent / `proposed` | Odczyt aktualnych PLAN/STAN, E3-AC i właściwego zlecenia przed kontynuacją. E3.5 już istnieje. D-85 pozostaje osobnym odbiorem naszego mapowania | Poprawnie wybrany następny przyrost z planu źródłowego, bez powtarzania translacji i rozszerzania E3 o operacyjne propozycje. Koniec tego działania: zapisany aktualny przedmiot, podstawa upoważnienia i odsyłacz do źródłowego planu; nie zakończenie całego E3 | Przy zleceniu kontynuacji sprawdzić bieżące źródło; propozycje operacyjne z §8.5 rozpatrzyć dopiero we właściwym zakresie E4/E5 |
 
 Kolejność A-01 → A-02 → A-03 jest kolejnością rekomendacji audytu; zależności i moment decyzji podano osobno. Nie ustanawia nowego harmonogramu drugiego projektu. Utrzymanie to aktualizacja jednego wiersza i dopisanie wyniku przy rzeczywistej zmianie. Obecne kontrole nie wystarczają: dla A-01 składnia EARS i link AT nie wykrywają szerszego kwantyfikatora; dla A-02 raport N/A nie rozstrzyga dosłownego „każda”; dla A-03 niezależne kopie planu już spowodowały nieaktualną instrukcję wznowienia.
 
 **Zastosowana korekta A-01 — D-88, wynik Z-05:** UPD-04 i AT-40 wyłączają z ochrony plik copiera i metadane git; notatka wymagania zachowuje ochronę także plików ignorowanych. LAY-03 ogranicza obowiązek do objętych kontrolą plików i rozpoznawanych lokalnych odwołań; notatka odsyła do zakresu D-64(3) i opisu `check_refs.py`, a AT-45 jawnie wymaga śledzonego dokumentu objętego kontrolą. Źródła REQ uzupełniono o odpowiednie decyzje. Pozytywny przypadek aktualizacji może zmienić answers; zmiana README poza pakietem nadal wymaga odmowy. Próby skanera z §8.6 nadal ilustrują właściwą granicę 1/0; nie ponawiano ich w A-01. Kod i wyjątki nie zostały zmienione.
 
-**Gotowa rekomendacja dotycząca G5 — wymaga decyzji U w modelu:** DoD 2 rozdzielić na testy G1–G4/G6 i przegląd raportu kompletności G5; DoD 6 zastosować do G0–G4/G6, S i L wymagających badania, z jawną tabelą właściwość–mutant–naruszenie. G5 zachowuje obowiązek kompletnego raportu i jego przeglądu, bez fikcyjnego mutanta. To propozycja usunięcia sprzeczności, nie decyzja podjęta przez autora audytu; termin eskalacji: przed zamykaniem kryterium, nie przed samym czytaniem źródeł.
+**Korekta A-02 / D-90 — przyjęta przez U „D1 tak”, 2026-10-30; wdrożona jako DEC-PRO-018.** Poniższy odczyt i tabela zachowują treść przedstawioną do decyzji; bieżący wynik wdrożenia jest w §8.8. Ponowny odczyt przy HEAD modelu `7215b9c13a7de602e91d72a4704d5957def62808`: [pełny DoD](../../../iso-model-state/docs/WLASCIWOSCI.md), [skrót planu](../../../iso-model-state/PLAN.md), [E3-AC06](../../../iso-model-state/docs/E3-KRYTERIA-ODBIORU.md). Sprzeczność „każda właściwość ma mutanta” wobec G5 „raport, nie test” nadal występuje. Bieżąca praca drugiego projektu dotyczy S10/P1–P6; nie przestawiamy jej kolejności.
 
-**Wykonane porządkowanie:** datowany audyt dopisano do istniejącej mapy, a punkty wejścia odsyłają do niego i aktualnego źródła modelu. Następnie w A-01 doprecyzowano dwa istniejące REQ i dwa teksty AT; nie tworzono kolejnego katalogu wymagań, nie zmieniono DoD, pakietu procesu, modelu ani Kitchen. D-85 pozostaje otwarte; commit wymaga osobnego polecenia. Pozostałe sprawy z §6 zachowują właścicieli i moment decyzji.
+**Istniejący mechanizm:** [completeness_matrix](../../../iso-model-state/src/isomodel/graph.py) klasyfikuje pary zadeklarowany stan–przejście: `forbidden_by_source`, `current_instance_if_guard`, `new_instance_if_guard`. [Test G5](../../../iso-model-state/tests/test_graph.py) sprawdza liczbę par wydania i trzy klasyfikacje. [Raport E2](../../../iso-model-state/src/isomodel/evidence.py) zapisuje liczby par oraz `report_not_test`. **Test raportu istnieje**, ale nie dowodzi spełnialności warunków, uprawnień, efektów ani osiągalności. Usunięcie przejścia zmniejsza dziedzinę raportu; wewnętrzna kompletność nie dowodzi kompletności względem potrzeb. Dlatego zielony test ani samo N/A nie usuwają sprzeczności DoD.
+
+Teksty przyjęte w D-90 — jeden pełny DoD i odwołania w skrótach:
+
+| Miejsce | Docelowa treść korekty |
+| --- | --- |
+| `docs/WLASCIWOSCI.md`, zdanie wstępu o mutantach | „Właściwości G0–G4, G6, S1–S15 (S7a i S7b zamiast S7) oraz L1–L5 wymagają wykazania czułości według DoD 6. G5 wymaga kontroli i przeglądu raportu według DoD 2, nie mutanta właściwości procesu.” Zachować historię zatwierdzeń. |
+| Pełny DoD 2 | Kryterium: „Struktura G1–G4/G6 oraz raport kompletności G5”. Dowód: „Właściwe testy struktury i raportu przechodzą; przegląd G5 rozlicza dziedziny, klasyfikacje oraz ograniczenia opisane przy G5.” |
+| Pełny DoD 6 | Kryterium: „Każda właściwość G0–G4, G6, S1–S15 (S7a i S7b zamiast S7), L1–L5 ma co najmniej jeden celowo zepsuty model wykrywany właściwą metodą”. Dowód: „Macierz właściwość → mutant → oczekiwane naruszenie → rzeczywisty wynik obejmuje cały wymieniony zbiór; wszystkie wymagane mutanty wykryte. G5 rozliczane osobno w DoD 2, poza wynikiem mutacji. Dla własności semantycznych błąd składni, środowiska lub timeout nie zastępuje naruszenia własności.” |
+| Wiersz G5 i objaśnienie pod tabelą | Nazwa: „Kompletność zadeklarowanej struktury”. Treść: „Dla każdego rodzaju item/question/release raport obejmuje iloczyn zadeklarowanych stanów wraz ze stanem początkowym i zadeklarowanych przejść; klasyfikuje parę jako wykluczoną przez from albo dotyczącą obecnej/nowej instancji pod warunkiem spełnienia pozostałych reguł”. Mutant: „Nie dotyczy; testy raportu i przegląd według DoD 2”. Objaśnienie: przegląd wskazuje wersję modelu, pełną macierz, wynik sprawdzenia dziedzin i klasyfikacji oraz rozbieżności wobec przyjętej listy przejść. Sama liczba par nie zastępuje przeglądu. G5 nie dowodzi spełnialności guard, osiągalności ani kompletności potrzeb; wykonalność pozostaje przedmiotem G2 i właściwych badań E3. |
+| `PLAN.md`, skrót DoD 2 i 6 | „2. Struktura oraz raport G5 — według pełnego DoD 2 w docs/WLASCIWOSCI.md.” / „6. Czułość sprawdzeń w zbiorze określonym przez pełny DoD 6; G5 rozliczane osobno według DoD 2.” |
+| `docs/E3-KRYTERIA-ODBIORU.md`, E3-AC06 | Dopisać: „Zakres właściwości zgodny z pełnym DoD 6 w docs/WLASCIWOSCI.md; G5 rozliczane według DoD 2.” Zachować obecne wymagania kontrprzykładów i niezależnego oczekiwania. |
+
+**Granice:** doprecyzowanie rozliczenia nie zalicza kryterium. Zachowujemy istniejące testy raportu; bez zmian S/L/F, YAML, wykonawcy, generatora i zakresu E3. F pozostają założeniami podlegającymi obecnym kontrolom czułości i niepustości; nie otrzymują zwolnienia. G0/G4 nadal mogą wykrywać właściwe błędy schematu — wymóg semantycznego kontrprzykładu nie dotyczy błędów struktury. E2/DEC-PRO-012 i jego raport pozostają historycznym wynikiem z ograniczeniami; nowego przeglądu G5 nie dopisujemy wstecz.
+
+**Koszt i ocena efektu:** jednorazowa korekta trzech dokumentów; potem aktualizacja raportu/przeglądu przy zmianie stanów lub przejść w istniejącej bramce przeglądu. Bez nowej usługi lub roli. Efekt: można jednoznacznie przypisać dowód każdej pozycji DoD, bez fikcyjnego mutanta G5 i uznawania liczby par za dowód procesu. Przed wdrożeniem ponownie odczytać źródła, zapisać rzeczywistą zgodę w rejestrze modelu, skontrolować zgodność trzech miejsc i rozliczyć przegląd G5. Odmowa pozostawia AUD-03 otwarte do innego rozstrzygnięcia przed zamknięciem kryterium; nie blokuje całego E3.
+
+**Wykonane porządkowanie:** datowany audyt dopisano do istniejącej mapy, a punkty wejścia odsyłają do niego i aktualnego źródła modelu. Następnie w A-01 doprecyzowano dwa istniejące REQ i dwa teksty AT; w A-01 nie tworzono kolejnego katalogu wymagań ani nie zmieniono DoD. W A-02, po D-90, doprecyzowano rozliczenie G5 w modelu; pakiet procesu i Kitchen bez zmian. D-85 pozostaje otwarte. D-89 upoważniło do commita wcześniejszej pracy (Z-06); korekta A-02 zapisywana w Git na polecenie D-91; wynik Z-10. Pozostałe sprawy z §6 zachowują właścicieli i moment decyzji.
 
 **Decyzja agenta A4, 2026-10-30 — zapis z audytu:** użyć historii Git do doboru źródeł i wykluczenia powtórnej pracy, ale oceniać aktualne znaczenie; raport zachować w istniejącej mapie, zamiast mnożyć specyfikacje. Zaproponowana wtedy korekta A-01 została później zlecona w D-88 i wykonana (Z-05); prace w modelu wymagają odczytania jego aktualnego stanu i właściwego upoważnienia, nie przenoszenia starego polecenia.
 
@@ -248,9 +265,114 @@ Dopisuj zdarzenia w kolejności wykonania. Plan w §8.7 pokazuje aktualny zamiar
 | Z-03 / 2026-10-30 / D-87, sprawdzenie Z-02 | Zakończono utrwalenie i kontrolę drogi wznowienia. Odczyt autora: AGENTS → brief → plan/rejestr/decyzje pozwala wskazać A-01, właściciela, status propozycji, granicę zlecenia D-87 i brak commita; to przegląd dokumentów, nie próba nowej niezależnej sesji | Wynik dopisany tutaj; brief odsyła do tego wpisu. `reports/trace.md` odświeżony przez `make check` | `make check`: kod 0, 253 elementy, 0 błędów; W1 MIG-01/02 i W2 D-86/87 bez commitów. Cztery dokumenty: 83 lokalne linki, cztery kotwice mapy i bloki kodu poprawne. `git diff --check` bez błędów. Zlecenie utrwalenia wykonane; statusów A-01–03 nie podniesiono. Bez testów niezmienionego kodu, commita i pushu |
 | Z-04 / 2026-10-30 / D-88 | Rozpoczęto A-01 po poleceniu „Dalej”. Sprawdzono wyjątki D-53/D-64, zakres `check_refs.py`, `snapshot` testów dystrybucji i istniejące REQ/AT. A-01 zmieniono z `proposed` na `in_progress` | `project/decisions.md`, plan §8.7 i ten rejestr; dalsza zmiana obejmie `spec/requirements.md` i tekst AT | Przegląd źródeł potwierdza korektę dokumentacji bez zmiany kodu; wynik końcowy jeszcze nieustalony |
 | Z-05 / 2026-10-30 / D-88, zakończenie A-01 | Zastosowano korekty UPD-04/AT-40 i LAY-03/wejścia AT-45. Przegląd autora: chronione pliki, w tym ignorowane, odpowiadają `snapshot`; answers i `.git/` są wyłączone; niedozwolona zmiana README nadal odpowiada odmowie UPD-03/AT-39. LAY-03 rozróżnia zakres skanowania i wyjątek ścieżki | `spec/requirements.md`, `spec/tests/process-kit.feature`, `project/decisions.md`, plan/rejestr, punkt wznowienia w `brief.md`; `reports/trace.md` wygenerowany | `make check`: kod 0, 254 elementy, 0 błędów; W1 MIG-01/02 i W2 D-86/87. Tekst oraz kod istniejących przypadków porównano, bez ponownego uruchomienia dystrybucji i prób skanera. Brak zmian kodu/runnerów: nie deklarujemy TDD RED/GREEN ani nowej regresji produktu. A-01 `completed`; REQ nadal `initiated`. Bez commita i zmian drugiego repozytorium |
+| Z-06 / 2026-10-30 / D-89 | Na polecenie „commit i Dalej” zapisano audyt, plan i A-01; rozpoczęto analizę A-02 (`proposed` → `in_progress`) | Commit `8849a3b`: 11 plików, 222 dodania / 14 usunięć; eksport użytkownika poza commitem | Przed commitem `make check`: 255 elementów, 0 błędów, W1 MIG-01/02 i W2 D-86/87/89. Diff indeksu sprawdzony, commit udany. Bez pushu. Bezpośrednio po commicie jedyny nieśledzony plik to eksport użytkownika |
+| Z-07 / 2026-10-30 / D-89, propozycja D-90 | Sprawdzono DoD, raport, implementację i test G5; przygotowano tekst korekty w §8.7. A-02 pozostaje w toku: propozycja gotowa, wdrożenie i przegląd oczekują D-90 | Mapa, brief, rejestr decyzji; ślad odświeżany narzędziem. Bez zmian źródeł modelu | Na kopii `7215b9c`: istniejący test G5 — 1 passed. item 120, question 30, release 28 par. Diagnostyczne guard W04=false nie zmienia macierzy G5. To granica raportu, nie wykryty mutant procesu ani pełna regresja. Przegląd autora, bez niezależnego R. Cudze zmiany w drugim repo pozostawione bez ingerencji |
+| Z-08 / 2026-10-30 / D-90, DEC-PRO-018 | U „D1 tak” zatwierdził korektę; po świeżym odczycie zastosowano teksty w źródle i zapisano rzeczywistą zgodę. Wygenerowano pełną macierz G5 i sprawdzono dziedziny/klasyfikacje | Model: WLASCIWOSCI, PLAN, E3-KRYTERIA-ODBIORU, STAN; tutaj decyzje, mapa i brief | 178/178 par zgodnych z deklaracjami, inwentarz 28 przejść zgodny z E3-AC01; check_model.py: 413 kontroli OK. Dokumentacyjny diff bez błędów. To nie dowód wykonalności ani całego G/S/L. Osobny R w toku; A-02 nadal in_progress |
+| Z-09 / 2026-10-30 / D-90, zamknięcie A-02 | Niezależny R sprawdził dokumenty i pełną macierz. Zamknięto dwie uwagi: semantyczny zakres zdania E3-AC06 oraz ciągłość tabeli DEC-PRO-018. Wynik i hashe poniżej | Cztery dokumenty modelu; lokalnie decyzje, mapa, punkt wznowienia i wygenerowany ślad | R: PASS bez blokerów; 178/178 par, 13 testów PASS. make check: 256 elementów, 0 błędów; W1 MIG-01/02 i W2 D-90 bez commita. A-02 completed oznacza zakończenie korekty i przeglądu G5, nie odbiór E3/DoD całego modelu. Bez commita/pushu |
+| Z-10 / 2026-10-30 / D-91 | Zlecono commit i przedstawienie kierunku. W modelu wybrano tylko cztery dokumenty korekty G5, odtwarzając dokładnie hashe R w indeksie; cudze fragmenty PLAN/STAN i reszta S10 pozostawione roboczo. Diagram i kierunek zapisano w istniejącym briefie | Model: commit `ea77055`, 4 pliki, 12 dodań / 8 usunięć. Tutaj: decyzje, brief, mapa i generowany ślad, zapisane razem z tym wpisem | Commit modelu udany, diff indeksu poprawny i zakres zgodny z R. Brak pushu. Bieżący raport/STAN wskazuje wykonaną ograniczoną kontrolę S10 i następny opis dziedziny komend; odczyt, nie powtórne badanie. D-91 nie uruchamia A-03. Kontrola lokalnego zapisu poniżej |
 
 **Decyzja agenta A5, 2026-10-30 — stan przy D-87:** statusy A-01–03 pozostają `proposed`, ponieważ D-87 zatwierdza organizację pamięci pracy, nie wykonanie napraw ani kontynuację innego projektu. Pełny plan utrzymuję tylko w §8.7; brief wskazuje bieżącą pozycję, a Git zachowuje historię redakcji. Późniejsza zmiana A-01: Z-04 / D-88.
 
 **Decyzja agenta A6, 2026-10-30:** w A-01 doprecyzować także warunek wejściowy AT-45, aby kryterium LAY-03 jawnie dotyczyło śledzonego pliku objętego skanowaniem; zachować runner i zachowanie. Dla zmiany wyłącznie dokumentacyjnej wykonać kontrolę składni/śladu i przegląd zgodności z istniejącymi przypadkami, bez sztucznego RED/GREEN.
 
 **Końcowa kontrola zapisu A-01:** cztery dokumenty, 82 lokalne odnośniki, cztery kotwice audytu i bloki kodu — bez błędów; `git diff --check` bez błędów. Diff `template/` i `tests/` pusty. To kontrola dokumentacji, nie ponowne wykonanie runnerów z katalogu AT.
+
+
+**Decyzja agenta A7, 2026-10-30:** próbę G5 wykonać na kopii konkretnego commita, ponieważ w drugim repozytorium trwa równoległa praca. Zachować testy raportu i zapisać korektę w istniejącym planie, bez konkurencyjnego DoD.
+
+**Odtworzenie Z-07:** z korzenia tego repozytorium, korzystając z istniejącego środowiska Python modelu. Źródłem jest commit i poniższe polecenia; przechowywanie katalogu tymczasowego nie jest potrzebne. Bez instalowania zależności lub zapisu w źródłowym repozytorium.
+
+```sh
+MODEL_REPO="$PWD/../iso-model-state"
+G5_COPY=$(mktemp -d)
+git -C "$MODEL_REPO" archive 7215b9c13a7de602e91d72a4704d5957def62808 src model/process.yaml tests/conftest.py tests/test_graph.py | tar -x -C "$G5_COPY"
+cd "$G5_COPY"
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$G5_COPY/src" "$MODEL_REPO/.venv/bin/python" -B -m pytest -q -p no:cacheprovider tests/test_graph.py::test_G5_reports_every_pair_without_claiming_guard_satisfiability
+PYTHONPATH="$G5_COPY/src" "$MODEL_REPO/.venv/bin/python" -B - <<'PY'
+from copy import deepcopy
+from pathlib import Path
+from isomodel import load_model
+from isomodel.graph import completeness_matrix
+model = load_model(Path("model/process.yaml"))
+print({k: len(completeness_matrix(model, k)) for k in ("item", "question", "release")})
+changed = deepcopy(model)
+next(t for t in changed["release_transitions"] if t["id"] == "W04")["guard"] = "false"
+print(completeness_matrix(changed, "release") == completeness_matrix(model, "release"))
+PY
+```
+
+Rzeczywisty wynik Z-07: `1 passed in 0.31s`; `{'item': 120, 'question': 30, 'release': 28}`; porównanie macierzy `True`. Wykonano równoważnym skryptem Python z `TemporaryDirectory` i `git archive`, wyłączonym cache pytest i zapisem bytecode. Zmieniony guard nie był wykonywany w silniku: próba wywołała wyłącznie generator raportu.
+
+**Kontrola zapisu A-02:** `make check` — kod 0, 256 elementów, 0 błędów; tylko wcześniejsze W1 MIG-01/02. Trzy redagowane dokumenty: 87 lokalnych odnośników i trzy kotwice mapy poprawne, bloki kodu domknięte. Pozostałych kotwic nie kontrolowano. `git diff --check` bez błędów. To kontrola propozycji, nie odbiór G5 ani regresja całego modelu. A-02 i D-90 pozostają otwarte; brak kolejnego commita.
+
+
+#### Macierz G5 — wykonanie A-02 / D-90 / DEC-PRO-018
+2026-10-30. Model v0.7, SHA-256 pliku `model/process.yaml`: `2d329822e239555c1642d0a5a20aae0eb28fee17a6f2ff13968e48d7f428fc07`. Pełne macierze poniżej wygenerowano istniejącą funkcją `completeness_matrix`; odtworzenie: dla każdego rodzaju wywołać funkcję na wskazanym YAML, następnie wypisać każdą parę stan–przejście.
+Legenda: **X** = `forbidden_by_source`; **C** = `current_instance_if_guard`; **N** = `new_instance_if_guard`. C/N nie potwierdza wykonalności: pozostałe reguły nadal obowiązują. Stan `none` jest pseudostanem początkowym dla elementów i pytań, nie dodatkowym stanem dojrzałości.
+
+**item: 8 stanów × 15 przejść = 120 par.**
+| Przejście | approved | baselined | deferred | draft | none | superseded | verified | withdrawn |
+|---|---|---|---|---|---|---|---|---|
+| T00 | X | X | X | X | C | X | X | X |
+| T01 | X | X | X | C | X | X | X | X |
+| T02 | X | X | X | X | X | X | C | X |
+| T03 | X | X | X | X | X | X | C | X |
+| T04 | C | X | X | X | X | X | C | X |
+| T05 | C | C | X | X | X | X | C | X |
+| T06 | X | C | X | X | X | X | C | X |
+| T07 | C | C | C | C | X | X | C | X |
+| T08 | C | C | C | C | X | X | C | X |
+| T09 | X | X | X | C | X | X | C | X |
+| T10 | X | X | C | X | X | X | X | X |
+| T11 | C | C | X | C | X | X | C | X |
+| T12 | C | C | X | X | X | X | C | X |
+| T13 | X | X | X | C | X | X | X | X |
+| T14 | X | X | X | C | X | X | X | X |
+
+**question: 5 stanów × 6 przejść = 30 par.**
+| Przejście | asked | deferred | none | open | resolved |
+|---|---|---|---|---|---|
+| P00 | X | X | C | X | X |
+| P01 | X | X | X | C | X |
+| P02 | C | X | X | X | X |
+| P03 | C | X | X | X | X |
+| P04 | C | X | X | C | X |
+| P05 | X | C | X | X | X |
+
+**release: 4 stanów × 7 przejść = 28 par.**
+| Przejście | accepted | in_preparation | ready | reviewed |
+|---|---|---|---|---|
+| W01 | X | C | X | X |
+| W02 | X | X | C | X |
+| W03 | X | X | C | X |
+| W04 | X | X | X | C |
+| W05 | X | X | X | C |
+| W06 | N | X | X | X |
+| W07 | X | C | X | X |
+
+Kontrola autora: 178/178 par zgodnych z `from` i rodzajem celu; inwentarz 15 T + 6 P + 7 W zgodny z przyjętym E3-AC01. W06 dla accepted klasyfikowane N, dla pozostałych stanów X; nie oznacza wyjścia starego odebranego rekordu. To porównanie projekcji z YAML, nie niezależna wyrocznia poprawności potrzeb ani dowód G2/S/L. Bez zmian YAML i kodu. Wynik niezależnego przeglądu zapisywany osobno poniżej.
+
+
+#### Niezależny przegląd końcowy A-02
+
+2026-10-30, osobna sesja `review_g5_correction` bez historii tworzenia; podstawą był zatwierdzony zakres, dokumenty i źródła. **PASS — bez otwartych blokerów korekty.** R zgłosił i sprawdził zamknięcie dwóch ustaleń: E3-AC06 musiało jawnie ograniczyć zakaz zaliczania błędu składni jako kontrprzykładu do własności semantycznych, a pusty wiersz przed DEC-PRO-018 rozcinał tabelę. Doprecyzowanie E3-AC06 stosuje przyjęte rozróżnienie z DoD 6; nie osłabia dowodów semantycznych.
+
+R odczytał własną tabelę oczekiwań z YAML, niezależnie od funkcji raportującej, i porównał wszystkie 178 par z jej wyjściem. Pełną macierz zachowano powyżej. Wynik: item 87 X / 33 C; question 23 X / 7 C; release 21 X / 6 C / 1 N. Brak rozbieżności dziedzin i inwentarza 28 przejść. W06 z accepted tworzy nową instancję, nie zmienia stanu starego rekordu.
+
+R rzeczywiście wykonał na izolowanej kopii `tests/test_graph.py` oraz `tests/test_evidence.py::test_structural_report_distinguishes_projection_and_coverage`: **13 passed w 0,67 s**. Porównał z HEAD `7215b9c13a7de602e91d72a4704d5957def62808`: YAML i graph.py identyczne; cały tekst WLASCIWOSCI od sekcji bezpieczeństwa do końca (S/L/F/WIT/ograniczenia) i historyczny wiersz DEC-PRO-012 bajtowo identyczne. Końcowy diff czterech dokumentów bez błędów. Nie oceniano równoległych prac S10 i nie powtarzano pełnej regresji ani TLC. Autor dodatkowo uruchomił `check_model.py`: 413 kontroli OK; uruchomienie względną ścieżką venv zgłosiło ostrzeżenie `sys.prefix`, kontrola zakończyła się kodem 0.
+
+| Oceniony plik modelu | SHA-256 po korektach R |
+| --- | --- |
+| model/process.yaml | `2d329822e239555c1642d0a5a20aae0eb28fee17a6f2ff13968e48d7f428fc07` |
+| docs/WLASCIWOSCI.md | `dbce9fdee8f6fe4488496e3b12686bd14e5532345038c917813ae1d88328b30b` |
+| PLAN.md | `a025bd9904d9424c29648113bc7a316dc83a876baa741d56698bb5dbe4942a1b` |
+| docs/E3-KRYTERIA-ODBIORU.md | `daa7da8f3aad7afda4b2668a2da2d35232d20e73326b26bb73bd2fc7d7df1973` |
+| docs/STAN.md | `c734d936357a28124fc8a581aac1c4ceba1fc1884606c689131f0f5e8935876d` |
+
+Odtworzenie testów nie wymaga zachowania katalogu R: użyć kopii źródeł wskazanego commita i istniejącego środowiska modelu, uruchomić `python -B -m pytest -q -p no:cacheprovider tests/test_graph.py tests/test_evidence.py::test_structural_report_distinguishes_projection_and_coverage` z PYTHONPATH wskazującym `src` kopii i PYTHONDONTWRITEBYTECODE=1. Kopia musi zawierać src, model, tests i mutants. Odtworzenie przeglądu dokumentów wymaga wersji o hashach powyżej; po zmianie hashy nie przenosić automatycznie wyniku PASS. Macierz w tabelach utrwala wynik, a YAML i funkcja umożliwiają ponowne wygenerowanie; sama zgodność projekcji nie dowodzi poprawności wymagań ani wykonalności guard.
+
+**Decyzja agenta A8, 2026-10-30:** korektę zakończyć osobnym przeglądem pełnej macierzy i dokumentów, zgodnie z zasadą niezależnej weryfikacji; dowód zapisać w istniejącym raporcie. W drugim repozytorium dopisać wskaźnik do wyniku i rzeczywistą decyzję zamiast nadpisywać punkt wznowienia równoległej pracy S10. Żadnej zgody na odbiór E3 nie wywodzimy z D-90.
+
+**Końcowa kontrola zapisu Z-09:** make check — 256 elementów, 0 błędów; ostrzeżenia W1 MIG-01/02 i W2 D-90 bez commita. Siedem redagowanych dokumentów w obu repozytoriach: 167 lokalnych linków do istniejących plików, domknięte bloki kodu; kotwic nie badano w tym przebiegu. Diff obu repozytoriów bez błędów whitespace. Cztery dokumenty modelu mają nadal hashe ocenione przez R. Bez commita/pushu i bez zmian cudzej pracy S10.
+
+**Kontrola zapisu D-91:** make check: 257 elementów, 0 błędów; W1 MIG-01/02 i W2 D-90/91 przed commitem. Trzy redagowane dokumenty: 87 lokalnych linków do istniejących plików, domknięte bloki kodu; kotwic nie sprawdzano. Mermaid przejrzany tekstowo, bez renderowania. Diff bez błędów. Dla zmian wyłącznie w prozie nie ponawiano testów modelu ani TLC.

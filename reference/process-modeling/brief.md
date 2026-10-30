@@ -4,14 +4,41 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-10-30, D-88. Po odczytaniu instrukcji repozytorium zacznij tutaj; pozostałe części briefu opisują zamiar i historię wcześniejszych dostaw.
+Aktualizacja 2026-10-30, D-91: commit i przedstawienie dalszego kierunku. A-02 zakończone technicznie; poniżej bieżący punkt wznowienia, dalsze sekcje to zamiar i historia.
 
-- **Plan i statusy:** [jedyny plan działań po audycie, §8.7](coverage-map.md#87-zalecenia-i-punkt-wznowienia). **Wykonanie i dowody:** [rejestr §8.8](coverage-map.md#88-rejestr-zmian-i-wykonania). **Zgody:** [decyzje projektu](../../project/decisions.md), D-86–D-88; D-85 pozostaje otwartym odbiorem mapowania.
-- **Bieżące zlecenie:** A-01 wykonane według D-88 („Dalej”); korekta dwóch REQ i tekstów AT sprawdzona, wynik Z-05. Audyt i utrwalenie planu również zakończone. Kod i DoD bez zmian.
-- **Najbliższa pozycja:** A-02 w planie — przygotowanie rozstrzygnięcia G5 po sprawdzeniu aktualnego źródła. Właściciel opracowania: agent; zmiana przyjętego DoD należy do U. Nie traktować D-88 jako zgody na taką zmianę ani na rozpoczęcie A-03. Brak otwartej blokady A-01.
-- **Git:** audyt D-86, utrwalenie D-87 i korekty D-88 pozostają niezacommitowane; ostatni commit przy aktualizacji to `dd8f353`. Przy wznowieniu sprawdź `git status --short` oraz `git diff`, zachowaj istniejące zmiany. Nieśledzony eksport użytkownika `ISO 29110 a nasz model śladu.md` pozostaje poza zakresem. Commit wyłącznie na wyraźne polecenie.
-- **Przed pracą nad modelem:** odczytaj jego aktualne [PLAN](../../../iso-model-state/PLAN.md) i [STAN](../../../iso-model-state/docs/STAN.md). Ostatnio rozpoznano E3.5 (`79cab4d`) i DEC-PRO-017; nie powtarzaj translacji na podstawie dawnych wskazówek poniżej. Właściciele i następne kroki spraw odłożonych: mapa §6 i plan §8.7.
-- **Decyzje agenta:** A4 przy audycie, A5 o pamięci pracy i A6 o doprecyzowaniu AT-45/kontroli dokumentacji — mapa §8.8. Aktualizuj ten wskaźnik po etapie; listę zadań i ich statusy zmieniaj wyłącznie w planie.
+- **Plan:** [§8.7 mapy](coverage-map.md#87-zalecenia-i-punkt-wznowienia). **Dowody:** [§8.8](coverage-map.md#88-rejestr-zmian-i-wykonania), Z-08/09, pełna macierz i niezależny R. **Zgody:** [decyzje](../../project/decisions.md), D-90 rozstrzygnięte; w modelu DEC-PRO-018. D-85 pozostaje osobnym odbiorem mapowania.
+- **Wykonane:** korekta rozliczenia G5 w WLASCIWOSCI, PLAN i E3-AC06; zgoda i wskaźnik wyniku w STAN modelu. Testy raportu pozostają; inne obowiązki mutacyjne i S/L/F zachowane. R: bez blokerów po dwóch korektach redakcyjnych, 178/178 par, 13 testów PASS. A-02 completed nie oznacza odbioru całego E3 ani spełnienia pozostałego DoD.
+- **Następny krok / agent:** przy zleceniu A-03 sprawdzić świeże [PLAN](../../../iso-model-state/PLAN.md) i [STAN](../../../iso-model-state/docs/STAN.md) oraz trwającą pracę przed wybraniem następnego przyrostu. Ostatni odczyt: ograniczona kontrola S10 wykonana według bieżącego raportu; następne są dziedzina komend, granice i ocena redukcji przed eksploracją. Wyniku S10 nie odtwarzano w tej sesji. Nie powtarzać E3.5 i nie uruchamiać konkurencyjnej implementacji. Zgoda D-90 obejmowała A-02, nie zmianę kolejności dalszego E3.
+- **Git:** korekta modelu w `ea77055` (cztery dokumenty zgodne z hashami R). D-91 zleca także commit lokalnego raportu, decyzji, diagramu i punktu wznowienia; identyfikator ustal przez historię tego pliku. Przed kolejną pracą sprawdź status obu repozytoriów. Bez pushu. Eksport użytkownika poza zakresem; pozostałe zmiany S10 pozostawione bez ingerencji, także dodatkowe fragmenty PLAN/STAN.
+- **Decyzje agenta:** A4–A8 i sprawy odłożone w mapie §6/8.8. Aktualizuj ten wskaźnik po etapie; pełną listę działań utrzymuj tylko w planie.
+
+
+## Widok orientacyjny po A-02 — 2026-10-30
+
+To skrót drogi rozumowania i aktualnego problemu, nie dokładna oś czasu tworzenia plików ani nowy plan. Wiążąca kolejność nadal w PLAN/STAN modelu. Zasadnicza luka: znana lista operacji i poprawne wybrane przebiegi nie dowodzą zachowania wszystkich ich kombinacji w przyjętych granicach. Zamknięcie G5 usuwa sprzeczność kryteriów, ale nie zamyka tej luki.
+
+```mermaid
+flowchart TD
+    A["Problem: utrata kontekstu i narastająca złożoność"] --> B["Lekcja L1 i diagramy: zrozumieć produkty, role i bramki"]
+    B --> C["Model wykonywalny i E2: reguły oraz testy"]
+    C --> D["E3.5: wspólna relacja 28 przejść i wybrane przebiegi"]
+    D --> E["TERAZ: brakuje dowodów dla całych przebiegów w zadanych granicach"]
+    D -. "audyt dokumentacji" .-> F["A-01 i A-02: doprecyzowane wymagania oraz rozliczenie G5"]
+    F -. "jasne kryteria dowodu" .-> E
+    E --> G["Najbliżej: dziedzina komend, granice i uzasadnienie redukcji"]
+    G --> H["E3: bezpieczeństwo i możliwość kontynuacji; przegląd i odbiór"]
+    H --> I["E4 i E5: odtworzenie historii, zastosowanie i ocena użyteczności"]
+    classDef current fill:#fff0cc,stroke:#9b6500,color:#202020
+    class E current
+```
+
+Proponowany kierunek, zgodny z aktualnym planem:
+
+1. **Domknąć opis badania:** jakie polecenia i argumenty wolno generować, skąd zaczyna się badanie, co oznacza osiągnięcie granicy i które uproszczenia są poprawne. Rezultat: specyfikacja badania oceniona przez R przed kodem; limit badania nie może udawać odmowy procesu. Nie powiększać rodziny S10 bez wykazanej luki.
+2. **Wykonać pozostałe dowody E3:** badać przyjęte właściwości właściwymi metodami w tych granicach, wykryć wymagane mutanty, zapisać ograniczenia i poddać wynik niezależnemu przeglądowi. Rezultat: rozliczone kryteria E3 i konkretna podstawa odbioru U; jeden udany przebieg nie zastępuje tego dowodu.
+3. **Wrócić do zastosowania według E4/E5:** odtworzyć historię projektu, następnie sprawdzić wsparcie pracy operatora i wznowienie przez agenta. Rezultat: dowód, że proces pomaga wskazać stan, blokady i następną decyzję. Nie rozpoczynamy nowego API ani pilota Kitchen bez rozpoznania jego modułów i właściwego zlecenia.
+
+Ograniczona kontrola S10 jest już opisana w bieżącym raporcie modelu, lecz nie dowodzi całego P1/P2/P6 ani AC03. To odczyt cudzej dostawy, nie nowe uruchomienie. D-91 prosi o przedstawienie kierunku; nie zleca tu wykonania kroków 1–3. A-03 pozostaje propozycją w jedynym planie §8.7.
 
 ## Cel i efekt dla operatora
 
