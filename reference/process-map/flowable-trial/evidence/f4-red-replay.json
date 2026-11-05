@@ -1,0 +1,27 @@
+[
+  {
+    "case": "red-replay",
+    "exit_code": 1,
+    "tests": 13,
+    "failures": 13,
+    "errors": 0,
+    "skipped": 0,
+    "failed_tests": [
+      "F4_02_dmnPriorityHandlesMissingAndConflictingEvidence",
+      "F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults",
+      "F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite",
+      "F4_04_newProposalRevokesPriorAuthorizationBeforeApplication",
+      "F4_04_changeBeforeAcceptanceCannotReuseOldDecision",
+      "F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately",
+      "F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry",
+      "F4_08_futureReferencesAreRejectedOnInitialImport",
+      "F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits",
+      "F4_09_exportsExecutedScenario",
+      "F4_08_futureReferencesAreRejectedOnResults",
+      "F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence",
+      "F4_07_codecAndViewUseStoredStateAndEngineHistory"
+    ],
+    "semantic_failure": true,
+    "log": "f4-red-replay.log"
+  }
+]

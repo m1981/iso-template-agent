@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+trial_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$trial_root"
+if [ "$(uname -s)/$(uname -m)" != "Darwin/arm64" ]; then
+  echo 'This pinned archive targets macOS arm64. Use a JDK 17 via TRIAL_JAVA_HOME on other platforms.' >&2
+  exit 1
+fi
+if [ -x .tooling/jdk-17.0.21+9/Contents/Home/bin/javac ]; then
+  .tooling/jdk-17.0.21+9/Contents/Home/bin/java -version
+  exit 0
+fi
+mkdir -p .tooling
+trial_archive=.tooling/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.21_9.tar.gz
+curl --fail --location --show-error --silent --retry 2 \
+  'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.21_9.tar.gz' \
+  --output "$trial_archive"
+printf '%s  %s\n' '78b08c7f5a0598242d5719c022e19479cb4a3aa45c37c19726a757a469ed1c15' "$trial_archive" | shasum -a 256 -c -
+tar -xzf "$trial_archive" -C .tooling
+.tooling/jdk-17.0.21+9/Contents/Home/bin/java -version

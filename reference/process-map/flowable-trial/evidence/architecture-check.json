@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-05",
+  "scope": "D-98, documentation of F4 only",
+  "document": "architecture.md",
+  "document_sha256": "1051fba3a8b289ac1b27686038216f8562ef6cf140589b37a6814af03de3617d",
+  "renderer": {
+    "cli": "11.17.0",
+    "mermaid": "11.17.2",
+    "command": "mmdc -i architecture.md -o <output>/diagram.png -p <local-browser-config.json> -w 1800 -j 2",
+    "result": "8/8 rendered, exit 0; all eight images visually inspected",
+    "outputs": "Temporary PNG previews, not canonical; Mermaid source retained in architecture.md"
+  },
+  "diagrams": [
+    {
+      "number": 1,
+      "sha256": "a805d284e00178fa5d8a33870edd4886fdaf571a85cf13891e5715e5934ae0dc",
+      "render": "PASS"
+    },
+    {
+      "number": 2,
+      "sha256": "49541447d482187d799c9c32c71aba2f3bc2ec51e2dcdcea51c076d1e08374e7",
+      "render": "PASS"
+    },
+    {
+      "number": 3,
+      "sha256": "ee1f705fbc18b991593caf9031b5c667455f7b687b02b8dbf6f71e30078119ea",
+      "render": "PASS"
+    },
+    {
+      "number": 4,
+      "sha256": "d0211a83344d1f23a2d059b0431d2132fd374f692415b4c0cad0f1f2bc0c7cb5",
+      "render": "PASS"
+    },
+    {
+      "number": 5,
+      "sha256": "45e4ba2c2f9ca05c9fc8f1ad95993470e897b115c656c870a2a5259c8a81240e",
+      "render": "PASS"
+    },
+    {
+      "number": 6,
+      "sha256": "c6145c0b3f0eda5be4b6b1ad9a00cc4ccd286ea906609752b42a1f6017f0177b",
+      "render": "PASS"
+    },
+    {
+      "number": 7,
+      "sha256": "a611e46ae233a91b0d0ed91f4a0137ebe88f055b3eea4daa62e32bee832e22b0",
+      "render": "PASS"
+    },
+    {
+      "number": 8,
+      "sha256": "d792d83d373b0730a261c999f57491a276a147b4228bac8490b4fd4e137a8cfe",
+      "render": "PASS"
+    }
+  ],
+  "semantic_review": "Separate reviewer read diagrams and F4 code. Corrected reverse cardinalities that implied exclusive ownership. Author checked correction. No reviewer runtime tests.",
+  "repository_check": {
+    "command": "make check",
+    "exit": 0,
+    "elements": 264,
+    "errors": 0,
+    "warnings": [
+      "W1 MIG-01",
+      "W1 MIG-02",
+      "W2 D-92",
+      "W2 D-93",
+      "W2 D-94",
+      "W2 D-95",
+      "W2 D-96",
+      "W2 D-97",
+      "W2 D-98"
+    ]
+  },
+  "runtime_tests": "Not rerun: documentation-only change. Existing F4 results are separate evidence.",
+  "local_links": {
+    "files": 5,
+    "checked": 172,
+    "missing": [],
+    "exclusions": "fenced and inline code; anchors not checked",
+    "initial_scan": "Naive scan included the documented AUD-02 intentionally missing link inside inline code; corrected scan excludes code examples."
+  }
+}

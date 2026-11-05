@@ -1,5 +1,7 @@
 # Sprawdzenie karty zmiany wymagania
 
+Bieżąca karta: [zachowanie zmiany i historia przeglądu](#karta-zachowania--zmiana-wymagania-i-historia-przeglądu), 2026-10-30. Poniżej zachowano wcześniejszą próbę TST-02.
+
 2026-10-27. Próba retrospektywna na rzeczywistej zmianie TST-02 z decyzji D-76. Nie jest nowym odbiorem, wdrożeniem karty ani niezależną recenzją. Nie zmienia kodu produktu lub pakietu procesu.
 
 ## Cel i kryteria próby
@@ -98,3 +100,115 @@ To korekty propozycji do następnego użycia, nie aktywacja nowych reguł szablo
 ## Punkt wznowienia
 
 Próba zakończona. Następny krok właściciela karty (agent): przy najbliższej zatwierdzonej rzeczywistej zmianie zapisać wejścia i warunki zamknięcia przed wykonaniem, zastosować trzy doprecyzowania, a następnie sprawdzić wznowienie z plików. Użyteczność dla operatora i nowej sesji pozostaje do oceny podczas tego zastosowania; obecna próba autora nie zastępuje takiej obserwacji. Nie wybieramy nowej funkcji Kitchen ani nie rozszerzamy procesu API.
+
+## Karta zachowania — zmiana wymagania i historia przeglądu
+
+2026-10-30 · D-92 · A-04. **Opis obecnego zachowania oraz propozycje, nie nowe wymagania pakietu.** Sekcje powyżej pozostają historyczną próbą TST-02 z 2026-10-27. Ta karta dotyczy tylko `iso-template-agent`; nie zmienia planu Kitchen ani `iso-model-state`.
+
+### 1. Cel, zakres i źródła
+
+Operator ma wiedzieć: co zmieniono, jakie zapisy mogą wymagać ponownego sprawdzenia, co rzeczywiście sprawdzono i co pozostało historycznym wynikiem. Zielony hook odpowiada na pytanie o kontrolowane reguły zapisu, nie o zgodę na zmianę lub poprawność produktu.
+
+| Podstawa | Co z niej wynika | Moc i granica |
+| --- | --- | --- |
+| [D-92 i D-78](../../project/decisions.md) | Przygotowanie karty; agent dobiera środki w zatwierdzonym zakresie, zgłasza brakujące decyzje | Ustalenia użytkownika. D-92 nie zatwierdza propozycji poniżej |
+| [TRC-13, SEP-01/02](../../spec/requirements.md), [AT-12/22/23](../../spec/tests/process-kit.feature) | Nieblokujące W5; E9 dla nowego pass wraz ze zmianą badanego elementu; wyjątek pierwszego commita | Istniejąca specyfikacja szablonu; karta jej nie nadpisuje |
+| [AGENTS P-06/P-08 i role](../../template/process/AGENTS.md), [rekordy VER](../../records/verification.md) | Zmiana zatwierdzonego wymagania wymaga decyzji; nowy przegląd to nowy rekord; autor nie recenzuje własnej pracy | Instrukcje. Nie wszystkie są egzekwowane przez narzędzia |
+| [trace.impact](../../template/process/tools/trace.py), [E9](../../template/process/tools/check_separation.py), [fingerprint](../../template/process/tools/model.py) | Rzeczywista granica automatyzacji | Dowód implementacji, nie źródło zasadności wymagania |
+
+Nie wyprowadzamy tu nowych obowiązków z ISO. Powiązania normatywne w istniejących instrukcjach nie zastępują decyzji o przyjęciu praktyki w naszym projekcie.
+
+### 2. Dane i odpowiedzialność
+
+Przed zmianą wystarczą odnośniki w istniejącym zadaniu do: wymagania i różnicy treści, podstawy upoważnienia, zależności, planowanych sprawdzeń oraz warunków zamknięcia. To propozycja użycia karty, nie obowiązek dodatkowego formularza.
+
+- **Operator:** rozstrzyga zmianę zakresu, przyjęcie ryzyka, odbiór i wydanie; P-08 wymaga też decyzji dla zmiany zatwierdzonego wymagania. Bez potrzebnej decyzji agent może przygotować analizę i propozycję, nie przedstawiać zmiany jako zatwierdzonej.
+- **Agent wykonawca:** aktualizuje zamiar i dotknięte artefakty, zbiera dowody, zgłasza nierozstrzygnięte zależności. Commit tylko na wyraźne zlecenie.
+- **Recenzent:** ocenia wskazaną wersję według kryteriów; nowy wynik zapisuje jako nowy VER. Oddzielna sesja ogranicza dzielenie kontekstu autora, ale nie dowodzi niezależności osądu.
+- **Narzędzie:** kontroluje strukturę, wybrane różnice i generuje widoki. E9 rozdziela zmiany między commitami, nie uwierzytelnia autora ani recenzenta.
+
+Dla tej karty „zmiana treści” w W5/E9 oznacza zmianę tytułu lub sparsowanych pól poza `status`, zgodnie z `fingerprint`. Nie oznacza porównania całej zawartości pliku, kodu produktu ani wszystkich wejść testu. Migawki porównywane przez E9 to HEAD i indeks. W5 porównuje element i jego bezpośrednich rodziców z commitem dodającym wybrany zapis VER pass.
+
+### 3. Kontrakt przebiegu
+
+| Operacja | Warunek wejścia | Rezultat i zachowane informacje | Obsługa niepowodzenia |
+| --- | --- | --- | --- |
+| Opisz i zaplanuj zmianę | Znana potrzeba i istniejąca treść; decyzja dostępna, jeśli wymagana | Różnica przed/po i kryteria sprawdzenia zapisane przed wykonaniem; brak domyślnego zatwierdzenia | Niejasność trafia do operatora, jeśli zmienia zakres lub ryzyko; nie blokuje niezależnej analizy |
+| Oceń wpływ | Znane ID, relacje i dostępne wersje | Każda rozpatrywana zależność: do zmiany, do sprawdzenia, bez wpływu z powodem albo nieustalone z właścicielem | Brak W5 nie wystarcza do wniosku „bez wpływu”; brakującą podstawę zapisujemy jawnie |
+| Zmień i sprawdź | Praca w upoważnionym zakresie; uzgodnione kryteria | Zaktualizowane artefakty i wyniki sprawdzeń; dawny VER pozostaje opisem dawnego przeglądu | Błąd narzędzia lub testu nie staje się pass; poprawka i ponowienie właściwych kontroli |
+| Przeprowadź nowy przegląd | Zmiana badanego elementu utrwalona przed nowym pass; wskazany przedmiot i kryteria | Nowy VER z rzeczywistym wynikiem. Recenzent ocenia również sens zależności | Fail prowadzi do korekty; nie przepisujemy go na pass. Kolejny przegląd tworzy kolejny rekord |
+| Podsumuj zmianę | Rozliczone kryteria i zależności w przyjętym zakresie | Osobno: wykonanie, sprawdzenie, odbiór wymagany/niewymagany z podstawą. Historyczne wyniki i odbiory zachowane | Nierozstrzygnięty punkt pozostaje otwarty z właścicielem; zielony hook nie zamyka go automatycznie |
+
+To kontrakt pracy do przećwiczenia. Kolejne operacje nie są jednym wdrożonym automatem. Aktualność dowodu oceniamy względem tego, co rzeczywiście badał; sam link i etykieta pass nie potwierdzają poprawności.
+
+### 4. Przykłady i tabela reakcji
+
+**Przykład dydaktyczny**, bez rekordów dopisywanych do projektu: `SC-01 → UC-01 → CAP-01 → AT-01`, gdzie strzałka oznacza podstawę produktu. CAP-01 i AT-01 mają wcześniejsze rekordy VER pass. Nie są to identyfikatory dowodów tej karty; przykładowy graf nie deklaruje rzeczywistego przeglądu naszych wymagań.
+
+Założenia technicznych przypadków: istnieje HEAD, hook jest włączony, raporty są aktualnie wygenerowane i dodane do indeksu, pozostałe kontrole przechodzą. Każdy wiersz to osobny wariant. „Dopuszcza” dotyczy badanej kontroli, nie decyzji człowieka.
+
+| Przypadek | Zdarzenie | Obecna reakcja / podstawa | Oczekiwanie karty lub propozycja |
+| --- | --- | --- | --- |
+| C1 | Zmiana treści CAP-01, bez nowego VER | W5 dla CAP-01 i AT-01, jeśli spełniają warunki historycznego pass; nie blokuje (TRC-13) | Rozliczyć wpływ; zachować oba dawne wyniki |
+| C2 | Zmiana CAP-01 i dodanie nowego VER pass dla niego w tym samym commicie | Odmowa E9 (SEP-01, AT-22) | Rozdzielić wykonanie i przegląd; osobne commity nadal nie dowodzą niezależności recenzenta |
+| C3 | Zmiana CAP-01 i nowy VER fail | E9 nie blokuje; W5 może pozostać (AT-22) | Zachować fail, wskazać korektę; nie deklarować zakończenia przeglądu sukcesem |
+| C4 | Po commicie zmiany: nowy VER pass dla niezmienionego CAP-01, bez innych zmian | E9 dopuszcza. W5 może być widoczne przed commitem rekordu; po nim nowy pass staje się podstawą porównania | Ponowić trace po zapisie. Nowy VER tylko dla CAP-01 nie odnawia przeglądu AT-01 |
+| C5 | Przepisanie starego VER fail na pass wraz ze zmianą CAP-01 | E9 pomija istniejące ID; W5 może ostrzec. Instrukcja VER zabrania przepisywania | **Propozycja P1:** mechaniczna ochrona historii, opisana poniżej |
+| C6 | Zmiana SC-01; UC-01 i CAP-01 bez edycji | W5 dla UC-01, jeśli ma historyczny pass; brak przechodniego W5 dla CAP-01 | **Propozycja P2:** lista pośrednio zależnych kandydatów do oceny, nie automatyczne uznanie ich za błędne |
+| C7 | Wyłącznie zmiana statusu CAP-01 | Nie wywołuje W5/E9 z tytułu zmiany treści; W3 może ostrzec o braku pass | Nie wyprowadzać zgody ani nowego przeglądu ze zmiany etykiety |
+| C8 | Pierwszy commit z nowym elementem i VER pass | E9 ma wyjątek importu (SEP-02, AT-23) | Dopuszczenie importu nie potwierdza historii wykonania |
+| C9 | Brak Git lub VER pass jeszcze bez commita | W5 nie ma takiej podstawy porównania i może nie powstać | Ocena aktualności pozostaje nieustalona; nie wnioskujemy „aktualne” z ciszy |
+| C10 | Zmiana zatwierdzonego wymagania bez wymaganej decyzji | W5/E9 nie są kontrolą zgody; zapis może przejść | Instrukcja P-08: agent zgłasza brak decyzji. Ta karta nie dodaje mechanizmu zgód |
+
+Odczyt kodu ujawnia dodatkową granicę: W5 wybiera rekordy pass, a późniejszy fail nie jest przez tę funkcję rozstrzygany jako bieżący wynik przeglądu. Ta karta nie definiuje globalnej „gotowości do wydania” na podstawie W5.
+
+### 5. Dwie propozycje wymagające osobnego przyjęcia
+
+| Propozycja / potrzeba | Dlaczego obecny mechanizm nie wystarcza | Minimalny mechanizm i sprawdzenie efektu | Koszt i decyzja |
+| --- | --- | --- | --- |
+| P1 Zachować historyczny VER | E9 bada nowe rekordy, a instrukcja „nie poprawiać wstecz” nie blokuje nadpisania | Porównanie istniejącego rekordu HEAD–indeks: odmowa zmiany treści lub usunięcia; korekta jako nowy rekord z odnośnikiem do poprzedniego. Test: nadpisanie fail→pass odrzucone, dopisanie kolejnego wyniku dopuszczone; formatowanie bez zmiany treści dopuszczone | Utrzymanie porównania oraz testów; dodatkowy wpis przy korekcie. Operator zatwierdza regułę przed implementacją. Szczegóły reprezentacji treści ustala agent, jawnie uwzględniając ograniczenia parsera |
+| P2 Odciążyć ręczne śledzenie dalszych skutków | W5 sprawdza tylko bezpośrednich rodziców | Przejście po grafie zależności z odwiedzonymi węzłami; lista kandydatów bez duplikatów i z drogą od źródła zmiany. Próby: łańcuch, rozgałęzienie, cykl i element niezwiązany; ostrzeżenia nadal nie blokują | Koszt algorytmu/testów i oceny większej listy przez operatora lub agenta. Operator rozstrzyga rozszerzenie zakresu dopiero przed wdrożeniem |
+
+P1 ma pierwszeństwo jako propozycja domknięcia już zapisanej instrukcji. P2 rozszerza istniejące wymaganie; nie jest automatyczną poprawką błędu TRC-13. Obie propozycje pozostają niewdrożone. Żadna nie zapewnia ochrony przed celowym fałszowaniem ani kontroli tożsamości.
+
+### 6. Sprawdzenie karty, dowody i dalsze pytania
+
+Warunki zakończenia tej pracy dokumentacyjnej: (1) każda obecna reakcja ma źródło, (2) propozycje nie są oznaczone jako działające, (3) przykłady obejmują dopuszczenie, ostrzeżenie, odmowę i brak podstawy, (4) ścieżka wznowienia wskazuje zakres i następny krok. Nie są to nowe kryteria odbioru wydania szablonu.
+
+**W tej pracy:** odczyt autora REQ/AT, instrukcji oraz kodu W5/E9; tabela C1–C10 jest analizą, nie logiem nowych uruchomień. Nie wykonano niezależnej recenzji ani próby nowej sesji. Historyczne wykonanie TST-02 jest wyżej; nie zalicza przypadków C1–C10. Kontrole dokumentacji i wynik zakończenia: [rejestr wykonania §8.8](../process-modeling/coverage-map.md#88-rejestr-zmian-i-wykonania).
+
+| Sprawa otwarta | Właściciel | Kiedy i jaki następny krok |
+| --- | --- | --- |
+| Przyjęcie P1, później ewentualnie P2 | Użytkownik; agent przygotowuje decyzję | Przed implementacją, po omówieniu przykładów. Zgoda na kartę nie jest zgodą na nowe blokady |
+| Sposób odniesienia rekordu korygującego do starego i granica porównania treści | Agent | Przed implementacją P1 przedstawić spójny przypadek korekty także błędnego wpisu, bez usuwania historii; nie dodawać teraz pól do schematu |
+| Znaczenie późniejszego fail po pass | Agent | Przed użyciem danych VER do automatycznej oceny gotowości zaproponować regułę pierwszeństwa i kontrprzykład; bez domyślnego „zielone” |
+| Czy karta pomaga człowiekowi i nowej sesji | Agent, odbiór użytkownika | Przejść C1 → C2 → C4; sprawdzić, czy odróżniają wpływ zmiany, wynik przeglądu i zgodę. To próba zrozumienia, nie dowód działania narzędzia |
+
+**Najbliższy krok:** omówić przykład C1 → C2 → C4. Kod, wymagania pakietu i reguły wydania pozostają bez zmian.
+
+### 7. Przejście dydaktyczne C1 → C2 → C4 — TextStats
+
+2026-11-01, na polecenie U „Wykonajlmy Dalej jak sugerujesz”. To fikcyjny przykład do objaśnienia karty, nie zmiana specyfikacji lub aplikacji TextStats i nie wykonanie testów. Lokalne nazwy CAP-01/AT-01 mają znaczenie jak w §4; nie są dowodami rzeczywistego projektu. Zakładamy w fabule, że decyzja o zmianie została podjęta; nie tworzymy takiej zgody w projekcie.
+
+**Przed:** reguła liczenia traktuje ciąg znaków między białymi znakami jako jedno słowo. Przypadek `biało-czerwony` ma oczekiwany wynik 1. W fabule wymaganie i przypadek testowy miały osobne przeglądy pass, a program przeszedł test.
+
+**Zmiana:** znak `-` ma również rozdzielać słowa, więc dla tego samego wejścia oczekujemy 2. To wyłącznie przykład konkretnej różnicy, nie pełna definicja tokenizacji.
+
+| Przedmiot | Co wiemy po zmianie wymagania, przed nowymi sprawdzeniami |
+| --- | --- |
+| Dawny przegląd wymagania | Nadal opisuje ocenę starej treści. Nie jest oceną nowego wymagania |
+| Przypadek testowy oczekujący 1 | W tym przykładzie jest niezgodny z nową regułą; trzeba zmienić oczekiwanie na 2 i ocenić jego adekwatność |
+| Dawny wynik wykonania testu | Pozostaje historycznym sukcesem wobec poprzedniego oczekiwania. Nie przepisujemy go na fail; nowy test wymaga nowego wykonania |
+| Kod | Jeśli nadal zwraca 1, nie spełnia nowej reguły dla tego wejścia. Trzeba to sprawdzić i w razie potrzeby poprawić |
+
+**C1 — ostrzeżenie:** przy założeniach §4 W5 wskaże CAP-01 oraz AT-01. Wskazuje zmianę podstawy oceny; nie rozumie znaczenia myślnika i nie wybiera poprawnej liczby. Stary kod i stary test mogą nadal dawać zielony wynik, choć nie sprawdzają nowej reguły. To ocena logiczna przykładu, nie uruchomienie programu. W5 nie zapewnia tutaj automatycznego śladu do kodu i konkretnego wykonania testu.
+
+**C2 — odmowa:** dopisanie nowego VER pass dla CAP-01 w tym samym commicie co jego zmiana zostanie odrzucone przez E9. Oddzielamy utrwalenie zmiany od zapisu pozytywnego przeglądu. Dwa commity same nie dowodzą niezależności recenzenta.
+
+**C4 — ponowny przegląd:** po utrwaleniu zmiany recenzent ocenia nowe wymaganie. Nowy VER pass dla niego może zostać dopisany bez E9, jeżeli badany element się w tym commicie nie zmienia. To jeszcze nie przegląd AT-01 ani wykonanie testu na kodzie. Te czynności mają własne wyniki i mogą wykryć błąd pomimo poprawności wymagania.
+
+W tym przykładzie zamknięcie techniczne wymagałoby rozliczenia nowego wymagania, adekwatności testu oraz nowego wykonania na zmienionym programie w ustalonym zakresie. Odbiór pozostaje odrębną decyzją, gdy jest wymagany. Nie uznajemy go za wykonany w ćwiczeniu.
+
+**Wniosek do zapamiętania:** dowód odpowiada na konkretne pytanie o konkretną wersję. Po zmianie sprawdzamy, na które dzisiejsze pytania dawne dowody nadal odpowiadają. Sam fakt zmiany nie fałszuje historii.
+
+Następny krok edukacyjny: porównać dopisanie nowego wyniku z nadpisaniem starego (C5), na tym samym przykładzie. Właściciel: agent. Zrozumienie i użyteczność dla użytkownika pozostają do oceny; przedstawienie przykładu nie jest ich dowodem.

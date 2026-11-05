@@ -1,0 +1,212 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< org.example.processlab:flowable-trial >----------------
+[INFO] Building Process laboratory — isolated Flowable trial 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ flowable-trial ---
+[INFO] 
+[INFO] --- enforcer:3.6.2:enforce (toolchain) @ flowable-trial ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ flowable-trial ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 20 source files with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ flowable-trial ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ flowable-trial ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.example.processlab.ChangeProcessTest
+[ERROR] Tests run: 13, Failures: 12, Errors: 0, Skipped: 0, Time elapsed: 4.164 s <<< FAILURE! -- in org.example.processlab.ChangeProcessTest
+[ERROR] org.example.processlab.ChangeProcessTest.F4_02_dmnPriorityHandlesMissingAndConflictingEvidence -- Time elapsed: 1.344 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_02_dmnPriorityHandlesMissingAndConflictingEvidence(ChangeProcessTest.java:111)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults -- Time elapsed: 0.311 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults(ChangeProcessTest.java:150)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite -- Time elapsed: 0.247 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite(ChangeProcessTest.java:169)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_04_newProposalRevokesPriorAuthorizationBeforeApplication -- Time elapsed: 0.200 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.F4_04_newProposalRevokesPriorAuthorizationBeforeApplication(ChangeProcessTest.java:138)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_04_changeBeforeAcceptanceCannotReuseOldDecision -- Time elapsed: 0.188 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_04_changeBeforeAcceptanceCannotReuseOldDecision(ChangeProcessTest.java:160)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately -- Time elapsed: 0.269 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately(ChangeProcessTest.java:124)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry -- Time elapsed: 0.233 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry(ChangeProcessTest.java:185)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits -- Time elapsed: 0.210 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits(ChangeProcessTest.java:79)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_09_exportsExecutedScenario -- Time elapsed: 0.199 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.F4_09_exportsExecutedScenario(ChangeProcessTest.java:249)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnResults -- Time elapsed: 0.183 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnResults(ChangeProcessTest.java:223)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence -- Time elapsed: 0.215 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence(ChangeProcessTest.java:100)
+
+[ERROR] org.example.processlab.ChangeProcessTest.F4_07_codecAndViewUseStoredStateAndEngineHistory -- Time elapsed: 0.291 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <authorize> but was: <impact>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:47)
+	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
+	at org.example.processlab.ChangeProcessTest.F4_07_codecAndViewUseStoredStateAndEngineHistory(ChangeProcessTest.java:214)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ChangeProcessTest.F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits:79->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_02_dmnPriorityHandlesMissingAndConflictingEvidence:111->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence:100->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately:124->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_04_changeBeforeAcceptanceCannotReuseOldDecision:160->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults:150->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_04_newProposalRevokesPriorAuthorizationBeforeApplication:138->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite:169->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry:185->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_07_codecAndViewUseStoredStateAndEngineHistory:214->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_08_futureReferencesAreRejectedOnResults:223->readyToAssess:64->start:47 expected: <authorize> but was: <impact>
+[ERROR]   ChangeProcessTest.F4_09_exportsExecutedScenario:249->start:47 expected: <authorize> but was: <impact>
+[INFO] 
+[ERROR] Tests run: 13, Failures: 12, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.070 s
+[INFO] Finished at: 2026-11-05T00:28:19+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project flowable-trial: There are test failures.
+[ERROR] 
+[ERROR] See /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/flowable-f4-wkwaqsa8/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+trial_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$trial_root"
+trial_java=${TRIAL_JAVA_HOME:-"$trial_root/.tooling/jdk-17.0.21+9/Contents/Home"}
+if [ ! -x "$trial_java/bin/javac" ]; then
+  echo 'JDK missing. Run ./setup-jdk (macOS arm64) or set TRIAL_JAVA_HOME to a JDK 17.' >&2
+  exit 1
+fi
+if [ "$#" -eq 0 ]; then set -- verify; fi
+JAVA_HOME="$trial_java" MAVEN_USER_HOME="$trial_root/.tooling/maven-user" \
+  exec ./mvnw --batch-mode --no-transfer-progress \
+  --settings .mvn/settings.xml --global-settings .mvn/settings.xml \
+  "-Dmaven.repo.local=$trial_root/.tooling/repository" "$@"

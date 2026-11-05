@@ -1,0 +1,12 @@
+[
+  {
+    "case": "red-replay",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 32,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-red-replay.log"
+  }
+]

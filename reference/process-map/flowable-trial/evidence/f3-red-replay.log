@@ -1,0 +1,405 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< org.example.processlab:flowable-trial >----------------
+[INFO] Building Process laboratory — isolated Flowable trial 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ flowable-trial ---
+[INFO] 
+[INFO] --- enforcer:3.6.2:enforce (toolchain) @ flowable-trial ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ flowable-trial ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 20 source files with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ flowable-trial ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ flowable-trial ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.example.processlab.DmnQualifierTest
+[ERROR] Tests run: 22, Failures: 21, Errors: 0, Skipped: 0, Time elapsed: 1.675 s <<< FAILURE! -- in org.example.processlab.DmnQualifierTest
+[ERROR] org.example.processlab.DmnQualifierTest.R6_newDeploymentDoesNotChangePinnedDecision -- Time elapsed: 0.022 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <CORRECTION> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_newDeploymentDoesNotChangePinnedDecision(DmnQualifierTest.java:60)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_missingMultipleAndUnknownOutputFailClosed -- Time elapsed: 0.010 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at org.example.processlab.DmnQualifierTest.R6_missingMultipleAndUnknownOutputFailClosed(DmnQualifierTest.java:50)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_reusedParentCannotSilentlyChangePinnedDefinition -- Time elapsed: 0.234 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at org.example.processlab.DmnQualifierTest.R6_reusedParentCannotSilentlyChangePinnedDefinition(DmnQualifierTest.java:100)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[1] -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[2] -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[3] -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[4] -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[5] -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[6] -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[7] -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[8] -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[10] -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[11] -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <CORRECTION> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[12] -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <CORRECTION> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[13] -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[14] -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[15] -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(boolean, boolean, boolean, boolean, Qualification)[16] -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_allSixteenFactCombinations(DmnQualifierTest.java:45)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_currentReviewsAndExecutionQualifyWithoutGrantingApproval -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.DmnQualifierTest.R6_currentReviewsAndExecutionQualifyWithoutGrantingApproval(DmnQualifierTest.java:69)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_removedPinnedDeploymentCannotUseFallback -- Time elapsed: 0.236 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at org.example.processlab.DmnQualifierTest.R6_removedPinnedDeploymentCannotUseFallback(DmnQualifierTest.java:91)
+
+[ERROR] org.example.processlab.DmnQualifierTest.R6_unknownDeploymentCannotFallBackToAnotherDefinition -- Time elapsed: 0.169 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at org.example.processlab.DmnQualifierTest.R6_unknownDeploymentCannotFallBackToAnotherDefinition(DmnQualifierTest.java:79)
+
+[INFO] Running org.example.processlab.EngineSessionTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.163 s -- in org.example.processlab.EngineSessionTest
+[INFO] Running org.example.processlab.RulesTest
+[ERROR] Tests run: 11, Failures: 11, Errors: 0, Skipped: 0, Time elapsed: 0.020 s <<< FAILURE! -- in org.example.processlab.RulesTest
+[ERROR] org.example.processlab.RulesTest.R6_emptyAndMixedChecksProduceExplicitFacts -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <AssessmentFacts[basisKnown=false, conflict=false, failed=false, pending=false]> but was: <AssessmentFacts[basisKnown=true, conflict=false, failed=false, pending=false]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R6_emptyAndMixedChecksProduceExplicitFacts(RulesTest.java:135)
+
+[ERROR] org.example.processlab.RulesTest.R2_appendPreservesHistoryAndRejectsReplacementAndReplay -- Time elapsed: 0.007 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <2> but was: <1>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:152)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:147)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:558)
+	at org.example.processlab.RulesTest.R2_appendPreservesHistoryAndRejectsReplacementAndReplay(RulesTest.java:53)
+
+[ERROR] org.example.processlab.RulesTest.R4_missingBasisAndConflictsAreNotHiddenByPass -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <CORRECTION> but was: <PASSED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R4_missingBasisAndConflictsAreNotHiddenByPass(RulesTest.java:102)
+
+[ERROR] org.example.processlab.RulesTest.R5_unrelatedMissingDataAndOldErrorsDoNotPolluteCurrentPair -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <PASSED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R5_unrelatedMissingDataAndOldErrorsDoNotPolluteCurrentPair(RulesTest.java:176)
+
+[ERROR] org.example.processlab.RulesTest.R4_basisOrderIsIrrelevantAndInvalidVerifiesTypeIsUnknown -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <UNKNOWN> but was: <PASSED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R4_basisOrderIsIrrelevantAndInvalidVerifiesTypeIsUnknown(RulesTest.java:169)
+
+[ERROR] org.example.processlab.RulesTest.R5_requiresCurrentTestAndSoftwareAndKeepsExecutionSeparate -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <PASSED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R5_requiresCurrentTestAndSoftwareAndKeepsExecutionSeparate(RulesTest.java:120)
+
+[ERROR] org.example.processlab.RulesTest.R3_edgeOrderDoesNotChooseDifferentDiamondPath -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <[A, B, D]> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R3_edgeOrderDoesNotChooseDifferentDiamondPath(RulesTest.java:162)
+
+[ERROR] org.example.processlab.RulesTest.R4_requiresExactCurrentSubjectAndBasis -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REVIEW_REQUIRED> but was: <PASSED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R4_requiresExactCurrentSubjectAndBasis(RulesTest.java:85)
+
+[ERROR] org.example.processlab.RulesTest.R1_copiesCollectionsAndRejectsCrossKindEvidenceIds -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at org.example.processlab.RulesTest.R1_copiesCollectionsAndRejectsCrossKindEvidenceIds(RulesTest.java:149)
+
+[ERROR] org.example.processlab.RulesTest.R1_rejectsAmbiguousIdentityButDoesNotChooseHighestRevision -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
+	at org.example.processlab.RulesTest.R1_rejectsAmbiguousIdentityButDoesNotChooseHighestRevision(RulesTest.java:37)
+
+[ERROR] org.example.processlab.RulesTest.R3_reachabilityUsesIdsAndReturnsDeterministicPathsWithoutDuplicates -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <[D, C, B]> but was: <[]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.RulesTest.R3_reachabilityUsesIdsAndReturnsDeterministicPathsWithoutDuplicates(RulesTest.java:73)
+
+[INFO] Running org.example.processlab.DomainModelTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in org.example.processlab.DomainModelTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <CORRECTION> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <CORRECTION> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <REVIEW_REQUIRED> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_allSixteenFactCombinations:45 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_currentReviewsAndExecutionQualifyWithoutGrantingApproval:69 expected: <MISSING_BASIS> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_missingMultipleAndUnknownOutputFailClosed:50 Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+[ERROR]   DmnQualifierTest.R6_newDeploymentDoesNotChangePinnedDecision:60 expected: <CORRECTION> but was: <TO_OPERATOR>
+[ERROR]   DmnQualifierTest.R6_removedPinnedDeploymentCannotUseFallback:91 Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+[ERROR]   DmnQualifierTest.R6_reusedParentCannotSilentlyChangePinnedDefinition:100 Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+[ERROR]   DmnQualifierTest.R6_unknownDeploymentCannotFallBackToAnotherDefinition:79 Expected java.lang.IllegalStateException to be thrown, but nothing was thrown.
+[ERROR]   RulesTest.R1_copiesCollectionsAndRejectsCrossKindEvidenceIds:149 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   RulesTest.R1_rejectsAmbiguousIdentityButDoesNotChooseHighestRevision:37 Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+[ERROR]   RulesTest.R2_appendPreservesHistoryAndRejectsReplacementAndReplay:53 expected: <2> but was: <1>
+[ERROR]   RulesTest.R3_edgeOrderDoesNotChooseDifferentDiamondPath:162 expected: <[A, B, D]> but was: <null>
+[ERROR]   RulesTest.R3_reachabilityUsesIdsAndReturnsDeterministicPathsWithoutDuplicates:73 expected: <[D, C, B]> but was: <[]>
+[ERROR]   RulesTest.R4_basisOrderIsIrrelevantAndInvalidVerifiesTypeIsUnknown:169 expected: <UNKNOWN> but was: <PASSED>
+[ERROR]   RulesTest.R4_missingBasisAndConflictsAreNotHiddenByPass:102 expected: <CORRECTION> but was: <PASSED>
+[ERROR]   RulesTest.R4_requiresExactCurrentSubjectAndBasis:85 expected: <REVIEW_REQUIRED> but was: <PASSED>
+[ERROR]   RulesTest.R5_requiresCurrentTestAndSoftwareAndKeepsExecutionSeparate:120 expected: <REVIEW_REQUIRED> but was: <PASSED>
+[ERROR]   RulesTest.R5_unrelatedMissingDataAndOldErrorsDoNotPolluteCurrentPair:176 expected: <REVIEW_REQUIRED> but was: <PASSED>
+[ERROR]   RulesTest.R6_emptyAndMixedChecksProduceExplicitFacts:135 expected: <AssessmentFacts[basisKnown=false, conflict=false, failed=false, pending=false]> but was: <AssessmentFacts[basisKnown=true, conflict=false, failed=false, pending=false]>
+[INFO] 
+[ERROR] Tests run: 38, Failures: 32, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.377 s
+[INFO] Finished at: 2026-11-05T00:27:24+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project flowable-trial: There are test failures.
+[ERROR] 
+[ERROR] See /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/flowable-f3-mvtaqpw9/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

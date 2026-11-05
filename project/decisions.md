@@ -76,6 +76,48 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-98 Diagramy architektury i danych przed F5
+- status: resolved
+- choice: przygotować Mermaid C4, zależności i struktury danych na podstawie istniejącego F4
+- date: 2026-11-05
+- notes: Użytkownik prosi o diagramy przed F5. Zakres dokumentacyjny próby Flowable, z oznaczeniem aktualnej implementacji i granic symulacji. Bez wykonania F5, zmian kodu procesu, commita/pushu ani innych repozytoriów.
+
+### D-97 Wykonanie F4 — jeden przebieg BPMN
+- status: resolved
+- choice: wykonać F4: połączyć reguły F3 w przebieg BPMN z kontrolą poleceń, odmów, zapisu i widokiem faktycznego stanu oraz historii
+- date: 2026-11-05
+- notes: Użytkownik „wykoanj Dalej” po wskazaniu F4 w poprzedniej odpowiedzi. Zakres coverage-map.md §9.3/10.4–10.5; najpierw kontrakt i testy, potem implementacja, dowody i osobny przegląd. Role operatora/agenta wyłącznie symulowane w zaufanym lokalnym harnessie; nie operacyjny mechanizm zgód. Bez F5, restartu JVM, REST, zmian template/, Kitchen lub iso-model-state, commita/pushu.
+
+### D-96 Wykonanie F3 — reguły próby Flowable w TDD
+- status: resolved
+- choice: wykonać F3: reguły grafu i aktualności, kwalifikacja DMN, testy pozytywne/negatywne, RED/GREEN i celowe wyłączenia reguł
+- date: 2026-11-04
+- notes: Użytkownik „Wykonaj F3”. Zakres planu reference/process-modeling/coverage-map.md §9.3 i przypadków §10.5, na dostawie F2. Własne rozstrzygnięcia techniczne i tabela oczekiwań w README eksperymentu przed kodem. Nie uruchamia F4/F5, nie wdraża P1/P2 ani mechanizmu zgód do szablonu, nie upoważnia do commita/pushu i zmian innych repozytoriów.
+
+### D-95 Wykonanie F2 — izolowana próba Java
+- status: resolved
+- choice: wykonać F2 zgodnie z rekomendowanymi praktykami Javy: izolowane środowisko, przypięte zależności, minimalny model danych i test startu/zamknięcia silnika
+- date: 2026-11-04
+- notes: Użytkownik „F2 zgodnie z rekomendowanymi praktykami dla Javy”. Zakres reference/process-modeling/coverage-map.md §9.3, po F1/D-94. Lokalny projekt eksperymentalny w reference/process-map/flowable-trial; bez instalacji systemowej, zmian profilu powłoki, commita/pushu i prac w innych repozytoriach. Pobrania wymagane do lokalnego wykonania przez właściwe uprawnienia narzędzi. F3–F5 i aktywacja P1/P2 pozostają niezlecone.
+
+### D-94 Wykonanie F1 — ocena dopasowania Flowable
+- status: resolved
+- choice: wykonać krok 1 planu oceny Flowable: macierz potrzeb, danych, reguł i odpowiedzialności, rozliczenie C1–C10, rekomendacja CMMN albo BPMN oraz osobna recenzja
+- date: 2026-11-04
+- notes: Użytkownik „wykonaj krok 1 https://github.com/flowable/flowable-engine”. Zakres F1 w reference/process-modeling/coverage-map.md §9.3; dopuszcza odczyt i kopię źródeł do analizy, nie F2–F5, instalację zależności, implementację, commit/push ani zmiany w innych repozytoriach. Zlecenie F1 nie zatwierdza P1/P2 jako reguł produkcyjnych.
+
+### D-93 Plan oceny Flowable Open Source
+- status: resolved
+- choice: przygotować plan sprawdzenia Flowable na podstawie wskazanych przez Użytkownika Getting Started i Architecture oraz istniejącej karty zmiany wymagania
+- date: 2026-11-01
+- notes: Użytkownik „Zaplanuj jak to wykonasz” z diagramem i dokumentacją Flowable. Zlecenie obejmuje analizę źródeł, odczyt lokalnego środowiska i zapis planu; nie wybór Flowable do produkcji ani rozpoczęcie implementacji lub instalacji. Plan i warunki próby: reference/process-modeling/coverage-map.md §9, statusy §8.7, wykonanie §8.8. Nie zmienia planu iso-model-state ani Kitchen, nie zatwierdza P1/P2 i nie upoważnia do commita lub pushu.
+
+### D-92 Karta zachowania zmiany wymagania w szablonie
+- status: resolved
+- choice: przygotować jedną kartę przekroju zmiana wymagania → wpływ na zależności → ponowna weryfikacja → zachowanie historii, z przykładami dopuszczenia, ostrzeżenia i odmowy
+- date: 2026-10-30
+- notes: Użytkownik „Dalej” po tej konkretnej propozycji. Zlecenie dotyczy opisu zachowania i uporządkowania podstaw, nie zatwierdzenia nowych reguł. Wynik w istniejącym reference/process-map/change-card-check.md; plan i rejestr w reference/process-modeling/coverage-map.md §8.7–8.8. Bez implementacji, zmiany REQ/AT, API, manifestów wejść, mechanizmu zgód, commita i zmian w Kitchen lub iso-model-state. Nie zamyka wcześniejszych otwartych decyzji. Kontynuacja 2026-11-01: U polecił przejść dalej z objaśnieniem; przykład dydaktyczny w karcie §7, zapis Z-14. Nie jest to akceptacja P1/P2.
+
 ### D-91 Commit korekty G5 i przedstawienie dalszego kierunku
 - status: resolved
 - choice: zapisać własne zmiany A-02 w obu repozytoriach; przedstawić propozycję dalszych prac i diagram Mermaid historii oraz obecnego problemu

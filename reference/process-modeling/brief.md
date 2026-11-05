@@ -4,13 +4,14 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-10-30, D-91: commit i przedstawienie dalszego kierunku. A-02 zakończone technicznie; poniżej bieżący punkt wznowienia, dalsze sekcje to zamiar i historia.
+Aktualizacja 2026-11-05, D-98: po zakończeniu F4 przygotowano [osiem diagramów architektury i danych](../process-map/flowable-trial/architecture.md), decyzja agenta A15. F5 nie jest zlecone.
 
-- **Plan:** [§8.7 mapy](coverage-map.md#87-zalecenia-i-punkt-wznowienia). **Dowody:** [§8.8](coverage-map.md#88-rejestr-zmian-i-wykonania), Z-08/09, pełna macierz i niezależny R. **Zgody:** [decyzje](../../project/decisions.md), D-90 rozstrzygnięte; w modelu DEC-PRO-018. D-85 pozostaje osobnym odbiorem mapowania.
-- **Wykonane:** korekta rozliczenia G5 w WLASCIWOSCI, PLAN i E3-AC06; zgoda i wskaźnik wyniku w STAN modelu. Testy raportu pozostają; inne obowiązki mutacyjne i S/L/F zachowane. R: bez blokerów po dwóch korektach redakcyjnych, 178/178 par, 13 testów PASS. A-02 completed nie oznacza odbioru całego E3 ani spełnienia pozostałego DoD.
-- **Następny krok / agent:** przy zleceniu A-03 sprawdzić świeże [PLAN](../../../iso-model-state/PLAN.md) i [STAN](../../../iso-model-state/docs/STAN.md) oraz trwającą pracę przed wybraniem następnego przyrostu. Ostatni odczyt: ograniczona kontrola S10 wykonana według bieżącego raportu; następne są dziedzina komend, granice i ocena redukcji przed eksploracją. Wyniku S10 nie odtwarzano w tej sesji. Nie powtarzać E3.5 i nie uruchamiać konkurencyjnej implementacji. Zgoda D-90 obejmowała A-02, nie zmianę kolejności dalszego E3.
-- **Git:** korekta modelu w `ea77055` (cztery dokumenty zgodne z hashami R). D-91 zleca także commit lokalnego raportu, decyzji, diagramu i punktu wznowienia; identyfikator ustal przez historię tego pliku. Przed kolejną pracą sprawdź status obu repozytoriów. Bez pushu. Eksport użytkownika poza zakresem; pozostałe zmiany S10 pozostawione bez ingerencji, także dodatkowe fragmenty PLAN/STAN.
-- **Decyzje agenta:** A4–A8 i sprawy odłożone w mapie §6/8.8. Aktualizuj ten wskaźnik po etapie; pełną listę działań utrzymuj tylko w planie.
+- **Plan i wykonanie:** jedyne statusy w [§8.7–8.8 mapy](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-06–07 i Z-24–25; upoważnienia [D-97–98](../../project/decisions.md). Przypadki i granice nadal w §10.
+- **Dostawa:** [README próby](../process-map/flowable-trial/README.md), A14, kod/BPMN i [raport pięciu stanów demo](../process-map/flowable-trial/evidence/f4-demo.md). Offline clean verify: 51/51 PASS. F4 replay: 13 porażek asercji / 0 błędów; 12/12 wybranych usterek wykrytych. F2/F3 mają nadal sprawdzone odtwarzanie. Dowody w evidence/, narzędzia/cache w ignorowanym .tooling.
+- **Recenzja:** osobny R doprecyzował priorytety DMN i wykrył dopisywanie wyników dla nieistniejących jeszcze rewizji. Po RED, walidacji start/Assess i poprawieniu maskowanego testu obcej instancji zamknął blokery. R odczytał kod/logi, nie wykonywał testów. Mutant task-id wykryto przez zmianę typu odmowy; nie doszło do złego skutku w silniku.
+- **Następny krok:** operator może przeczytać diagramy C4 1–3, a następnie ślad 5 i dane 6–8; agent objaśnia je na żądanie. Diagramy sprawdzono renderowaniem 8/8 i odczytem kodu, po korekcie kardynalności z recenzji. F5 (trwałość po zakończeniu JVM, nowy proces i ocena użyteczności) wymaga osobnego zlecenia. H2 F4 nadal pamięciowe; zapis na dysku dotyczy raportu, nie działającej instancji po restarcie.
+- **Granica i otwarte sprawy:** role, oceny i odbiory są symulowane; brak operacyjnej autoryzacji, wielu klientów, pełnego modelu ISO czy testu programu TextStats. A-03/iso-model-state i Kitchen poza zleceniem; D-85 pozostaje osobnym odbiorem użytkownika. Pozostałe pytania i właściciele w §9.5 mapy.
+- **Git i pamięć:** bez commita/pushu. Zastane zmiany i eksport użytkownika zachowane. Agent utrzymuje ten punkt i oczekuje dalszego zlecenia; historyczne instrukcje niżej nie są nową zgodą. template/, W5/E9 i operacyjne P1/P2 bez zmian.
 
 
 ## Widok orientacyjny po A-02 — 2026-10-30

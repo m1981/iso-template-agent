@@ -1,0 +1,37 @@
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101" id="definitions" name="Qualification" namespace="https://example.org/processlab"><decision id="qualification" name="Qualification"><decisionTable id="table" hitPolicy="UNIQUE">
+<input id="in_basisKnown"><inputExpression id="expr_basisKnown" typeRef="boolean"><text>basisKnown</text></inputExpression></input>
+<input id="in_conflict"><inputExpression id="expr_conflict" typeRef="boolean"><text>conflict</text></inputExpression></input>
+<input id="in_failed"><inputExpression id="expr_failed" typeRef="boolean"><text>failed</text></inputExpression></input>
+<input id="in_pending"><inputExpression id="expr_pending" typeRef="boolean"><text>pending</text></inputExpression></input>
+<output id="out" name="qualification" typeRef="string"/>
+<rule id="rule0">
+<inputEntry id="r0i0"><text>false</text></inputEntry>
+<inputEntry id="r0i1"><text>-</text></inputEntry>
+<inputEntry id="r0i2"><text>-</text></inputEntry>
+<inputEntry id="r0i3"><text>-</text></inputEntry>
+<outputEntry id="r0o"><text>'MISSING_BASIS'</text></outputEntry></rule>
+<rule id="rule1">
+<inputEntry id="r1i0"><text>true</text></inputEntry>
+<inputEntry id="r1i1"><text>true</text></inputEntry>
+<inputEntry id="r1i2"><text>-</text></inputEntry>
+<inputEntry id="r1i3"><text>-</text></inputEntry>
+<outputEntry id="r1o"><text>'REVIEW_REQUIRED'</text></outputEntry></rule>
+<rule id="rule2">
+<inputEntry id="r2i0"><text>true</text></inputEntry>
+<inputEntry id="r2i1"><text>false</text></inputEntry>
+<inputEntry id="r2i2"><text>true</text></inputEntry>
+<inputEntry id="r2i3"><text>-</text></inputEntry>
+<outputEntry id="r2o"><text>'CORRECTION'</text></outputEntry></rule>
+<rule id="rule3">
+<inputEntry id="r3i0"><text>true</text></inputEntry>
+<inputEntry id="r3i1"><text>false</text></inputEntry>
+<inputEntry id="r3i2"><text>false</text></inputEntry>
+<inputEntry id="r3i3"><text>true</text></inputEntry>
+<outputEntry id="r3o"><text>'REVIEW_REQUIRED'</text></outputEntry></rule>
+<rule id="rule4">
+<inputEntry id="r4i0"><text>true</text></inputEntry>
+<inputEntry id="r4i1"><text>false</text></inputEntry>
+<inputEntry id="r4i2"><text>false</text></inputEntry>
+<inputEntry id="r4i3"><text>false</text></inputEntry>
+<outputEntry id="r4o"><text>'TO_OPERATOR'</text></outputEntry></rule>
+</decisionTable></decision></definitions>

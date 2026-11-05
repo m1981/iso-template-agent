@@ -1,0 +1,5 @@
+Apache Maven 3.9.12 (848fbb4bf2d427b72bdb2471c22fced7ebd9a7a1)
+Maven home: /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/.tooling/maven-user/wrapper/dists/apache-maven-3.9.12/6068d197
+Java version: 17.0.21, vendor: Eclipse Adoptium, runtime: /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/.tooling/jdk-17.0.21+9/Contents/Home
+Default locale: en_US, platform encoding: UTF-8
+OS name: "mac os x", version: "26.2", arch: "aarch64", family: "mac"

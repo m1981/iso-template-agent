@@ -1,0 +1,142 @@
+[
+  {
+    "case": "R6-allow-unknown-parent-fallback",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-allow-unknown-parent-fallback.log"
+  },
+  {
+    "case": "R1-duplicate-revision",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R1-duplicate-revision.log"
+  },
+  {
+    "case": "R2-append-discarded",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R2-append-discarded.log"
+  },
+  {
+    "case": "R3-no-transitive-traversal",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R3-no-transitive-traversal.log"
+  },
+  {
+    "case": "R4-ignore-review-basis",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R4-ignore-review-basis.log"
+  },
+  {
+    "case": "R4-ignore-stale-edge",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R4-ignore-stale-edge.log"
+  },
+  {
+    "case": "R5-ignore-software-revision",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R5-ignore-software-revision.log"
+  },
+  {
+    "case": "R5-ignore-execution-error",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R5-ignore-execution-error.log"
+  },
+  {
+    "case": "R6-empty-scope-ready",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-empty-scope-ready.log"
+  },
+  {
+    "case": "R6-dmn-missing-basis-ready",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 9,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-dmn-missing-basis-ready.log"
+  },
+  {
+    "case": "R6-dmn-conflict-ready",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 4,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-dmn-conflict-ready.log"
+  },
+  {
+    "case": "R6-dmn-failure-ready",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-dmn-failure-ready.log"
+  },
+  {
+    "case": "R6-dmn-pending-ready",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-dmn-pending-ready.log"
+  },
+  {
+    "case": "R6-dmn-ready-blocked",
+    "exit_code": 1,
+    "tests": 38,
+    "failures": 4,
+    "errors": 0,
+    "skipped": 0,
+    "semantic_failure": true,
+    "log": "f3-R6-dmn-ready-blocked.log"
+  }
+]

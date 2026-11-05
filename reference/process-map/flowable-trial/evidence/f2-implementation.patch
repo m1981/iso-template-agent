@@ -1,0 +1,175 @@
+--- a/src/main/java/org/example/processlab/domain/ArtifactRef.java
++++ b/src/main/java/org/example/processlab/domain/ArtifactRef.java
+@@ -1,3 +1,10 @@
+ package org.example.processlab.domain;
+ 
+-public record ArtifactRef(String id, int revision) {}
++public record ArtifactRef(String id, int revision) {
++    public ArtifactRef {
++        id = Values.nonBlank(id, "id");
++        if (revision < 1) {
++            throw new IllegalArgumentException("revision must be positive");
++        }
++    }
++}
+--- a/src/main/java/org/example/processlab/domain/ArtifactRevision.java
++++ b/src/main/java/org/example/processlab/domain/ArtifactRevision.java
+@@ -1,5 +1,13 @@
+ package org.example.processlab.domain;
+ 
++import java.util.Objects;
++
+ public record ArtifactRevision(ArtifactRef ref, Kind kind, String content) {
++    public ArtifactRevision {
++        Objects.requireNonNull(ref, "ref");
++        Objects.requireNonNull(kind, "kind");
++        content = Values.nonBlank(content, "content");
++    }
++
+     public enum Kind { REQUIREMENT, TEST_CASE, SOFTWARE }
+ }
+--- a/src/main/java/org/example/processlab/domain/Dependency.java
++++ b/src/main/java/org/example/processlab/domain/Dependency.java
+@@ -1,6 +1,14 @@
+ package org.example.processlab.domain;
++
++import java.util.Objects;
+ 
+ /** Direction: basis to dependent, irrespective of the relationship's name. */
+ public record Dependency(ArtifactRef basis, ArtifactRef dependent, Kind kind) {
++    public Dependency {
++        Objects.requireNonNull(basis, "basis");
++        Objects.requireNonNull(dependent, "dependent");
++        Objects.requireNonNull(kind, "kind");
++    }
++
+     public enum Kind { DERIVED_FROM, VERIFIES }
+ }
+--- a/src/main/java/org/example/processlab/domain/ReviewRecord.java
++++ b/src/main/java/org/example/processlab/domain/ReviewRecord.java
+@@ -1,7 +1,16 @@
+ package org.example.processlab.domain;
+ 
+ import java.util.List;
++import java.util.Objects;
+ 
+ public record ReviewRecord(String id, ArtifactRef subject, List<ArtifactRef> basis, Outcome outcome, String rationale) {
++    public ReviewRecord {
++        id = Values.nonBlank(id, "id");
++        Objects.requireNonNull(subject, "subject");
++        basis = List.copyOf(basis);
++        Objects.requireNonNull(outcome, "outcome");
++        rationale = Values.nonBlank(rationale, "rationale");
++    }
++
+     public enum Outcome { PASS, FAIL }
+ }
+--- a/src/main/java/org/example/processlab/domain/TestRunRecord.java
++++ b/src/main/java/org/example/processlab/domain/TestRunRecord.java
+@@ -1,5 +1,14 @@
+ package org.example.processlab.domain;
+ 
++import java.util.Objects;
++
+ public record TestRunRecord(String id, ArtifactRef testCase, ArtifactRef software, Outcome outcome) {
++    public TestRunRecord {
++        id = Values.nonBlank(id, "id");
++        Objects.requireNonNull(testCase, "testCase");
++        Objects.requireNonNull(software, "software");
++        Objects.requireNonNull(outcome, "outcome");
++    }
++
+     public enum Outcome { PASS, FAIL, ERROR }
+ }
+--- /dev/null
++++ b/src/main/java/org/example/processlab/domain/Values.java
+@@ -0,0 +1,15 @@
++package org.example.processlab.domain;
++
++import java.util.Objects;
++
++final class Values {
++    private Values() {}
++
++    static String nonBlank(String value, String name) {
++        Objects.requireNonNull(value, name);
++        if (value.isBlank()) {
++            throw new IllegalArgumentException(name + " must not be blank");
++        }
++        return value;
++    }
++}
+--- a/src/main/java/org/example/processlab/engine/EngineSession.java
++++ b/src/main/java/org/example/processlab/engine/EngineSession.java
+@@ -1,11 +1,67 @@
+ package org.example.processlab.engine;
+ 
+ import org.flowable.engine.ProcessEngine;
++import org.flowable.engine.ProcessEngineConfiguration;
++import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
+ import org.flowable.dmn.engine.DmnEngine;
++import org.flowable.dmn.engine.DmnEngineConfiguration;
++import org.flowable.dmn.engine.configurator.DmnEngineConfigurator;
++import java.util.Objects;
++import java.util.concurrent.atomic.AtomicReference;
+ 
++/** Owns the two engines. No workflow policy or domain persistence belongs here. */
+ public final class EngineSession implements AutoCloseable {
+-    public static EngineSession openInMemory(String name) { return null; }
+-    public ProcessEngine processes() { return null; }
+-    public DmnEngine decisions() { return null; }
+-    @Override public void close() {}
++    private final ProcessEngine processes;
++    private final DmnEngine decisions;
++
++    private EngineSession(ProcessEngine processes, DmnEngine decisions) {
++        this.processes = Objects.requireNonNull(processes);
++        this.decisions = Objects.requireNonNull(decisions);
++    }
++
++    public static EngineSession openInMemory(String name) {
++        if (name == null || !name.matches("[A-Za-z0-9_]+")) {
++            throw new IllegalArgumentException("Database name must contain only letters, digits or underscores");
++        }
++        var decisions = new AtomicReference<DmnEngine>();
++        var dmnConfiguration = new DmnEngineConfiguration();
++        dmnConfiguration.setEngineName(name + "_dmn");
++        dmnConfiguration.setPostEngineBuildConsumer(decisions::set);
++
++        var configuration = new StandaloneProcessEngineConfiguration();
++        configuration.setDisableIdmEngine(true);
++        configuration.setDisableEventRegistry(true);
++        configuration.setEngineName(name);
++        configuration.setJdbcUrl("jdbc:h2:mem:" + name + ";DB_CLOSE_DELAY=0");
++        configuration.setJdbcDriver("org.h2.Driver");
++        configuration.setJdbcUsername("sa");
++        configuration.setJdbcPassword("");
++        configuration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
++        configuration.setAsyncExecutorActivate(false);
++        configuration.setForceCloseMybatisConnectionPool(true);
++        configuration.setEnableConfiguratorServiceLoader(false);
++        configuration.addConfigurator(new DmnEngineConfigurator().setDmnEngineConfiguration(dmnConfiguration));
++        try {
++            return new EngineSession(configuration.buildProcessEngine(), decisions.get());
++        } catch (RuntimeException failure) {
++            if (decisions.get() != null) {
++                try { decisions.get().close(); } catch (RuntimeException cleanup) { failure.addSuppressed(cleanup); }
++            }
++            try { configuration.close(); } catch (RuntimeException cleanup) { failure.addSuppressed(cleanup); }
++            throw failure;
++        }
++    }
++
++    public ProcessEngine processes() { return processes; }
++    public DmnEngine decisions() { return decisions; }
++
++    @Override
++    public void close() {
++        // BPMN performs database cleanup on close; DMN shares its connection pool.
++        try {
++            processes.close();
++        } finally {
++            decisions.close();
++        }
++    }
+ }

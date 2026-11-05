@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:flowable="http://flowable.org/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="https://example.org/processlab">
+ <process id="requirementChange" name="Zmiana wymagania — próba edukacyjna" isExecutable="true">
+  <startEvent id="start"/>
+  <userTask id="authorize" name="Zgoda na konkretną propozycję" flowable:assignee="OPERATOR"/>
+  <exclusiveGateway id="after_authorize"/>
+  <userTask id="impact" name="Ocena wpływu i zastosowanie" flowable:assignee="AGENT"/>
+  <exclusiveGateway id="after_impact"/>
+  <userTask id="prepare" name="Przygotowanie testu i programu" flowable:assignee="AGENT"/>
+  <exclusiveGateway id="after_prepare"/>
+  <userTask id="assess" name="Przeglądy i wynik wykonania" flowable:assignee="AGENT"/>
+  <exclusiveGateway id="after_assess"/>
+  <userTask id="accept" name="Odbiór konkretnej podstawy" flowable:assignee="OPERATOR"/>
+  <exclusiveGateway id="after_accept"/>
+  <serviceTask id="qualify" name="Kwalifikacja faktów DMN" flowable:delegateExpression="${qualificationStep}"/>
+  <exclusiveGateway id="after_qualify"/>
+  <endEvent id="accepted"/>
+  <endEvent id="declined"/>
+  <sequenceFlow id="flow_0" sourceRef="start" targetRef="authorize"></sequenceFlow>
+  <sequenceFlow id="flow_1" sourceRef="authorize" targetRef="after_authorize"></sequenceFlow>
+  <sequenceFlow id="flow_2" sourceRef="impact" targetRef="after_impact"></sequenceFlow>
+  <sequenceFlow id="flow_3" sourceRef="prepare" targetRef="after_prepare"></sequenceFlow>
+  <sequenceFlow id="flow_4" sourceRef="assess" targetRef="after_assess"></sequenceFlow>
+  <sequenceFlow id="flow_5" sourceRef="accept" targetRef="after_accept"></sequenceFlow>
+  <sequenceFlow id="flow_6" sourceRef="after_impact" targetRef="authorize"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'PROPOSE'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_7" sourceRef="after_prepare" targetRef="authorize"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'PROPOSE'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_8" sourceRef="after_assess" targetRef="authorize"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'PROPOSE'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_9" sourceRef="after_accept" targetRef="authorize"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'PROPOSE'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_10" sourceRef="after_authorize" targetRef="impact"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'ALLOW'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_11" sourceRef="after_authorize" targetRef="declined"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'DENY'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_12" sourceRef="after_impact" targetRef="prepare"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'APPLY'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_13" sourceRef="after_prepare" targetRef="assess"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'PREPARE'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_14" sourceRef="after_assess" targetRef="qualify"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'ASSESS'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_15" sourceRef="after_assess" targetRef="prepare"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'REWORK'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_16" sourceRef="qualify" targetRef="after_qualify"></sequenceFlow>
+  <sequenceFlow id="flow_17" sourceRef="after_qualify" targetRef="assess"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${qualification == 'MISSING_BASIS' || qualification == 'REVIEW_REQUIRED'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_18" sourceRef="after_qualify" targetRef="prepare"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${qualification == 'CORRECTION'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_19" sourceRef="after_qualify" targetRef="accept"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${qualification == 'TO_OPERATOR'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_20" sourceRef="after_accept" targetRef="accepted"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'ACCEPT'}]]></conditionExpression></sequenceFlow>
+  <sequenceFlow id="flow_21" sourceRef="after_accept" targetRef="prepare"><conditionExpression xsi:type="tFormalExpression"><![CDATA[${action == 'REJECT'}]]></conditionExpression></sequenceFlow>
+ </process>
+</definitions>

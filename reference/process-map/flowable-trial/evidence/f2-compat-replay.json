@@ -1,0 +1,20 @@
+[
+  {
+    "stage": "red",
+    "exit_code": 1,
+    "tests": 5,
+    "failures": 4,
+    "errors": 0,
+    "skipped": 0,
+    "log": "f2-compat-red.log"
+  },
+  {
+    "stage": "green",
+    "exit_code": 0,
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "f2-compat-green.log"
+  }
+]

@@ -1,0 +1,69 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< org.example.processlab:flowable-trial >----------------
+[INFO] Building Process laboratory — isolated Flowable trial 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.2:enforce (toolchain) @ flowable-trial ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ flowable-trial ---
+[INFO] skip non existing resourceDirectory /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ flowable-trial ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ flowable-trial ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ flowable-trial ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.example.processlab.EngineSessionTest
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.913 s <<< FAILURE! -- in org.example.processlab.EngineSessionTest
+[ERROR] org.example.processlab.EngineSessionTest.startsBpmnAndDmnAndReleasesTheirSharedDatabase -- Time elapsed: 0.905 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <[org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration@23ad71bf, org.flowable.dmn.engine.DmnEngineConfiguration@629a9f26]> but was: <[org.flowable.dmn.engine.DmnEngineConfiguration@629a9f26, org.flowable.eventregistry.impl.cfg.StandaloneEventRegistryEngineConfiguration@1983b48a, org.flowable.idm.engine.impl.cfg.StandaloneIdmEngineConfiguration@b791a81, org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration@23ad71bf]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:201)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:179)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1188)
+	at org.example.processlab.EngineSessionTest.startsBpmnAndDmnAndReleasesTheirSharedDatabase(EngineSessionTest.java:19)
+
+[INFO] Running org.example.processlab.DomainModelTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in org.example.processlab.DomainModelTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   EngineSessionTest.startsBpmnAndDmnAndReleasesTheirSharedDatabase:19 expected: <[org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration@23ad71bf, org.flowable.dmn.engine.DmnEngineConfiguration@629a9f26]> but was: <[org.flowable.dmn.engine.DmnEngineConfiguration@629a9f26, org.flowable.eventregistry.impl.cfg.StandaloneEventRegistryEngineConfiguration@1983b48a, org.flowable.idm.engine.impl.cfg.StandaloneIdmEngineConfiguration@b791a81, org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration@23ad71bf]>
+[INFO] 
+[ERROR] Tests run: 5, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.076 s
+[INFO] Finished at: 2026-11-04T23:37:44+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project flowable-trial: There are test failures.
+[ERROR] 
+[ERROR] See /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

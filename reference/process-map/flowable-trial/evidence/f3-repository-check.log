@@ -1,0 +1,17 @@
+python3 -B template/process/tools/trace.py
+W1 MIG-01: brak dzieci typu AT (Test akceptacyjny)
+W1 MIG-02: brak dzieci typu AT (Test akceptacyjny)
+W2 D-96: brak dzieci i wzmianki w commitach
+W2 D-95: brak dzieci i wzmianki w commitach
+W2 D-94: brak dzieci i wzmianki w commitach
+W2 D-93: brak dzieci i wzmianki w commitach
+W2 D-92: brak dzieci i wzmianki w commitach
+trace.py: 262 elementów, 0 błędów, 7 ostrzeżeń
+python3 -B template/process/tools/progress.py
+progress.py: 11 zadań, 1 kamieni, 0 korekt niezakończonych
+python3 -B template/process/tools/iso_map.py
+iso_map.py: mamy 11 · częściowo 5 · brak 0 · poza etapem 7
+python3 -B template/process/tools/check_refs.py
+check_refs: 65 plików, 0 błędów, wyjątków użytych 7
+python3 -B template/process/tools/check_leak.py 
+check_leak: 0 błędów, wyjątków użytych 0
