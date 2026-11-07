@@ -1,0 +1,99 @@
+<div id="textstats-operator-preview">
+<style>
+#textstats-operator-preview { color-scheme:light dark; --ts-bg:light-dark(#ffffff,#202826); --ts-ink:light-dark(#20332c,#e1ece6); --ts-soft:light-dark(#edf3ef,#2a3832); --ts-line:light-dark(#cfdbd3,#495d51); --ts-accent:light-dark(#17533f,#b8e4cf); --ts-on:light-dark(#ffffff,#17372a); --ts-note:light-dark(#fff3d8,#493c24); font:400 15px/1.5 system-ui,sans-serif; color:var(--ts-ink); background:var(--ts-bg); border:1px solid var(--ts-line); border-radius:12px; overflow-wrap:anywhere; }
+#textstats-operator-preview * { box-sizing:border-box; }
+#textstats-operator-preview header,#textstats-operator-preview main,#textstats-operator-preview footer { padding:20px; }
+#textstats-operator-preview header { padding-right:100px; }
+#textstats-operator-preview h2 { font-size:24px; font-weight:500; margin:6px 0; }
+#textstats-operator-preview h3 { font-size:17px; font-weight:500; margin:0 0 10px; }
+#textstats-operator-preview p { margin:8px 0; }
+#textstats-operator-preview .label { font-size:12px; letter-spacing:.06em; }
+#textstats-operator-preview .notice { background:var(--ts-note); padding:10px 20px; }
+#textstats-operator-preview nav { display:flex; flex-wrap:wrap; gap:8px; padding:12px 20px; border-bottom:1px solid var(--ts-line); }
+#textstats-operator-preview button { font:inherit; color:var(--ts-ink); background:var(--ts-bg); border:1px solid var(--ts-line); border-radius:7px; padding:9px 13px; cursor:pointer; min-height:44px; }
+#textstats-operator-preview button[aria-pressed="true"] { background:var(--ts-accent);color:var(--ts-on);border-color:var(--ts-accent); }
+#textstats-operator-preview .focus { background:var(--ts-soft);padding:16px;border-radius:8px; }
+#textstats-operator-preview .rows { display:grid;gap:14px;margin:16px 0; }
+#textstats-operator-preview .row { display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,3fr);gap:16px;border-bottom:1px solid var(--ts-line);padding-bottom:12px; }
+#textstats-operator-preview .actions { display:flex;flex-wrap:wrap;gap:8px;margin-top:16px; }
+#textstats-operator-preview footer { border-top:1px solid var(--ts-line); }
+#textstats-operator-preview textarea { display:block;width:100%;min-height:110px;resize:vertical;margin:10px 0;font:inherit;padding:12px;border:1px solid var(--ts-line);border-radius:7px;background:var(--ts-bg);color:var(--ts-ink); }
+#textstats-operator-preview details { margin:14px 0; }
+#textstats-operator-preview summary { cursor:pointer; }
+#textstats-operator-preview li { margin:8px 0; }
+#textstats-operator-preview [hidden] { display:none; }
+@media(max-width:480px) { #textstats-operator-preview .row { grid-template-columns:1fr;gap:4px; } #textstats-operator-preview header { padding-right:20px;padding-top:48px; } }
+</style>
+<header>
+  <div class="label">LABORATORIUM PROCESU / KARTA FUNKCJI</div>
+  <h2>Policz słowa w tekście</h2>
+  <p>Bieżąca zmiana: myślnik rozdziela słowa.</p>
+</header>
+<div class="notice">Makieta • migawka scenariusza F5 / 07-show • oceny i wykonania fikcyjne</div>
+<nav aria-label="Perspektywa operatora">
+  <button type="button" data-view="now" aria-pressed="true" aria-controls="ts-now">1. Co teraz?</button>
+  <button type="button" data-view="basis" aria-pressed="false" aria-controls="ts-basis">2. Na jakiej podstawie?</button>
+  <button type="button" data-view="history" aria-pressed="false" aria-controls="ts-history">3. Co się zmieniło?</button>
+</nav>
+<main>
+  <section id="ts-now" aria-label="Co teraz">
+    <div class="focus"><h3>W scenariuszu: czeka na Twój odbiór</h3><p>Reguła i przykład zostały poprawione. Zapisane kontrole są pozytywne. Odbiór tej zmiany jeszcze nie nastąpił.</p></div>
+    <div class="rows">
+      <div class="row"><span>Oczekiwany efekt</span><span><strong>biało-czerwony → 2 słowa</strong></span></div>
+      <div class="row"><span>Co jest gotowe</span><span>Opis reguły, przypadek testowy i wskazana wersja programu — wraz z fikcyjnymi ocenami.</span></div>
+      <div class="row"><span>Czego to nie dowodzi</span><span>Że prawdziwy TextStats działa poprawnie. W F5 go nie uruchamiano.</span></div>
+      <div class="row"><span>Podział pracy</span><span>Agent wyjaśnia i przygotowuje podstawę oceny. Ty decydujesz o odbiorze; pytanie do agenta nie jest zgodą.</span></div>
+    </div>
+    <div class="actions"><button type="button" data-prompt="explain">Przygotuj pytanie o odbiór</button><button type="button" data-prompt="missing">Zapytaj o brakujące dowody</button></div>
+  </section>
+  <section id="ts-basis" aria-label="Podstawa oceny" hidden>
+    <h3>Od reguły do wyniku</h3>
+    <div class="rows">
+      <div class="row"><span>Wymaganie</span><span>Myślnik rozdziela słowa.<br>Przegląd: PASS w symulacji.</span></div>
+      <div class="row"><span>Przypadek</span><span>Wejście: biało-czerwony. Oczekiwane: 2.<br>Przegląd poprawionego przypadku: PASS w symulacji.</span></div>
+      <div class="row"><span>Wykonanie</span><span>Wynik PASS przypisano do przypadku i programu w rewizji 3.<br>To zapis fikcyjnego wykonania, nie log działania TextStats.</span></div>
+      <div class="row"><span>Odbiór</span><span>Brak. Pozytywny wynik kontroli nie podejmuje decyzji za operatora.</span></div>
+    </div>
+    <details><summary>Identyfikatory i źródło migawki</summary><p>Sprawa 7, stan 6, zadanie 7521. Wymaganie CAP-01@2, przypadek AT-01@3, program CODE-01@3.</p><p>Źródło: flowable-trial/evidence/f5-restart/07-show.json.md. To zapis historyczny, nie odczyt bieżącej bazy.</p></details>
+    <div class="actions"><button type="button" data-prompt="challenge">Zleć sprawdzenie podstawy</button></div>
+  </section>
+  <section id="ts-history" aria-label="Historia zmiany" hidden>
+    <h3>Dlaczego były potrzebne poprawki?</h3>
+    <ol>
+      <li>Operator scenariusza pozwolił zastosować zmianę reguły.</li>
+      <li>Agent wskazał wpływ zmiany na przypadek testowy.</li>
+      <li>Pierwsza poprawka: zapis wykonania PASS, ale przegląd przypadku FAIL. Zielone wykonanie nie wystarczyło.</li>
+      <li>Powstały kolejne rewizje przypadku i programu. Nowe oceny zapisano jako PASS; wcześniejszy FAIL zachowano.</li>
+      <li>Proces czeka na odbiór konkretnego zestawu rewizji.</li>
+    </ol>
+    <div class="focus">Zgoda na zmianę została wykorzystana. Nie jest zgodą na odbiór ani na kolejną zmianę.</div>
+    <div class="actions"><button type="button" data-prompt="history">Poproś o wyjaśnienie poprawki</button></div>
+  </section>
+</main>
+<footer>
+  <label for="ts-message">Wiadomość do agenta — szkic do edycji</label>
+  <textarea id="ts-message">Wyjaśnij mi, co dokładnie miałbym odebrać w tej zmianie TextStats. Oddziel regułę, dowody i moją decyzję. Na razie niczego nie zatwierdzam.</textarea>
+  <details><summary>Kontekst, który docelowy widok dołączałby do wiadomości</summary><p>TextStats • sprawa 7 • stan 6 • CAP-01@2 / AT-01@3 / CODE-01@3 • źródło: historyczna migawka 07-show • tryb: analiza, bez zgody na zmianę lub odbiór.</p><p>Przed działaniem agent musiałby odczytać aktualny stan. To propozycja zachowania przyszłego interfejsu.</p></details>
+  <p class="label" id="ts-feedback" aria-live="polite">Przyciski zmieniają tylko szkic. Niczego nie wysyłają i nie zatwierdzają.</p>
+</footer>
+<script>
+(() => {
+ const root=document.getElementById('textstats-operator-preview');
+ const message=root.querySelector('#ts-message');
+ const prompts={
+  explain:'Wyjaśnij mi, co dokładnie miałbym odebrać w tej zmianie TextStats. Oddziel regułę, dowody i moją decyzję. Na razie niczego nie zatwierdzam.',
+  missing:'Wskaż, jakich dowodów brakuje, żeby ocenić rzeczywiste działanie tej funkcji TextStats. Oprzyj odpowiedź na zapisanej podstawie, nie na samym statusie PASS. Przygotuj propozycję, bez rozpoczynania nowego zakresu.',
+  challenge:'Sprawdź spójność wymagania, przypadku testowego i wersji programu dla tej zmiany. Wskaż dowody oraz rzeczy, których nie da się ustalić z migawki. Nie zmieniaj artefaktów i nie wykonuj odbioru.',
+  history:'Wyjaśnij, dlaczego poprzednie wykonanie miało PASS, a przypadek testowy FAIL. Pokaż, co wiadomo z historii i czego w niej brakuje. Nie dopowiadaj brakującej przyczyny.'
+ };
+ root.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
+  root.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+  ['now','basis','history'].forEach(name=>{root.querySelector('#ts-'+name).hidden=name!==button.dataset.view;});
+ }));
+ root.querySelectorAll('[data-prompt]').forEach(button=>button.addEventListener('click',()=>{
+  message.value=prompts[button.dataset.prompt];
+  root.querySelector('#ts-feedback').textContent='Szkic przygotowany. Możesz go zmienić i wykorzystać w rozmowie; nie został wysłany.';
+ }));
+})();
+</script>
+</div>

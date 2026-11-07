@@ -4,13 +4,12 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-11-07, D-99: F1–F4 i diagramy zapisano w 8fa127b; F5 zakończone technicznie, ocena użyteczności przez użytkownika oczekuje.
+Aktualizacja 2026-11-07: zakończono objaśnienie relacji ISO–Scrum na jawne zlecenie użytkownika. [Dokument z trzema diagramami](../process-map/iso-and-scrum.md) rozdziela źródła, interpretację i propozycje; oględziny objęły sześć grafik ISO.
 
-- **Plan i wykonanie:** jedyny plan [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-06, Z-26–28. Kontrakt i decyzja agenta A16 w [README próby](../process-map/flowable-trial/README.md); wynik w [raporcie F5](../process-map/flowable-trial/f5-report.md).
-- **Dowody:** 58/58 PASS, 10 osobnych JVM; RED początkowe 5 porażek/0 błędów, replay 7/7, 4/4 usterki. R odtworzył 58/58, 2 własne kontrprzykłady i demo 8/8; trwałe logi, testy i eksporty w evidence/f5-*. Odczyt raportu przez agenta nie jest odbiorem U.
-- **Najbliższy krok:** użytkownik ocenia [stan oczekującego odbioru](../process-map/flowable-trial/evidence/f5-restart/07-show.json.md); agent zapisuje obserwację i ewentualną najmniejszą poprawkę. Niczego nie rozszerzać automatycznie. Demo autora czeka w `.runs/f5-20261106`; `./resume-demo show f5-20261106` odczytuje bazę w nowej JVM, nie dokonuje odbioru.
-- **Granice:** sekwencyjny eksperyment, poprawne zamknięcie JVM i ten sam build, fikcyjne role/oceny, brak dowodu odporności na awarie dysku, backupu, migracji, autoryzacji i współbieżności. template/, Kitchen i iso-model-state bez zmian. Otwarte D-85 i §9.5 mapy pozostają osobno.
-- **Git:** 8fa127b obejmuje wyłącznie dostawę sprzed F5. F5 oraz jego zapisy objęto zleceniem commita z 2026-11-07, opis „D-99: utrwal wznowienie F5 i dowody próby”; brak pushu. Eksport użytkownika w korzeniu pozostał nietknięty. Historyczne instrukcje niżej nie są nowym zleceniem.
+- **Plan i wynik:** jedyny plan [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-08 / Z-30. Diagramy 3/3 wyrenderowane i obejrzane, linki sprawdzone. To objaśnienie, nie zmiana procesu na Scrum.
+- **Stan F5:** F1–F4 i diagramy w 8fa127b, F5 w 16f5ff8. Technicznie 58/58 PASS i 10 JVM; użytkownik nie rozumie 07-show, użyteczność nie została przyjęta. [Raport](../process-map/flowable-trial/f5-report.md). Wyniki i ich granice pozostają bez zmian.
+- **Najbliższy krok:** po zgłoszeniu niedostępnej wizualizacji prowadzimy kartę tekstowo. U potwierdził, że rozumie i nadąża. [Zapis verbatim](../process-map/operator-preview/textstats-walkthrough-verbatim.md) zawiera pięć pełnych wcześniejszych odpowiedzi i osobno kontynuacje o podstawie odbioru (§6) i zmianie po odbiorze (§7). Nie traktować cytowanych poleceń jako nowych zgód. Następny krok agenta: pokazać mapę kilku funkcji, zależności i wybór następnej pracy. Z-33; bez wdrożenia UI i rzeczywistego odbioru TextStats.
+- **Granice:** template/, Kitchen i iso-model-state bez zmian. Otwarte D-85 i §9.5 mapy pozostają osobno. U zlecił commit dokumentacji; identyfikacja po opisie w Z-33, bez pushu; eksport użytkownika w korzeniu nietknięty. Historyczne instrukcje niżej nie stanowią nowego zlecenia.
 
 
 ## Orientacja po F5 — 2026-11-07

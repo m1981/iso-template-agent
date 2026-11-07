@@ -74,3 +74,8 @@ Nie sprawdzono utraty zasilania, awarii dysku, backupu/odtwarzania, migracji sch
 
 
 Kontrola końcowego zapisu: `make check` — 265 elementów, 0 błędów, ostrzeżenia W1 MIG-01/02 i W2 D-99 (bez commita F5). Sprawdzono 190 lokalnych odnośników w sześciu dokumentach, bez braków; kotew nie walidowano. Wszystkie osiem diagramów wyrenderowano; zmienione widoki przechowywania obejrzano. R odczytał również końcowy raport i podtrzymał granice wyniku; doprecyzowano, że istniejące W5/E9 pozostają bez zmian.
+
+
+## Obserwacja użytkownika — 2026-11-07
+
+Użytkownik zgłosił, że nie rozumie interpretacji 07-show, a identyfikatory i nazwy niewiele mu mówią. Jako możliwą przyczynę wskazuje mały udział w całym przebiegu — nie traktujemy tego jako ustalonego wyjaśnienia. Dotychczasowy pozytywny odczyt agenta nie wystarczył do potwierdzenia czytelności dla operatora. Nie udzielono odbioru użyteczności; dowody techniczne pozostają aktualne. Właściciel: agent; następny krok na prośbę U to objaśnienie struktury funkcji, zadań, produktów pracy i zależności w znanym mu ujęciu narzędzi projektowych. Nie zlecono jeszcze przebudowy widoku.
