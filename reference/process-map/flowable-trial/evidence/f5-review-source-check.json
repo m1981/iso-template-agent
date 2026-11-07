@@ -1,0 +1,34 @@
+[
+  {
+    "path": "src/main/java/org/example/processlab/engine/EngineSession.java",
+    "matches": true
+  },
+  {
+    "path": "src/main/java/org/example/processlab/workflow/ChangeTrial.java",
+    "matches": true
+  },
+  {
+    "path": "src/main/java/org/example/processlab/workflow/ChangeProcess.java",
+    "matches": true
+  },
+  {
+    "path": "src/test/java/org/example/processlab/PersistentTrialTest.java",
+    "matches": true
+  },
+  {
+    "path": "src/test/java/org/example/processlab/RestartWorker.java",
+    "matches": true
+  },
+  {
+    "path": "src/test/java/org/example/processlab/DemoCommand.java",
+    "matches": true
+  },
+  {
+    "path": "resume-demo",
+    "matches": true
+  },
+  {
+    "path": "pom.xml",
+    "matches": true
+  }
+]

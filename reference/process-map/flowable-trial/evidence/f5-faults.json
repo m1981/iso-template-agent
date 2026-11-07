@@ -1,0 +1,54 @@
+[
+  {
+    "case": "memory-instead-of-file",
+    "exit_code": 1,
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "failed_tests": [
+      "F5_01_to_03_and_05_resumeInNewJvmsAndPreserveAcceptedHistory"
+    ],
+    "semantic_failure": true,
+    "log": "f5-memory-instead-of-file.log"
+  },
+  {
+    "case": "schema-upgrade-on-reopen",
+    "exit_code": 1,
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "failed_tests": [
+      "F5_04_emptyModelStoreIsNotInitializedOnReopen"
+    ],
+    "semantic_failure": true,
+    "log": "f5-schema-upgrade-on-reopen.log"
+  },
+  {
+    "case": "ignore-model-content",
+    "exit_code": 1,
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "failed_tests": [
+      "F5_04_changedXmlIsRefusedForBothEngines"
+    ],
+    "semantic_failure": true,
+    "log": "f5-ignore-model-content.log"
+  },
+  {
+    "case": "choose-first-definition",
+    "exit_code": 1,
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "failed_tests": [
+      "F5_04_duplicateDefinitionsAreRefusedForBothEngines"
+    ],
+    "semantic_failure": true,
+    "log": "f5-choose-first-definition.log"
+  }
+]

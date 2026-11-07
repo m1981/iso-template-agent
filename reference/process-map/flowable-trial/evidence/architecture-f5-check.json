@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-06",
+  "scope": "F5 updates memory/file storage and reopen; data records unchanged",
+  "document": "architecture.md",
+  "document_sha256": "0f16b522e0749e06c6b08c79e54b4d765362ccf4cb434279270b9ec5357ba158",
+  "mermaid_cli": "11.17.0",
+  "rendered": 8,
+  "exit": 0,
+  "visual_check": "Changed views 2 and 3 inspected; other six unchanged in Mermaid source since D-98",
+  "diagrams": [
+    {
+      "number": 1,
+      "sha256": "a805d284e00178fa5d8a33870edd4886fdaf571a85cf13891e5715e5934ae0dc"
+    },
+    {
+      "number": 2,
+      "sha256": "4d50b1df91ebe81ee990b4fbe104aa55421565334fc3ea5d6feb62ae94591dfd"
+    },
+    {
+      "number": 3,
+      "sha256": "e599484a53c54ca35410ae27a83afc13e36329c62976362bd6207a01787efe1c"
+    },
+    {
+      "number": 4,
+      "sha256": "d0211a83344d1f23a2d059b0431d2132fd374f692415b4c0cad0f1f2bc0c7cb5"
+    },
+    {
+      "number": 5,
+      "sha256": "45e4ba2c2f9ca05c9fc8f1ad95993470e897b115c656c870a2a5259c8a81240e"
+    },
+    {
+      "number": 6,
+      "sha256": "c6145c0b3f0eda5be4b6b1ad9a00cc4ccd286ea906609752b42a1f6017f0177b"
+    },
+    {
+      "number": 7,
+      "sha256": "a611e46ae233a91b0d0ed91f4a0137ebe88f055b3eea4daa62e32bee832e22b0"
+    },
+    {
+      "number": 8,
+      "sha256": "d792d83d373b0730a261c999f57491a276a147b4228bac8490b4fd4e137a8cfe"
+    }
+  ]
+}

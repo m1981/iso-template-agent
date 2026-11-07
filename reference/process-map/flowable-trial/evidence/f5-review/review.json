@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-06",
+  "reviewer": "review_flowable_f5",
+  "source": "isolated copy made by copy_trial; shared toolchain cache only",
+  "full_regression": {
+    "command": "./verify -o clean verify -Drestart.output=review-evidence/restart",
+    "exit": 0,
+    "tests": 58,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "child_jvms": 10,
+    "log": "verify.log"
+  },
+  "own_counterexamples": {
+    "command": "./verify -o -Dtest=ReviewerPersistenceTest test",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "source": "ReviewerPersistenceTest.java",
+    "log": "counterexamples.log",
+    "cases": [
+      "raw H2 with only SENTINEL table must not gain Flowable tables or lose data on refused reopen",
+      "extra resource-only BPMN deployment must be refused even when there is still only one process definition"
+    ]
+  },
+  "manual_demo": {
+    "commands": "./resume-demo PHASE reviewer; create, show, apply, fail, correct, show, accept-next, show",
+    "results": "manual-results.json",
+    "all_eight_exits": 0
+  },
+  "report_read": {
+    "file": "author evidence/f5-restart/07-show.json.md",
+    "pending": "OPERATOR acceptance, task 7521, no acceptance recorded",
+    "basis": [
+      "CAP-01@2",
+      "AT-01@3",
+      "CODE-01@3"
+    ],
+    "checks": "requirement/test review and testExecution PASSED; historical failed AT-01@2 remains",
+    "limitation": "Agent comprehension only; not operator acceptance or a real TextStats execution"
+  },
+  "finding": {
+    "severity": "readability",
+    "text": "No active authorization may be read as missing authorization; ALLOW/APPLY history shows authorization already consumed. Explain in instructions/report. Not a persistence blocker."
+  },
+  "conclusion": "No open technical blockers in the stated sequential same-build graceful-restart scope. No crash recovery, identity security or operator usability acceptance demonstrated."
+}

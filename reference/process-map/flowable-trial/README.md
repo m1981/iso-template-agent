@@ -4,7 +4,9 @@ Eksperyment edukacyjny, D-95/D-96/D-97. Jedyny plan i rejestr wykonania: [mapa �
 
 **Dostawa F4:** [pięć widoków wykonanego scenariusza](evidence/f4-demo.md); opis i dowody w sekcji „Wynik F4” na końcu. Testy całego projektu: `./verify -o clean verify`.
 
-**Widoki przed F5 (D-98):** [osiem diagramów Mermaid — C4, zależności i struktury danych](architecture.md). Zacznij od widoków 1–3; opisują istniejące F4.
+**Widoki przed F5 (D-98):** [osiem diagramów Mermaid — C4, zależności i struktury danych](architecture.md). Zacznij od widoków 1–3; opisują istniejące F4 i aktualizację przechowywania F5.
+
+**Dostawa F5:** [raport wznowienia, dowody i ocena dopasowania](f5-report.md); [stan do oceny przez operatora](evidence/f5-restart/07-show.json.md).
 
 ## F3 — kontrakt reguł przed implementacją
 
@@ -133,7 +135,7 @@ Zakres mutacji: przywrócenie fallbacku dla nieznanego rodzica wdrożenia; dopus
 
 ### Odtworzenie F3
 
-[Historyczne sumy SHA-256 F3](evidence/f3-inputs.sha256) identyfikują stan przed F4. F4 rozszerza konfigurację silnika, API kwalifikatora i POM; bieżący zestaw opisuje evidence/f4-inputs.sha256. Nie oczekujemy identyczności tych zmienionych plików ze starymi sumami.
+[Historyczne sumy SHA-256 F3](evidence/f3-inputs.sha256) identyfikują stan przed F4. F4 rozszerza konfigurację silnika, API kwalifikatora i POM; zestaw F4 opisuje evidence/f4-inputs.sha256, po F5 historyczny. Nie oczekujemy identyczności tych zmienionych plików ze starymi sumami.
 
 Z katalogu próby, po przygotowaniu JDK/cache zgodnie z „Uruchomienie”:
 
@@ -258,6 +260,65 @@ Silnik przejął prowadzenie zadań, synchroniczne przejścia, transakcję i his
 
 Dalsza praca to F5: trwałość po zakończeniu JVM i wznowienie przez nowy proces oraz ocena widoku. Ten etap wymaga osobnego zlecenia. Nie zmieniono template/, W5/E9, Kitchen ani iso-model-state. Nie wykonano commita/pushu.
 
-Bieżące źródła/testy/POM i odtwarzacze identyfikuje [f4-inputs.sha256](evidence/f4-inputs.sha256); sprawdzenie z katalogu próby: `shasum -a 256 -c evidence/f4-inputs.sha256`.
+Historyczne źródła/testy/POM i odtwarzacze F4 identyfikuje [f4-inputs.sha256](evidence/f4-inputs.sha256); sprawdzenie tych sum wymaga stanu commita 8fa127b; F5 zmienia EngineSession/ChangeTrial i odtwarzacz F4. Bieżące sumy są w evidence/f5-inputs.sha256.
 
 Kontrola zapisu F4: [make check](evidence/f4-repository-check.log) — kod 0, 263 elementy, 0 błędów; znane W1 MIG-01/02 i W2 D-92–97 bez commitów. [Kontrola odnośników](evidence/f4-document-check.json): sprawdzono 147 lokalnych ścieżek w pięciu dokumentach, brak brakujących plików. Sprawdzenie sum bieżących wejść i `git diff --check` zakończone bez błędów. Testów dystrybucji nie ponawiano: template/ nie zmieniano.
+
+
+## F5 — kontrakt przed kodem (D-99, 2026-11-06)
+
+**A16 — decyzja agenta:** rozdzielić jawne utworzenie bazy od ponownego otwarcia. H2 plikowe w katalogu wskazanym dla próby; wznowienie wymaga istniejącego pliku (IFEXISTS), nie wdraża ponownie modeli i nie inicjuje danych. Przy wznowieniu oczekujemy dokładnie jednej definicji BPMN i DMN oraz zgodności zapisanych XML z zasobami tej wersji programu. Reopen używa schemaUpdate=false. Wznowienie dotyczy tego samego przypiętego buildu; zgodność XML nie dowodzi kompatybilności innego kodu Java/codec. Inna/niejednoznaczna konfiguracja daje odmowę, nie wybór latest ani migrację. To ograniczenie jednej próby, nie ogólny katalog wersji. Odczyt nie dopisuje domenowych wyników, poleceń, zadań ani historii DMN; silnik może aktualizować swoje metadane techniczne.
+
+Minimalna zmiana: wspólna konfiguracja EngineSession z wariantem URL i tworzenia schematu; ChangeTrial create/reopen z publicznych usług repozytorium. Bez nowej bazy domenowej, serwera, zależności czy manifestów wejść. Stan sprawy nadal w caseState; etapy w BPMN. Podstawa techniczna: [Flowable Configuration](https://www.flowable.com/open-source/docs/bpmn/ch03-Configuration), [H2: istniejąca baza](https://www.h2database.com/html/features.html#database_only_if_exists); zachowanie sprawdzimy na przypiętym Flowable 8.0.0/H2 2.4.240.
+
+| Próba | Oczekiwanie / dowód |
+| --- | --- |
+| F5-01 Zamknięcie JVM i nowa JVM | Ta sama instancja, taskId, rewizje, polecenia, historia zadań/DMN i definicje. Każda faza osobnym procesem z potwierdzonym wyjściem; dane tylko z plikowej bazy, nie z przekazanego JSON |
+| F5-02 Wznowienie i kontynuacja | Po restarcie negatywny przegląd kieruje do korekty; nowe rewizje i wyniki dają oczekujące zadanie operatora, bez odbioru. Stare dowody pozostają; ponowienie wcześniej skutecznej komendy odrzucone bez zmiany stanu |
+| F5-03 Historyczny odbiór i następca | Jawny fikcyjny odbiór, następna sprawa i kolejny restart: poprzedni odbiór niezmieniony, następca wskazuje poprzednika i oczekuje nowej zgody |
+| F5-04 Błędny katalog lub model | Reopen nieistniejącej bazy odmawia bez utworzenia pustej; create istniejącej odmawia bez nadpisania. Inna treść modelu lub dodatkowa definicja daje odmowę, nie automatyczną migrację |
+| F5-05 Widok z bazy | Raport pokazuje stan, konkretną podstawę, wyniki i oczekującą decyzję bez XML. Dwukrotny odczyt nie tworzy nowych zadań, ocen/odbioru, definicji lub historii DMN |
+| F5-06 Odtworzenie i ocena | Osobny recenzent odtwarza próbę z trwałej instrukcji; raport oddziela mechanizmy silnika, własny kod i luki. Ocena zrozumienia/użyteczności przez operatora pozostaje do obserwacji, nie jest zaliczana testami |
+
+Kolejność: kontrakt → osobny przegląd → kompilujący się RED → minimalne GREEN → pełna regresja i wybrane celowe usterki → odtworzenie przez recenzenta → raport i punkt wznowienia. Nie badamy przerwania prądu, awarii dysku, backupu, wielu piszących klientów ani migracji modeli/formatu caseState. Próba restartu oznacza poprawne zamknięcie procesu JVM.
+
+### F5 — jak odtworzyć i obejrzeć próbę
+
+W katalogu tego README, na przygotowanym środowisku F2, bez pobierania nowych zależności:
+
+```sh
+./verify -o clean verify -Drestart.output=evidence/f5-restart
+python3 verify-persistence.py --red
+python3 verify-persistence.py
+```
+
+Pierwsze polecenie uruchamia całą regresję. PersistentTrialTest uruchamia **10 osobnych JVM** i czeka na ich wyjście. Następna JVM dostaje jedynie fazę, ścieżkę bazy i ścieżkę eksportu — nie dostaje stanu poprzednika. Eksportowane JSON-y zawierają tożsamości, treść stanu/historii i PID; pliki Markdown pochodzą z usług silnika. Test porównuje pełne zapisane dane przy każdym `show`. Wybrane usterki i RED są uruchamiane na tworzonych przez skrypt kopiach; instrukcja nie zależy od zachowanej ścieżki tymczasowej.
+
+**Demo ręczne — każda linia kończy JVM, następna ją uruchamia od nowa:**
+
+```sh
+./resume-demo create moja-proba
+./resume-demo show moja-proba
+./resume-demo apply moja-proba
+./resume-demo fail moja-proba
+./resume-demo correct moja-proba
+./resume-demo show moja-proba
+```
+
+- `create`: tworzy nową bazę i fikcyjną propozycję zmiany; oczekuje zgody w scenariuszu.
+- `apply`: odgrywa zgodę w fabule, zastosowanie zmiany i przygotowanie materiałów; oczekuje sprawdzeń.
+- `fail`: wpisuje fikcyjny negatywny przegląd testu przy pozytywnym wyniku wykonania; kieruje do korekty.
+- `correct`: odgrywa poprawkę i nowe oceny, a także sprawdza odmowę powtórzonego ID polecenia; oczekuje odbioru.
+- `show`: odczytuje bieżący stan bez wykonywania powyższych działań. Tutaj zatrzymaj się, żeby ocenić raport.
+
+Otwórz `.runs/moja-proba/show.json.md`. Baza to `.runs/moja-proba/process.mv.db`; raport jej nie zastępuje. Możesz zakończyć terminal i później ponowić `show`. `create` z tą samą nazwą odmawia; nową próbę rozpocznij pod inną nazwą. Skrypt działa lokalnie, na testowym classpath (H2 ma zakres test); nie jest instalowanym CLI do prowadzenia rzeczywistego projektu. JAR nie jest samodzielną aplikacją.
+
+Dodatkowe `./resume-demo accept-next moja-proba` **jawnie odgrywa fikcyjny odbiór** i tworzy następną sprawę. Potem `show` pokaże oba stany. To nie akceptacja procesu przez użytkownika ani rzeczywistego produktu. Nie ma tu automatycznego przypisywania milczeniu zgody.
+
+Podczas oceny raportu operator powinien móc własnymi słowami wskazać: co obecnie czeka, której rewizji dotyczy, co już sprawdzono, kto wykonuje następny krok i czy nastąpił odbiór. Wynik tej obserwacji zapisujemy dopiero po odpowiedzi — nie wynika z 58 zielonych testów. Próg czasu wznowienia ani sukces użytkowy nie są tu z góry zadeklarowane.
+
+
+Uwaga środowiskowa z odtworzenia 2026-11-06: lokalny Homebrew Python 3.14 ma niespójne libexpat; narzędzia czytające XML uruchomiono przez `/usr/bin/python3` (3.9.6, sprawdzony parser). To nie RED produktu. Nie naprawiano instalacji systemowej. Na innym środowisku wybierz działający Python 3.9+ z modułem ElementTree. Demo korzysta z już dostępnego Surefire i jawnego `-Dtest=DemoCommand`, bez dodatkowego pluginu Maven do budowania classpath. DemoCommand jest wejściem scenariusza, nie asercją zaliczającą regresję; domyślny wzorzec testów go nie wybiera.
+
+
+Jak czytać upoważnienie po wykonaniu zmiany: „brak aktywnego upoważnienia” oznacza, że nie ma zgody do ponownego wykorzystania. Historyczna zgoda ALLOW i jej wykorzystanie APPLY są w sekcji poleceń. Nie oznacza to, że wcześniej wykonano zmianę bez zgody; późniejszy odbiór nadal jest osobną czynnością.

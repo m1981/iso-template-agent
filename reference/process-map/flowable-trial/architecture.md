@@ -1,6 +1,6 @@
-# Architektura i dane próby Flowable — stan po F4
+# Architektura i dane próby Flowable — F4 z wariantem wznowienia F5
 
-2026-11-05 · D-98 · dokumentacja istniejącej implementacji. **F5 nie zostało wykonane.** Kod źródłowy pozostaje źródłem prawdy; diagramy są jego ręcznie opracowanymi widokami.
+2026-11-05 / aktualizacja 2026-11-06 · D-98/D-99 · dokumentacja istniejącej implementacji. **F5 dodaje wariant plikowej bazy i jawne wznowienie; odbiór użytkowy pozostaje osobny.** Kod źródłowy pozostaje źródłem prawdy; diagramy są jego ręcznie opracowanymi widokami.
 
 Czytaj najpierw **1 → 2 → 3**: otoczenie, wykonanie, odpowiedzialności. Potem wybierz **4** dla zależności kodu, **5** dla śladu produktów albo **6 → 7 → 8** dla danych i poleceń. Strzałki nie określają kolejności pracy, chyba że ich opis mówi o wywołaniu. Przebieg w czasie pokazuje osobno [demo 1–5](evidence/f4-demo.md), a źródłem przejść jest [BPMN](src/main/resources/change.bpmn20.xml).
 
@@ -34,14 +34,14 @@ flowchart LR
 
 ## 2. C4 — kontenery i miejsca danych
 
-„Kontener” C4 oznacza aplikację albo magazyn danych, nie kontener Docker. H2 pokazano jako osobny magazyn logiczny, **ale jest osadzone w tej samej JVM**. Flowable BPMN i DMN to biblioteki tej aplikacji, nie osobne serwery. Maven uruchamia testową JVM przez Surefire.
+„Kontener” C4 oznacza aplikację albo magazyn danych, nie kontener Docker. H2 pokazano jako osobny magazyn logiczny, **ale jest osadzone w tej samej JVM**. W F4 jest pamięciowe; F5 dodaje bazę plikową, otwieraną kolejno przez nowe JVM. Flowable BPMN i DMN to biblioteki tej aplikacji, nie osobne serwery. Maven uruchamia testową JVM przez Surefire.
 
 ```mermaid
 flowchart TB
     U["Operator<br/>[osoba]"]
-    subgraph LAB["Laboratorium procesu F4 — system"]
+    subgraph LAB["Laboratorium procesu F4/F5 — system"]
         A["Scenariusz i proces<br/>[aplikacja: Java 17 / JUnit / Flowable 8]<br/>Jedna JVM: testy, fasada, BPMN i DMN"]
-        H[("Stan silników<br/>[H2 in-memory / JDBC]<br/>W tej samej JVM; znika po zamknięciu")]
+        H[("Stan silników<br/>[osadzone H2 / JDBC]<br/>F4: pamięć; F5: plik na dysku")]
         F[("Eksporty dowodów<br/>[lokalne pliki evidence]<br/>Raport demo i logi")]
         A -->|"Usługi Flowable / JDBC"| H
         A -->|"Eksport demo: parametr demo.output"| F
@@ -54,11 +54,11 @@ flowchart TB
     class H,F store
 ```
 
-H2 ma w [POM](pom.xml) zakres `test`. Pokazany wariant działa w testach; zbudowany JAR nie jest samodzielną aplikacją z dołączonym sterownikiem. Źródła: [EngineSession](src/main/java/org/example/processlab/engine/EngineSession.java), [ChangeTrial](src/main/java/org/example/processlab/workflow/ChangeTrial.java). Trwałość instancji po zakończeniu JVM należy do niezleconego F5. Plik demo już teraz pozostaje na dysku, ale nie umożliwia wznowienia tej instancji.
+H2 ma w [POM](pom.xml) zakres `test`. Pokazany wariant działa w testach; zbudowany JAR nie jest samodzielną aplikacją z dołączonym sterownikiem. Źródła: [EngineSession](src/main/java/org/example/processlab/engine/EngineSession.java), [ChangeTrial](src/main/java/org/example/processlab/workflow/ChangeTrial.java). F5 używa `createPersistent` i `reopenPersistent`: utworzenie jest jawne, wznowienie wymaga istniejącej bazy, schematu i tej samej pary modeli. Nie wdraża ich ponownie. Dziesięć osobnych JVM sprawdza odtworzenie instancji z pliku, nie z raportu. Instrukcja: [README F5](README.md#f5--jak-odtworzyć-i-obejrzeć-próbę).
 
 ## 3. C4 — komponenty aplikacji
 
-To grupy odpowiedzialności wewnątrz jednej JVM. Na rysunku pominięto rozruch: ChangeTrial wdraża BPMN/DMN i łączy obiekty, EngineSession tworzy/zamyka silniki.
+To grupy odpowiedzialności wewnątrz jednej JVM. Na rysunku pominięto rozruch: ChangeTrial przy tworzeniu wdraża BPMN/DMN, a przy wznowieniu odczytuje zapisane definicje i kontroluje ich zgodność; łączy obiekty. EngineSession tworzy/zamyka silniki.
 
 ```mermaid
 flowchart TB
@@ -77,7 +77,7 @@ flowchart TB
         Q -->|"Publiczne API oceny"| D
         F -->|"DmnQualifier przed odbiorem, bez historii"| Q
     end
-    H[("Wspólne H2<br/>[magazyn w pamięci tej samej JVM]")]
+    H[("Wspólne H2<br/>[osadzone w JVM; wariant memory lub file]")]
     B -->|"Zadania, caseState, historia"| H
     D -->|"Historia kwalifikacji w transakcji przebiegu"| H
     classDef component fill:#e4eff7,color:#173c56,stroke:#216a9e
@@ -318,8 +318,8 @@ Envelope identyfikuje konkretną instancję, aktywne zadanie i oczekiwaną wersj
 
 ## Notacja, aktualizacja i granice
 
-**Decyzja agenta A15, 2026-11-05:** pokazać poziomy C4 Context/Container/Component przy użyciu Mermaid flowchart z jawnymi typami i granicami, zależności również jako flowchart, a rekordy jako classDiagram. Natywny renderer C4 po próbnej generacji nakładał opisy na węzły; flowchart zachowuje treść poziomów C4 i daje czytelniejsze rozmieszczenie. Nie jest to składnia C4Context/C4Container/C4Component. Rekordy odpowiadają kodowi; nie tworzymy pozornego relacyjnego schematu bazy ani osobnych usług dla bibliotek. Diagramy ilustrują wybrany przekrój F4, nie pełny model ISO.
+**Decyzja agenta A15, 2026-11-05:** pokazać poziomy C4 Context/Container/Component przy użyciu Mermaid flowchart z jawnymi typami i granicami, zależności również jako flowchart, a rekordy jako classDiagram. Natywny renderer C4 po próbnej generacji nakładał opisy na węzły; flowchart zachowuje treść poziomów C4 i daje czytelniejsze rozmieszczenie. Nie jest to składnia C4Context/C4Container/C4Component. Rekordy odpowiadają kodowi; nie tworzymy pozornego relacyjnego schematu bazy ani osobnych usług dla bibliotek. Diagramy ilustrują wybrany przekrój F4/F5, nie pełny model ISO. Aktualizacja A16: wariant file zmienia przechowywanie, nie rekordy domeny ani przebieg.
 
 Podstawa notacji: [C4 — poziom kontenerów](https://c4model.com/diagrams/container) i [Mermaid — C4](https://mermaid.js.org/syntax/c4.html). O zgodności z tą implementacją rozstrzygają podane źródła lokalne. Po zmianie typów, zależności albo granic wykonania trzeba zaktualizować odpowiedni widok; nie ma automatycznej synchronizacji z kodem.
 
-F5 będzie wymagało uzupełnienia widoku przechowywania i wznowienia. Nie przedstawiamy tej przyszłej konfiguracji jako już działającej. Dokument nie zmienia reguł procesu, nie jest nowym planem ani dowodem odbioru.
+F5 obejmuje poprawne zamknięcie JVM i ponowne otwarcie na tym samym buildzie. Nie dowodzi odporności na utratę zasilania, migracji, backupu ani zgodności innego kodu Java przy takich samych XML. Dokument nie zmienia reguł procesu, nie jest nowym planem ani dowodem odbioru.

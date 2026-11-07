@@ -27,6 +27,28 @@ public final class EngineSession implements AutoCloseable {
         if (name == null || !name.matches("[A-Za-z0-9_]+")) {
             throw new IllegalArgumentException("Database name must contain only letters, digits or underscores");
         }
+        return open(name, "jdbc:h2:mem:" + name + ";DB_CLOSE_DELAY=0", true, beans);
+    }
+
+    /** Sequential, isolated experiment only. Reopen never creates or upgrades the schema. */
+    public static EngineSession openFile(java.nio.file.Path database, boolean create, java.util.Map<String,Object> beans) {
+        var path=Objects.requireNonNull(database).toAbsolutePath().normalize();
+        if (path.toString().contains(";") || path.toString().contains("\n") || path.toString().contains("\r")) {
+            throw new IllegalArgumentException("Database path must not contain JDBC options or line breaks");
+        }
+        var file=java.nio.file.Path.of(path + ".mv.db");
+        if (create ? java.nio.file.Files.exists(file) : !java.nio.file.Files.isRegularFile(file)) {
+            throw new IllegalArgumentException(create ? "Database already exists" : "Database does not exist");
+        }
+        if (create) {
+            try { java.nio.file.Files.createDirectories(path.getParent()); }
+            catch (java.io.IOException failure) { throw new java.io.UncheckedIOException(failure); }
+        }
+        return open("file_"+java.util.UUID.randomUUID().toString().replace("-",""),
+                "jdbc:h2:file:"+path+(create ? "" : ";IFEXISTS=TRUE"), create, beans);
+    }
+
+    private static EngineSession open(String name, String jdbcUrl, boolean createSchema, java.util.Map<String,Object> beans) {
         var decisions = new AtomicReference<DmnEngine>();
         var dmnConfiguration = new DmnEngineConfiguration();
         dmnConfiguration.setEngineName(name + "_dmn");
@@ -37,11 +59,11 @@ public final class EngineSession implements AutoCloseable {
         configuration.setDisableIdmEngine(true);
         configuration.setDisableEventRegistry(true);
         configuration.setEngineName(name);
-        configuration.setJdbcUrl("jdbc:h2:mem:" + name + ";DB_CLOSE_DELAY=0");
+        configuration.setJdbcUrl(jdbcUrl);
         configuration.setJdbcDriver("org.h2.Driver");
         configuration.setJdbcUsername("sa");
         configuration.setJdbcPassword("");
-        configuration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+        configuration.setDatabaseSchemaUpdate(createSchema ? ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE : ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE);
         configuration.setAsyncExecutorActivate(false);
         configuration.setBeans(java.util.Map.copyOf(beans));
         configuration.setHistoryLevel(org.flowable.common.engine.impl.history.HistoryLevel.FULL);

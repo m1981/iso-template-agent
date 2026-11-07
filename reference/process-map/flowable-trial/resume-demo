@@ -1,0 +1,19 @@
+#!/bin/sh
+# Local fictional harness; no real approvals or TextStats executions.
+set -eu
+trial_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$trial_root"
+if [ "$#" -ne 2 ]; then
+  echo 'Usage: ./resume-demo create|show|apply|fail|correct|accept-next NAME' >&2
+  exit 2
+fi
+case "$1" in create|show|apply|fail|correct|accept-next) ;; *) echo 'Unknown phase' >&2; exit 2;; esac
+case "$2" in ''|*[!A-Za-z0-9_-]*) echo 'NAME: letters, digits, underscore or dash only' >&2; exit 2;; esac
+trial_directory="$trial_root/.runs/$2"
+mkdir -p "$trial_directory"
+./verify -o -Dtest=DemoCommand "-Ddemo.phase=$1" "-Ddemo.database=$trial_directory/process" \
+  "-Ddemo.output=$trial_directory/$1.json" test > "$trial_directory/$1.log" 2>&1 || {
+  cat "$trial_directory/$1.log" >&2
+  exit 1
+}
+cat "$trial_directory/$1.json.md"

@@ -57,6 +57,9 @@ def main():
         with tempfile.TemporaryDirectory(prefix='flowable-f4-') as temporary:
             directory=Path(temporary); copy_support.copy_trial(directory)
             if args.red:
+                # Historical F4 API predates persistence; exclude only F5 tests on this disposable copy.
+                for test in ('PersistentTrialTest.java', 'RestartWorker.java', 'DemoCommand.java'):
+                    (directory/'src/test/java/org/example/processlab'/test).unlink(missing_ok=True)
                 for name_in_source,source in json.loads((ROOT/'evidence/f4-red-sources.json').read_text()).items():
                     path=Path(name_in_source)
                     if path.is_absolute() or '..' in path.parts or not name_in_source.startswith('src/main/'):

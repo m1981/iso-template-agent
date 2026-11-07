@@ -32,8 +32,8 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running org.example.processlab.ChangeProcessTest
-[ERROR] Tests run: 13, Failures: 13, Errors: 0, Skipped: 0, Time elapsed: 3.107 s <<< FAILURE! -- in org.example.processlab.ChangeProcessTest
-[ERROR] org.example.processlab.ChangeProcessTest.F4_02_dmnPriorityHandlesMissingAndConflictingEvidence -- Time elapsed: 1.067 s <<< FAILURE!
+[ERROR] Tests run: 13, Failures: 13, Errors: 0, Skipped: 0, Time elapsed: 4.714 s <<< FAILURE! -- in org.example.processlab.ChangeProcessTest
+[ERROR] org.example.processlab.ChangeProcessTest.F4_02_dmnPriorityHandlesMissingAndConflictingEvidence -- Time elapsed: 1.824 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -44,7 +44,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_02_dmnPriorityHandlesMissingAndConflictingEvidence(ChangeProcessTest.java:111)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults -- Time elapsed: 0.303 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults -- Time elapsed: 0.476 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -55,7 +55,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_04_changeDuringReviewRejectsLateCommandAndPreservesOldResults(ChangeProcessTest.java:150)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite -- Time elapsed: 0.272 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite -- Time elapsed: 0.308 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -66,7 +66,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_05_nextChangePreservesPreviousAcceptanceAndRejectsOverwrite(ChangeProcessTest.java:169)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_04_newProposalRevokesPriorAuthorizationBeforeApplication -- Time elapsed: 0.215 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_04_newProposalRevokesPriorAuthorizationBeforeApplication -- Time elapsed: 0.391 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -76,7 +76,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:46)
 	at org.example.processlab.ChangeProcessTest.F4_04_newProposalRevokesPriorAuthorizationBeforeApplication(ChangeProcessTest.java:138)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_04_changeBeforeAcceptanceCannotReuseOldDecision -- Time elapsed: 0.163 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_04_changeBeforeAcceptanceCannotReuseOldDecision -- Time elapsed: 0.240 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -87,7 +87,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_04_changeBeforeAcceptanceCannotReuseOldDecision(ChangeProcessTest.java:160)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately -- Time elapsed: 0.136 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately -- Time elapsed: 0.172 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -98,7 +98,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_03_oldTaskVersionInstanceAndCommandIdentityAreCheckedSeparately(ChangeProcessTest.java:124)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry -- Time elapsed: 0.137 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry -- Time elapsed: 0.167 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -109,7 +109,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_06_failureAfterQualificationRollsBackAllEffectsAndAllowsExactRetry(ChangeProcessTest.java:185)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnInitialImport -- Time elapsed: 0.127 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnInitialImport -- Time elapsed: 0.180 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:74)
@@ -117,7 +117,7 @@ org.opentest4j.AssertionFailedError: Expected java.lang.IllegalArgumentException
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3223)
 	at org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnInitialImport(ChangeProcessTest.java:237)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits -- Time elapsed: 0.126 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits -- Time elapsed: 0.222 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -127,7 +127,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:46)
 	at org.example.processlab.ChangeProcessTest.F4_01_authorizationAndAcceptanceAreSeparateAndSilenceWaits(ChangeProcessTest.java:79)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_09_exportsExecutedScenario -- Time elapsed: 0.135 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_09_exportsExecutedScenario -- Time elapsed: 0.153 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -137,7 +137,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.start(ChangeProcessTest.java:46)
 	at org.example.processlab.ChangeProcessTest.F4_09_exportsExecutedScenario(ChangeProcessTest.java:249)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnResults -- Time elapsed: 0.119 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnResults -- Time elapsed: 0.185 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -148,7 +148,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_08_futureReferencesAreRejectedOnResults(ChangeProcessTest.java:223)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence -- Time elapsed: 0.153 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence -- Time elapsed: 0.166 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -159,7 +159,7 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 	at org.example.processlab.ChangeProcessTest.readyToAssess(ChangeProcessTest.java:64)
 	at org.example.processlab.ChangeProcessTest.F4_02_failLoopsToNewPreparationWithoutRewritingOldEvidence(ChangeProcessTest.java:100)
 
-[ERROR] org.example.processlab.ChangeProcessTest.F4_07_codecAndViewUseStoredStateAndEngineHistory -- Time elapsed: 0.130 s <<< FAILURE!
+[ERROR] org.example.processlab.ChangeProcessTest.F4_07_codecAndViewUseStoredStateAndEngineHistory -- Time elapsed: 0.197 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:159)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
@@ -193,12 +193,12 @@ org.opentest4j.AssertionFailedError: A real BPMN instance must be started ==> ex
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  5.570 s
-[INFO] Finished at: 2026-11-05T00:27:25+01:00
+[INFO] Total time:  8.767 s
+[INFO] Finished at: 2026-11-06T00:26:55+01:00
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project flowable-trial: There are test failures.
 [ERROR] 
-[ERROR] See /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/flowable-f4-hai98u5y/target/surefire-reports for the individual test results.
+[ERROR] See /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/flowable-f4-43f_1ksy/target/surefire-reports for the individual test results.
 [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
 [ERROR] -> [Help 1]
 [ERROR] 

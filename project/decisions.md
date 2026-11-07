@@ -76,6 +76,12 @@ Format:
 
 ## Rozstrzygnięte
 
+### D-99 Commit dotychczasowej pracy i wykonanie F5
+- status: resolved
+- choice: zapisać dotychczasowe zmiany i wykonać F5 — trwałość, wznowienie w nowej JVM i ocenę dopasowania
+- date: 2026-11-06
+- notes: Użytkownik „commit i wykonaj F5”. Zapis F1–F4/diagramów: 8fa127b. F5 według mapy §9.3–9.4; H2 plikowe w izolowanej próbie, TDD, osobne odtworzenie i raport. Odbiór użyteczności pozostaje decyzją użytkownika. Bez pushu, wdrożenia produkcyjnego, zmian template/ ani innych repozytoriów. Polecenie z 2026-11-06 dotyczyło zmian poprzedzających F5. Kontynuacja 2026-11-07: użytkownik „Zrob commit(y) a potem powiedz czytajac nasz sesje od poczatku co my tutaj robilismy i w jakim miejscu jestesmy” zleca commit F5 oraz podsumowanie sesji. Bez pushu, eksportu użytkownika i rozpoczęcia nowego etapu; nie jest to odbiór użyteczności.
+
 ### D-98 Diagramy architektury i danych przed F5
 - status: resolved
 - choice: przygotować Mermaid C4, zależności i struktury danych na podstawie istniejącego F4

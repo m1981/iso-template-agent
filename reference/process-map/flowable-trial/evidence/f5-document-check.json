@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-06",
+  "files": [
+    "reference/process-map/flowable-trial/f5-report.md",
+    "reference/process-map/flowable-trial/README.md",
+    "reference/process-map/flowable-trial/architecture.md",
+    "reference/process-modeling/brief.md",
+    "reference/process-modeling/coverage-map.md",
+    "project/decisions.md"
+  ],
+  "links_checked": 190,
+  "missing": [],
+  "scope": "existing local paths; anchors and quoted code not checked"
+}

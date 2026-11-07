@@ -1,0 +1,21 @@
+[
+  {
+    "case": "red-replay",
+    "exit_code": 1,
+    "tests": 7,
+    "failures": 7,
+    "errors": 0,
+    "skipped": 0,
+    "failed_tests": [
+      "F5_04_databasePathCannotInjectJdbcSettings",
+      "F5_04_changedXmlIsRefusedForBothEngines",
+      "F5_04_missingDatabaseIsNotSilentlyCreated",
+      "F5_01_to_03_and_05_resumeInNewJvmsAndPreserveAcceptedHistory",
+      "F5_04_creationCannotOverwriteAnExistingTrial",
+      "F5_04_duplicateDefinitionsAreRefusedForBothEngines",
+      "F5_04_emptyModelStoreIsNotInitializedOnReopen"
+    ],
+    "semantic_failure": true,
+    "log": "f5-red-replay.log"
+  }
+]

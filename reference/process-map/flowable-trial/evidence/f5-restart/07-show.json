@@ -1,0 +1,1402 @@
+{
+  "pid" : 75418,
+  "phase" : "show",
+  "cases" : {
+    "first" : {
+      "id" : "7",
+      "state" : {
+        "version" : 6,
+        "scope" : {
+          "requirementId" : "CAP-01",
+          "testId" : "AT-01",
+          "softwareId" : "CODE-01"
+        },
+        "snapshot" : {
+          "artifacts" : [ {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 1
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+          }, {
+            "ref" : {
+              "id" : "AT-01",
+              "revision" : 1
+            },
+            "kind" : "TEST_CASE",
+            "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+          }, {
+            "ref" : {
+              "id" : "CODE-01",
+              "revision" : 1
+            },
+            "kind" : "SOFTWARE",
+            "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+          }, {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          }, {
+            "ref" : {
+              "id" : "AT-01",
+              "revision" : 2
+            },
+            "kind" : "TEST_CASE",
+            "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+          }, {
+            "ref" : {
+              "id" : "CODE-01",
+              "revision" : 2
+            },
+            "kind" : "SOFTWARE",
+            "content" : "Fikcyjna wersja programu 2; nie uruchamiamy TextStats w tej próbie."
+          }, {
+            "ref" : {
+              "id" : "AT-01",
+              "revision" : 3
+            },
+            "kind" : "TEST_CASE",
+            "content" : "Przypadek: biało-czerwony; oczekiwane 2."
+          }, {
+            "ref" : {
+              "id" : "CODE-01",
+              "revision" : 3
+            },
+            "kind" : "SOFTWARE",
+            "content" : "Fikcyjna wersja programu 3; nie uruchamiamy TextStats w tej próbie."
+          } ],
+          "current" : {
+            "AT-01" : {
+              "id" : "AT-01",
+              "revision" : 3
+            },
+            "CODE-01" : {
+              "id" : "CODE-01",
+              "revision" : 3
+            },
+            "CAP-01" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            }
+          },
+          "dependencies" : [ {
+            "basis" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "dependent" : {
+              "id" : "AT-01",
+              "revision" : 3
+            },
+            "kind" : "VERIFIES"
+          } ],
+          "reviews" : [ {
+            "id" : "baseCap",
+            "subject" : {
+              "id" : "CAP-01",
+              "revision" : 1
+            },
+            "basis" : [ ],
+            "outcome" : "PASS",
+            "rationale" : "Fictional assessment"
+          }, {
+            "id" : "baseTest",
+            "subject" : {
+              "id" : "AT-01",
+              "revision" : 1
+            },
+            "basis" : [ {
+              "id" : "CAP-01",
+              "revision" : 1
+            } ],
+            "outcome" : "PASS",
+            "rationale" : "Fictional assessment"
+          }, {
+            "id" : "failed-cap",
+            "subject" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "basis" : [ ],
+            "outcome" : "PASS",
+            "rationale" : "Ocena w fabule"
+          }, {
+            "id" : "failed-test",
+            "subject" : {
+              "id" : "AT-01",
+              "revision" : 2
+            },
+            "basis" : [ {
+              "id" : "CAP-01",
+              "revision" : 2
+            } ],
+            "outcome" : "FAIL",
+            "rationale" : "Ocena testu w fabule"
+          }, {
+            "id" : "passed-cap",
+            "subject" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "basis" : [ ],
+            "outcome" : "PASS",
+            "rationale" : "Ocena w fabule"
+          }, {
+            "id" : "passed-test",
+            "subject" : {
+              "id" : "AT-01",
+              "revision" : 3
+            },
+            "basis" : [ {
+              "id" : "CAP-01",
+              "revision" : 2
+            } ],
+            "outcome" : "PASS",
+            "rationale" : "Ocena testu w fabule"
+          } ],
+          "runs" : [ {
+            "id" : "baseRun",
+            "testCase" : {
+              "id" : "AT-01",
+              "revision" : 1
+            },
+            "software" : {
+              "id" : "CODE-01",
+              "revision" : 1
+            },
+            "outcome" : "PASS"
+          }, {
+            "id" : "failed-run",
+            "testCase" : {
+              "id" : "AT-01",
+              "revision" : 2
+            },
+            "software" : {
+              "id" : "CODE-01",
+              "revision" : 2
+            },
+            "outcome" : "PASS"
+          }, {
+            "id" : "passed-run",
+            "testCase" : {
+              "id" : "AT-01",
+              "revision" : 3
+            },
+            "software" : {
+              "id" : "CODE-01",
+              "revision" : 3
+            },
+            "outcome" : "PASS"
+          } ]
+        },
+        "proposal" : {
+          "ref" : {
+            "id" : "CAP-01",
+            "revision" : 2
+          },
+          "kind" : "REQUIREMENT",
+          "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+        },
+        "authorized" : false,
+        "previousProcessId" : null,
+        "receipts" : [ {
+          "commandId" : "authorize",
+          "taskId" : "14",
+          "baseVersion" : 0,
+          "role" : "OPERATOR",
+          "action" : "ALLOW",
+          "reason" : "Zgoda w fikcyjnym scenariuszu"
+        }, {
+          "commandId" : "apply",
+          "taskId" : "2508",
+          "baseVersion" : 1,
+          "role" : "AGENT",
+          "action" : "APPLY",
+          "reason" : "Wpływ na AT-01"
+        }, {
+          "commandId" : "prepare-2",
+          "taskId" : "2517",
+          "baseVersion" : 2,
+          "role" : "AGENT",
+          "action" : "PREPARE",
+          "reason" : "Fikcyjna poprawka testu/programu"
+        }, {
+          "commandId" : "fail",
+          "taskId" : "2525",
+          "baseVersion" : 3,
+          "role" : "AGENT",
+          "action" : "ASSESS",
+          "reason" : "Fikcyjne oceny, bez uruchomienia TextStats"
+        }, {
+          "commandId" : "prepare-3",
+          "taskId" : "5014",
+          "baseVersion" : 4,
+          "role" : "AGENT",
+          "action" : "PREPARE",
+          "reason" : "Fikcyjna poprawka testu/programu"
+        }, {
+          "commandId" : "pass",
+          "taskId" : "7507",
+          "baseVersion" : 5,
+          "role" : "AGENT",
+          "action" : "ASSESS",
+          "reason" : "Fikcyjne oceny, bez uruchomienia TextStats"
+        } ],
+        "acceptance" : null
+      },
+      "taskHistory" : [ "14/authorize/1793921069944/1793921071940", "2508/impact/1793921071945/1793921071972", "2517/prepare/1793921071973/1793921071991", "2525/assess/1793921071992/1793921074100", "5014/prepare/1793921074127/1793921075239", "7507/assess/1793921075244/1793921075271", "7521/accept/1793921075293/pending" ],
+      "stateHistory" : [ {
+        "value" : {
+          "version" : 1,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            } ],
+            "current" : {
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : true,
+          "previousProcessId" : null,
+          "receipts" : [ {
+            "commandId" : "authorize",
+            "taskId" : "14",
+            "baseVersion" : 0,
+            "role" : "OPERATOR",
+            "action" : "ALLOW",
+            "reason" : "Zgoda w fikcyjnym scenariuszu"
+          } ],
+          "acceptance" : null
+        },
+        "id" : "2501"
+      }, {
+        "value" : {
+          "version" : 2,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+            } ],
+            "current" : {
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : false,
+          "previousProcessId" : null,
+          "receipts" : [ {
+            "commandId" : "authorize",
+            "taskId" : "14",
+            "baseVersion" : 0,
+            "role" : "OPERATOR",
+            "action" : "ALLOW",
+            "reason" : "Zgoda w fikcyjnym scenariuszu"
+          }, {
+            "commandId" : "apply",
+            "taskId" : "2508",
+            "baseVersion" : 1,
+            "role" : "AGENT",
+            "action" : "APPLY",
+            "reason" : "Wpływ na AT-01"
+          } ],
+          "acceptance" : null
+        },
+        "id" : "2511"
+      }, {
+        "value" : {
+          "version" : 3,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 2; nie uruchamiamy TextStats w tej próbie."
+            } ],
+            "current" : {
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : false,
+          "previousProcessId" : null,
+          "receipts" : [ {
+            "commandId" : "authorize",
+            "taskId" : "14",
+            "baseVersion" : 0,
+            "role" : "OPERATOR",
+            "action" : "ALLOW",
+            "reason" : "Zgoda w fikcyjnym scenariuszu"
+          }, {
+            "commandId" : "apply",
+            "taskId" : "2508",
+            "baseVersion" : 1,
+            "role" : "AGENT",
+            "action" : "APPLY",
+            "reason" : "Wpływ na AT-01"
+          }, {
+            "commandId" : "prepare-2",
+            "taskId" : "2517",
+            "baseVersion" : 2,
+            "role" : "AGENT",
+            "action" : "PREPARE",
+            "reason" : "Fikcyjna poprawka testu/programu"
+          } ],
+          "acceptance" : null
+        },
+        "id" : "2519"
+      }, {
+        "value" : {
+          "version" : 4,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 2; nie uruchamiamy TextStats w tej próbie."
+            } ],
+            "current" : {
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "failed-cap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Ocena w fabule"
+            }, {
+              "id" : "failed-test",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 2
+              } ],
+              "outcome" : "FAIL",
+              "rationale" : "Ocena testu w fabule"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            }, {
+              "id" : "failed-run",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : false,
+          "previousProcessId" : null,
+          "receipts" : [ {
+            "commandId" : "authorize",
+            "taskId" : "14",
+            "baseVersion" : 0,
+            "role" : "OPERATOR",
+            "action" : "ALLOW",
+            "reason" : "Zgoda w fikcyjnym scenariuszu"
+          }, {
+            "commandId" : "apply",
+            "taskId" : "2508",
+            "baseVersion" : 1,
+            "role" : "AGENT",
+            "action" : "APPLY",
+            "reason" : "Wpływ na AT-01"
+          }, {
+            "commandId" : "prepare-2",
+            "taskId" : "2517",
+            "baseVersion" : 2,
+            "role" : "AGENT",
+            "action" : "PREPARE",
+            "reason" : "Fikcyjna poprawka testu/programu"
+          }, {
+            "commandId" : "fail",
+            "taskId" : "2525",
+            "baseVersion" : 3,
+            "role" : "AGENT",
+            "action" : "ASSESS",
+            "reason" : "Fikcyjne oceny, bez uruchomienia TextStats"
+          } ],
+          "acceptance" : null
+        },
+        "id" : "5001"
+      }, {
+        "value" : {
+          "version" : 5,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 2; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; oczekiwane 2."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 3
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 3; nie uruchamiamy TextStats w tej próbie."
+            } ],
+            "current" : {
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 3
+              },
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "failed-cap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Ocena w fabule"
+            }, {
+              "id" : "failed-test",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 2
+              } ],
+              "outcome" : "FAIL",
+              "rationale" : "Ocena testu w fabule"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            }, {
+              "id" : "failed-run",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : false,
+          "previousProcessId" : null,
+          "receipts" : [ {
+            "commandId" : "authorize",
+            "taskId" : "14",
+            "baseVersion" : 0,
+            "role" : "OPERATOR",
+            "action" : "ALLOW",
+            "reason" : "Zgoda w fikcyjnym scenariuszu"
+          }, {
+            "commandId" : "apply",
+            "taskId" : "2508",
+            "baseVersion" : 1,
+            "role" : "AGENT",
+            "action" : "APPLY",
+            "reason" : "Wpływ na AT-01"
+          }, {
+            "commandId" : "prepare-2",
+            "taskId" : "2517",
+            "baseVersion" : 2,
+            "role" : "AGENT",
+            "action" : "PREPARE",
+            "reason" : "Fikcyjna poprawka testu/programu"
+          }, {
+            "commandId" : "fail",
+            "taskId" : "2525",
+            "baseVersion" : 3,
+            "role" : "AGENT",
+            "action" : "ASSESS",
+            "reason" : "Fikcyjne oceny, bez uruchomienia TextStats"
+          }, {
+            "commandId" : "prepare-3",
+            "taskId" : "5014",
+            "baseVersion" : 4,
+            "role" : "AGENT",
+            "action" : "PREPARE",
+            "reason" : "Fikcyjna poprawka testu/programu"
+          } ],
+          "acceptance" : null
+        },
+        "id" : "7502"
+      }, {
+        "value" : {
+          "version" : 6,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 2; nie uruchamiamy TextStats w tej próbie."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; oczekiwane 2."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 3
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 3; nie uruchamiamy TextStats w tej próbie."
+            } ],
+            "current" : {
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 3
+              },
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "failed-cap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Ocena w fabule"
+            }, {
+              "id" : "failed-test",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 2
+              } ],
+              "outcome" : "FAIL",
+              "rationale" : "Ocena testu w fabule"
+            }, {
+              "id" : "passed-cap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 2
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Ocena w fabule"
+            }, {
+              "id" : "passed-test",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 2
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Ocena testu w fabule"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            }, {
+              "id" : "failed-run",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 2
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 2
+              },
+              "outcome" : "PASS"
+            }, {
+              "id" : "passed-run",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 3
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 3
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : false,
+          "previousProcessId" : null,
+          "receipts" : [ {
+            "commandId" : "authorize",
+            "taskId" : "14",
+            "baseVersion" : 0,
+            "role" : "OPERATOR",
+            "action" : "ALLOW",
+            "reason" : "Zgoda w fikcyjnym scenariuszu"
+          }, {
+            "commandId" : "apply",
+            "taskId" : "2508",
+            "baseVersion" : 1,
+            "role" : "AGENT",
+            "action" : "APPLY",
+            "reason" : "Wpływ na AT-01"
+          }, {
+            "commandId" : "prepare-2",
+            "taskId" : "2517",
+            "baseVersion" : 2,
+            "role" : "AGENT",
+            "action" : "PREPARE",
+            "reason" : "Fikcyjna poprawka testu/programu"
+          }, {
+            "commandId" : "fail",
+            "taskId" : "2525",
+            "baseVersion" : 3,
+            "role" : "AGENT",
+            "action" : "ASSESS",
+            "reason" : "Fikcyjne oceny, bez uruchomienia TextStats"
+          }, {
+            "commandId" : "prepare-3",
+            "taskId" : "5014",
+            "baseVersion" : 4,
+            "role" : "AGENT",
+            "action" : "PREPARE",
+            "reason" : "Fikcyjna poprawka testu/programu"
+          }, {
+            "commandId" : "pass",
+            "taskId" : "7507",
+            "baseVersion" : 5,
+            "role" : "AGENT",
+            "action" : "ASSESS",
+            "reason" : "Fikcyjne oceny, bez uruchomienia TextStats"
+          } ],
+          "acceptance" : null
+        },
+        "id" : "7510"
+      }, {
+        "value" : {
+          "version" : 0,
+          "scope" : {
+            "requirementId" : "CAP-01",
+            "testId" : "AT-01",
+            "softwareId" : "CODE-01"
+          },
+          "snapshot" : {
+            "artifacts" : [ {
+              "ref" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "kind" : "REQUIREMENT",
+              "content" : "TextStats: biało-czerwony liczymy jako jedno słowo."
+            }, {
+              "ref" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "TEST_CASE",
+              "content" : "Przypadek: biało-czerwony; nadal oczekiwane 1 (do oceny wobec nowego wymagania)."
+            }, {
+              "ref" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "kind" : "SOFTWARE",
+              "content" : "Fikcyjna wersja programu 1; nie uruchamiamy TextStats w tej próbie."
+            } ],
+            "current" : {
+              "AT-01" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "CODE-01" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "CAP-01" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              }
+            },
+            "dependencies" : [ {
+              "basis" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "dependent" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "kind" : "VERIFIES"
+            } ],
+            "reviews" : [ {
+              "id" : "baseCap",
+              "subject" : {
+                "id" : "CAP-01",
+                "revision" : 1
+              },
+              "basis" : [ ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            }, {
+              "id" : "baseTest",
+              "subject" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "basis" : [ {
+                "id" : "CAP-01",
+                "revision" : 1
+              } ],
+              "outcome" : "PASS",
+              "rationale" : "Fictional assessment"
+            } ],
+            "runs" : [ {
+              "id" : "baseRun",
+              "testCase" : {
+                "id" : "AT-01",
+                "revision" : 1
+              },
+              "software" : {
+                "id" : "CODE-01",
+                "revision" : 1
+              },
+              "outcome" : "PASS"
+            } ]
+          },
+          "proposal" : {
+            "ref" : {
+              "id" : "CAP-01",
+              "revision" : 2
+            },
+            "kind" : "REQUIREMENT",
+            "content" : "TextStats: myślnik rozdziela słowa; biało-czerwony daje 2."
+          },
+          "authorized" : false,
+          "previousProcessId" : null,
+          "receipts" : [ ],
+          "acceptance" : null
+        },
+        "id" : "9"
+      } ],
+      "tasks" : [ {
+        "id" : "7521",
+        "key" : "accept",
+        "name" : "Odbiór konkretnej podstawy",
+        "assignee" : "OPERATOR"
+      } ]
+    }
+  },
+  "bpmnDefinitions" : [ "requirementChange:1:6" ],
+  "dmnDefinitions" : [ "3" ],
+  "dmnParents" : [ "f2f422f8-fce8-4466-9d71-b465729dd771" ],
+  "dmnHistory" : [ {
+    "id" : "5007",
+    "json" : "{\"decisionKey\":\"qualification\",\"decisionName\":\"Qualification\",\"decisionResult\":[{\"qualification\":\"CORRECTION\"}],\"decisionResultTypes\":{\"qualification\":\"string\"},\"decisionVersion\":1,\"endTime\":\"2026-11-05T23:24:34.119Z\",\"failed\":false,\"hitPolicy\":\"UNIQUE\",\"inputVariableTypes\":{\"pending\":\"boolean\",\"basisKnown\":\"boolean\",\"failed\":\"boolean\",\"conflict\":\"boolean\"},\"inputVariables\":{\"pending\":false,\"basisKnown\":true,\"failed\":true,\"conflict\":false},\"multipleResults\":false,\"ruleExecutions\":{\"1\":{\"ruleNumber\":1,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r0i0\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:34.118Z\",\"startTime\":\"2026-11-05T23:24:34.117Z\",\"valid\":false},\"2\":{\"ruleNumber\":2,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r1i0\",\"result\":true},{\"id\":\"r1i1\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:34.118Z\",\"startTime\":\"2026-11-05T23:24:34.118Z\",\"valid\":false},\"3\":{\"ruleNumber\":3,\"conclusionResults\":[{\"id\":\"r2o\",\"result\":\"CORRECTION\"}],\"conditionResults\":[{\"id\":\"r2i0\",\"result\":true},{\"id\":\"r2i1\",\"result\":true},{\"id\":\"r2i2\",\"result\":true},{\"id\":\"r2i3\",\"result\":true}],\"endTime\":\"2026-11-05T23:24:34.118Z\",\"startTime\":\"2026-11-05T23:24:34.118Z\",\"valid\":true},\"4\":{\"ruleNumber\":4,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r3i0\",\"result\":true},{\"id\":\"r3i1\",\"result\":true},{\"id\":\"r3i2\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:34.119Z\",\"startTime\":\"2026-11-05T23:24:34.118Z\",\"valid\":false},\"5\":{\"ruleNumber\":5,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r4i0\",\"result\":true},{\"id\":\"r4i1\",\"result\":true},{\"id\":\"r4i2\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:34.119Z\",\"startTime\":\"2026-11-05T23:24:34.119Z\",\"valid\":false}},\"startTime\":\"2026-11-05T23:24:34.116Z\",\"strictMode\":true}",
+    "definition" : "3"
+  }, {
+    "id" : "7515",
+    "json" : "{\"decisionKey\":\"qualification\",\"decisionName\":\"Qualification\",\"decisionResult\":[{\"qualification\":\"TO_OPERATOR\"}],\"decisionResultTypes\":{\"qualification\":\"string\"},\"decisionVersion\":1,\"endTime\":\"2026-11-05T23:24:35.286Z\",\"failed\":false,\"hitPolicy\":\"UNIQUE\",\"inputVariableTypes\":{\"pending\":\"boolean\",\"basisKnown\":\"boolean\",\"failed\":\"boolean\",\"conflict\":\"boolean\"},\"inputVariables\":{\"pending\":false,\"basisKnown\":true,\"failed\":false,\"conflict\":false},\"multipleResults\":false,\"ruleExecutions\":{\"1\":{\"ruleNumber\":1,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r0i0\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:35.285Z\",\"startTime\":\"2026-11-05T23:24:35.284Z\",\"valid\":false},\"2\":{\"ruleNumber\":2,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r1i0\",\"result\":true},{\"id\":\"r1i1\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:35.285Z\",\"startTime\":\"2026-11-05T23:24:35.285Z\",\"valid\":false},\"3\":{\"ruleNumber\":3,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r2i0\",\"result\":true},{\"id\":\"r2i1\",\"result\":true},{\"id\":\"r2i2\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:35.285Z\",\"startTime\":\"2026-11-05T23:24:35.285Z\",\"valid\":false},\"4\":{\"ruleNumber\":4,\"conclusionResults\":[],\"conditionResults\":[{\"id\":\"r3i0\",\"result\":true},{\"id\":\"r3i1\",\"result\":true},{\"id\":\"r3i2\",\"result\":true},{\"id\":\"r3i3\",\"result\":false}],\"endTime\":\"2026-11-05T23:24:35.285Z\",\"startTime\":\"2026-11-05T23:24:35.285Z\",\"valid\":false},\"5\":{\"ruleNumber\":5,\"conclusionResults\":[{\"id\":\"r4o\",\"result\":\"TO_OPERATOR\"}],\"conditionResults\":[{\"id\":\"r4i0\",\"result\":true},{\"id\":\"r4i1\",\"result\":true},{\"id\":\"r4i2\",\"result\":true},{\"id\":\"r4i3\",\"result\":true}],\"endTime\":\"2026-11-05T23:24:35.285Z\",\"startTime\":\"2026-11-05T23:24:35.285Z\",\"valid\":true}},\"startTime\":\"2026-11-05T23:24:35.283Z\",\"strictMode\":true}",
+    "definition" : "3"
+  } ]
+}

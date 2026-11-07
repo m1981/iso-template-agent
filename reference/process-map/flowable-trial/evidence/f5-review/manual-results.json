@@ -1,0 +1,42 @@
+[
+  {
+    "phase": "create",
+    "exit": 0,
+    "log": "review-evidence/manual-1-create.log"
+  },
+  {
+    "phase": "show",
+    "exit": 0,
+    "log": "review-evidence/manual-2-show.log"
+  },
+  {
+    "phase": "apply",
+    "exit": 0,
+    "log": "review-evidence/manual-3-apply.log"
+  },
+  {
+    "phase": "fail",
+    "exit": 0,
+    "log": "review-evidence/manual-4-fail.log"
+  },
+  {
+    "phase": "correct",
+    "exit": 0,
+    "log": "review-evidence/manual-5-correct.log"
+  },
+  {
+    "phase": "show",
+    "exit": 0,
+    "log": "review-evidence/manual-6-show.log"
+  },
+  {
+    "phase": "accept-next",
+    "exit": 0,
+    "log": "review-evidence/manual-7-accept-next.log"
+  },
+  {
+    "phase": "show",
+    "exit": 0,
+    "log": "review-evidence/manual-8-show.log"
+  }
+]

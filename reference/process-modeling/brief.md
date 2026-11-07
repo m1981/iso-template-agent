@@ -4,14 +4,26 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-11-05, D-98: po zakończeniu F4 przygotowano [osiem diagramów architektury i danych](../process-map/flowable-trial/architecture.md), decyzja agenta A15. F5 nie jest zlecone.
+Aktualizacja 2026-11-07, D-99: F1–F4 i diagramy zapisano w 8fa127b; F5 zakończone technicznie, ocena użyteczności przez użytkownika oczekuje.
 
-- **Plan i wykonanie:** jedyne statusy w [§8.7–8.8 mapy](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-06–07 i Z-24–25; upoważnienia [D-97–98](../../project/decisions.md). Przypadki i granice nadal w §10.
-- **Dostawa:** [README próby](../process-map/flowable-trial/README.md), A14, kod/BPMN i [raport pięciu stanów demo](../process-map/flowable-trial/evidence/f4-demo.md). Offline clean verify: 51/51 PASS. F4 replay: 13 porażek asercji / 0 błędów; 12/12 wybranych usterek wykrytych. F2/F3 mają nadal sprawdzone odtwarzanie. Dowody w evidence/, narzędzia/cache w ignorowanym .tooling.
-- **Recenzja:** osobny R doprecyzował priorytety DMN i wykrył dopisywanie wyników dla nieistniejących jeszcze rewizji. Po RED, walidacji start/Assess i poprawieniu maskowanego testu obcej instancji zamknął blokery. R odczytał kod/logi, nie wykonywał testów. Mutant task-id wykryto przez zmianę typu odmowy; nie doszło do złego skutku w silniku.
-- **Następny krok:** operator może przeczytać diagramy C4 1–3, a następnie ślad 5 i dane 6–8; agent objaśnia je na żądanie. Diagramy sprawdzono renderowaniem 8/8 i odczytem kodu, po korekcie kardynalności z recenzji. F5 (trwałość po zakończeniu JVM, nowy proces i ocena użyteczności) wymaga osobnego zlecenia. H2 F4 nadal pamięciowe; zapis na dysku dotyczy raportu, nie działającej instancji po restarcie.
-- **Granica i otwarte sprawy:** role, oceny i odbiory są symulowane; brak operacyjnej autoryzacji, wielu klientów, pełnego modelu ISO czy testu programu TextStats. A-03/iso-model-state i Kitchen poza zleceniem; D-85 pozostaje osobnym odbiorem użytkownika. Pozostałe pytania i właściciele w §9.5 mapy.
-- **Git i pamięć:** bez commita/pushu. Zastane zmiany i eksport użytkownika zachowane. Agent utrzymuje ten punkt i oczekuje dalszego zlecenia; historyczne instrukcje niżej nie są nową zgodą. template/, W5/E9 i operacyjne P1/P2 bez zmian.
+- **Plan i wykonanie:** jedyny plan [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-06, Z-26–28. Kontrakt i decyzja agenta A16 w [README próby](../process-map/flowable-trial/README.md); wynik w [raporcie F5](../process-map/flowable-trial/f5-report.md).
+- **Dowody:** 58/58 PASS, 10 osobnych JVM; RED początkowe 5 porażek/0 błędów, replay 7/7, 4/4 usterki. R odtworzył 58/58, 2 własne kontrprzykłady i demo 8/8; trwałe logi, testy i eksporty w evidence/f5-*. Odczyt raportu przez agenta nie jest odbiorem U.
+- **Najbliższy krok:** użytkownik ocenia [stan oczekującego odbioru](../process-map/flowable-trial/evidence/f5-restart/07-show.json.md); agent zapisuje obserwację i ewentualną najmniejszą poprawkę. Niczego nie rozszerzać automatycznie. Demo autora czeka w `.runs/f5-20261106`; `./resume-demo show f5-20261106` odczytuje bazę w nowej JVM, nie dokonuje odbioru.
+- **Granice:** sekwencyjny eksperyment, poprawne zamknięcie JVM i ten sam build, fikcyjne role/oceny, brak dowodu odporności na awarie dysku, backupu, migracji, autoryzacji i współbieżności. template/, Kitchen i iso-model-state bez zmian. Otwarte D-85 i §9.5 mapy pozostają osobno.
+- **Git:** 8fa127b obejmuje wyłącznie dostawę sprzed F5. F5 oraz jego zapisy objęto zleceniem commita z 2026-11-07, opis „D-99: utrwal wznowienie F5 i dowody próby”; brak pushu. Eksport użytkownika w korzeniu pozostał nietknięty. Historyczne instrukcje niżej nie są nowym zleceniem.
+
+
+## Orientacja po F5 — 2026-11-07
+
+Cel użytkownika pozostaje praktyczny: przewidywalnie dostarczać oprogramowanie z agentami, bez utrzymywania zależności i decyzji w pamięci operatora; docelowo sprawdzić to na Kitchen CAD/CAM. W tej sesji rozwijaliśmy środki do osiągnięcia tego celu, nie sam produkt Kitchen.
+
+Droga: recenzja i dwie naprawy kontroli szablonu → lekcja L1/TextStats → mapy ról, produktów, śladu i granic kontroli → kontrakty API/przejść, wywiad vcs-lite i porównania metod → mapowanie istniejącego modelu i audyt wymagań/DoD → ograniczona próba Flowable F1–F5. Materiały objaśniające, propozycje i wyniki wykonania mają różną moc; samo ich istnienie nie wdraża procesu.
+
+- **iso-template-agent:** szablon instrukcji, dokumentów i kontroli repozytorium; tutaj także laboratorium edukacyjne i Flowable w reference/.
+- **iso-model-state:** osobny projekt modelowania zachowania/badań formalnych, analizowany i mapowany w tej sesji; F5 nie zmienia jego planu ani nie zamyka jego dowodów. Bieżącego stanu drugiego repo nie aktualizowano podczas tego podsumowania.
+- **Kitchen CAD/CAM:** przyszły sprawdzian użyteczności procesu; w tej sesji nie wykonano jego pełnego przyrostu ani integracji z silnikiem.
+
+Udowodniono technicznie wybrane zachowania oraz trwałe wznowienie jednej sprawy. Nie wykazano jeszcze, że operator prowadzi dzięki temu rzeczywisty projekt sprawniej i z mniejszym obciążeniem. Najbliższa praca pozostaje oceną konkretnego raportu, bez automatycznej rozbudowy modelu, API lub UI. Ta orientacja nie jest nowym planem; statusy pozostają w mapie §8.7.
 
 
 ## Widok orientacyjny po A-02 — 2026-10-30
