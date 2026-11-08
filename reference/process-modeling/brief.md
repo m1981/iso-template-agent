@@ -4,15 +4,45 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-11-08: zakończono **A-17 — analizę struktur danych, funkcjonalności i testów Flowable oraz PY-01** na nowe zlecenie U. [Raport porównawczy](../process-map/flowable-trial/python-comparison.md) rozdziela implementację, brak funkcji i granice dowodu; wyniki oraz odtwarzacz zapisane trwale obok raportu.
+Aktualizacja 2026-11-08: **A-21 zakończone dokumentacyjnie** po zleceniu macierzy kontekstu. Wynik: [mapa §12](../process-map/concepts-and-context.md#12-macierz-kontekstu--a-21). Czytać §12.2 (sześć pytań), następnie §12.6 (rzeczywista naprawa). Pozostałe części rozliczają źródła, 26 pozycji pojęć, relacje i luki z właścicielami.
 
-- **Jedyny plan/rejestr:** [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-17 / Z-71–72. A-13–A-15 zapisane w 299edf2, A-16 w 6845f79. Bieżąca analiza bez commita; poprzednie zlecenie zapisu nie jest stałą zgodą.
-- **Sprawdzone teraz na kopiach:** Flowable 71/71, PY-01 77/77, oba exit 0, bez pominięć. W PY 3 sprawdzenia mutantów; w Java 10 JVM w teście trwałości. Źródła: Flowable 6845f79, iso-model-state f74f55f (czysty, bez zmian). Nie wykonywano TLC, produktu Kitchen, benchmarku ani odbioru użytkowego.
-- **Wniosek:** prototypy mają różne kontrakty. Flowable daje workflow z odbiorem i ciągłością spraw; PY-01 trwałe komendy/replay oraz wybrane przeploty konkurencji. Oba mają własny model znaczenia procesu. Nie utożsamiać PY-01/isowork z isomodel, WIT1–WIT5 lub L1. Role są symulowane; brak wymuszonej niezależności recenzji i integracji rzeczywistych dowodów produktu.
-- **Dalej:** agent przedstawia wynik; nie rozpoczyna migracji lub nowego modelu. Przed ewentualnym łączeniem potrzebne rozstrzygnięcie różnic delegowania apply, retry i odbioru. To warunkowy krok, nie nowe zlecenie. A-12 (rozpoznanie Kitchen przed wyborem przyrostu) nadal proposed. Operator wybiera zakres i przyjmuje ryzyko.
-- **Kontrole dokumentacji:** make check bez błędów (wcześniejsze W1 MIG-01/02), 27 lokalnych odsyłaczy raportu i sumy wyników sprawdzone. Kontrola pakietu nie ocenia semantyki reference/.
-- **Odłożone:** D-85 i wydanie szablonu zachowują własny status; WR wymaga rozwinięcia dopiero przed formalizacją. Karta F5 jest odczytem archiwalnym. Eksport użytkownika w korzeniu nietknięty. Bez zmian drugiego repo, instalacji i pushu.
+- **Jedyny plan/rejestr:** [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-21 / Z-79–80. A-18 określa zamiar, A-19 jeden przekrój danych, A-20 metodę; A-21 wiąże kontekst i źródła. Nie stanowią automatycznej zgody na implementację.
+- **Następna rekomendacja:** dokładny kontrakt P3 — spóźnionego wyniku, przy użyciu macierzy do wskazania przesłanek i granic. L2/L4 (§12.5) opisują brak jednolitej kwalifikacji reguł i podstaw wykonań; trzeba je ujawnić w jednym przejściu, nie budować od razu całego mechanizmu. Właściciel propozycji: agent; wykonanie po zleceniu. L3/L5/L6 wracają dopiero w podanych momentach.
+- **Kontrole A-21:** przegląd autora, źródła instrukcji/kodu/normy, sześć pytań na historycznym TSK-11, zliczenie istniejących logów. 29 linków/2 kotwice oraz obecność 26 pozycji sprawdzone; make check bez błędów (wcześniejsze W1 MIG-01/02). Bez nowego uruchomienia scenariuszy, niezależnej recenzji i próby użytkowej.
+- **Punkt powrotu:** commit **6df1c90**, lokalny tag **baseline-02-przed-specyfikacja-systemu** wskazują stan sprzed A-18. Dokumentacja A-18–A-21 pozostaje niezacommitowana. Eksport U i temp_rozmowa_pojecia.md nietknięte. Bez pushu; tag nie jest wydaniem/odbiorem.
+- **Zachowane granice:** D-78 wyznacza delegowanie (w tym commit tylko na żądanie), P-01 źródło prawdy w repo. W5 pozostaje ostrzeżeniem; E9 nie dowodzi tożsamości/niezależności. Flowable/PY-01 to różne kontrakty; wcześniejsze regresje A-17 nie testują nowej macierzy. A-12/Kitchen nadal proposed; D-85 i plan wydania zachowują statusy. Bez zmian kodu, template/ i drugiego repo.
 
+## Zamiar i granice systemu — jedna strona
+
+2026-11-08 · A-18 · synteza do dalszej specyfikacji. **Ustalenia użytkownika zachowują moc źródeł; propozycje poniżej nie są jeszcze zatwierdzonym zakresem implementacji.** Punkt powrotu sprzed opracowania: `baseline-02-przed-specyfikacja-systemu` → `6df1c90`.
+
+**Po co — ustalone:** operator ma prowadzić pracę z agentami bez pamiętania wszystkich ustaleń, zależności i wyników. Ma widzieć wykonane i pozostałe prace, blokady, podstawy ocen oraz najbliższą decyzję; kolejna sesja ma móc wznowić pracę z utrzymywanych zapisów. Kierunek praktyczny: przyrostowe dostarczanie oprogramowania i przyszły pilot Kitchen, bez celu certyfikacyjnego. [D-81](../../project/decisions.md#d-81-minimalny-proces-do-sprawdzenia-w-kitchen-cadcam), [opis pracy](../KITCHEN-MINIMAL-PROCESS.md).
+
+**Co projektujemy — synteza agenta:** system wspomagający prowadzenie procesu: utrzymuje stan pracy i powiązane podstawy, przyjmuje polecenia, sprawdza jawne warunki oraz pokazuje dalsze działania. Kitchen jest przyszłym projektem korzystającym ze wsparcia. Szablon, L1, model referencyjny, PY-01 i Flowable pozostają odrębnymi źródłami doświadczeń; ich suma nie jest gotowym systemem. [Mapa pojęć §2](../process-map/concepts-and-context.md#2-nasze-produkty-próby-i-narzędzia).
+
+| Uczestnik | Odpowiedzialność w projektowanym systemie |
+| --- | --- |
+| **Operator — ustalone** | Określa zamiar; zatwierdza zmianę zakresu, przyjęcie ryzyka, odbiór przyrostu i wydanie. Milczenie nie zatwierdza niczego. |
+| **Agent — ustalone** | Dobiera rozwiązania techniczne i wykonuje pracę w zatwierdzonym zakresie; utrzymuje zapisy, zgłasza brakujące decyzje, może recenzować w osobnym zadaniu. Nie odbiera za operatora. |
+| **System — proponowana granica** | Przechowuje lub jednoznacznie wskazuje informacje, kontroluje uprawnione operacje i spójność wersji, wylicza blokady/gotowość oraz zachowuje historię decyzji i ich podstaw. |
+| **Narzędzia wykonawcze — proponowana granica** | Dostarczają wyniki kontroli/kodu/Git przez określony interfejs. Sposób integracji nie został wybrany; zapis wyniku i samo wykonanie pozostają różnymi czynnościami. |
+
+Podstawa delegowania: [D-78 / kontrakt](../process-simulator/collaboration.md#zamiar-i-delegowanie), [kontrakt odbioru §1 — ustalenia U1/U2](../process-map/acceptance-contract.md#1-mandat-i-granica). API oznacza tu granicę poleceń i odczytów, nie decyzję o HTTP, serwerze ani bazie.
+
+**Zakres do opisania — rekomendacja, nie lista zleconych funkcji:** zlecenie i plan pracy → produkty/rewizje/powiązania → wyniki i oceny → decyzje → widok stanu i wznowienie. Dla każdej informacji trzeba wskazać źródło prawdy, właściciela, dozwolone zmiany i sposób odczytu. Mapa projektu i karta przyrostu mają przedstawiać te informacje, a nie tworzyć dodatkowe ręczne rejestry.
+
+**Granice:** mechanika obiegu oraz formalne warunki są przedmiotem systemu; osąd treści pozostaje pracą operatora/agentów. Cały SDLC, automatyczne wykonywanie pracy przez agentów, uruchomienie produkcji CNC i kompletna obsługa wydań nie stają się zlecone przez ten opis. ISO jest źródłem doboru praktyk, nie gotowym schematem bazy ani programem. Flowable/Python i postać interfejsu pozostają wyborem do uzasadnienia potrzebami.
+
+**Otwarte przed odpowiednim krokiem — nie blokują opisu zamiaru:**
+
+| Sprawa | Podstawa / następny krok / właściciel |
+| --- | --- |
+| Pierwszy działający zakres: ćwiczenie czy obsługa rzeczywistej pracy? | Agent proponuje ograniczony przekrój i kryteria; operator wybiera przed implementacją. Obecne demo nie jest takim wyborem. |
+| Gdzie leży wiążący stan? | Obecnie P-01 wskazuje repozytorium. Agent przygotuje podział informacji; operator rozstrzygnie ewentualną zmianę przed projektowaniem trwałego zapisu. |
+| Różne kontrakty prototypów | Agent opisze wspólne oczekiwania dla zastosowania zmiany, ponowień i odbioru. Delegowanie już ustalone nie wymaga ponownej zgody; odmienność PY-01 nie zmienia kontraktu współpracy. Rzeczywistą zmianę ustalenia rozstrzyga operator przed połączeniem rozwiązań. [A-17](../process-map/flowable-trial/python-comparison.md#3-funkcje-które-można-rzeczywiście-wywołać). |
+| Tożsamość, rozdział autora/recenzenta i integracje | Agent wskaże wymagane kontrole oraz granicę zaufania; operator rozstrzygnie otwarte ryzyka przed operacyjnymi zgodami i podłączeniem wykonawców. Rola tekstowa nie jest mechanizmem tożsamości. |
+
+**Koniec tego kroku:** cel, odpowiedzialności, granice i niewiadome mają źródła oraz właścicieli; nie wybrano ukradkiem stosu ani nie przepisano planu drugiego repo. **Następna rekomendacja:** mały model informacji dla jednego przekroju, z ponownym użyciem istniejących definicji i jawnymi różnicami. Jedyny plan wykonania pozostaje w [mapie §8.7](coverage-map.md#87-zalecenia-i-punkt-wznowienia).
 
 ## Orientacja po F5 — 2026-11-07
 
