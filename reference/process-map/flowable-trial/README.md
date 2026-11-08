@@ -322,3 +322,23 @@ Uwaga środowiskowa z odtworzenia 2026-11-06: lokalny Homebrew Python 3.14 ma ni
 
 
 Jak czytać upoważnienie po wykonaniu zmiany: „brak aktywnego upoważnienia” oznacza, że nie ma zgody do ponownego wykorzystania. Historyczna zgoda ALLOW i jej wykorzystanie APPLY są w sekcji poleceń. Nie oznacza to, że wcześniej wykonano zmianę bez zgody; późniejszy odbiór nadal jest osobną czynnością.
+
+## Czytelna karta operatora — A-10
+
+Karta powstaje z istniejącego eksportu JSON. Nie otwiera bazy ani nie wykonuje poleceń procesu. To **odczyt archiwalny**, nie widok na żywo. Potrzebne jest to samo lokalne JDK i środowisko Maven co do `./verify`; polecenie działa offline, bez nowych zależności.
+
+Z katalogu `reference/process-map/flowable-trial/`:
+
+```sh
+./show-card evidence/f5-restart/05-fail.json first
+./show-card evidence/f5-restart/07-show.json first
+./show-card evidence/f5-restart/10-show.json next
+```
+
+Czytaj od „Teraz”: kto ma pracować i dlaczego, następnie zakres i kontrole. Historia i techniczne ID są niżej. Dla nowej zmiany karta oddziela zadanie zgody w silniku od zalecanej analizy agenta poza workflow. Raport nie zapisuje Twojej odpowiedzi ani odbioru.
+
+Gotowe wyniki: [korekta testu](evidence/operator-card/05-fail.md), [decyzja w ćwiczeniu](evidence/operator-card/07-show.md), [nowa propozycja](evidence/operator-card/10-show.md). [Opis realizacji i dowody](evidence/operator-card/README.md), [mapa pól i kryteria](../operator-preview/textstats-card-data-map.md).
+
+Można również podać istniejący eksport `.runs/NAZWA/show.json` oraz `first` lub `next`. Karta opisuje moment zapisany w tym pliku; samo jej wyświetlenie nie odświeża eksportu. Nie trzeba odgrywać `accept-next`, żeby obejrzeć dostarczone trzy przykłady.
+
+Skrypt używa jawnej komendy `OperatorCardCommand` przez istniejący Surefire, analogicznie do `resume-demo`. Nie jest ona częścią regresji ani dowodem jakości karty. Pliki pomocnicze są w ignorowanym `target/card-*`; standardowe wyjście zawiera sam raport. Parser/formatter są w `src/main/java/.../report/`; reguły pochodzą z niezmienionego `WorkflowChecks`/`Rules`. Nie ma zależności od pamięci rozmowy ani zachowania katalogu tymczasowego.

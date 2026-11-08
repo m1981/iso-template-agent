@@ -1,0 +1,21 @@
+#!/bin/sh
+# Archive reader only. Does not open or advance a Flowable process.
+set -eu
+if [ "$#" -ne 2 ]; then
+  echo 'Usage: ./show-card export.json first|next (or another existing case key)' >&2
+  exit 2
+fi
+case "$1" in /*) card_input=$1 ;; *) card_input="$PWD/$1" ;; esac
+card_key=$2
+trial_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$trial_root"
+mkdir -p target
+card_run=$(mktemp -d "$trial_root/target/card-XXXXXX")
+# Use the existing explicit Surefire launcher convention (as resume-demo does).
+# This command class is excluded from the default regression naming pattern.
+./verify -o -Dtest=OperatorCardCommand "-Dcard.input=$card_input" "-Dcard.key=$card_key" \
+  "-Dcard.output=$card_run/card.md" test > "$card_run/launcher.log" 2>&1 || {
+  cat "$card_run/launcher.log" >&2
+  exit 1
+}
+cat "$card_run/card.md"

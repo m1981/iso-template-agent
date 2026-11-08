@@ -1,0 +1,46 @@
+[INFO] Scanning for projects...
+[WARNING] The POM for org.apache.maven.plugins:maven-dependency-plugin:jar:3.8.1 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:3.8.1: Plugin org.apache.maven.plugins:maven-dependency-plugin:3.8.1 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-dependency-plugin:jar:3.8.1 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-install-plugin:jar:3.1.2 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-install-plugin:3.1.2: Plugin org.apache.maven.plugins:maven-install-plugin:3.1.2 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-install-plugin:jar:3.1.2 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-deploy-plugin:jar:3.1.2 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-deploy-plugin:3.1.2: Plugin org.apache.maven.plugins:maven-deploy-plugin:3.1.2 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-deploy-plugin:jar:3.1.2 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-site-plugin:jar:3.12.1 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-site-plugin:3.12.1: Plugin org.apache.maven.plugins:maven-site-plugin:3.12.1 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-site-plugin:jar:3.12.1 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-antrun-plugin:jar:3.1.0 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-antrun-plugin:3.1.0: Plugin org.apache.maven.plugins:maven-antrun-plugin:3.1.0 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-antrun-plugin:jar:3.1.0 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-assembly-plugin:jar:3.7.1 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-assembly-plugin:3.7.1: Plugin org.apache.maven.plugins:maven-assembly-plugin:3.7.1 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-assembly-plugin:jar:3.7.1 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-dependency-plugin:jar:3.7.0 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-dependency-plugin:3.7.0: Plugin org.apache.maven.plugins:maven-dependency-plugin:3.7.0 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-dependency-plugin:jar:3.7.0 has not been downloaded from it before.
+
+[WARNING] The POM for org.apache.maven.plugins:maven-release-plugin:jar:3.0.1 is missing, no dependency information available
+[WARNING] Failed to retrieve plugin descriptor for org.apache.maven.plugins:maven-release-plugin:3.0.1: Plugin org.apache.maven.plugins:maven-release-plugin:3.0.1 or one of its dependencies could not be resolved:
+	Cannot access central (https://repo.maven.apache.org/maven2) in offline mode and the artifact org.apache.maven.plugins:maven-release-plugin:jar:3.0.1 has not been downloaded from it before.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.109 s
+[INFO] Finished at: 2026-11-08T13:52:56+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] No plugin found for prefix 'dependency' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/.tooling/repository), central (https://repo.maven.apache.org/maven2)] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException

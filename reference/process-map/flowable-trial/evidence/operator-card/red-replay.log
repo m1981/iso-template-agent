@@ -1,0 +1,498 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< org.example.processlab:flowable-trial >----------------
+[INFO] Building Process laboratory — isolated Flowable trial 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.2:enforce (toolchain) @ flowable-trial ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ flowable-trial ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 22 source files with javac [debug release 17] to target/classes
+[INFO] /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/operator-card-red-7adjnqao/src/main/java/org/example/processlab/report/ExportCard.java: /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/operator-card-red-7adjnqao/src/main/java/org/example/processlab/report/ExportCard.java uses or overrides a deprecated API.
+[INFO] /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/operator-card-red-7adjnqao/src/main/java/org/example/processlab/report/ExportCard.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ flowable-trial ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ flowable-trial ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 17] to target/test-classes
+[INFO] /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/operator-card-red-7adjnqao/src/test/java/org/example/processlab/OperatorCardTest.java: Some input files use or override a deprecated API.
+[INFO] /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/operator-card-red-7adjnqao/src/test/java/org/example/processlab/OperatorCardTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ flowable-trial ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.example.processlab.OperatorCardTest
+[ERROR] Tests run: 10, Failures: 10, Errors: 0, Skipped: 0, Time elapsed: 0.188 s <<< FAILURE! -- in org.example.processlab.OperatorCardTest
+[ERROR] org.example.processlab.OperatorCardTest.nextProposalDoesNotInheritAcceptanceOrChecks -- Time elapsed: 0.071 s <<< FAILURE!
+org.opentest4j.MultipleFailuresError: 
+Multiple Failures (8 failures)
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:80)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
+	at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:3037)
+	at org.example.processlab.OperatorCardTest.nextProposalDoesNotInheritAcceptanceOrChecks(OperatorCardTest.java:62)
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$17(OperatorCardTest.java:62)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$18(OperatorCardTest.java:63)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$19(OperatorCardTest.java:63)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$20(OperatorCardTest.java:64)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$21(OperatorCardTest.java:65)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$22(OperatorCardTest.java:66)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$23(OperatorCardTest.java:67)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$nextProposalDoesNotInheritAcceptanceOrChecks$24(OperatorCardTest.java:68)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+
+[ERROR] org.example.processlab.OperatorCardTest.consumedAuthorizationIsNotDescribedAsMissingHistoricalConsent -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at org.example.processlab.OperatorCardTest.consumedAuthorizationIsNotDescribedAsMissingHistoricalConsent(OperatorCardTest.java:72)
+
+[ERROR] org.example.processlab.OperatorCardTest.failedReviewIsNotHiddenByPassingRun -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.MultipleFailuresError: 
+Multiple Failures (7 failures)
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:80)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
+	at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:3037)
+	at org.example.processlab.OperatorCardTest.failedReviewIsNotHiddenByPassingRun(OperatorCardTest.java:36)
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$0(OperatorCardTest.java:36)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$1(OperatorCardTest.java:37)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$2(OperatorCardTest.java:38)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$3(OperatorCardTest.java:39)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$4(OperatorCardTest.java:40)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$5(OperatorCardTest.java:41)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+		at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+		at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+		at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+		at org.example.processlab.OperatorCardTest.lambda$failedReviewIsNotHiddenByPassingRun$6(OperatorCardTest.java:42)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+		at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+		at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+		at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 4 more
+
+[ERROR] org.example.processlab.OperatorCardTest.missingPreviousCaseIsExplicit -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at org.example.processlab.OperatorCardTest.missingPreviousCaseIsExplicit(OperatorCardTest.java:78)
+
+[ERROR] org.example.processlab.OperatorCardTest.acceptedCaseKeepsExactBasisWithoutRequestingAnotherAcceptance -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at org.example.processlab.OperatorCardTest.acceptedCaseKeepsExactBasisWithoutRequestingAnotherAcceptance(OperatorCardTest.java:106)
+
+[ERROR] org.example.processlab.OperatorCardTest.currentBasisWaitsForAcceptanceAndOldFailureRemainsHistory -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Report must contain the basis section before inspecting its opening ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:228)
+	at org.example.processlab.OperatorCardTest.currentBasisWaitsForAcceptanceAndOldFailureRemainsHistory(OperatorCardTest.java:47)
+
+[ERROR] org.example.processlab.OperatorCardTest.missingCurrentArtifactIsUnknownNotPassed -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at org.example.processlab.OperatorCardTest.missingCurrentArtifactIsUnknownNotPassed(OperatorCardTest.java:93)
+
+[ERROR] org.example.processlab.OperatorCardTest.staleDependencyNeedsNewReviewEvenWithPassRecorded -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at org.example.processlab.OperatorCardTest.staleDependencyNeedsNewReviewEvenWithPassRecorded(OperatorCardTest.java:101)
+
+[ERROR] org.example.processlab.OperatorCardTest.conflictingResultsCannotRecommendAcceptance -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:69)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:41)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:195)
+	at org.example.processlab.OperatorCardTest.conflictingResultsCannotRecommendAcceptance(OperatorCardTest.java:85)
+
+[ERROR] org.example.processlab.OperatorCardTest.repeatedRenderingDoesNotChangeStateOrInput -- Time elapsed: 0.016 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <false> but was: <true>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:158)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:139)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:69)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:41)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:35)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
+	at org.example.processlab.OperatorCardTest.repeatedRenderingDoesNotChangeStateOrInput(OperatorCardTest.java:115)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   OperatorCardTest.acceptedCaseKeepsExactBasisWithoutRequestingAnotherAcceptance:106 expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.conflictingResultsCannotRecommendAcceptance:85 expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.consumedAuthorizationIsNotDescribedAsMissingHistoricalConsent:72 expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.currentBasisWaitsForAcceptanceAndOldFailureRemainsHistory:47 Report must contain the basis section before inspecting its opening ==> expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.failedReviewIsNotHiddenByPassingRun:36 Multiple Failures (7 failures)
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.missingCurrentArtifactIsUnknownNotPassed:93 expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.missingPreviousCaseIsExplicit:78 expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.nextProposalDoesNotInheritAcceptanceOrChecks:62 Multiple Failures (8 failures)
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+[ERROR]   OperatorCardTest.repeatedRenderingDoesNotChangeStateOrInput:115 expected: <false> but was: <true>
+[ERROR]   OperatorCardTest.staleDependencyNeedsNewReviewEvenWithPassRecorded:101 expected: <true> but was: <false>
+[INFO] 
+[ERROR] Tests run: 10, Failures: 10, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.899 s
+[INFO] Finished at: 2026-11-08T14:12:47+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project flowable-trial: There are test failures.
+[ERROR] 
+[ERROR] See /private/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/operator-card-red-7adjnqao/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
