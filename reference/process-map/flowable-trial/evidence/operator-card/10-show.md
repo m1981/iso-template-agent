@@ -77,4 +77,3 @@ Poniżej również historia; aktualność i sprzeczności rozliczają kontrole p
 - passed-run · AT-01@3 / CODE-01@3 · fikcyjny PASS
 
 ### Polecenia w historii
-

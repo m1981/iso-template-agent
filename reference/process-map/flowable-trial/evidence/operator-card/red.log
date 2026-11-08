@@ -1,40 +1,40 @@
 [INFO] Scanning for projects...
-[INFO] 
+[INFO]
 [INFO] ---------------< org.example.processlab:flowable-trial >----------------
 [INFO] Building Process laboratory — isolated Flowable trial 0.1.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
+[INFO]
 [INFO] --- enforcer:3.6.2:enforce (toolchain) @ flowable-trial ---
 [INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
 [INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
-[INFO] 
+[INFO]
 [INFO] --- resources:3.3.1:resources (default-resources) @ flowable-trial ---
 [INFO] Copying 2 resources from src/main/resources to target/classes
-[INFO] 
+[INFO]
 [INFO] --- compiler:3.14.0:compile (default-compile) @ flowable-trial ---
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 21 source files with javac [debug release 17] to target/classes
-[INFO] 
+[INFO]
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ flowable-trial ---
 [INFO] Copying 1 resource from src/test/resources to target/test-classes
-[INFO] 
+[INFO]
 [INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ flowable-trial ---
 [INFO] Recompiling the module because of changed dependency.
 [INFO] Compiling 9 source files with javac [debug release 17] to target/test-classes
 [INFO] /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/src/test/java/org/example/processlab/OperatorCardTest.java: Some input files use or override a deprecated API.
 [INFO] /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/src/test/java/org/example/processlab/OperatorCardTest.java: Recompile with -Xlint:deprecation for details.
-[INFO] 
+[INFO]
 [INFO] --- surefire:3.5.4:test (default-test) @ flowable-trial ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO] 
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running org.example.processlab.OperatorCardTest
 [ERROR] Tests run: 10, Failures: 10, Errors: 0, Skipped: 0, Time elapsed: 0.212 s <<< FAILURE! -- in org.example.processlab.OperatorCardTest
 [ERROR] org.example.processlab.OperatorCardTest.nextProposalDoesNotInheritAcceptanceOrChecks -- Time elapsed: 0.072 s <<< FAILURE!
-org.opentest4j.MultipleFailuresError: 
+org.opentest4j.MultipleFailuresError:
 Multiple Failures (8 failures)
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
@@ -221,7 +221,7 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.example.processlab.OperatorCardTest.consumedAuthorizationIsNotDescribedAsMissingHistoricalConsent(OperatorCardTest.java:64)
 
 [ERROR] org.example.processlab.OperatorCardTest.failedReviewIsNotHiddenByPassingRun -- Time elapsed: 0.004 s <<< FAILURE!
-org.opentest4j.MultipleFailuresError: 
+org.opentest4j.MultipleFailuresError:
 Multiple Failures (6 failures)
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
@@ -376,7 +376,7 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.example.processlab.OperatorCardTest.acceptedCaseKeepsExactBasisWithoutRequestingAnotherAcceptance(OperatorCardTest.java:98)
 
 [ERROR] org.example.processlab.OperatorCardTest.currentBasisWaitsForAcceptanceAndOldFailureRemainsHistory -- Time elapsed: 0.004 s <<< FAILURE!
-org.opentest4j.MultipleFailuresError: 
+org.opentest4j.MultipleFailuresError:
 Multiple Failures (9 failures)
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
@@ -613,10 +613,10 @@ org.opentest4j.AssertionFailedError: expected: <false> but was: <true>
 	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:246)
 	at org.example.processlab.OperatorCardTest.repeatedRenderingDoesNotChangeStateOrInput(OperatorCardTest.java:107)
 
-[INFO] 
+[INFO]
 [INFO] Results:
-[INFO] 
-[ERROR] Failures: 
+[INFO]
+[ERROR] Failures:
 [ERROR]   OperatorCardTest.acceptedCaseKeepsExactBasisWithoutRequestingAnotherAcceptance:98 expected: <true> but was: <false>
 [ERROR]   OperatorCardTest.conflictingResultsCannotRecommendAcceptance:77 expected: <true> but was: <false>
 [ERROR]   OperatorCardTest.consumedAuthorizationIsNotDescribedAsMissingHistoricalConsent:64 expected: <true> but was: <false>
@@ -650,9 +650,9 @@ org.opentest4j.AssertionFailedError: expected: <false> but was: <true>
 	org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 [ERROR]   OperatorCardTest.repeatedRenderingDoesNotChangeStateOrInput:107 expected: <false> but was: <true>
 [ERROR]   OperatorCardTest.staleDependencyNeedsNewReviewEvenWithPassRecorded:93 expected: <true> but was: <false>
-[INFO] 
+[INFO]
 [ERROR] Tests run: 10, Failures: 10, Errors: 0, Skipped: 0
-[INFO] 
+[INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
@@ -660,13 +660,13 @@ org.opentest4j.AssertionFailedError: expected: <false> but was: <true>
 [INFO] Finished at: 2026-11-08T13:51:24+01:00
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project flowable-trial: There are test failures.
-[ERROR] 
+[ERROR]
 [ERROR] See /Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/target/surefire-reports for the individual test results.
 [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
 [ERROR] -> [Help 1]
-[ERROR] 
+[ERROR]
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
+[ERROR]
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

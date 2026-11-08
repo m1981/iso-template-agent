@@ -4,12 +4,15 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-11-07: zakończono objaśnienie relacji ISO–Scrum na jawne zlecenie użytkownika. [Dokument z trzema diagramami](../process-map/iso-and-scrum.md) rozdziela źródła, interpretację i propozycje; oględziny objęły sześć grafik ISO.
+Aktualizacja 2026-11-08: użytkownik zlecił commit(y) gotowej pracy i przedstawienie roadmapy. Karta, generator i dowody zapisane w `cf7bdb6`; ten punkt wznowienia i rejestr stanowią drugą paczkę dokumentacyjną. Bez pushu i bez wykonania kolejnego etapu.
 
-- **Plan i wynik:** jedyny plan [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-08 / Z-30. Diagramy 3/3 wyrenderowane i obejrzane, linki sprawdzone. To objaśnienie, nie zmiana procesu na Scrum.
-- **Stan F5:** F1–F4 i diagramy w 8fa127b, F5 w 16f5ff8. Technicznie 58/58 PASS i 10 JVM; użytkownik nie rozumie 07-show, użyteczność nie została przyjęta. [Raport](../process-map/flowable-trial/f5-report.md). Wyniki i ich granice pozostają bez zmian.
-- **Najbliższy krok:** po zgłoszeniu niedostępnej wizualizacji prowadzimy kartę tekstowo. U potwierdził, że rozumie i nadąża. [Zapis verbatim](../process-map/operator-preview/textstats-walkthrough-verbatim.md) zawiera pięć pełnych wcześniejszych odpowiedzi i osobno kontynuacje o podstawie odbioru (§6) i zmianie po odbiorze (§7). Nie traktować cytowanych poleceń jako nowych zgód. Następny krok agenta: pokazać mapę kilku funkcji, zależności i wybór następnej pracy. Z-33; bez wdrożenia UI i rzeczywistego odbioru TextStats.
-- **Granice:** template/, Kitchen i iso-model-state bez zmian. Otwarte D-85 i §9.5 mapy pozostają osobno. U zlecił commit dokumentacji; identyfikacja po opisie w Z-33, bez pushu; eksport użytkownika w korzeniu nietknięty. Historyczne instrukcje niżej nie stanowią nowego zlecenia.
+- **Jedyny plan:** [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia). A-09/A-10 zakończone technicznie; A-11 zakończone jako ograniczona próba. A-12 to nowa propozycja, nie zlecenie. Roadmapa jest przy tabeli planu; bez drugiej listy zadań tutaj.
+- **Rezultat:** [mapa pól](../process-map/operator-preview/textstats-card-data-map.md), [generator i dowody](../process-map/flowable-trial/evidence/operator-card/README.md). Regresja produktu 71/71; po doprecyzowaniu asercji testu kontrola karty/adaptera 13/13 i odtworzenie RED 10 porażek asercji/0 błędów. Make check bez błędów; wcześniejsze W1 MIG-01/02 pozostają. Brak niezależnej recenzji nowego formattera.
+- **Wynik próby użytkowej:** najpierw U nie znalazł rekomendacji; po poprawce i objaśnieniu w rozmowie odpowiedział „przyjmuje” (Z-53–55). To decyzja w ćwiczeniu, nie dowód samodzielnej czytelności ani odbiór narzędzia. Nie wykonano odbioru w silniku. Wyjaśnienie relacji karty do WP.01 i porównanie historycznych zapisów: mapa pól §7–8 / Z-56.
+- **Najbliższa rekomendacja:** A-12 — odczytać istniejące moduły, kontrakty i testy Kitchen CAD/CAM, potem przedstawić jeden mały przyrost z kryteriami. Najpierw rozpoznanie, nie wybór funkcji z wyobraźni. U prosił teraz o roadmapę; nie rozpoczęto rozpoznania. Dalszy rzeczywisty przyrost i wznowienie są warunkowe, według mapy. Nie uruchamiać produkcji CNC.
+- **Granica rozwiązania:** show-card to odczyt archiwalnych eksportów F5; TextStats nie uruchomiono. Analiza przed zgodą pozostaje zaleceniem poza workflow (silnik oczekuje authorize/OPERATOR). Nowa karta nie zamyka tej luki ani nie jest połączeniem rozmowy z API.
+- **Historia:** F1–F4/diagramy `8fa127b`, F5 `16f5ff8`, początek zapisu kart `67920c0`, obecny pakiet `cf7bdb6`. Wcześniejsze „Dalej”, propozycje i plany poniżej nie stanowią nowych upoważnień. Koncepcję przyjęto z ograniczeniami (§21 zapisu rozmowy); nadal obowiązuje ocena wpływu zmian (§15).
+- **Odłożone i granice:** D-85, §9.5 mapy, formalny model oraz plan wydania szablonu zachowują własny status. Nie zmieniono template/, Kitchen ani iso-model-state. Eksport użytkownika w korzeniu pozostaje poza Git. U zezwolił na lokalne commity tej paczki, nie na push ani nowe implementacje.
 
 
 ## Orientacja po F5 — 2026-11-07

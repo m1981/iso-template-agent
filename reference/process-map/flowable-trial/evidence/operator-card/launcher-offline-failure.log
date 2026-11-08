@@ -38,9 +38,9 @@
 [INFO] Finished at: 2026-11-08T13:52:56+01:00
 [INFO] ------------------------------------------------------------------------
 [ERROR] No plugin found for prefix 'dependency' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/.tooling/repository), central (https://repo.maven.apache.org/maven2)] -> [Help 1]
-[ERROR] 
+[ERROR]
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
+[ERROR]
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException
