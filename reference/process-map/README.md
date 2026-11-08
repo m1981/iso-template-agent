@@ -2,6 +2,20 @@
 
 2026-10-25 · D-82 · materiał objaśniający, nie nowa instrukcja procesu.
 
+## Wybierz materiał
+
+Bieżącą pracę prowadzi [punkt wznowienia](../process-modeling/brief.md#punkt-wznowienia) i wskazany w nim plan. Ten indeks służy nauce oraz odnajdywaniu konkretnych rezultatów.
+
+| Potrzeba | Materiał i granica |
+| --- | --- |
+| Uporządkować pojęcia i kontekst | [Co jest czym: proces, produkt, zadanie, karta i ślad](concepts-and-context.md); słownik, diagramy, źródła i rejestry — analiza bez zmiany reguł |
+| Zobaczyć role, produkty i kontrole | [Przewodnik z trzema widokami](index.html); datowana mapa ustaleń, nie stan wykonania projektu |
+| Zrozumieć relację ISO i Scrum | [Objaśnienie i diagramy](iso-and-scrum.md) |
+| Poznać mechanizację Flowable | [Instrukcja eksperymentu](flowable-trial/README.md), [diagramy architektury](flowable-trial/architecture.md), [wynik F5](flowable-trial/f5-report.md); ograniczona próba techniczna |
+| Obejrzeć kartę operatora | [Gotowa karta przykładowego odbioru](flowable-trial/evidence/operator-card/07-show.md), [mapa pól](operator-preview/textstats-card-data-map.md), [dowody generatora](flowable-trial/evidence/operator-card/README.md); odczyt archiwalny, nie żywy stan ani decyzja użytkownika |
+
+Poniższy plan i rejestr dokumentują powstawanie mapy od 2026-10-25. Kolejność lektury nie jest kolejnością zleconych działań. Szersza [mapa repozytorium](../repository-audit/README.md) rozdziela pozostałe cele.
+
 ## Cel i zakres
 
 Zobaczyć odpowiedzialności, produkty pracy, kontekst oraz granice istniejących kontroli. To mapa obecnych ustaleń i narzędzi, nie deklaracja, że cały przebieg został wdrożony w Kitchen. Nie jest raportem wykonania projektu ani odbiorem.

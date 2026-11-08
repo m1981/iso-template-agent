@@ -1,6 +1,6 @@
 # Plan warstwy procesu
 
-Plan prac nad samym szablonem procesu (D-48, D-63), w formacie planu projektu (ISO/IEC 29110 WP.10). Do przeniesienia (D-54) leży w docelowym miejscu, a ślad i postęp liczy dla niego `make process-kit`.
+Plan prac nad samym szablonem procesu (D-48, D-63), w formacie planu projektu (ISO/IEC 29110 WP.10). Ślad odświeża `make trace`, a postęp `make progress` (z korzenia repozytorium). Bieżący wątek laboratoryjny ma odrębny [punkt wznowienia](../reference/process-modeling/brief.md#punkt-wznowienia) i wskazany tam plan; nie zmienia to poniższych celów i kryteriów wydania szablonu.
 
 ## Produkt i zakres
 Szablon procesu człowiek + agent wzorowany na ISO/IEC 29110-5-1-2 Basic, dostarczany do projektów przez copier (D-43, D-47). Wymagania: spec/requirements.md. Pierwszy projekt: gtd2 jako pilot (Q-03).

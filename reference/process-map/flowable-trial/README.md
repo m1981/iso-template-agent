@@ -1,8 +1,10 @@
 # Próba Flowable — środowisko, dane i reguły
 
-Eksperyment edukacyjny, D-95/D-96/D-97. Jedyny plan i rejestr wykonania: [mapa §8.7–8.8](../../process-modeling/coverage-map.md#87-zalecenia-i-punkt-wznowienia); zakres i granice [F1 §10](../../process-modeling/coverage-map.md#10-f1--dopasowanie-flowable-do-karty-zmiany-wymagania--2026-11-04). To nie narzędzie wydania ani nowy proces produkcyjny.
+Eksperyment edukacyjny, F1–F5 (D-94–D-97/D-99) oraz generator karty (A-10). Jedyny plan i rejestr wykonania: [mapa §8.7–8.8](../../process-modeling/coverage-map.md#87-zalecenia-i-punkt-wznowienia); zakres i granice [F1 §10](../../process-modeling/coverage-map.md#10-f1--dopasowanie-flowable-do-karty-zmiany-wymagania--2026-11-04). To nie narzędzie wydania ani nowy proces produkcyjny.
 
-**Dostawa F4:** [pięć widoków wykonanego scenariusza](evidence/f4-demo.md); opis i dowody w sekcji „Wynik F4” na końcu. Testy całego projektu: `./verify -o clean verify`.
+**Wybierz wynik:** [raport F5 — trwałość i wznowienie](f5-report.md) albo [karty operatora i dowody generatora](evidence/operator-card/README.md). Instrukcja karty jest w [sekcji A-10](#czytelna-karta-operatora--a-10). Karty odczytują archiwalne eksporty; nie pokazują stanu projektu na żywo.
+
+**Wcześniejsza dostawa F4:** [pięć widoków wykonanego scenariusza](evidence/f4-demo.md); opis i dowody w sekcji „Wynik F4”. Poniższe plany F2–F5 i ich przyszły czas zachowują chronologię eksperymentu; aktualne zlecenia są w mapie §8.7. Testy całego tego eksperymentu: `./verify -o clean verify`; nie obejmują pakietu procesu ani lekcji L1.
 
 **Widoki przed F5 (D-98):** [osiem diagramów Mermaid — C4, zależności i struktury danych](architecture.md). Zacznij od widoków 1–3; opisują istniejące F4 i aktualizację przechowywania F5.
 

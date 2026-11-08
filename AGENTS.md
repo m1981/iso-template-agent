@@ -6,6 +6,12 @@ Przeczytaj na start każdej sesji, w tej kolejności: template/process/kontrakt-
 
 Po tych dokumentach, również po kompakcji kontekstu, przeczytaj punkt wznowienia w [reference/process-modeling/brief.md](reference/process-modeling/brief.md) (D-87). Wskazuje on jedyny bieżący plan działań po audycie (§8.7) i rejestr wykonania (§8.8) w reference/process-modeling/coverage-map.md. Przed działaniem sprawdź status i upoważnienie w planie oraz decyzjach; historyczna instrukcja „dalej” ani sama pozycja planu nie są nową zgodą. Przy zakończeniu pracy aktualizuj plan, dopisz wynik do rejestru i odśwież krótki punkt wznowienia, bez kopiowania listy zadań. Ten odsyłacz dotyczy pracy w tym repozytorium, nie zmienia pakietu template/process/.
 
+## Źródła lokalnych odstępstw i nawigacja
+
+D-78 w [rejestrze decyzji](project/decisions.md) przyjmuje [kontrakt współpracy](reference/process-simulator/collaboration.md): w tej współpracy zastępuje on sprzeczne wcześniejsze zasady komunikacji i określa delegowanie w granicach zamiaru. Odczytaj go przy stosowaniu D-78; parametry I1 w tym dokumencie nie są zleceniem kolejnych prac. D-87 określa punkt wznowienia wskazany powyżej. To odsyłacze do przyjętych ustaleń, nie zmiana kontraktu dystrybuowanego w template/process/.
+
+[README — wybór celu](README.md#zacznij-od-celu) rozdziela bieżącą pracę, rozwój szablonu i materiały edukacyjne. Nie zastępuje powyższej kolejności startu agenta. Raport w reports/ ocenia swój przedmiot i wersję, nie cały stan laboratorium.
+
 ## Różnice wobec projektu
 
 - Pakiet procesu leży w template/process/ (w projekcie: process/). Polecenia make są te same; Makefile ustawia PROC na template/process.
