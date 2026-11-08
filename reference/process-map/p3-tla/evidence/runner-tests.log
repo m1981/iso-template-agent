@@ -1,0 +1,13 @@
+test_completed_safety_check (test_check.ClassificationTests.test_completed_safety_check) ... ok
+test_expected_semantic_counterexample (test_check.ClassificationTests.test_expected_semantic_counterexample) ... ok
+test_missing_trace_is_not_a_witness (test_check.ClassificationTests.test_missing_trace_is_not_a_witness) ... ok
+test_nonzero_exit_is_not_safety_success (test_check.ClassificationTests.test_nonzero_exit_is_not_safety_success) ... ok
+test_parser_or_runtime_failure_is_not_a_counterexample (test_check.ClassificationTests.test_parser_or_runtime_failure_is_not_a_counterexample) ... ok
+test_surviving_mutant_is_failure (test_check.ClassificationTests.test_surviving_mutant_is_failure) ... ok
+test_wrong_invariant_does_not_kill_mutant (test_check.ClassificationTests.test_wrong_invariant_does_not_kill_mutant) ... ok
+test_zero_exit_without_completion_is_not_success (test_check.ClassificationTests.test_zero_exit_without_completion_is_not_success) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.000s
+
+OK

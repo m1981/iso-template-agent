@@ -1,0 +1,380 @@
+[
+  {
+    "name": "safety-T01",
+    "kind": "safety",
+    "scenario": "T01",
+    "depth": 8
+  },
+  {
+    "name": "witness-T01",
+    "kind": "witness",
+    "scenario": "T01",
+    "depth": 8
+  },
+  {
+    "name": "safety-T02",
+    "kind": "safety",
+    "scenario": "T02",
+    "depth": 8
+  },
+  {
+    "name": "witness-T02",
+    "kind": "witness",
+    "scenario": "T02",
+    "depth": 8
+  },
+  {
+    "name": "safety-T03",
+    "kind": "safety",
+    "scenario": "T03",
+    "depth": 8
+  },
+  {
+    "name": "witness-T03",
+    "kind": "witness",
+    "scenario": "T03",
+    "depth": 8
+  },
+  {
+    "name": "safety-T04",
+    "kind": "safety",
+    "scenario": "T04",
+    "depth": 8
+  },
+  {
+    "name": "witness-T04",
+    "kind": "witness",
+    "scenario": "T04",
+    "depth": 8
+  },
+  {
+    "name": "safety-T05",
+    "kind": "safety",
+    "scenario": "T05",
+    "depth": 8
+  },
+  {
+    "name": "witness-T05",
+    "kind": "witness",
+    "scenario": "T05",
+    "depth": 8
+  },
+  {
+    "name": "safety-T06",
+    "kind": "safety",
+    "scenario": "T06",
+    "depth": 8
+  },
+  {
+    "name": "witness-T06",
+    "kind": "witness",
+    "scenario": "T06",
+    "depth": 8
+  },
+  {
+    "name": "safety-T07",
+    "kind": "safety",
+    "scenario": "T07",
+    "depth": 8
+  },
+  {
+    "name": "witness-T07",
+    "kind": "witness",
+    "scenario": "T07",
+    "depth": 8
+  },
+  {
+    "name": "safety-T08",
+    "kind": "safety",
+    "scenario": "T08",
+    "depth": 8
+  },
+  {
+    "name": "witness-T08",
+    "kind": "witness",
+    "scenario": "T08",
+    "depth": 8
+  },
+  {
+    "name": "safety-T09",
+    "kind": "safety",
+    "scenario": "T09",
+    "depth": 8
+  },
+  {
+    "name": "witness-T09",
+    "kind": "witness",
+    "scenario": "T09",
+    "depth": 8
+  },
+  {
+    "name": "safety-T10",
+    "kind": "safety",
+    "scenario": "T10",
+    "depth": 8
+  },
+  {
+    "name": "witness-T10",
+    "kind": "witness",
+    "scenario": "T10",
+    "depth": 8
+  },
+  {
+    "name": "safety-T11",
+    "kind": "safety",
+    "scenario": "T11",
+    "depth": 8
+  },
+  {
+    "name": "witness-T11",
+    "kind": "witness",
+    "scenario": "T11",
+    "depth": 8
+  },
+  {
+    "name": "safety-T12",
+    "kind": "safety",
+    "scenario": "T12",
+    "depth": 8
+  },
+  {
+    "name": "witness-T12",
+    "kind": "witness",
+    "scenario": "T12",
+    "depth": 8
+  },
+  {
+    "name": "safety-collision",
+    "kind": "safety",
+    "scenario": "collision",
+    "depth": 8
+  },
+  {
+    "name": "witness-collision",
+    "kind": "witness",
+    "scenario": "collision",
+    "depth": 8
+  },
+  {
+    "name": "safety-forbidden",
+    "kind": "safety",
+    "scenario": "forbidden",
+    "depth": 8
+  },
+  {
+    "name": "witness-forbidden",
+    "kind": "witness",
+    "scenario": "forbidden",
+    "depth": 8
+  },
+  {
+    "name": "safety-extra_fields",
+    "kind": "safety",
+    "scenario": "extra_fields",
+    "depth": 8
+  },
+  {
+    "name": "witness-extra_fields",
+    "kind": "witness",
+    "scenario": "extra_fields",
+    "depth": 8
+  },
+  {
+    "name": "safety-source_missing",
+    "kind": "safety",
+    "scenario": "source_missing",
+    "depth": 8
+  },
+  {
+    "name": "witness-source_missing",
+    "kind": "witness",
+    "scenario": "source_missing",
+    "depth": 8
+  },
+  {
+    "name": "safety-basis_missing",
+    "kind": "safety",
+    "scenario": "basis_missing",
+    "depth": 8
+  },
+  {
+    "name": "witness-basis_missing",
+    "kind": "witness",
+    "scenario": "basis_missing",
+    "depth": 8
+  },
+  {
+    "name": "safety-criterion_bad",
+    "kind": "safety",
+    "scenario": "criterion_bad",
+    "depth": 8
+  },
+  {
+    "name": "witness-criterion_bad",
+    "kind": "witness",
+    "scenario": "criterion_bad",
+    "depth": 8
+  },
+  {
+    "name": "safety-outcome_bad",
+    "kind": "safety",
+    "scenario": "outcome_bad",
+    "depth": 8
+  },
+  {
+    "name": "witness-outcome_bad",
+    "kind": "witness",
+    "scenario": "outcome_bad",
+    "depth": 8
+  },
+  {
+    "name": "safety-project_bad",
+    "kind": "safety",
+    "scenario": "project_bad",
+    "depth": 8
+  },
+  {
+    "name": "witness-project_bad",
+    "kind": "witness",
+    "scenario": "project_bad",
+    "depth": 8
+  },
+  {
+    "name": "safety-unrelated",
+    "kind": "safety",
+    "scenario": "unrelated",
+    "depth": 8
+  },
+  {
+    "name": "witness-unrelated",
+    "kind": "witness",
+    "scenario": "unrelated",
+    "depth": 8
+  },
+  {
+    "name": "safety-fail",
+    "kind": "safety",
+    "scenario": "fail",
+    "depth": 8
+  },
+  {
+    "name": "witness-fail",
+    "kind": "witness",
+    "scenario": "fail",
+    "depth": 8
+  },
+  {
+    "name": "safety-inconclusive",
+    "kind": "safety",
+    "scenario": "inconclusive",
+    "depth": 8
+  },
+  {
+    "name": "witness-inconclusive",
+    "kind": "witness",
+    "scenario": "inconclusive",
+    "depth": 8
+  },
+  {
+    "name": "safety-impact_applies",
+    "kind": "safety",
+    "scenario": "impact_applies",
+    "depth": 8
+  },
+  {
+    "name": "witness-impact_applies",
+    "kind": "witness",
+    "scenario": "impact_applies",
+    "depth": 8
+  },
+  {
+    "name": "safety-impact_clear",
+    "kind": "safety",
+    "scenario": "impact_clear",
+    "depth": 8
+  },
+  {
+    "name": "witness-impact_clear",
+    "kind": "witness",
+    "scenario": "impact_clear",
+    "depth": 8
+  },
+  {
+    "name": "mutant-latest_basis",
+    "kind": "mutant",
+    "scenario": "T01",
+    "depth": 8,
+    "mutation": "latest_basis",
+    "checks": [
+      "V1_TypedAndBound"
+    ],
+    "expected": "V1_TypedAndBound"
+  },
+  {
+    "name": "mutant-omit_criteria",
+    "kind": "mutant",
+    "scenario": "T05",
+    "depth": 8,
+    "mutation": "omit_criteria",
+    "checks": [
+      "V6_NoFalseCredit"
+    ],
+    "expected": "V6_NoFalseCredit"
+  },
+  {
+    "name": "mutant-token_before_replay",
+    "kind": "mutant",
+    "scenario": "T06",
+    "depth": 8,
+    "mutation": "token_before_replay",
+    "checks": [
+      "V4_ReplayStable"
+    ],
+    "expected": "V4_ReplayStable"
+  },
+  {
+    "name": "mutant-duplicate_result",
+    "kind": "mutant",
+    "scenario": "T07",
+    "depth": 8,
+    "mutation": "duplicate_result",
+    "checks": [
+      "V3_SingleCompletion"
+    ],
+    "expected": "V3_SingleCompletion"
+  },
+  {
+    "name": "mutant-auto_accept",
+    "kind": "mutant",
+    "scenario": "T01",
+    "depth": 8,
+    "mutation": "auto_accept",
+    "checks": [
+      "V2_HistoryPreserved"
+    ],
+    "expected": "V2_HistoryPreserved"
+  },
+  {
+    "name": "mutant-hide_old_finding",
+    "kind": "mutant",
+    "scenario": "T12",
+    "depth": 8,
+    "mutation": "hide_old_finding",
+    "checks": [
+      "V8_NoHiddenFinding"
+    ],
+    "expected": "V8_NoHiddenFinding"
+  },
+  {
+    "name": "safety-revoked",
+    "kind": "safety",
+    "scenario": "revoked",
+    "depth": 8
+  },
+  {
+    "name": "witness-revoked",
+    "kind": "witness",
+    "scenario": "revoked",
+    "depth": 8
+  }
+]
