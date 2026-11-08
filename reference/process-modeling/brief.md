@@ -4,14 +4,14 @@
 
 ## Punkt wznowienia
 
-Aktualizacja 2026-11-08: wykonano zlecenie commitów i porównania Flowable z Pythonem. Gotowa paczka A-13–A-15 zapisana w **299edf2**. A-16 zakończone: [bilans w raporcie F5](../process-map/flowable-trial/f5-report.md#bilans-wobec-pythona--2026-11-08); niniejszy rejestr i bilans tworzą drugą paczkę lokalnego zapisu na to samo zlecenie.
+Aktualizacja 2026-11-08: zakończono **A-17 — analizę struktur danych, funkcjonalności i testów Flowable oraz PY-01** na nowe zlecenie U. [Raport porównawczy](../process-map/flowable-trial/python-comparison.md) rozdziela implementację, brak funkcji i granice dowodu; wyniki oraz odtwarzacz zapisane trwale obok raportu.
 
-- **Jedyny plan:** [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-16 / Z-68–70. Poprzednie objaśnienia: A-15 / Z-63–67; audyt i nawigacja A-13/A-14. Nie uruchamiać historycznych rekomendacji jako nowego zlecenia.
-- **Wniosek bilansu:** Flowable dostarczył rzeczywiste zadania/historię BPMN, wykonanie DMN i trwały atomowy krok w granicach próby. Model rewizji, ślad, aktualność, komendy i karta są własnym kodem. Nie wykazano przewagi kosztu lub użyteczności całego rozwiązania nad Pythonem.
-- **Nowe rozpoznanie porównawcze:** iso-model-state przy czystym HEAD f74f55f ma oprócz modelu referencyjnego osobny PY-01/src/isowork — SQLite, transakcje, komendy i replay. Jego zakres nie obejmuje odbioru wydania. Odczyt kodu/testów, bez nowej regresji i bez zmiany źródłowego repo. Nie twierdzić, że trwałość dostępna jest tylko dzięki Flowable, ani łączyć zakresów wszystkich prototypów Python w jedną aplikację.
-- **Rekomendacja:** zachować próbę Flowable i dowody, nie migrować teraz procesu. Najbliższy proponowany kierunek nadal A-12: rozpoznanie istniejącego Kitchen przed wyborem przyrostu, na osobne zlecenie. Nie rozpoczynać równoległego przepisywania silników. Właściciel przygotowania następnego kroku: agent; operator wybiera zakres i przyjmuje ryzyko.
-- **Kontrole i granice:** make check bez błędów, wcześniejsze W1 MIG-01/02; odtwarzalny wykaz, odsyłacze i whitespace sprawdzone. Nie uruchamiano ponownie testów niezmienionych produktów, TLC ani prób użytkowych. Trzy przystanki TST-02 są zapisane; nie oznaczono zrozumienia przez U jako potwierdzonego.
-- **Odłożone:** D-85 oraz plan wydania szablonu zachowują własny status. WR bez definicji — agent poprosi U o rozwinięcie dopiero przed formalizacją. Karta pozostaje odczytem archiwalnym, nie API rzeczywistego projektu. Eksport użytkownika w korzeniu nietknięty; polecenie dotyczy lokalnych commitów, bez pushu.
+- **Jedyny plan/rejestr:** [mapa §8.7–8.8](coverage-map.md#87-zalecenia-i-punkt-wznowienia), A-17 / Z-71–72. A-13–A-15 zapisane w 299edf2, A-16 w 6845f79. Bieżąca analiza bez commita; poprzednie zlecenie zapisu nie jest stałą zgodą.
+- **Sprawdzone teraz na kopiach:** Flowable 71/71, PY-01 77/77, oba exit 0, bez pominięć. W PY 3 sprawdzenia mutantów; w Java 10 JVM w teście trwałości. Źródła: Flowable 6845f79, iso-model-state f74f55f (czysty, bez zmian). Nie wykonywano TLC, produktu Kitchen, benchmarku ani odbioru użytkowego.
+- **Wniosek:** prototypy mają różne kontrakty. Flowable daje workflow z odbiorem i ciągłością spraw; PY-01 trwałe komendy/replay oraz wybrane przeploty konkurencji. Oba mają własny model znaczenia procesu. Nie utożsamiać PY-01/isowork z isomodel, WIT1–WIT5 lub L1. Role są symulowane; brak wymuszonej niezależności recenzji i integracji rzeczywistych dowodów produktu.
+- **Dalej:** agent przedstawia wynik; nie rozpoczyna migracji lub nowego modelu. Przed ewentualnym łączeniem potrzebne rozstrzygnięcie różnic delegowania apply, retry i odbioru. To warunkowy krok, nie nowe zlecenie. A-12 (rozpoznanie Kitchen przed wyborem przyrostu) nadal proposed. Operator wybiera zakres i przyjmuje ryzyko.
+- **Kontrole dokumentacji:** make check bez błędów (wcześniejsze W1 MIG-01/02), 27 lokalnych odsyłaczy raportu i sumy wyników sprawdzone. Kontrola pakietu nie ocenia semantyki reference/.
+- **Odłożone:** D-85 i wydanie szablonu zachowują własny status; WR wymaga rozwinięcia dopiero przed formalizacją. Karta F5 jest odczytem archiwalnym. Eksport użytkownika w korzeniu nietknięty. Bez zmian drugiego repo, instalacji i pushu.
 
 
 ## Orientacja po F5 — 2026-11-07

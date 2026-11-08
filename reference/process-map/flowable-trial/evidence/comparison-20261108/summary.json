@@ -1,0 +1,81 @@
+{
+  "java_revision": "6845f799a57cdb2269879995c0b7bb92be9434fa",
+  "python_revision": "f74f55f2ea68d30fca22b4ddf7c9d05eb9ad82cb",
+  "exit_codes": {
+    "flowable": 0,
+    "python": 0
+  },
+  "flowable_suites": [
+    {
+      "name": "org.example.processlab.ChangeProcessTest",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.DmnQualifierTest",
+      "tests": "22",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.DomainModelTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.EngineSessionTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.ExportCardTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.OperatorCardTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.PersistentTrialTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "org.example.processlab.RulesTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "python_suites": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "77",
+      "time": "7.174",
+      "timestamp": "2026-11-08T16:27:43.051155+01:00",
+      "hostname": "mac.home"
+    }
+  ],
+  "python_version": "Python 3.14.7",
+  "scratch": "/var/folders/r4/9rd28l515q59c0x7h1xwgbvc0000gn/T/iso-a17-7upnsbb1",
+  "limits": "Existing suites only; no TLC, new scenario, product change, benchmark or user acceptance."
+}

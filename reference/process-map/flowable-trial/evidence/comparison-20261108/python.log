@@ -1,0 +1,4 @@
+Command: /Users/michal/PycharmProjects/iso-model-state/.venv/bin/python -m pytest -q tests/test_py01_rules.py tests/test_py01_store.py tests/test_py01_cli.py tests/test_py01_sensitivity.py --junitxml=/Users/michal/PycharmProjects/iso-template-agent/reference/process-map/flowable-trial/evidence/comparison-20261108/python-junit.xml
+........................................................................ [ 93%]
+.....                                                                    [100%]
+77 passed in 7.23s

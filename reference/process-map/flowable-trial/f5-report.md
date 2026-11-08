@@ -84,6 +84,8 @@ Użytkownik zgłosił, że nie rozumie interpretacji 07-show, a identyfikatory i
 
 ## Bilans wobec Pythona — 2026-11-08
 
+Uzupełnienie A-17: [porównanie struktur danych, funkcji i testów](python-comparison.md), z nowym wykonaniem regresji na kopiach wskazanych commitów. Nie zmienia ono historycznego wyniku F5 poniżej ani zakresu poprzedniego odczytu A-16.
+
 A-16, na zlecenie U po uporządkowaniu repozytorium. **Flowable wniósł gotowe mechanizmy wykonywania workflow, ale nie wykazaliśmy przewagi całego rozwiązania dla operatora nad Pythonem.** Trwałość i transakcje nie są jego wyłączną korzyścią: w drugim repo istnieje już osobny prototyp Python/SQLite. Poniżej porównanie tego, co rzeczywiście zbudowaliśmy, a nie wszystkich możliwości platformy Flowable.
 
 ### Podstawa i chronologia
